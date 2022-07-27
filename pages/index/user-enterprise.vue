@@ -59,12 +59,13 @@
                 <label for="phone" class="block mb-1 text-sm font-medium text-gray-700"
                   >{{ $t('phone') }}*</label
                 >
-                <ValidationProvider v-slot="{ errors }" name="phone" rules="required" mode="eager">
+                <ValidationProvider v-slot="{ errors }" :rules="{required: true, length: 16}" name="phone" mode="eager">
                   <input
                     type="text"
                     name="phone"
                     id="phone"
                     v-model="form.phone"
+                    v-mask="'+998## ###-##-##'"
                     class="focus:outline-none appearance-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
                     :class="
                       errors.length > 0
@@ -98,12 +99,10 @@
                   rules="required"
                   mode="eager"
                 >
-                  <input
-                    type="text"
-                    name="activity_type"
-                    id="activity_type"
+                  <select
                     v-model="form.activity_type"
-                    class="focus:outline-none appearance-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
+                    name="option"
+                    class="focus:outline-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
                     :class="
                       errors.length > 0
                         ? 'border-red-400'
@@ -111,7 +110,11 @@
                         ? 'border-green-600'
                         : 'border-gray-300'
                     "
-                  />
+                  >
+                    <!-- <option v-for="(type, index) in dataRegions" :key="index" :value="region.id">
+                      {{ type.attributes.name }}
+                    </option> -->
+                  </select>
                 </ValidationProvider>
               </div>
               <div class="md:col-span-1 col-span-2">
@@ -119,12 +122,10 @@
                   >{{ $t('field-of-agriculture') }}*</label
                 >
                 <ValidationProvider v-slot="{ errors }" name="field" rules="required" mode="eager">
-                  <input
-                    type="text"
-                    name="field"
-                    id="field"
+                  <select
                     v-model="form.field"
-                    class="focus:outline-none appearance-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
+                    name="option"
+                    class="focus:outline-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
                     :class="
                       errors.length > 0
                         ? 'border-red-400'
@@ -132,6 +133,11 @@
                         ? 'border-green-600'
                         : 'border-gray-300'
                     "
+                  >
+                    <!-- <option v-for="(type, index) in dataRegions" :key="index" :value="region.id">
+                      {{ type.attributes.name }}
+                    </option> -->
+                  </select>
                   />
                 </ValidationProvider>
               </div>
@@ -190,7 +196,7 @@ export default {
       form: {
         company_name: '',
         tin: '',
-        phone: '',
+        phone: '+998',
         email: '',
         activity_type: '',
         field: '',
