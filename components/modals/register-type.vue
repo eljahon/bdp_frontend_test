@@ -41,13 +41,13 @@
         {{ $t('how-will-you-use-the-platform') }}
       </div>
       <div class="grid grid-cols-2 gap-4">
-        <div @click="toEnterprise()" class="border rounded-md cursor-pointer border-gray-200 p-4">
+        <div @click="toEnterprise()" class="border rounded-md cursor-pointer border-gray-200 p-4 hover:shadow-md">
           <img :src="require('/assets/images/enterprise.png')" alt="" />
           <div class="flex justify-center text-gray-600 text-sm font-semibold">
             {{ $t('as-an-enterprise') }}
           </div>
         </div>
-        <div @click="toIndividual()" class="border rounded-md cursor-pointer border-gray-200 p-4">
+        <div @click="toIndividual()" class="border rounded-md cursor-pointer border-gray-200 p-4 hover:shadow-md">
           <img :src="require('/assets/images/individual.png')" alt="" />
           <div class="flex justify-center text-gray-600 text-sm font-semibold">
             {{ $t('as-an-individual') }}
@@ -65,21 +65,32 @@ export default {
   props: {
     // eslint-disable-next-line vue/require-default-prop
     status: String,
+    type: String,
   },
   data() {
     return {}
   },
   methods: {
     toEnterprise() {
-      this.$router.push({
-        path: this.localePath('/user-enterprise'),
-      })
+      if (this.type === 'user') {
+        this.$router.push({
+          path: this.localePath('/user-enterprise'),
+        })
+      } else
+        this.$router.push({
+          path: this.localePath('/consultant-enterprise'),
+        })
       this.onClose()
     },
     toIndividual() {
-      this.$router.push({
-        path: this.localePath('/user-individual'),
-      })
+      if (this.type === 'user') {
+        this.$router.push({
+          path: this.localePath('/user-individual'),
+        })
+      } else
+        this.$router.push({
+          path: this.localePath('/consultant-individual'),
+        })
       this.onClose()
     },
     openSignIn() {

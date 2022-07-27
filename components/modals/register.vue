@@ -40,16 +40,16 @@
       <div class="flex justify-center my-4 text-gray-600 font-semibold">
         {{ $t('choose-your-type-of-activity') }}
       </div>
-      <div class="grid grid-cols-3 gap-4">
-        <div @click="toRegisterType()" class="border rounded-md border-gray-200 p-4 cursor-pointer">
+      <div class="grid md:grid-cols-3 grid-cols-2 gap-4">
+        <div @click="toRegisterType('user')" class="border rounded-md border-gray-200 p-4 cursor-pointer hover:shadow-md">
           <img :src="require('/assets/images/user.png')" alt="">
           <div class="flex justify-center text-gray-600 text-sm font-semibold">{{ $t('user') }}</div>
         </div>
-        <div class="border rounded-md border-gray-200 p-4">
+        <div @click="toRegisterType('consultant')" class="border rounded-md border-gray-200 p-4 cursor-pointer hover:shadow-md">
           <img :src="require('/assets/images/consultant.png')" alt="">
           <div class="flex justify-center text-gray-600 text-sm font-semibold">{{ $t('consultant') }}</div>
         </div>
-        <div @click="toContentProvider()" class="border cursor-pointer rounded-md border-gray-200 p-4">
+        <div @click="toContentProvider()" class="border cursor-pointer rounded-md border-gray-200 p-4 hover:shadow-md">
           <img :src="require('/assets/images/content.png')" alt="">
           <div class="flex justify-center text-gray-600 text-sm font-semibold">{{ $t('content-provider') }}</div>
         </div>
@@ -291,11 +291,11 @@ export default {
       })
       this.onClose()
     },
-    toRegisterType() {
+    toRegisterType(type) {
       this.$emit('close')
       this.$modal.show(
         registerType,
-        { status: 'register' },
+        { status: 'register', type },
         {
           height: 'auto',
           maxWidth: 500,
