@@ -21,16 +21,11 @@ export default {
     data: Array,
   },
   data() {
-    return {
-      selectedCategory: {},
-    }
+    return {}
   },
-  mounted() {
-    this.selectedCategory = this.$route.query.category ? parseInt(this.$route.query.category) : 0
-  },
+  mounted() {},
   methods: {
     toChange(category) {
-      this.selectedCategory = category.id
       this.$emit('onChange', category)
     },
   },
