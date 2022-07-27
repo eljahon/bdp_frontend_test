@@ -184,37 +184,65 @@ export default {
       this.loading = true
       if (this.isEmail) {
         this.$snotify.info('Logging in...')
-        await this.$auth
-          .loginWith('local', {
+        try {
+          await this.$auth.loginWith('local', {
             data: this.auth,
-          })
-          .then(async (res) => {
-            localStorage.setItem('local', 'Bearer ' + res.data.jwt)
-            await this.$auth.setToken('local', 'Bearer ' + res.data.jwt)
-            // await this.$auth.setRefreshToken('local', res.data.refresh)
-            await this.$axios.setHeader('Authorization', 'Bearer ' + res.data.jwt)
-            await this.$auth.ctx.app.$axios.setHeader('Authorization', 'Bearer ' + res.data.jwt)
-            await this.$store.dispatch('getUsers', {
-              link: '/users/me',
-              query: {
-                populate: '*'
-              }
-            }).then(response => {
-              this.$auth.setUser(response.data)
-              localStorage.setItem('user_info', JSON.stringify(response.data))
-            })
-            await this.$snotify.success('Successfully Logged In')
-            this.loading = false
-            this.$bridge.$emit('join_chat', {
+          }).then(async res => {
+            await this.$store
+              .dispatch('getUsers', {
+                link: '/users/me',
+                query: {
+                  populate: '*',
+                },
+              })
+              .then((response) => {
+                localStorage.setItem('user_info', JSON.stringify(response.data))
+              })
+            await this.$bridge.$emit('join_chat', {
               username: res.data.user.username,
               user_id: res.data.user.id,
             })
+            this.loading = false
+            await this.$snotify.success('Successfully Logged In')
             this.onClose()
           })
-          .catch((e) => {
-            this.authError = e.response.data.error.message
-            this.loading = false
-          })
+        } catch (e) {
+          if (e.response) this.authError = e.response.data.error.message
+          this.loading = false
+        }
+        // await this.$auth
+        //   .loginWith('local', {
+        //     data: this.auth,
+        //   })
+        //   .then(async (res) => {
+        //     localStorage.setItem('local', 'Bearer ' + res.data.jwt)
+        //     await this.$auth.setToken('local', 'Bearer ' + res.data.jwt)
+        //     // await this.$auth.setRefreshToken('local', res.data.refresh)
+        //     await this.$axios.setHeader('Authorization', 'Bearer ' + res.data.jwt)
+        //     await this.$auth.ctx.app.$axios.setHeader('Authorization', 'Bearer ' + res.data.jwt)
+        //     await this.$store
+        //       .dispatch('getUsers', {
+        //         link: '/users/me',
+        //         query: {
+        //           populate: '*',
+        //         },
+        //       })
+        //       .then((response) => {
+        //         this.$auth.setUser(response.data)
+        //         localStorage.setItem('user_info', JSON.stringify(response.data))
+        //       })
+        //     await this.$snotify.success('Successfully Logged In')
+        //     this.loading = false
+        //     this.$bridge.$emit('join_chat', {
+        //       username: res.data.user.username,
+        //       user_id: res.data.user.id,
+        //     })
+        //     this.onClose()
+        //   })
+        //   .catch((e) => {
+        //     this.authError = e.response.data.error.message
+        //     this.loading = false
+        //   })
       } else {
         this.$axios
           .post('/users-permissions/login-verify-otp', { phone: this.auth.identifier })

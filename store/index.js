@@ -34,6 +34,10 @@ const createStore = () => {
       priceanalitics: dynamic('priceanalitics'),
       lessons: crud('lessons')
     },
+    getters: {
+      isAuthenticated: state => { return state.auth.loggedIn },
+      loggedInUser: state => { return state.auth.user },
+    }
   })
 }
 export default createStore

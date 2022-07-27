@@ -62,7 +62,7 @@
                 </router-link>
               </div>
             </div>
-            <div v-if="isLoggedIn" class="ml-3 relative">
+            <div v-if="$auth.loggedIn" class="ml-3 relative">
               <div class="flex items-center justify-end">
                 <button
                   id="user-menu-button"
@@ -115,25 +115,10 @@
                   {{ $t('my-chats')}}
                 </router-link>
                 <div
-                  class="block font-medium px-4 py-2 text-sm text-gray-600 hover:bg-gray-100 cursor-pointer"
-                >
-                  something
-                </div>
-                <div
-                  class="block font-medium px-4 py-2 text-sm text-gray-600 hover:bg-gray-100 cursor-pointer"
-                >
-                  something
-                </div>
-                <div
-                  class="block font-medium px-4 py-2 text-sm text-gray-600 hover:bg-gray-100 cursor-pointer"
-                >
-                  something
-                </div>
-                <div
                   class="block font-medium px-4 py-2 text-sm text-red-600 hover:bg-red-100 cursor-pointer"
                   @click="logOut()"
                 >
-                  {{ $t("exit") }}
+                  {{ $t("logout") }}
                 </div>
               </div>
             </div>

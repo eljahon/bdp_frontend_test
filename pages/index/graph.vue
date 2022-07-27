@@ -360,13 +360,13 @@ export default {
           },
         })
         .then((res) => {
-          if (res.data.results.length > 0) {
+          if (res.results.length > 0) {
             this.lineChartChangeCount++
             this.chartData.labels = []
             this.chartData.datasets[0].data = []
             this.chartData.datasets[1].data = []
             this.chartData.datasets[2].data = []
-            res.data.results.forEach((product) => {
+            res.results.forEach((product) => {
               this.chartData.labels.push(product.date)
               this.chartData.datasets[0].data.push(product.data.avg)
               this.chartData.datasets[1].data.push(product.data.max)

@@ -1,7 +1,7 @@
 <template>
   <div class="max-w-6xl mx-auto lg:my-12 my-4 sm:px-6 lg:px-8 xl:px-0 px-4">
     <div class="flex items-center justify-between">
-      <div class="font-semibold text-green-800 text-2xl">{{ $t('advisory')}}</div>
+      <div class="font-semibold text-green-800 text-2xl">{{ $t('advisory') }}</div>
       <div>{{ $t('all-categories') }}</div>
     </div>
     <div class="grid md:grid-cols-3 gap-6 sm:grid-cols-2 grid-cols-1">
@@ -24,7 +24,7 @@ export default {
   components: { Experts },
   data() {
     return {
-      consultants: []
+      consultants: [],
     }
   },
   mounted() {
@@ -39,15 +39,25 @@ export default {
     fetchData() {
       this.$store
         .dispatch(get, {
-          link: '/users',
+          link: 'users',
           query: {
             populate: '*',
             locale: this.$i18n.locale,
+            // filters: {
+            //   $and: {
+            //     0: {
+            //       id: {
+            //         $ne: this.$auth.loggedIn ? this.$auth.user.id : null,
+            //       }
+            //     }
+            //   }
+            // }
           }
-        }).then((res) => {
-          this.consultants = res.data
         })
-    }
-  }
+        .then((res) => {
+          this.consultants = res
+        })
+    },
+  },
 }
 </script>

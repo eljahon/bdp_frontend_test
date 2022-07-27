@@ -89,34 +89,37 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
-    '@nuxtjs/auth',
+    '@nuxtjs/auth-next',
+    // '@nuxtjs/auth',
     // 'vue-currency-filter/nuxt',
   ],
   auth: {
-    localStorage: false,
-    cookie: {
-      expires: 7
-    },
+    // localStorage: false,
+    // cookie: {
+    //   expires: 7
+    // },
     strategies: {
       local: {
         token: {
-          property: 'token',
-          maxAge: 30 * 24 * 60 * 60,
-          global: true,
-          type: 'Bearer'
+          property: 'jwt',
+          // maxAge: 30 * 24 * 60 * 60,
+          // global: true,
+          // type: 'Bearer'
+        },
+        user: {
+          property: false,
         },
         endpoints: {
-          login: { url: '/auth/local', method: 'post' },
-          // refresh: { url: '/auth/token/refresh', method: 'post' },
-          user: false,
+          login: { url: 'auth/local', method: 'post' },
+          user: { url: 'users/me', method: 'get' },
           logout: false
         },
-        redirect: {
-          login: '/',
-          logout: '/',
-          user: '/profile',
-          callback: '/'
-        }
+        // redirect: {
+        //   login: '/',
+        //   logout: '/',
+        //   user: '/profile',
+        //   callback: '/'
+        // }
       }
     }
   },

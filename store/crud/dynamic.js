@@ -81,7 +81,7 @@ export default function (param) {
         commit(_mutations.load, true)
         return new Promise((resolve, reject) => {
           this.$axios
-            .get(`${data.link}`, { payload: '*', district: 2, product: 1 })
+            .$get(`${data.link}`, {params: data.query})
             .then((res) => {
               if (data.isCount)
                 this.$axios.get(`/${param}/count`).then((count) => {
@@ -110,7 +110,7 @@ export default function (param) {
         commit(_mutations.oneLoad, true)
         return new Promise((resolve, reject) => {
           this.$axios
-            .get(`${param}/${payload.id}`)
+            .$get(`${param}/${payload.id}`)
             .then((res) => {
               resolve(res)
             })
@@ -129,7 +129,7 @@ export default function (param) {
         commit(_mutations.pending, true)
         return new Promise((resolve, reject) => {
           this.$axios
-            .post(`${param}`, payload.data)
+            .$post(`${param}`, payload.data)
             .then((res) => {
               resolve(res)
             })
@@ -152,7 +152,7 @@ export default function (param) {
         commit(_mutations.pending, true)
         return new Promise((resolve, reject) => {
           this.$axios
-            .put(`${param}/${payload.id}`, payload.data)
+            .$put(`${param}/${payload.id}`, payload.data)
             .then((res) => {
               resolve(res)
             })
@@ -171,7 +171,7 @@ export default function (param) {
         commit(_mutations.deleting, true)
         return new Promise((resolve, reject) => {
           this.$axios
-            .remove(`${param}/${payload}`)
+            .$remove(`${param}/${payload}`)
             .then((res) => {
               resolve(res)
             })

@@ -310,8 +310,7 @@ export default {
           }
         })
         .then((res) => {
-          console.log('about', res)
-          this.about = res.data.data
+          this.about = res.data
         })
     },
     async fetchDirectories() {

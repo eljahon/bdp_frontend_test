@@ -256,7 +256,7 @@ export default {
             "_where[0][role.id]": 4,
           }
       }).then((res) => {
-          this.experts = res.data
+          this.experts = res
         })
       await this.$store.dispatch('getPricelists', {
         populate: '*',
