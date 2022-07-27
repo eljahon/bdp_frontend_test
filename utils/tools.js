@@ -5,7 +5,7 @@ const { isNavigationFailure, NavigationFailureType } = VueRouter
 const tools = {
   emptyObject(obj) {
     return Object.entries(obj).reduce(
-      (a, [k, v]) => (v == null || v == '' ? a : ((a[k] = v), a)),
+      (a, [k, v]) => (v === null || v === '' ? a : ((a[k] = v), a)),
       {}
     )
   },

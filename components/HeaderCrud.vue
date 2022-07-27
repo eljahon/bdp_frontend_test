@@ -120,7 +120,7 @@ export default {
       }
       this.$router.push({
         path: this.$route.path,
-        query: _query,
+        query: this.$tools.emptyObject(_query),
       })
     },
   },
