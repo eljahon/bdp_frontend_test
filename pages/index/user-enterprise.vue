@@ -59,12 +59,13 @@
                 <label for="phone" class="block mb-1 text-sm font-medium text-gray-700"
                   >{{ $t('phone') }}*</label
                 >
-                <ValidationProvider v-slot="{ errors }" name="phone" rules="required" mode="eager">
+                <ValidationProvider v-slot="{ errors }" :rules="{required: true, length: 16}" name="phone" mode="eager">
                   <input
                     type="text"
                     name="phone"
                     id="phone"
                     v-model="form.phone"
+                    v-mask="'+998## ###-##-##'"
                     class="focus:outline-none appearance-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
                     :class="
                       errors.length > 0
@@ -195,7 +196,7 @@ export default {
       form: {
         company_name: '',
         tin: '',
-        phone: '',
+        phone: '+998',
         email: '',
         activity_type: '',
         field: '',

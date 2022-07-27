@@ -33,6 +33,7 @@ export default {
     '~/plugins/vue-js-modal.js',
     '~/plugins/axios.js',
     '~/plugins/vee-validate.js',
+    '~/plugins/v-mask',
     { src: '~/plugins/client-libraries', mode: 'client' },
     '~/utils/bridge.js',
     '~/utils/tools.js',
