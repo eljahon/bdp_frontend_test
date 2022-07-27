@@ -96,8 +96,12 @@ export default {
     ...mapGetters(['dataServicecategories']),
   },
   mounted() {
-    this.fetchData().then(() => {
-      this.fetchDirectories()
+    this.fetchDirectories().then(() => {
+      if (this.$route.query.category) {
+        this.fetchData()
+      } else {
+        this.onChangeCategory(this.categories[0])
+      }
     })
   },
   methods: {

@@ -89,7 +89,12 @@ export default {
   },
   mounted() {
     this.fetchDirectories().then(() => {
-      this.fetchData()
+      if (this.$route.query.category) {
+        this.fetchData()
+      } else {
+        this.onChangeCategory(this.categories[0])
+      }
+      // this.fetchData()
     })
   },
   watch: {
