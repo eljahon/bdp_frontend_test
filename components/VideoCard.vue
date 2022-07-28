@@ -5,7 +5,7 @@
         <img
           v-if="!data.attributes.image && !data.attributes.thumbnail"
           src="~/assets/images/video.png"
-          class="h-60 object-cover group-hover:opacity-70 rounded-md"
+          class="h-60 object-cover w-full group-hover:opacity-70 rounded-md"
         />
         <img
           v-else
@@ -14,7 +14,7 @@
               data.attributes.thumbnail ? data.attributes.thumbnail : data.attributes.image
             )
           "
-          class="h-60 object-cover group-hover:opacity-70 rounded-md"
+          class="h-60 object-cover w-full group-hover:opacity-70 rounded-md"
         />
         <div class="p-4">
           <div class="flex items-center justify-between">
@@ -30,13 +30,19 @@
                 px-3
               "
             >
-              {{ data.attributes.coursecategory.data ? data.attributes.coursecategory.data.attributes.name: '' }}
+              {{
+                data.attributes.coursecategory.data
+                  ? data.attributes.coursecategory.data.attributes.name
+                  : ''
+              }}
             </div>
             <div class="text-green-700 text-sm font-semibold">
               {{ $tools.getDate(data.attributes.createdAt) }}
             </div>
           </div>
-          <div class="my-4 text-gray-700 group-hover:text-green-700 font-semibold text-lg line-clamp-1">
+          <div
+            class="my-4 text-gray-700 group-hover:text-green-700 font-semibold text-lg line-clamp-1"
+          >
             {{ data.attributes.title }}
           </div>
           <div class="text-gray-600 text-sm line-clamp-2">
@@ -60,13 +66,15 @@ export default {
   },
   methods: {
     toDetail() {
-      if(this.data.attributes.coursetype.data.id === 1) {
-       this.$router.push({
-        path: this.localePath(`/e-learning/${this.data.id}`),
-      })
-    } 
-    }
-  }
+      if (this.data.attributes.coursetype.data.id === 1) {
+        this.$router.push({
+          path: this.localePath(`/e-learning/${this.data.id}`),
+        })
+      } else {
+        this.$snotify.warning('Multiple courses')
+      }
+    },
+  },
 }
 </script>
 

@@ -112,6 +112,7 @@
     
     "organization-name": "Organization name",
     "order-by": "Order By",
+    "other-courses": "Other courses",
     
     "p": "P",
     "password": "Password",
@@ -182,6 +183,7 @@
     "update-region": "Update region",
     "upload-image": "Upload image",
     "useful-informations": "Useful informations",
+    "useful-materials": "Useful materials",
     "users": "Users",
     "user": "User",
     "upload-resume": "Upload resume(s)",

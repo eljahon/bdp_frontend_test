@@ -108,6 +108,7 @@
   
     "organization-name": "Organization name",
     "order-by": "Сортировать по",
+    "other-courses": "Другие курсы",
   
     "p": "P",
     "password": "Пароль",
@@ -175,6 +176,7 @@
     "update-district": "Обновить район",
     "update-region": "Обновить область",
     "upload-image": "Загрузить изобрежению",
+    "useful-materials": "Полезные материалы",
     "users": "Пользователи",
     "user": "User",
     "upload-resume": "Upload resume(s)",
