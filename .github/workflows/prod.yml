@@ -26,7 +26,7 @@ jobs:
           script: |
             cd /var/www/greenaral.uz
             git pull
-            node -v
+            nvm use 16.15.0
             yarn install
             yarn build
             pm2 restart greenaral.uz
