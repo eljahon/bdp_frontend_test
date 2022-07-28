@@ -1,12 +1,16 @@
 <template>
   <div :style="{ backgroundImage: `url(${image})` }" class="bg-cover h-full pb-10 bg-opacity-10">
     <div class="max-w-6xl mx-auto p-4 lg:px-8 xl:px-0">
-      <div class="max-w-2xl mx-auto mt-10">
+      <div class="max-w-2xl mx-auto mt-10 bg-white rounded-md">
+        <div class="flex justify-center text-gray-600 font-semibold text-xl md:p-6 p-4">
+          {{ $t('registration-for-user-enterprise') }}
+        </div>
+        <main-register class="" />
         <ValidationObserver v-slot="{ handleSubmit, invalid }" slim>
           <form class="" novalidate @submit.prevent="handleSubmit(onSubmit)">
-            <div class="grid md:grid-cols-2 grid-cols-1 bg-white rounded-md md:p-6 p-4 gap-4">
-              <div class="flex justify-center text-gray-600 font-semibold col-span-2 text-xl mb-4">
-                {{ $t('registration-for-user-enterprise') }}
+            <div class="grid md:grid-cols-2 grid-cols-1 md:p-6 p-4 gap-4">
+              <div class="flex justify-start col-span-2 text-gray-600 font-semibold text-xl">
+                {{ $t('additional-information') }}
               </div>
               <div class="md:col-span-1 col-span-2">
                 <label for="company-name" class="block mb-1 text-sm font-medium text-gray-700">
@@ -59,7 +63,12 @@
                 <label for="phone" class="block mb-1 text-sm font-medium text-gray-700"
                   >{{ $t('phone') }}*</label
                 >
-                <ValidationProvider v-slot="{ errors }" :rules="{required: true, length: 16}" name="phone" mode="eager">
+                <ValidationProvider
+                  v-slot="{ errors }"
+                  :rules="{ required: true, length: 16 }"
+                  name="phone"
+                  mode="eager"
+                >
                   <input
                     type="text"
                     name="phone"
@@ -138,7 +147,6 @@
                       {{ type.attributes.name }}
                     </option> -->
                   </select>
-                  />
                 </ValidationProvider>
               </div>
               <div class="col-span-2">
@@ -155,7 +163,7 @@
                   </option>
                 </select>
               </div>
-              <div class="flex items-center mt-2">
+              <div class="flex items-center mt-2 col-span-2">
                 <input
                   name="termsOfUse"
                   type="checkbox"
@@ -186,8 +194,10 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import MainRegister from '~/components/MainRegister.vue'
 import background from '/assets/images/background.png'
 export default {
+  components: { MainRegister },
   name: 'UserInterprise',
   auth: false,
   data() {

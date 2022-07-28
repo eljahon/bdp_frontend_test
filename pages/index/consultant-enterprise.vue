@@ -1,14 +1,18 @@
 <template>
   <div :style="{ backgroundImage: `url(${image})` }" class="bg-cover h-full pb-10 bg-opacity-10">
     <div class="max-w-6xl mx-auto p-4 lg:px-8 xl:px-0">
-      <div class="max-w-2xl mx-auto mt-10">
+      <div class="max-w-2xl mx-auto mt-10 bg-white rounded-md">
+        <div class="flex justify-center text-gray-600 font-semibold text-xl md:p-6 p-4">
+          {{ $t('registration-for-consultant-enterprise') }}
+        </div>
+        <main-register class="" />
         <ValidationObserver v-slot="{ handleSubmit, invalid }" slim>
           <form class="" novalidate @submit.prevent="handleSubmit(onSubmit)">
             <div class="grid grid-cols-2 bg-white rounded-md p-6 gap-4">
-              <div class="flex justify-center text-gray-600 font-semibold col-span-2 text-xl mb-4">
-                {{ $t('registration-for-consultant-enterprise') }}
+              <div class="flex justify-start col-span-2 text-gray-600 font-semibold text-xl">
+                {{ $t('additional-information') }}
               </div>
-              <div>
+              <div class="md:col-span-1 col-span-2">
                 <label for="company-name" class="block mb-1 text-sm font-medium text-gray-700">
                   {{ $t('company-name') }}*</label
                 >
@@ -34,7 +38,7 @@
                   />
                 </ValidationProvider>
               </div>
-              <div>
+              <div class="md:col-span-1 col-span-2">
                 <label for="tin" class="block mb-1 text-sm font-medium text-gray-700">{{
                   $t('tin')
                 }}*</label>
@@ -55,7 +59,7 @@
                   />
                 </ValidationProvider>
               </div>
-              <div>
+              <div class="md:col-span-1 col-span-2">
                 <label for="agriculture" class="block mb-1 text-sm font-medium text-gray-700">{{
                   $t('area-of-agriculture-and-environment')
                 }}*</label>
@@ -83,7 +87,7 @@
                   </select>
                 </ValidationProvider>
               </div>
-              <div>
+              <div class="md:col-span-1 col-span-2">
                 <label for="consultancy" class="block mb-1 text-sm font-medium text-gray-700">{{
                   $t('area-of-consultancy')
                 }}</label>
@@ -160,7 +164,7 @@
                   />
                 </ValidationProvider>
               </div>
-              <div>
+              <div class="md:col-span-1 col-span-2">
                 <label for="contact_name" class="block mb-1 text-sm font-medium text-gray-700">{{
                   $t('contact-name')
                 }}*</label>
@@ -186,7 +190,7 @@
                   />
                 </ValidationProvider>
               </div>
-              <div>
+              <div class="md:col-span-1 col-span-2">
                 <label for="phone" class="block mb-1 text-sm font-medium text-gray-700">{{
                   $t('phone')
                 }}*</label>
@@ -209,7 +213,7 @@
                 </ValidationProvider>
               </div>
 
-              <div class="flex items-center mt-2">
+              <div class="flex items-center mt-2 col-span-2">
                 <input
                   name="termsOfUse"
                   type="checkbox"

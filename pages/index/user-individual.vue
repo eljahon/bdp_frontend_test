@@ -1,14 +1,18 @@
 <template>
   <div :style="{ backgroundImage: `url(${image})` }" class="bg-cover h-full pb-10 bg-opacity-10">
     <div class="max-w-6xl mx-auto p-4 lg:px-8 xl:px-0">
-      <div class="max-w-2xl mx-auto mt-10">
+      <div class="max-w-2xl mx-auto mt-10 bg-white rounded-md">
+        <div class="flex justify-center text-gray-600 font-semibold text-xl md:p-6 p-4">
+          {{ $t('registration-for-user-individual') }}
+        </div>
+        <main-register class="" />
         <ValidationObserver v-slot="{ handleSubmit, invalid }" slim>
           <form class="" novalidate @submit.prevent="handleSubmit(onSubmit)">
-            <div class="grid grid-cols-2 bg-white rounded-md p-6 gap-4">
-              <div class="flex justify-center text-gray-600 font-semibold col-span-2 text-xl mb-4">
-                {{ $t('registration-for-user-individual') }}
+            <div class="grid md:grid-cols-2 grid-cols-1 md:p-6 p-4 gap-4">
+              <div class="flex justify-start col-span-2 text-gray-600 font-semibold text-xl">
+                {{ $t('additional-information') }}
               </div>
-              <div>
+              <div class="md:col-span-1 col-span-2">
                 <label for="name" class="block mb-1 text-sm font-medium text-gray-700"
                   >{{ $t('name') }}*</label
                 >
@@ -29,11 +33,16 @@
                   />
                 </ValidationProvider>
               </div>
-              <div>
+              <div class="md:col-span-1 col-span-2">
                 <label for="phone" class="block mb-1 text-sm font-medium text-gray-700"
                   >{{ $t('phone') }}*</label
                 >
-                <ValidationProvider v-slot="{ errors }" :rules="{required: true, length: 16}" name="phone" mode="eager">
+                <ValidationProvider
+                  v-slot="{ errors }"
+                  :rules="{ required: true, length: 16 }"
+                  name="phone"
+                  mode="eager"
+                >
                   <input
                     type="text"
                     name="phone"
@@ -51,7 +60,7 @@
                   />
                 </ValidationProvider>
               </div>
-              <div>
+              <div class="md:col-span-1 col-span-2">
                 <label for="gender" class="block mb-1 text-sm font-medium text-gray-700"
                   >{{ $t('gender') }}*</label
                 >
@@ -74,7 +83,7 @@
                   </select>
                 </ValidationProvider>
               </div>
-              <div>
+              <div class="md:col-span-1 col-span-2">
                 <label for="birthday" class="block mb-1 text-sm font-medium text-gray-700"
                   >{{ $t('date-of-birth') }}*</label
                 >
@@ -100,10 +109,10 @@
                   />
                 </ValidationProvider>
               </div>
-              <div>
-                <label for="activity-type" class="block mb-1 text-sm font-medium text-gray-700">{{
-                  $t('activity-type')
-                }}*</label>
+              <div class="md:col-span-1 col-span-2">
+                <label for="activity-type" class="block mb-1 text-sm font-medium text-gray-700"
+                  >{{ $t('activity-type') }}*</label
+                >
                 <ValidationProvider
                   v-slot="{ errors }"
                   name="activity-type"
@@ -128,10 +137,10 @@
                   </select>
                 </ValidationProvider>
               </div>
-              <div>
-                <label for="field" class="block mb-1 text-sm font-medium text-gray-700">{{
-                  $t('field-of-agriculture')
-                }}*</label>
+              <div class="md:col-span-1 col-span-2">
+                <label for="field" class="block mb-1 text-sm font-medium text-gray-700"
+                  >{{ $t('field-of-agriculture') }}*</label
+                >
                 <ValidationProvider v-slot="{ errors }" name="field" rules="required" mode="eager">
                   <select
                     v-model="form.field"
@@ -165,7 +174,7 @@
                   </option>
                 </select>
               </div>
-              <div class="flex items-center mt-2">
+              <div class="flex items-center mt-2 col-span-2">
                 <input
                   name="termsOfUse"
                   type="checkbox"
@@ -197,8 +206,9 @@
 <script>
 import { mapGetters } from 'vuex'
 import background from '/assets/images/background.png'
+
 export default {
-  name: 'UserInterprise',
+  name: 'UserIndividual',
   auth: false,
   data() {
     return {
