@@ -3,7 +3,7 @@ name: Deploy
 on:
   push:
     branches:
-      - master
+      - develop
 
 jobs:
   deploy:
@@ -24,11 +24,11 @@ jobs:
           username: ${{ secrets.USERNAME }}
           port: ${{ secrets.PORT }}
           script: |
-            cd /var/www/greenaral.uz
+            cd /var/www/jasilawil.uz
             git pull
             export NVM_DIR="$HOME/.nvm"
             [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
             nvm use 16.15.0
             yarn install
             yarn build
-            pm2 restart greenaral.uz
+            pm2 restart jasilawil.uz
