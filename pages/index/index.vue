@@ -103,16 +103,7 @@
           </div>
           <div class="lg:absolute bottom-0 flex justify-center lg:mt-0 mt-6">
             <button
-              class="
-                text-white
-                focus:outline-none
-                py-3
-                px-7
-                font-medium
-                bg-green-700
-                rounded-md
-                text-sm
-              "
+              class="text-white focus:outline-none py-3 px-7 font-medium bg-green-700 rounded-md text-sm"
             >
               Discover more
             </button>
@@ -165,13 +156,13 @@ import YandexMap from '~/components/core/yandex-map.vue'
 import Faq from '~/components/Faq.vue'
 export default {
   auth: false,
-  components: { 
+  components: {
     YandexMap,
     expertsSwiper,
     // PriceSwiper,
     NewsSwiper,
     PartnersSwiper,
-    Faq
+    Faq,
   },
   props: {},
   data() {

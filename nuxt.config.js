@@ -115,12 +115,12 @@ export default {
           user: { url: 'users/me', method: 'get' },
           logout: false
         },
-        // redirect: {
-        //   login: '/',
-        //   logout: '/',
-        //   user: '/profile',
-        //   callback: '/'
-        // }
+        redirect: {
+          login: '/',
+          logout: '/',
+          user: '/profile',
+          callback: '/'
+        }
       }
     }
   },

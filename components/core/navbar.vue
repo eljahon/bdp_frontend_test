@@ -28,7 +28,7 @@
         <div class="max-w-6xl mx-auto px-4 sm:px-0">
           <div class="flex items-center justify-between text-white">
             <router-link to="/">
-            <!-- <router-link :to="{ path: localePath('/') }"> -->
+              <!-- <router-link :to="{ path: localePath('/') }"> -->
               <svg
                 width="110"
                 height="30"
@@ -80,9 +80,7 @@
                         ? $tools.getFileUrl(currentUser.avatar)
                         : require('/assets/images/person/avatar.jpg')
                     "
-                    @error="
-                      currentUser.avatar = require('/assets/images/person/avatar.jpg')
-                    "
+                    @error="currentUser.avatar = require('/assets/images/person/avatar.jpg')"
                   />
                 </button>
               </div>
@@ -99,36 +97,34 @@
                   @click="toUserWork({ path: localePath('/my-profile') })"
                 >
                   {{
-                    `${currentUser.name ? currentUser.name : ""} ${
-                      currentUser.surname ? currentUser.surname : ""
+                    `${currentUser.name ? currentUser.name : ''} ${
+                      currentUser.surname ? currentUser.surname : ''
                     }`
                   }}
                   <br />
-                  <span class="text-xs text-gray-500"
-                    >ID: {{ currentUser.id }}</span
-                  >
+                  <span class="text-xs text-gray-500">ID: {{ currentUser.id }}</span>
                 </div>
                 <router-link
                   :to="{ path: localePath('/chats') }"
                   class="block font-medium px-4 py-2 text-sm text-gray-600 hover:bg-gray-100 cursor-pointer"
                 >
-                  {{ $t('my-chats')}}
+                  {{ $t('my-chats') }}
                 </router-link>
                 <div
                   class="block font-medium px-4 py-2 text-sm text-red-600 hover:bg-red-100 cursor-pointer"
                   @click="logOut()"
                 >
-                  {{ $t("logout") }}
+                  {{ $t('logout') }}
                 </div>
               </div>
             </div>
-            <button
+            <nuxt-link
               v-else
+              :to="localePath('/login')"
               class="text-white focus:outline-none text-sm rounded-md bg-green-700 p-3"
-              @click="signIn()"
             >
               Login / Register
-            </button>
+            </nuxt-link>
           </div>
         </div>
       </div>
@@ -172,7 +168,6 @@
 
 <script>
 import LangSwitcher from '../core/lang-switcher.vue'
-import signInModal from '../modals/signin.vue'
 import mobileMenu from '../core/mobile-menu.vue'
 import { mapState } from 'vuex'
 import { socket } from '~/plugins/socket.client.js'
@@ -206,14 +201,13 @@ export default {
         username: this.currentUser.username,
         user_id: this.currentUser.id,
       })
-      this.isProfileOpened = !this.isProfileOpened;
-      await localStorage.removeItem("local");
-      await localStorage.removeItem("user_info");
-      await this.$auth.logout();
-
+      this.isProfileOpened = !this.isProfileOpened
+      await localStorage.removeItem('local')
+      await localStorage.removeItem('user_info')
+      await this.$auth.logout()
     },
     openProfile() {
-      this.isProfileOpened = !this.isProfileOpened;
+      this.isProfileOpened = !this.isProfileOpened
     },
     openMobileMenu() {
       this.$showPanel({
@@ -223,19 +217,9 @@ export default {
       })
     },
     signIn() {
-      this.$modal.show(
-        signInModal,
-        { status: 'sign-in' },
-        {
-          height: 'auto',
-          maxWidth: 400,
-          width: window.innerWidth <= 350 ? window.innerWidth - 10 : 350,
-          acrollable: true,
-        }
-      )
-      // this.$root.$once('user-change-modal', (item) => {
-      //   console.log(item)
-      // })
+      this.$router.push({
+        path: this.localePath('/login'),
+      })
     },
   },
 }
