@@ -40,8 +40,8 @@ const constants = {
   pagination: {
     page: 1,
     total: 0,
-    limit: 20,
-    lastPage: 1,
+    pageSize: 9,
+    pageCount: 1,
   },
   yandexKey: '1abe9aa1-66ec-4c7f-8b93-a4e0bc25319e',
 }
