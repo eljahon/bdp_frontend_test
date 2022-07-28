@@ -34,7 +34,7 @@
             </div>
             <div class="my-5">
               <button
-              @click="openRegister()"
+                @click="openRegister()"
                 class="text-white text-sm bg-green-700 focus:outline-none rounded-md py-3 px-5"
               >
                 Register
@@ -53,13 +53,13 @@
           <span class="text-green-800">Experts</span> consultancy
         </div>
         <div class="">
-          <experts-swiper :experts="experts"/>
+          <experts-swiper :experts="experts" />
         </div>
       </div>
       <div class="mt-12 space-y-4">
         <div class="font-semibold text-green-800 text-2xl">Price</div>
         <div class="">
-          <price-swiper :prices="dataPricelists"/>
+          <!-- <price-swiper :prices="dataPricelists" /> -->
         </div>
       </div>
       <div class="mt-12 space-y-4">
@@ -80,7 +80,7 @@
       </div>
       <div class="grid lg:grid-cols-2 grid-cols-1 mt-12 lg:space-x-10">
         <!-- <img src="~/assets/images/map.png" alt="" /> -->
-        <yandex-map :coords="getLocations"/>
+        <yandex-map :coords="getLocations" />
         <div class="relative">
           <div class="text-xl text-gray-800 font-semibold">
             <span class="text-green-800">Karakalpakstan</span> - didactive map
@@ -139,15 +139,15 @@
               type and scrambled it to make a type specimen book.
             </div>
             <div v-for="(faq, index) in dataFaqs" :key="index">
-              <faq :data="faq"/>
-           </div>
+              <faq :data="faq" />
+            </div>
           </div>
           <img src="~/assets/images/home.png" class="rounded-md" alt="home" />
         </div>
       </div>
       <div class="mt-12 space-y-4">
         <div class="">
-          <partners-swiper :partners="dataPartners"/>
+          <partners-swiper :partners="dataPartners" />
         </div>
       </div>
     </div>
@@ -159,15 +159,21 @@ import { mapGetters, mapState } from 'vuex'
 import registeModal from '../../components/modals/register.vue'
 import expertsSwiper from '~/components/swipers/experts-swiper.vue'
 import NewsSwiper from '~/components/swipers/news-swiper.vue'
-import PriceSwiper from '~/components/swipers/price-swiper.vue'
+// import PriceSwiper from '~/components/swipers/price-swiper.vue'
 import PartnersSwiper from '~/components/swipers/partners-swiper.vue'
 import YandexMap from '~/components/core/yandex-map.vue'
 import Faq from '~/components/Faq.vue'
 export default {
   auth: false,
-  components: { YandexMap, expertsSwiper, PriceSwiper, NewsSwiper, PartnersSwiper, Faq },
-  props: {
+  components: { 
+    YandexMap,
+    expertsSwiper,
+    // PriceSwiper,
+    NewsSwiper,
+    PartnersSwiper,
+    Faq
   },
+  props: {},
   data() {
     return {
       video: {},
@@ -221,7 +227,14 @@ export default {
       userConnection: (state) => state.socket.userConnection,
       userConnectionStatus: (state) => state.socket.userConnectionStatus,
     }),
-    ...mapGetters(['dataCourses', 'dataUsers', 'dataPricelists', 'dataFaqs', 'dataPartners', 'getLocations']),
+    ...mapGetters([
+      'dataCourses',
+      'dataUsers',
+      'dataPricelists',
+      'dataFaqs',
+      'dataPartners',
+      'getLocations',
+    ]),
   },
   mounted() {
     this.fetchDirectories()
@@ -246,17 +259,19 @@ export default {
         populate: '*',
         locale: this.$i18n.locale,
         'pagination[page]': 1,
-        'pagination[pageSize]': 3
+        'pagination[pageSize]': 3,
       })
-      await this.$store.dispatch('getUsers', {
-        link: '/users',
-        query: {
+      await this.$store
+        .dispatch('getUsers', {
+          link: '/users',
+          query: {
             populate: '*',
             locale: this.$i18n.locale,
-            "_where[0][role.id]": 4,
-          }
-      }).then((res) => {
-          this.experts = res
+            '_where[0][role.id]': 4,
+          },
+        })
+        .then((res) => {
+          this.experts = res.users
         })
       await this.$store.dispatch('getPricelists', {
         populate: '*',
@@ -271,12 +286,15 @@ export default {
         populate: '*',
         locale: this.$i18n.locale,
       })
-      await this.$store.dispatch('getCompanies', {
-        populate: '*',
-        locale: this.$i18n.locale,
-      }).then(res => {
-        this.$store.dispatch('setCompanies', res)
-      })
+      await this.$store
+        .dispatch('getCompanies', {
+          populate: '*',
+          locale: this.$i18n.locale,
+        })
+        .then((res) => {
+          this.$store.dispatch('setCompanies', res)
+          console.log(getLocations)
+        })
     },
   },
 }

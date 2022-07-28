@@ -62,7 +62,7 @@
           </nuxt-link>
           <nuxt-link
             :to="localePath('/e-learning')"
-            class="text-center text-green-500 hover:text-green-700 font-semibold text-sm"
+            class="text-center text-green-500 hover:text-green-700 font-semibold text-sm flex justify-center"
           >
             {{ $t('view-all') }}
           </nuxt-link>

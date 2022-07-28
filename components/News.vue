@@ -44,5 +44,6 @@ export default {
     // eslint-disable-next-line vue/require-default-prop
     data: Object,
   },
+  mounted() {}
 }
 </script>
