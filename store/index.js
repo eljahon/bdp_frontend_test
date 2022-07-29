@@ -34,7 +34,8 @@ const createStore = () => {
       priceanalitics: dynamic('priceanalitics'),
       lessons: crud('lessons'),
       genders: crud('genders'),
-      lessongroups: crud('lessongroups')
+      lessongroups: crud('lessongroups'),
+      consultantcategories: crud('consultantcategories')
     },
     getters: {
       isAuthenticated: state => { return state.auth.loggedIn },

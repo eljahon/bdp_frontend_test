@@ -4,7 +4,7 @@
       <div class="font-semibold text-gray-700 text-2xl">
         <span class="text-green-800">{{ name }}</span>
       </div>
-      <div class="mt-1 flex rounded-md shadow-sm">
+      <div v-if="!isConsultant" class="mt-1 flex rounded-md shadow-sm">
         <div
           class="
             relative
@@ -84,6 +84,7 @@ export default {
   props: {
     categories: Array,
     name: String,
+    isConsultant: Boolean,
   },
   directives: {
     debounce,

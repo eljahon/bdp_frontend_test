@@ -67,7 +67,6 @@ export default {
         path: this.$route.path,
         query: _query,
       })
-      console.log('Change page', e)
     },
     async fetchData() {
       await this.$store
