@@ -7,6 +7,7 @@
     "advisory": "Advisory",
     "agri-business": "Agri-business",
     "agri-finance": "Agri-finance",
+    "agriculture-business": "Agriculture business",
     "all": "All",
     "all-categories": "All categories",
     "all-products": "All products",
@@ -17,6 +18,7 @@
     "area-of-agriculture-and-environment": "Area of agriculture and environment",
     "area-of-consultancy": "Area of consultancy",
     "additional-information": "Additional information",
+    "asked-questions": "Asked Questions",
     
   
     "b": "B",
@@ -24,6 +26,8 @@
     "bad-request": "Bad Request",
     "basic-information": "Basic information",
     "branches": "Branches",
+    "business-development-platform": "Business Development Platform",
+    "below-you-will-find-answers-to-the-questions-we-get-asked-most-about-using-the-platfrom": "Below you'll find answers to the questions we get asked most about using the platfrom.",
   
     "c": "C",
     "cancel": "Cancel",
@@ -56,6 +60,8 @@
     "districts": "Disctricts",
     "do-not-have-an-account": "Do not have an account?",
     "do-you-have-an-account": "Do you have an account?",
+    "didactive-map": "Didactive map",
+    "discover-more": "Discover more",
     
     "e": "E",
     "edit": "Edit",
@@ -76,6 +82,7 @@
     "firstname": "Firstname",
     "forgot-password-question":"Forget password?",
     "field-of-agriculture": "Field of agriculture",
+    "frequently": "Frequently",
     
     "gender": "Gender",
     "get-consultation": "Get Consultation",
@@ -88,10 +95,13 @@
   
     "i-agree-with": " I agree with",
     "image-cropper": "Image cropper",
+    "in-karakalpakstan": "in Karakalpakstan",
+    "info-about-platform": "The platform aims to provide the needed information for conducting business in the agriculture and environmental sectors in the Aral Sea region, as well as to support day-to-day operations by learning and accessing advisory services, networking, and insightful ideas.",
+    "information-on-agri-business-units-that-help-users-to-access-service-providers-for-establishing-and-operating-business": "Information on agri-business units that help users to access service providers for establishing and operating business.",
     
     "j": "J",
     
-    "k": "K",
+    "karakalpakstan": "Karakalpakstan",
     
     "l": "L",
     "lastname": "Lastname",
@@ -157,6 +167,7 @@
     "search": "Search",
     "see-result": "See result",
     "see-results": "See results",
+    "see-all": "See all",
     "send": "Send",
     "send-photo": "Send photo",
     "sign-in": "Sign in",

@@ -6,8 +6,9 @@
   "add-new": "Yangisini qo'shish",
   "agri-finance": "Agri-finans",
   "agri-business": "Agrobiznes",
+  "agriculture-business": "Agriculture business",
   "advisory": "Konsulting",
-  "all":  "Barchasi",
+  "all": "Barchasi",
   "all-categories": "Barcha kategoriyalar",
   "all-products": "Barcha mahsulotlar",
   "average": "O'rtacha",
@@ -17,12 +18,15 @@
   "area-of-agriculture-and-environment": "Area of agriculture and environment",
   "area-of-consultancy": "Area of consultancy",
   "additional-information": "Additional information",
+  "asked-questions": "Asked Questions",
 
   "b": "B",
   "back": "Orqaga",
   "bad-request": "Bad Request",
   "basic-information": "Asosiy ma'lumot",
   "branches": "Filiallar",
+  "business-development-platform": "Business Development Platform",
+  "below-you-will-find-answers-to-the-questions-we-get-asked-most-about-using-the-platfrom": "Below you'll find answers to the questions we get asked most about using the platfrom.",
 
   "c": "C",
   "cancel": "Bekor qilish",
@@ -55,6 +59,8 @@
   "districts": "Tumanlar",
   "directions": "Yo'nalishlar",
   "do-you-have-an-account": "Sizni akkountingiz bormi?",
+  "didactive-map": "Didactive map",
+  "discover-more": "Discover more",
 
   "e": "E",
   "edit": "Tahrirlash",
@@ -74,6 +80,7 @@
   "firstname": "Ism",
   "forgot-password-question": "Parolni esdan chiqardingizmi?",
   "field-of-agriculture": "Field of agriculture",
+  "frequently": "Frequently",
 
   "gender": "Gender",
   "get-consultation": "Konsultatsiya olish",
@@ -86,10 +93,13 @@
 
   "i-agree-with": " I agree with",
   "image-cropper": "Rasmni kesish",
+  "in-karakalpakstan": "in Karakalpakstan",
+  "info-about-platform": "The platform aims to provide the needed information for conducting business in the agriculture and environmental sectors in the Aral Sea region, as well as to support day-to-day operations by learning and accessing advisory services, networking, and insightful ideas.",
+  "information-on-agri-business-units-that-help-users-to-access-service-providers-for-establishing-and-operating-business": "Information on agri-business units that help users to access service providers for establishing and operating business.",
 
   "j": "J",
 
-  "k": "K",
+  "karakalpakstan": "Karakalpakstan",
 
   "l": "L",
   "lastname": "Familiya",
@@ -109,6 +119,7 @@
 
   "n": "N",
   "name": "Nomlanishi",
+  "news": "News",
 
   "organization-name": "Organization name",
   "order-by": "Saralash turi",
@@ -154,6 +165,7 @@
   "search": "Qidirish",
   "see-result": "Natijani ko'rish",
   "see-results": "Natijalarni ko'rish",
+  "see-all": "See all",
   "send": "Yuborish",
   "send-photo": "Rasm yuborish",
   "select-chat-to-messaging": "Chatni tanlang",
@@ -167,8 +179,7 @@
   "short-summary": "Short summary",
   "short-description": "Short description",
   "short-summary-of-agricultural-environmental-experience-and-activities-of-organization-in-Karakalpakstan": "Short summary of agricultural/ environmental experience and activities of organization in Karakalpakstan",
-  "short-description-of-organization-size-relationship-to-agricultural-environmental-sectors-in-Karakalpakstan" : "Short description of organization, size, relationship to agricultural/environmental sectors in Karakalpakstan...",
-
+  "short-description-of-organization-size-relationship-to-agricultural-environmental-sectors-in-Karakalpakstan": "Short description of organization, size, relationship to agricultural/environmental sectors in Karakalpakstan...",
 
   "tin": "TIN",
   "table-view": "Jadval ko'rinishi",
