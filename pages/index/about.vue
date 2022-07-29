@@ -214,7 +214,7 @@
                       id="lastname"
                       v-model="form.message"
                       rows="4"
-                      :placeholder="$t('message')"
+                      :placeholder="$t('write-a-message')"
                       class="focus:outline-none appearance-none block w-full p-3 border rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
                       :class="
                         errors.length > 0
