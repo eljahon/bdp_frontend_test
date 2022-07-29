@@ -73,7 +73,7 @@
                   @click="openProfile"
                 >
                   <img
-                    class="w-10 flex justify-end rounded-full"
+                    class="w-10 h-10 object-cover flex justify-end rounded-full"
                     alt="Avatar"
                     :src="
                       currentUser.avatar
