@@ -7,6 +7,7 @@
     "advisory": "Адвокат",
     "agri-business": "Агробизнес",
     "agri-finance": "Агро финанс",
+    "agriculture-business": "Agriculture business",
     "all": "Все",
     "all-categories": "Все категории",
     "all-products": "Все продукты",
@@ -17,12 +18,15 @@
     "area-of-agriculture-and-environment": "Area of agriculture and environment",
     "area-of-consultancy": "Area of consultancy",
     "additional-information": "Additional information",
+    "asked-questions": "Asked Questions",
   
     "b": "B",
     "back": "Назад",
     "bad-request": "Bad Request",
     "basic-information": "Основная информация",
     "branches": "Филлиалы",
+    "business-development-platform": "Business Development Platform",
+    "below-you-will-find-answers-to-the-questions-we-get-asked-most-about-using-the-platfrom": "Below you'll find answers to the questions we get asked most about using the platfrom.",
   
     "c": "C",
     "cancel": "Отменить",
@@ -54,6 +58,8 @@
     "districts": "Райони",
     "directions": "Направления",
     "do-you-have-an-account": "У вас есть аккаунт?",
+    "didactive-map": "Didactive map",
+    "discover-more": "Discover more",
   
     "e": "E",
     "edit": "Редактировать",
@@ -73,6 +79,7 @@
     "firstname": "Имя",
     "forgot-password-question": "Забыли пароль?",
     "field-of-agriculture": "Field of agriculture",
+    "frequently": "Frequently",
   
     "gender": "Gender",
     "get-consultation": "Получить консультацию",
@@ -85,10 +92,14 @@
   
     "i-agree-with": " I agree with",
     "image-cropper": "Обрезка изображения",
+    "in-karakalpakstan": "in Karakalpakstan",
+    "info-about-platform": "The platform aims to provide the needed information for conducting business in the agriculture and environmental sectors in the Aral Sea region, as well as to support day-to-day operations by learning and accessing advisory services, networking, and insightful ideas.",
+    "information-on-agri-business-units-that-help-users-to-access-service-providers-for-establishing-and-operating-business": "Information on agri-business units that help users to access service providers for establishing and operating business.",
+    
   
     "j": "J",
   
-    "k": "K",
+    "karakalpakstan": "Karakalpakstan",
   
     "l": "L",
     "lastname": "Фамилия",
@@ -107,6 +118,7 @@
   
     "n": "N",
     "name": "Наименования",
+    "news": "News",
   
     "organization-name": "Organization name",
     "order-by": "Сортировать по",
@@ -152,6 +164,7 @@
     "search": "Поиск",
     "see-result": "Смотреть результат",
     "see-results": "Смотреть результаты",
+    "see-all": "See all",
     "send": "Отправить",
     "send-photo": "Отправить фото",
     "select-chat-to-messaging": "Выберите чат для сообщения",
