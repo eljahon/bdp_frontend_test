@@ -258,7 +258,7 @@ export default {
           query: {
             populate: '*',
             locale: this.$i18n.locale,
-            '_where[0][role.id]': 4,
+            'filters[$and][0][role][id]': 4,
           },
         })
         .then((res) => {
