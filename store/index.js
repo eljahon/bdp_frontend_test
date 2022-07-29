@@ -35,7 +35,8 @@ const createStore = () => {
       lessons: crud('lessons'),
       genders: crud('genders'),
       lessongroups: crud('lessongroups'),
-      consultantcategories: crud('consultantcategories')
+      consultantcategories: crud('consultantcategories'),
+      contuctuses: crud('contactuses')
     },
     getters: {
       isAuthenticated: state => { return state.auth.loggedIn },
