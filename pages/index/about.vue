@@ -9,36 +9,34 @@
         <div class="grid lg:grid-cols-2 grid-cols-1">
           <div class="grid content-center">
             <div class="lg:text-4xl text-2xl font-semibold text-white">
-              We are ready to corporate with service provider
+             {{$t('we-are-ready-to-cooperate')}}
             </div>
             <div class="text-white my-6 mr-6">
-              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
-              has been the industry's standard dummy text ever since the 1500s, when an unknown
-              printer took a galley of type and scrambled it to make a type specimen book.
+              {{$t('join-greenAral-to-contribute')}}
             </div>
             <div class="grid grid-cols-2 gap-4">
               <div class="text-white flex items-center">
                 <i class="bx bx-check-circle text-lg text-white"></i>
-                <div class="ml-2">Proper Take Care</div>
+                <div class="ml-2">{{$t('become-a-consultant')}}</div>
               </div>
               <div class="text-white flex items-center">
                 <i class="bx bx-check-circle text-lg text-white"></i>
-                <div class="ml-2">Experts</div>
+                <div class="ml-2">{{$t('become-service-provider')}}</div>
               </div>
               <div class="text-white flex items-center">
                 <i class="bx bx-check-circle text-lg text-white"></i>
-                <div class="ml-2">Community with farmers</div>
+                <div class="ml-2">{{$t('become-a-content-provider')}}</div>
               </div>
               <div class="text-white flex items-center">
                 <i class="bx bx-check-circle text-lg text-white"></i>
-                <div class="ml-2">Marketing</div>
+                <div class="ml-2">{{$t('join-as-a-partner')}}</div>
               </div>
             </div>
             <div class="lg:mt-5 my-5">
               <button
                 class="text-white focus:outline-none text-sm bg-green-500 rounded-md py-3 px-5"
               >
-                Discover more
+                {{$t('discover-more')}}
               </button>
             </div>
           </div>
@@ -51,183 +49,198 @@
     <div class="max-w-6xl mx-auto sm:px-6 lg:px-8 xl:px-0 px-4">
       <div class="mt-12 space-y-4">
         <div class="font-semibold text-gray-700 text-2xl">
-          Working <span class="text-green-800">Process</span>
+          {{$t('working')}} <span class="text-green-800">{{$t('process')}}</span>
         </div>
         <div class="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-4">
           <div class="rounded-md border border-gray-200 shadow-md bg-white p-8">
             <div class="flex items-center justify-between">
-              <img src="~/assets/images/consultation.png" class="rounded-md" alt="about" />
+              <img src="~/assets/images/consultation.png" class="rounded-md h-16" alt="about" />
               <p class="text-gray-200 text-5xl font-extrabold">1</p>
             </div>
-            <div class="text-gray-700 font-semibold text-lg mb-4 mt-8">Consultation</div>
+            <div class="text-gray-700 font-semibold text-lg mb-4 mt-8">{{$t('consultation')}}</div>
             <div class="text-sm text-gray-500">
-              Lorem Ipsum is simply dummy of the printing and typesetting test industry. Lorem Ipsum
-              has been the industry's standard.
+             {{$t('get-financial-legal-business-and-managerial-consultations-on-interested-area-of-agriculture-and-environment')}}
             </div>
           </div>
           <div class="rounded-md border border-gray-200 shadow-md bg-white p-8">
             <div class="flex items-center justify-between">
-              <img src="~/assets/images/recommendation.png" class="rounded-md" alt="about" />
+              <img src="~/assets/images/recommendation.png" class="rounded-md h-16" alt="about" />
               <p class="text-gray-200 text-5xl font-extrabold">2</p>
             </div>
-            <div class="text-gray-700 font-semibold text-lg mb-4 mt-8">Recommendation</div>
+            <div class="text-gray-700 font-semibold text-lg mb-4 mt-8">{{$t('market-price')}}</div>
             <div class="text-sm text-gray-500">
-              Lorem Ipsum is simply dummy of the printing and typesetting test industry. Lorem Ipsum
-              has been the industry's standard.
+              {{$t('get-overview-of-current-prices-in-karakalpakstan-split-by-product-and-time-period')}}
             </div>
           </div>
           <div class="rounded-md border border-gray-200 shadow-md bg-white p-8">
             <div class="flex items-center justify-between">
-              <img src="~/assets/images/financial.png" class="rounded-md" alt="about" />
+              <img src="~/assets/images/financial.png" class="rounded-md h-16" alt="about" />
               <p class="text-gray-200 text-5xl font-extrabold">3</p>
             </div>
-            <div class="text-gray-700 font-semibold text-lg mb-4 mt-8">Financial support</div>
+            <div class="text-gray-700 font-semibold text-lg mb-4 mt-8">{{$t('useful-informations')}}</div>
             <div class="text-sm text-gray-500">
-              Lorem Ipsum is simply dummy of the printing and typesetting test industry. Lorem Ipsum
-              has been the industry's standard.
+              {{$t('get-useful-content-at-e-learning-page-and-new-knowledge-on-areas-of-agriculture-and-environemnt')}}
             </div>
           </div>
           <div class="rounded-md border border-gray-200 shadow-md bg-white p-8">
             <div class="flex items-center justify-between">
-              <img src="~/assets/images/management.png" class="rounded-md" alt="about" />
+              <img src="~/assets/images/management.png" class="rounded-md h-16" alt="about" />
               <p class="text-gray-200 text-5xl font-extrabold">4</p>
             </div>
-            <div class="text-gray-700 font-semibold text-lg mb-4 mt-8">Management support</div>
+            <div class="text-gray-700 font-semibold text-lg mb-4 mt-8">{{$t('navigation')}}</div>
             <div class="text-sm text-gray-500">
-              Lorem Ipsum is simply dummy of the printing and typesetting test industry. Lorem Ipsum
-              has been the industry's standard.
+             {{$t('use-manuals-and-guides')}}
             </div>
           </div>
         </div>
       </div>
       <div class="mt-12 space-y-4">
         <div class="grid lg:grid-cols-3 grid-cols-1 gap-4">
-          <div class="grid grid-cols-2 col-span-2 gap-4">
-            <div class="font-semibold text-gray-700 text-2xl col-span-2">
-              <span class="text-green-800">Contact</span> us
-            </div>
-            <div>
-              <label for="name" class="sr-only">Name</label>
-              <input
-                id="name"
-                type="text"
-                name="name"
-                class="
-                  shadow-sm
-                  focus:ring-indigo-500 focus:border-indigo-500
-                  block
-                  w-full
-                  sm:text-sm
-                  border border-gray-300
-                  rounded-md
-                  p-3
-                "
-                placeholder="Name"
-              />
-            </div>
-            <div>
-              <label for="name" class="sr-only">Last name</label>
-              <input
-                id="last_name"
-                type="text"
-                name="last_name"
-                class="
-                  shadow-sm
-                  focus:ring-indigo-500 focus:border-indigo-500
-                  block
-                  w-full
-                  sm:text-sm
-                  border border-gray-300
-                  rounded-md
-                  p-3
-                "
-                placeholder="Last name"
-              />
-            </div>
-            <div>
-              <label for="email" class="sr-only">Email</label>
-              <input
-                id="email"
-                type="text"
-                name="email"
-                class="
-                  shadow-sm
-                  focus:ring-indigo-500 focus:border-indigo-500
-                  block
-                  w-full
-                  sm:text-sm
-                  border border-gray-300
-                  rounded-md
-                  p-3
-                "
-                placeholder="Email"
-              />
-            </div>
-            <div>
-              <label for="email" class="sr-only">Phone</label>
-              <input
-                id="phone"
-                type="text"
-                name="phone"
-                class="
-                  shadow-sm
-                  focus:ring-indigo-500 focus:border-indigo-500
-                  block
-                  w-full
-                  sm:text-sm
-                  border border-gray-300
-                  rounded-md
-                  p-3
-                "
-                placeholder="Phone"
-              />
-            </div>
-            <div class="col-span-2">
-              <label for="email" class="sr-only">Subject</label>
-              <input
-                id="subject"
-                type="text"
-                name="subject"
-                class="
-                  shadow-sm
-                  focus:ring-indigo-500 focus:border-indigo-500
-                  block
-                  w-full
-                  sm:text-sm
-                  border border-gray-300
-                  rounded-md
-                  p-3
-                "
-                placeholder="Subject"
-              />
-            </div>
-            <div class="col-span-2">
-              <label for="comment" class="sr-only">Message</label>
-              <div class="mt-1">
-                <textarea
-                  id="message"
-                  rows="6"
-                  name="message"
-                  placeholder="Write message"
-                  class="
-                    shadow-sm
-                    focus:ring-indigo-500 focus:border-indigo-500
-                    p-3
-                    block
-                    w-full
-                    sm:text-sm
-                    border border-gray-300
-                    rounded-md
-                  "
-                />
+          <ValidationObserver v-slot="{ handleSubmit, invalid }" slim class="col-span-2">
+            <form class="" novalidate @submit.prevent="handleSubmit(onSubmit)">
+              <div class="grid grid-cols-2 gap-4">
+                <div class="font-semibold text-green-800 text-2xl col-span-2">
+                  {{ $t('contact-us') }}
+                </div>
+                <div>
+                  <label for="name" class="sr-only">Name</label>
+                  <ValidationProvider
+                    v-slot="{ errors }"
+                    name="firstname"
+                    rules="required"
+                    mode="eager"
+                  >
+                    <input
+                      type="text"
+                      name="firstname"
+                      id="firstname"
+                      v-model="form.first_name"
+                      :placeholder="$t('firstname')"
+                      class="focus:outline-none appearance-none block w-full p-3 border rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
+                      :class="
+                        errors.length > 0
+                          ? 'border-red-400'
+                          : form.first_name
+                          ? 'border-green-600'
+                          : 'border-gray-300'
+                      "
+                    />
+                  </ValidationProvider>
+                </div>
+                <div>
+                  <label for="name" class="sr-only">Last name</label>
+                  <ValidationProvider
+                    v-slot="{ errors }"
+                    name="lastname"
+                    rules="required"
+                    mode="eager"
+                  >
+                    <input
+                      type="text"
+                      name="lastname"
+                      id="lastname"
+                      v-model="form.last_name"
+                      :placeholder="$t('lastname')"
+                      class="focus:outline-none appearance-none block w-full p-3 border rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
+                      :class="
+                        errors.length > 0
+                          ? 'border-red-400'
+                          : form.last_name
+                          ? 'border-green-600'
+                          : 'border-gray-300'
+                      "
+                    />
+                  </ValidationProvider>
+                </div>
+                <div>
+                  <label for="email" class="sr-only">Email</label>
+                  <input
+                    type="email"
+                    name="email"
+                    id="email"
+                    v-model="form.email"
+                    :placeholder="$t('email')"
+                    class="focus:outline-none appearance-none block w-full p-3 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
+                  />
+                </div>
+                <div>
+                  <label for="email" class="sr-only">Phone</label>
+                  <ValidationProvider
+                    v-slot="{ errors }"
+                    :rules="{ required: true, length: 16 }"
+                    name="phone"
+                    mode="eager"
+                  >
+                    <input
+                      type="text"
+                      name="phone"
+                      id="phone"
+                      v-model="form.phone"
+                      v-mask="'+998## ###-##-##'"
+                      :placeholder="$t('phone')"
+                      class="focus:outline-none appearance-none block w-full p-3 border rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
+                      :class="
+                        errors.length > 0
+                          ? 'border-red-400'
+                          : form.phone
+                          ? 'border-green-600'
+                          : 'border-gray-300'
+                      "
+                    />
+                  </ValidationProvider>
+                </div>
+                <div class="col-span-2">
+                  <label for="email" class="sr-only">Subject</label>
+                  <input
+                    id="subject"
+                    type="text"
+                    name="subject"
+                    v-model="form.email"
+                    class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border border-gray-300 rounded-md p-3"
+                    :placeholder="$t('subject')"
+                  />
+                </div>
+                <div class="col-span-2">
+                  <label for="comment" class="sr-only">Message</label>
+                  <ValidationProvider
+                    v-slot="{ errors }"
+                    name="message"
+                    rules="required"
+                    mode="eager"
+                  >
+                    <textarea
+                      type="text"
+                      name="lastname"
+                      id="lastname"
+                      v-model="form.message"
+                      rows="4"
+                      :placeholder="$t('write-a-message')"
+                      class="focus:outline-none appearance-none block w-full p-3 border rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
+                      :class="
+                        errors.length > 0
+                          ? 'border-red-400'
+                          : form.message
+                          ? 'border-green-600'
+                          : 'border-gray-300'
+                      "
+                    />
+                  </ValidationProvider>
+                </div>
+                <div class="flex col-start-2 justify-end w-auto">
+                  <button
+                    :class="invalid ? 'bg-gray-400' : 'bg-green-600 hover:bg-green-700 text-white'"
+                    class="text-white flex items-center focus:outline-none bg-green-700 rounded-md py-2 px-5"
+                  >
+                    <i
+                      v-if="loading"
+                      class="bx bx-loader-alt bx-spin bx-rotate-90 text-xl mr-2 font-bold"
+                    ></i>
+                    {{ $t('submit-now') }}
+                  </button>
+                </div>
               </div>
-            </div>
-            <div class="flex col-start-2 justify-end w-auto">
-              <button class="text-white focus:outline-none bg-green-700 rounded-md py-2 px-5">
-                Submit now
-              </button>
-            </div>
-          </div>
+            </form>
+          </ValidationObserver>
           <div class="bg-yellow-50 rounded-md p-5">
             <div class="text-gray-700 font-semibold text-2xl">Get in touch</div>
             <div class="text-gray-500 text-sm my-5">
@@ -262,7 +275,7 @@
         </div>
       </div>
       <div class="mt-12 space-y-4">
-        <partners-swiper :partners="dataPartners"/>
+        <partners-swiper :partners="dataPartners" />
       </div>
     </div>
   </div>
@@ -284,7 +297,16 @@ export default {
           title: '',
           description: '',
         },
-      }
+      },
+      loading: false,
+      form: {
+        first_name: '',
+        last_name: '',
+        email: '',
+        phone: '+998',
+        email: '',
+        message: '',
+      },
     }
   },
   components: {
@@ -300,6 +322,14 @@ export default {
     })
   },
   methods: {
+    onSubmit() {
+      this.loading = true
+      this.$store.dispatch('postContactuses', {
+        data: this.form,
+      })
+      this.loading = false
+      this.form = ''
+    },
     async fetchData() {
       await this.$store
         .dispatch(get, {
@@ -307,7 +337,7 @@ export default {
           query: {
             populate: '*',
             locale: this.$i18n.locale,
-          }
+          },
         })
         .then((res) => {
           this.about = res.data
@@ -318,7 +348,7 @@ export default {
         populate: '*',
         locale: this.$i18n.locale,
       })
-    }
+    },
   },
 }
 </script>

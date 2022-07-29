@@ -27,6 +27,9 @@
   "branches": "Filiallar",
   "business-development-platform": "Business Development Platform",
   "below-you-will-find-answers-to-the-questions-we-get-asked-most-about-using-the-platfrom": "Below you'll find answers to the questions we get asked most about using the platfrom.",
+  "become-a-consultant": "Become a consultant",
+  "become-service-provider": "Become service provider",
+  "become-a-content-provider": "Become a content provider",
 
   "c": "C",
   "cancel": "Bekor qilish",
@@ -39,6 +42,7 @@
   "confirm-password": "Parolni tasdiqlash",
   "confirmation": "Tasdiqlash",
   "consultants": "Konsultantlar",
+  "consultation": "Consultation",
   "consultant": "Consultant",
   "content-provider": "Content Provider",
   "created-date": "Yaratilgan sana",
@@ -48,6 +52,7 @@
   "choose-your-type-of-activity": "Choose your type of activity",
   "company-name": "Company name",
   "contact-name": "Contact name",
+  "contact-us": "Contact us",
 
   "d": "D",
   "data-list": "Ma'lumotlar ro'yhati",
@@ -85,6 +90,10 @@
   "gender": "Gender",
   "get-consultation": "Konsultatsiya olish",
   "give-a-description-in-the-following-languages": "Quyidagi tillarda tavsif bering",
+  "get-financial-legal-business-and-managerial-consultations-on-interested-area-of-agriculture-and-environment": " Get financial, legal, business and managerial consultations on interested area of agriculture and environment",
+  "get-overview-of-current-prices-in-karakalpakstan-split-by-product-and-time-period": "Get overview of current prices in Karakalpakstan split by product and time period",
+  "get-useful-content-at-e-learning-page-and-new-knowledge-on-areas-of-agriculture-and-environemnt": "Get useful content at e-learning page and new knowledge on areas of agriculture and environemnt. Access to agri-finance to get news on grants and incentives from local and international organizations.",
+
 
   "h": "H",
   "hippocrates": "Gippokrat",
@@ -97,7 +106,8 @@
   "info-about-platform": "The platform aims to provide the needed information for conducting business in the agriculture and environmental sectors in the Aral Sea region, as well as to support day-to-day operations by learning and accessing advisory services, networking, and insightful ideas.",
   "information-on-agri-business-units-that-help-users-to-access-service-providers-for-establishing-and-operating-business": "Information on agri-business units that help users to access service providers for establishing and operating business.",
 
-  "j": "J",
+  "join-greenAral-to-contribute": "The platform intends to create enabling business environment for the agriculture and environmental sectors in the Aral Sea region by knowledge dissemination and access to agri-services. Please join GreenAral to contribute",
+  "join-as-a-partner": "Join as a partner",
 
   "karakalpakstan": "Karakalpakstan",
 
@@ -116,8 +126,9 @@
   "min": "Min",
   "multi-lessons": "Darslar guruhi",
   "my-chats": "Chatlarim",
+  "market-price": "Market price",
 
-  "n": "N",
+  "navigation": "Navigation",
   "name": "Nomlanishi",
   "news": "News",
 
@@ -137,6 +148,7 @@
   "please-select-a-region": "Iltimos, viloyatni tanlang",
   "please-select-directions": "Iltimos, yo'nalishni tanlang",
   "price": "Narx",
+  "process": "Process",
   "price-comparision": "Narx taqqoslash",
   "price-list": "Narxlar ro'yhati",
   "price-parameters": "Narx parametrlari",
@@ -175,11 +187,13 @@
   "sign-out": "Chiqish",
   "single-lessons": "Yakka darslar",
   "staff": "Xodimlar",
+  "subject": "Subject",
   "status": "Status",
   "short-summary": "Short summary",
   "short-description": "Short description",
   "short-summary-of-agricultural-environmental-experience-and-activities-of-organization-in-Karakalpakstan": "Short summary of agricultural/ environmental experience and activities of organization in Karakalpakstan",
   "short-description-of-organization-size-relationship-to-agricultural-environmental-sectors-in-Karakalpakstan": "Short description of organization, size, relationship to agricultural/environmental sectors in Karakalpakstan...",
+  "submit-now": "Submit now",
 
   "tin": "TIN",
   "table-view": "Jadval ko'rinishi",
@@ -197,12 +211,15 @@
   "user": "User",
   "upload-resume": "Upload resume(s)",
   "upload-diploma": "Upload diploma",
+  " ": " Use manuals and guides to navigate through the platform. get more useful services registering at the platfrom and tailoring experince through your profile page",
 
   "v": "V",
   "view-all": "Barchasini ko'rish",
 
   "workplace": "Workplace",
   "write-a-message": "Xabar yozish...",
+  "we-are-ready-to-cooperate": "We are ready to cooperate",
+  "working": "Working",
 
   "x": "X",
 

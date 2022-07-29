@@ -27,6 +27,9 @@
     "branches": "Филлиалы",
     "business-development-platform": "Business Development Platform",
     "below-you-will-find-answers-to-the-questions-we-get-asked-most-about-using-the-platfrom": "Below you'll find answers to the questions we get asked most about using the platfrom.",
+    "become-a-consultant": "Become a consultant",
+    "become-service-provider": "Become service provider",
+    "become-a-content-provider": "Become a content provider",
   
     "c": "C",
     "cancel": "Отменить",
@@ -39,6 +42,7 @@
     "consultant": "Consultant",
     "content-provider": "Content Provider",
     "consultants": "Консультанты",
+    "consultation": "Consultation",
     "confirmation": "Подтверждение",
     "created-date": "Дата создания",
     "create-a-new-branch": "Создать новую филлиал",
@@ -47,6 +51,7 @@
     "choose-your-type-of-activity": "Choose your type of activity",
     "company-name": "Company name",
     "contact-name": "Contact name",
+    "contact-us": "Contact us",
   
     "d": "D",
     "data-list": "Список данных",
@@ -84,6 +89,10 @@
     "gender": "Gender",
     "get-consultation": "Получить консультацию",
     "give-a-description-in-the-following-languages": "Дайте описание на следующих языках",
+    "get-financial-legal-business-and-managerial-consultations-on-interested-area-of-agriculture-and-environment": " Get financial, legal, business and managerial consultations on interested area of agriculture and environment",
+    "get-overview-of-current-prices-in-karakalpakstan-split-by-product-and-time-period": "Get overview of current prices in Karakalpakstan split by product and time period",
+    "get-useful-content-at-e-learning-page-and-new-knowledge-on-areas-of-agriculture-and-environemnt": "Get useful content at e-learning page and new knowledge on areas of agriculture and environemnt. Access to agri-finance to get news on grants and incentives from local and international organizations.",
+
   
     "h": "H",
     "hippocrates": "Гиппократ",
@@ -97,7 +106,8 @@
     "information-on-agri-business-units-that-help-users-to-access-service-providers-for-establishing-and-operating-business": "Information on agri-business units that help users to access service providers for establishing and operating business.",
     
   
-    "j": "J",
+    "join-greenAral-to-contribute": "The platform intends to create enabling business environment for the agriculture and environmental sectors in the Aral Sea region by knowledge dissemination and access to agri-services. Please join GreenAral to contribute",
+    "join-as-a-partner": "Join as a partner",
   
     "karakalpakstan": "Karakalpakstan",
   
@@ -115,8 +125,9 @@
     "medicineQuotes": "Область науки безгранична, а жизнь коротка; искусство долговечно, жизнь коротка",
     "min": "Минимум",
     "my-chats": "Мои чаты",
+    "market-price": "Market price",
   
-    "n": "N",
+    "navigation": "Navigation",
     "name": "Наименования",
     "news": "News",
   
@@ -141,6 +152,7 @@
     "price-parameters": "Параметры цены",
     "product": "Продукт",
     "products": "Продукты",
+    "process": "Process",
     "phone": "Phone",
     "position-at-organization": "Position at organization",
   
@@ -173,12 +185,13 @@
     "settings": "Настройки",
     "sign-out": "Выход",
     "staff": "Сотрудники",
+    "subject": "Subject",
     "status": "Статус",
     "short-summary": "Short summary",
     "short-description": "Short description",
     "short-summary-of-agricultural-environmental-experience-and-activities-of-organization-in-Karakalpakstan": "Short summary of agricultural/ environmental experience and activities of organization in Karakalpakstan",
     "short-description-of-organization-size-relationship-to-agricultural-environmental-sectors-in-Karakalpakstan" : "Short description of organization, size, relationship to agricultural/environmental sectors in Karakalpakstan...",
-
+    "submit-now": "Submit now",
   
     "tin": "TIN",
     "table-view": "Предс. таблицы",
@@ -196,12 +209,15 @@
     "user": "User",
     "upload-resume": "Upload resume(s)",
     "upload-diploma": "Upload diploma",
+    "use-manuals-and-guides": " Use manuals and guides to navigate through the platform. get more useful services registering at the platfrom and tailoring experince through your profile page",
   
     "v": "V",
     "view-all": "Просмотреть все",
   
     "workplace": "Workplace",
     "write-a-message": "Напишите сообщение...",
+    "we-are-ready-to-cooperate": "We are ready to cooperate",
+    "working": "Working",
   
     "x": "X",
   
