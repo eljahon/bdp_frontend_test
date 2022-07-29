@@ -25,10 +25,10 @@ export default {
       return
     }
     this.token = localStorage.getItem('local')
-    this.currentUser = JSON.parse(localStorage.getItem('user_info'))
+    // this.currentUser = JSON.parse(localStorage.getItem('user_info'))
   },
   mounted () {
-    this.setUserToStore()
+    // this.setUserToStore()
   },
   methods: {
     // eslint-disable-next-line require-await

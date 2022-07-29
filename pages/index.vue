@@ -27,7 +27,7 @@ export default {
     if (!process.client) {
       return
     }
-    this.currentUser = JSON.parse(localStorage.getItem('user_info'))
+    // this.currentUser = JSON.parse(localStorage.getItem('user_info'))
   },
   mounted() {
     socket.on('joined', (res) => {
@@ -65,11 +65,12 @@ export default {
     this.$bridge.$on('set_closed_rooms', () => {
       this.fetchClosedRooms()
     })
-    if (this.currentUser)
+    if (Object.keys(this.currentUser).length > 0) {
       this.$bridge.$emit('join_chat', {
         username: this.currentUser.username,
         user_id: this.currentUser.id,
       })
+    }
   },
   computed: {
     ...mapState({

@@ -112,10 +112,9 @@ export default {
   },
   watch: {
     currentUser() {
-      let currentUser = JSON.parse(localStorage.getItem('user_info'))
       if (
-        currentUser &&
-        currentUser.role.id === 4
+        this.currentUser &&
+        this.currentUser.role.id === 4
       ) {
         this.isConsultant = true
       } else {
