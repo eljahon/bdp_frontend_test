@@ -220,7 +220,7 @@
               <div class="text-red-500 text-xs">{{ errors[0] }}</div>
             </ValidationProvider>
           </div>
-          <div v-if="isPhone && isRegisterPending && !isRegisterSuccess" class="mt-1">
+          <div v-if="isPhone && isRegisterPending" class="mt-1">
             <label for="otp" class="block mb-1 text-sm font-medium text-gray-700">
               {{ $t('enter-confirm-code') }}</label
             >
@@ -250,7 +250,6 @@
                   placeholder-gray-400
                   sm:text-sm
                 "
-                :disabled="isRegisterSuccess"
                 :class="
                   errors.length > 0
                     ? 'border-red-400'
@@ -365,7 +364,7 @@ export default {
       phoneOrEmail: '',
       isEmail: false,
       isPhone: false,
-      isRegisterPending: true,
+      isRegisterPending: false,
       isRegisterSuccess: false,
       otp: '',
       genders: [],
@@ -413,6 +412,11 @@ export default {
         this.onSubmit()
       }
     },
+    otp() {
+      if (this.otp.length === 4) {
+        this.confirmOtp()
+      }
+    },
   },
   computed: {
     ...mapGetters(['dataGenders', 'dataRegions']),
@@ -421,22 +425,47 @@ export default {
     this.fetchDirectories()
   },
   methods: {
+    confirmOtp() {
+      this.$axios
+        .$post('/users-permissions/register_confirm_otp', {phone: this.account.username, otp: this.otp})
+        .then(async (data) => {
+          this.isRegisterPending = false
+          this.isRegisterSuccess = true
+          this.$emit('registerSuccess', {
+            isSuccess: true,
+            user: data.user,
+            password: this.account.password,
+            jwt: data.jwt
+          })
+          return
+        })
+        .catch((e) => {
+          this.isRegisterPending = false
+          this.isRegisterSuccess = false
+          console.log(e.response.data.error.message)
+        })
+    },
     onSubmit() {
       const _user = { ...this.account }
       if (this.phoneOrEmail.includes('@') > 0) {
         _user.email = this.phoneOrEmail
         _user.username = this.phoneOrEmail
+        this.account.username = _user.username
         delete _user.phone
       } else if (this.phoneOrEmail.includes('+') > 0) {
         _user.phone = this.phoneOrEmail.substring(1)
         _user.username = this.phoneOrEmail.substring(1)
         _user.email = `${_user.phone}@gmail.com`
         _user.password = _user.name + 123456
+        this.account.username = _user.username
+        this.account.password = _user.password
       } else {
         _user.phone = this.phoneOrEmail
         _user.username = this.phoneOrEmail
         _user.password = _user.name + 123456
         _user.email = `${_user.phone}@gmail.com`
+        this.account.username = _user.username
+        this.account.password = _user.password
       }
       if (this.isEmail) {
         this.registerEmail(_user)
@@ -454,6 +483,7 @@ export default {
             isSuccess: true,
             user: data.user,
             password: this.account.password,
+            jwt: data.jwt,
           })
           return
         })
@@ -467,13 +497,8 @@ export default {
       this.$axios
         .$post('/users-permissions/register_otp', user)
         .then(async (data) => {
-          // this.isRegisterPending = false
-          // this.isRegisterSuccess = true
-          // this.$emit('registerSuccess', {
-          //   isSuccess: true,
-          //   user: data.user,
-          //   password: this.account.password
-          // })
+          this.isRegisterPending = true
+          this.isRegisterSuccess = true
           return
         })
         .catch((e) => {

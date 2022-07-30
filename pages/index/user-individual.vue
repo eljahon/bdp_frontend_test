@@ -22,7 +22,7 @@
                   id="phone"
                   v-model="phone"
                   :disabled="!isMainRegister"
-                  v-mask="'+998## ###-##-##'"
+                  v-mask="'+##### ###-##-##'"
                   class="
                     focus:outline-none
                     appearance-none
