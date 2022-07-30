@@ -36,7 +36,9 @@ const createStore = () => {
       genders: crud('genders'),
       lessongroups: crud('lessongroups'),
       consultantcategories: crud('consultantcategories'),
-      contuctuses: crud('contactuses')
+      contuctuses: crud('contactuses'),
+      activitytypes: crud('activitytypes'),
+      agrocultureareas: crud('agrocultureareas'),
     },
     getters: {
       isAuthenticated: state => { return state.auth.loggedIn },

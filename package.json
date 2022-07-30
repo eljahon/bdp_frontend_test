@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "nuxt",
+    "dev": "PORT=2000 nuxt",
     "build": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate",
@@ -33,6 +33,7 @@
     "vue-chartjs": "^3.5.1",
     "vue-js-modal": "^2.0.1",
     "vue-loaders": "^4.1.4",
+    "vue-select": "^3.20.0",
     "vue-simple-context-menu": "^3.4.2",
     "vue-snotify": "^3.2.1",
     "vue-yandex-maps": "^0.11.9",

@@ -53,4 +53,10 @@ const phoneOrEmailRule = {
     return false
   },
 }
+extend('checked', {
+  validate: value => {
+    return value === true
+  },
+  message: 'Пожалуйста, примите все условия обслуживания'
+})
 extend('phoneOrEmail', phoneOrEmailRule)

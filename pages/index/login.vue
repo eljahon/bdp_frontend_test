@@ -174,7 +174,7 @@ export default {
         }
       } else {
         this.$axios
-          .post('/users-permissions/login-verify-otp', { phone: this.auth.identifier })
+          .post('/users-permissions/send_otp', { phone: this.auth.identifier })
           .then(() => {
             this.loading = false
             this.confirmCode({ username: this.auth.identifier, isLogin: true, isOtpSuccess: null })
