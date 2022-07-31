@@ -375,6 +375,7 @@ export default {
         phone: '',
         gender: null,
         district: null,
+        role: null
       },
       region: null,
       districts: [],
@@ -422,6 +423,16 @@ export default {
     ...mapGetters(['dataGenders', 'dataRegions']),
   },
   mounted() {
+    if (this.$route.path.includes('/user')) {
+      this.account.role = this.$const.role.authenticated
+    }
+    if (this.$route.path.includes('/consultant')) {
+      this.account.role = this.$const.role.consultant
+    }
+    if (this.$route.path.includes('/content-provider')) {
+      this.account.role = this.$const.role.contentprovider
+    }
+    console.log('Account: ', this.account)
     this.fetchDirectories()
   },
   methods: {

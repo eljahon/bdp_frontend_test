@@ -131,7 +131,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import background from '/assets/images/background.png'
-
+import axios from 'axios'
 export default {
   name: 'UserIndividual',
   auth: false,
@@ -153,6 +153,7 @@ export default {
       },
       activities: [],
       agrocultureAreas: [],
+      jwt: '',
     }
   },
   mounted() {
@@ -175,41 +176,44 @@ export default {
     onSubmit() {
       let _form = { ...this.form }
       delete _form.id
-      this.$store
-        .dispatch('putUsers', {
-          id: this.form.id,
-          data: _form,
-        })
-        .then(async (res) => {
-          try {
-            await this.$auth
-              .loginWith('local', {
-                data: this.auth,
-              })
-              .then(async (res) => {
-                await this.$store
-                  .dispatch('getUsers', {
-                    link: '/users/me',
-                    query: {
-                      populate: '*',
-                    },
-                  })
-                  .then((response) => {
-                    localStorage.setItem('user_info', JSON.stringify(response.data))
-                  })
-                await this.$bridge.$emit('join_chat', {
-                  username: res.data.user.username,
-                  user_id: res.data.user.id,
+      axios({
+        baseURL: process.env.VUE_APP_BASE_URL,
+        url: `/users/${this.form.id}`,
+        method: 'PUT',
+        data: _form,
+        headers: {
+          Authorization: `Bearer ${this.jwt}`,
+        },
+      }).then(async (res) => {
+        try {
+          await this.$auth
+            .loginWith('local', {
+              data: this.auth,
+            })
+            .then(async (res) => {
+              await this.$store
+                .dispatch('getUsers', {
+                  link: '/users/me',
+                  query: {
+                    populate: '*',
+                  },
                 })
-                this.loading = false
-                await this.$snotify.success('Successfully Logged In')
-                this.$router.push(this.localePath('/'))
+                .then((response) => {
+                  localStorage.setItem('user_info', JSON.stringify(response.data))
+                })
+              await this.$bridge.$emit('join_chat', {
+                username: res.data.user.username,
+                user_id: res.data.user.id,
               })
-          } catch (e) {
-            if (e.response) this.authError = e.response.data.error.message
-            this.loading = false
-          }
-        })
+              this.loading = false
+              await this.$snotify.success('Successfully Logged In')
+              this.$router.push(this.localePath('/'))
+            })
+        } catch (e) {
+          if (e.response) this.authError = e.response.data.error.message
+          this.loading = false
+        }
+      })
     },
     mainRegisterSuccess(e) {
       this.isMainRegister = e.isSuccess
@@ -218,6 +222,7 @@ export default {
       this.form.phone = e.user.phone
       this.phone = e.user.phone
       this.form.id = e.user.id
+      this.jwt = e.jwt
     },
     async fetchDirectories() {
       await this.$store

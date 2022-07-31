@@ -114,6 +114,9 @@ export default {
     toContentProvider() {
       this.$router.push({
         path: this.localePath('/content-provider'),
+        query: {
+          type: 'content-provider',
+        },
       })
     },
     toRegisterType(type) {

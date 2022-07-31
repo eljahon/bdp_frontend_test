@@ -82,10 +82,16 @@ export default {
       if (this.$route.query.type === 'user') {
         this.$router.push({
           path: this.localePath('/user-enterprise'),
+          query: {
+            type: 'user',
+          },
         })
       } else
         this.$router.push({
           path: this.localePath('/consultant-enterprise'),
+          query: {
+            type: 'consultant',
+          },
         })
       this.onClose()
     },
@@ -93,10 +99,16 @@ export default {
       if (this.$route.query.type === 'user') {
         this.$router.push({
           path: this.localePath('/user-individual'),
+          query: {
+            type: 'user',
+          },
         })
       } else
         this.$router.push({
           path: this.localePath('/consultant-individual'),
+          query: {
+            type: 'consultant',
+          },
         })
       this.onClose()
     },
