@@ -282,8 +282,8 @@ export default {
         agrocultureareas: [],
       },
       auth: {
-        identifier: 'qahharov@gmail.com',
-        password: '123456',
+        identifier: '',
+        password: '',
       },
       activities: [],
       agrocultureAreas: [],

@@ -86,31 +86,31 @@
                 </ValidationProvider>
               </div>
               <div class="md:col-span-1 col-span-2">
-                <label for="phone" class="block mb-1 text-sm font-medium text-gray-700"
-                  >{{ $t('phone') }}</label
-                >
-                  <input
-                    type="text"
-                    name="phone"
-                    id="phone"
-                    v-model="phone"
-                    :disabled="!isMainRegister"
-                    v-mask="'+##### ###-##-##'"
-                    class="
-                      focus:outline-none
-                      appearance-none
-                      block
-                      w-full
-                      px-3
-                      py-2
-                      border
-                      rounded-md
-                      shadow-sm
-                      placeholder-gray-400
-                      sm:text-sm
-                      border-gray-300
-                    "
-                  />
+                <label for="phone" class="block mb-1 text-sm font-medium text-gray-700">{{
+                  $t('phone')
+                }}</label>
+                <input
+                  type="text"
+                  name="phone"
+                  id="phone"
+                  v-model="phone"
+                  :disabled="!isMainRegister"
+                  v-mask="'+##### ###-##-##'"
+                  class="
+                    focus:outline-none
+                    appearance-none
+                    block
+                    w-full
+                    px-3
+                    py-2
+                    border
+                    rounded-md
+                    shadow-sm
+                    placeholder-gray-400
+                    sm:text-sm
+                    border-gray-300
+                  "
+                />
               </div>
               <div class="md:col-span-1 col-span-2">
                 <label for="email" class="block mb-1 text-sm font-medium text-gray-700">{{
@@ -166,75 +166,84 @@
                 ></v-select>
               </div>
               <div class="mt-1">
-            <label for="region" class="block text-sm mb-1 font-medium text-gray-700"
-              >{{ $t('region') }}*</label
-            >
-            <ValidationProvider v-slot="{ errors }" name="region" rules="required" mode="eager">
-              <select
-                v-model="region"
-                name="option"
-                class="
-                  focus:outline-none
-                  block
-                  w-full
-                  px-3
-                  py-2
-                  border
-                  rounded-md
-                  shadow-sm
-                  placeholder-gray-400
-                  sm:text-sm
-                "
-                :disabled="!isMainRegister"
-                :class="
-                  errors.length > 0
-                    ? 'border-red-400'
-                    : region
-                    ? 'border-green-600'
-                    : 'border-gray-300'
-                "
-              >
-                <option v-for="(region, index) in dataRegions" :key="index" :value="region">
-                  {{ region.attributes.name }}
-                </option>
-              </select>
-            </ValidationProvider>
-          </div>
-          <div class="mt-1">
-            <label for="district" class="block text-sm mb-1 font-medium text-gray-700"
-              >{{ $t('district') }}*</label
-            >
-            <ValidationProvider v-slot="{ errors }" name="district" rules="required" mode="eager">
-              <select
-                v-model="form.district"
-                :disabled="districts.length === 0 || !isMainRegister"
-                name="option"
-                class="
-                  focus:outline-none
-                  block
-                  w-full
-                  px-3
-                  py-2
-                  border
-                  rounded-md
-                  shadow-sm
-                  placeholder-gray-400
-                  sm:text-sm
-                "
-                :class="
-                  errors.length > 0
-                    ? 'border-red-400'
-                    : form.disctict
-                    ? 'border-green-600'
-                    : 'border-gray-300'
-                "
-              >
-                <option v-for="(district, index) in districts" :key="index" :value="district.id">
-                  {{ district.attributes.name }}
-                </option>
-              </select>
-            </ValidationProvider>
-          </div>
+                <label for="region" class="block text-sm mb-1 font-medium text-gray-700"
+                  >{{ $t('region') }}*</label
+                >
+                <ValidationProvider v-slot="{ errors }" name="region" rules="required" mode="eager">
+                  <select
+                    v-model="region"
+                    name="option"
+                    class="
+                      focus:outline-none
+                      block
+                      w-full
+                      px-3
+                      py-2
+                      border
+                      rounded-md
+                      shadow-sm
+                      placeholder-gray-400
+                      sm:text-sm
+                    "
+                    :disabled="!isMainRegister"
+                    :class="
+                      errors.length > 0
+                        ? 'border-red-400'
+                        : region
+                        ? 'border-green-600'
+                        : 'border-gray-300'
+                    "
+                  >
+                    <option v-for="(region, index) in dataRegions" :key="index" :value="region">
+                      {{ region.attributes.name }}
+                    </option>
+                  </select>
+                </ValidationProvider>
+              </div>
+              <div class="mt-1">
+                <label for="district" class="block text-sm mb-1 font-medium text-gray-700"
+                  >{{ $t('district') }}*</label
+                >
+                <ValidationProvider
+                  v-slot="{ errors }"
+                  name="district"
+                  rules="required"
+                  mode="eager"
+                >
+                  <select
+                    v-model="form.district"
+                    :disabled="districts.length === 0 || !isMainRegister"
+                    name="option"
+                    class="
+                      focus:outline-none
+                      block
+                      w-full
+                      px-3
+                      py-2
+                      border
+                      rounded-md
+                      shadow-sm
+                      placeholder-gray-400
+                      sm:text-sm
+                    "
+                    :class="
+                      errors.length > 0
+                        ? 'border-red-400'
+                        : form.disctict
+                        ? 'border-green-600'
+                        : 'border-gray-300'
+                    "
+                  >
+                    <option
+                      v-for="(district, index) in districts"
+                      :key="index"
+                      :value="district.id"
+                    >
+                      {{ district.attributes.name }}
+                    </option>
+                  </select>
+                </ValidationProvider>
+              </div>
               <ValidationProvider name="checked" rules="checked" mode="eager" v-slot="{ errors }">
                 <div class="flex items-center mt-2 col-span-2">
                   <input
@@ -293,8 +302,8 @@ export default {
         district: null,
       },
       auth: {
-        identifier: 'zilola@gmail.com',
-        password: '123456',
+        identifier: '',
+        password: '',
       },
       activities: [],
       agrocultureAreas: [],
@@ -331,9 +340,13 @@ export default {
         baseURL: process.env.VUE_APP_BASE_URL,
         url: `/companies`,
         method: 'POST',
-        data: {data: this.form},
+        data: { data: this.form },
         headers: {
-          Authorization: `Bearer ${this.jwt ? this.jwt : 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NjUsImlhdCI6MTY1OTI2NjY3MywiZXhwIjoxNjYxODU4NjczfQ.VHltkfi5GdV_Y9Hn7lSMMfoDNNur7gfoPyBqABNy3KY'}`,
+          Authorization: `Bearer ${
+            this.jwt
+              ? this.jwt
+              : 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NjUsImlhdCI6MTY1OTI2NjY3MywiZXhwIjoxNjYxODU4NjczfQ.VHltkfi5GdV_Y9Hn7lSMMfoDNNur7gfoPyBqABNy3KY'
+          }`,
         },
       }).then(async (res) => {
         try {
