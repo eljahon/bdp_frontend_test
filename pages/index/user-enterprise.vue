@@ -328,25 +328,19 @@ export default {
     phone: {
       handler() {
         if (this.phone) this.form.phone = this.phone.replace(/[^0-9]/g, '')
-        console.log('form phone', this.form.phone)
       },
       deep: true,
     },
   },
   methods: {
     onSubmit() {
-      console.log('form', this.form)
       axios({
         baseURL: process.env.VUE_APP_BASE_URL,
         url: `/companies`,
         method: 'POST',
         data: { data: this.form },
         headers: {
-          Authorization: `Bearer ${
-            this.jwt
-              ? this.jwt
-              : 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NjUsImlhdCI6MTY1OTI2NjY3MywiZXhwIjoxNjYxODU4NjczfQ.VHltkfi5GdV_Y9Hn7lSMMfoDNNur7gfoPyBqABNy3KY'
-          }`,
+          Authorization: `Bearer ${this.jwt}`,
         },
       }).then(async (res) => {
         try {

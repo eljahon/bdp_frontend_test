@@ -365,7 +365,6 @@ export default {
   },
   watch: {
     region() {
-      console.log('Regions: ', this.region)
       if (this.region.id) {
         this.districts = this.region.attributes.districts.data
       }
@@ -373,7 +372,6 @@ export default {
     phone: {
       handler() {
         if (this.phone) this.company.phone = this.phone.replace(/[^0-9]/g, '')
-        console.log('Phone: ', this.phone)
       },
       deep: true,
     },

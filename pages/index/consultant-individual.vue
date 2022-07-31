@@ -304,8 +304,6 @@ export default {
       let _form = { ...this.form }
       delete _form.id
       this.additional.user = this.form.id
-      console.log('_form', this.form)
-      console.log('additional', this.additional)
       axios({
         baseURL: process.env.VUE_APP_BASE_URL,
         url: `/users/${this.form.id}`,
@@ -375,7 +373,6 @@ export default {
           this.additional.diploma_url = res.data[0].url.substring(8)
           return
         }
-        console.log('additional', this.additional)
       })
     },
     async fetchDirectories() {
