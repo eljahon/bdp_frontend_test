@@ -72,7 +72,9 @@ export default {
     }
   },
   mounted() {
-    this.fetchDirectories()
+    this.fetchDirectories().then(() => {
+      this.setQuery()
+    })
   },
   computed: {
     ...mapGetters({
@@ -105,7 +107,6 @@ export default {
       })
     },
     fetchPriceLists(query) {
-      console.log('Query', query)
       const _ = {
         populate: query.category !== 'all' ? 'priceData, district, product, product.productcategory' : '*',
         locale: this.$i18n.locale,

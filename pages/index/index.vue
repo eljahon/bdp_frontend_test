@@ -56,7 +56,7 @@
       <div class="mt-12 space-y-4">
         <div class="font-semibold text-green-800 text-2xl">{{ $t('price') }}</div>
         <div class="">
-          <!-- <price-swiper :prices="dataPricelists" /> -->
+          <price-swiper :prices="dataPricelists" />
         </div>
       </div>
       <div class="mt-12 space-y-4">
@@ -155,7 +155,7 @@ import { mapGetters, mapState } from 'vuex'
 import registeModal from '../../components/modals/register.vue'
 import expertsSwiper from '~/components/swipers/experts-swiper.vue'
 import NewsSwiper from '~/components/swipers/news-swiper.vue'
-// import PriceSwiper from '~/components/swipers/price-swiper.vue'
+import PriceSwiper from '~/components/swipers/price-swiper.vue'
 import PartnersSwiper from '~/components/swipers/partners-swiper.vue'
 import YandexMap from '~/components/core/yandex-map.vue'
 import Faq from '~/components/Faq.vue'
@@ -164,7 +164,7 @@ export default {
   components: {
     YandexMap,
     expertsSwiper,
-    // PriceSwiper,
+    PriceSwiper,
     NewsSwiper,
     PartnersSwiper,
     Faq,
