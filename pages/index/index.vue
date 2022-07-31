@@ -289,7 +289,6 @@ export default {
         })
         .then((res) => {
           this.$store.dispatch('setCompanies', res)
-          console.log(getLocations)
         })
     },
   },
