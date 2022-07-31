@@ -180,7 +180,7 @@
           </div>
           <div class="mt-1">
             <label for="phone" class="block mb-1 text-sm font-medium text-gray-700">
-              {{ $t('phone') }}*</label
+              {{ $t('username') }}*</label
             >
             <ValidationProvider
               v-slot="{ errors }"
@@ -375,7 +375,8 @@ export default {
         phone: '',
         gender: null,
         district: null,
-        role: null
+        role: null,
+        confirmed: true
       },
       region: null,
       districts: [],
@@ -425,12 +426,15 @@ export default {
   mounted() {
     if (this.$route.path.includes('/user')) {
       this.account.role = this.$const.role.authenticated
+      this.account.confirmed = true
     }
     if (this.$route.path.includes('/consultant')) {
       this.account.role = this.$const.role.consultant
+      this.account.confirmed = false
     }
     if (this.$route.path.includes('/content-provider')) {
       this.account.role = this.$const.role.contentprovider
+      this.account.confirmed = false
     }
     console.log('Account: ', this.account)
     this.fetchDirectories()
