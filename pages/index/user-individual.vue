@@ -138,7 +138,7 @@ export default {
   data() {
     return {
       image: background,
-      isMainRegister: true,
+      isMainRegister: false,
       isAgree: false,
       phone: '',
       form: {
