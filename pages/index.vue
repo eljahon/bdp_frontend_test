@@ -42,9 +42,8 @@ export default {
       console.log('Left from room:', res)
     })
     socket.on('message', (res) => {
-      this.getMessages()
-      // this.$store.dispatch("sendMessage", res);
       console.log('Page Received Message Front: ', res)
+      this.getMessages()
     })
     socket.on('finishedChat', (res) => {
       this.$store.dispatch('finishedChatId', res)
@@ -57,12 +56,6 @@ export default {
     this.$bridge.$on('join_chat', (message) => {
       console.log('Join chat: ', message)
       this.joinToChat(message)
-    })
-    this.$bridge.$on('set_active_rooms', () => {
-      this.fetchActiveRooms()
-    })
-    this.$bridge.$on('set_closed_rooms', () => {
-      this.fetchClosedRooms()
     })
     // if (this.$auth.user && Object.keys(this.$auth.user).length > 0) {
     //   this.$bridge.$emit('join_chat', {
@@ -83,22 +76,6 @@ export default {
         {
           username: message.username,
           user_id: message.user_id,
-        },
-        ({ res, rej }) => {
-          // if (res) {
-          //   if (this.$route.query.room_id !== "new") {
-          //     this.$store
-          //       .dispatch("getChatmessages", {
-          //         "filters[$and][0][chatroom][id]": this.$route.query.room_id,
-          //       })
-          //       .then((res) => {
-          //         console.log("Chat messages: ", res);
-          //         this.$store.dispatch("setMessage", res);
-          //       });
-          //   }
-          // } else {
-          //   console.error(rej);
-          // }
         }
       )
     },
@@ -130,53 +107,6 @@ export default {
           console.log('Chat messages: ', res)
           this.$store.dispatch('setMessage', res)
         })
-    },
-    async fetchActiveRooms() {
-      if (this.$auth.user.role.id === 4) {
-        await this.$store
-          .dispatch('getChatrooms', {
-            populate: '*',
-            'filters[$or][0][consultant][id]': this.$auth.user.id,
-            'filters[$and][0][isCompleted]': false,
-          })
-          .then((res) => {
-            this.$store.dispatch('setActiveRooms', res)
-            console.log('Fetching active rooms', res)
-          })
-      } else {
-        await this.$store
-          .dispatch('getChatrooms', {
-            populate: '*',
-            'filters[$or][0][user][id]': this.$auth.user.id,
-            'filters[$and][0][isCompleted]': false,
-          })
-          .then((res) => {
-            this.$store.dispatch('setActiveRooms', res)
-          })
-      }
-    },
-    async fetchClosedRooms() {
-      if (this.$auth.user.role.id === 4) {
-        await this.$store
-          .dispatch('getChatrooms', {
-            populate: '*',
-            'filters[$or][0][consultant][id]': this.$auth.user.id,
-            'filters[$and][0][isCompleted]': true,
-          })
-          .then((res) => {
-            this.$store.dispatch('setClosedRooms', res)
-          })
-      } else {
-        await this.$store
-          .dispatch('getChatrooms', {
-            populate: '*',
-            'filters[$or][0][user][id]': this.$auth.user.id,
-            'filters[$and][0][isCompleted]': true,
-          })
-          .then((res) => {
-            this.$store.dispatch('setClosedRooms', res)
-          })
-      }
     },
   },
 }

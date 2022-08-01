@@ -8,7 +8,6 @@
         @click="toChatsList()"
       >
         <a href="#" class="inline-flex items-center space-x-3 text-sm font-medium text-gray-900">
-          <!-- Heroicon name: solid/chevron-left -->
           <svg
             class="-ml-2 h-5 w-5 text-gray-400"
             xmlns="http://www.w3.org/2000/svg"
@@ -133,7 +132,7 @@
                             :src="
                               room.attributes.consultant &&
                               room.attributes.consultant.data.attributes.avatar
-                                ? $tools.getFileUrl(room.attributes.consultant.avatar)
+                                ? $tools.getFileUrl(room.attributes.consultant.data.attributes.avatar)
                                 : require('/assets/images/person/avatar.jpg')
                             "
                             alt=""
@@ -153,7 +152,7 @@
                           <div v-if="$auth.user.role.id === 4" class="col-span-2 block mb-1">
                             <p
                               v-if="
-                                room.attributes.user !== null || room.attributes.user.data !== null
+                                room.attributes.user || room.attributes.user.data
                               "
                               class="text-sm text-gray-600"
                             >
@@ -170,14 +169,14 @@
                               }}
                             </p>
                             <div class="flex pt-2 space-x-1 w-full text-xs text-gray-500">
-                              {{ room.attributes.title }}
+                              {{ $tools.getDateTime(room.attributes.updatedAt) }}
                             </div>
                           </div>
                           <div v-else class="col-span-2 block mb-1">
                             <p
                               v-if="
-                                room.attributes.consultant !== null ||
-                                room.attributes.consultant.data !== null
+                                room.attributes.consultant ||
+                                room.attributes.consultant.data
                               "
                               class="text-sm text-gray-600"
                             >
@@ -194,14 +193,15 @@
                               }}
                             </p>
                             <div class="flex pt-2 space-x-1 w-full text-xs text-gray-500">
-                              {{ room.attributes.title }}
+                              {{ $tools.getDateTime(room.attributes.updatedAt) }}
                             </div>
                           </div>
-                          <div class="flex justify-end">
+                          <!-- Count unseen messages -->
+                          <!-- <div class="flex justify-end">
                             <p class="text-xs text-gray-400">
                               {{ $tools.getDateTime(room.attributes.updatedAt) }}
                             </p>
-                          </div>
+                          </div> -->
                         </div>
                       </div>
                     </div>
@@ -325,7 +325,7 @@
           </div>
         </div>
         <div class="md:col-span-8 md:block">
-          <chat-body :current-user="$auth.user" />
+          <!-- <chat-body :current-user="$auth.user" /> -->
         </div>
       </div>
     </div>
@@ -375,12 +375,14 @@ export default {
       closedRooms: 'getClosedRooms',
     }),
   },
-  beforeDestroy() {this.socketDisconnector},
+  beforeDestroy() {
+    this.socketDisconnector()
+  },
   methods: {
     socketDisconnector() {
       socket.emit('leaveRoom', {
-        username: this.currentUser.username,
-        room: this.currentRoom.id,
+        username: this.$auth.user.username,
+        room: this.$auth.user.id,
       })
     },
     changeTab(status) {
@@ -411,10 +413,55 @@ export default {
       }
     },
     async fetchActiveRooms() {
-      this.$bridge.$emit('set_active_rooms')
+      console.log('Fetching active rooms')
+      if (this.$auth.user.role.id === 4) {
+        await this.$store
+          .dispatch('getChatrooms', {
+            populate: '*',
+            'filters[$or][0][consultant][id]': this.$auth.user.id,
+            'filters[$and][0][isCompleted][$ne]': true,
+            'sort[0][createdAt]': 'DESC',
+          })
+          .then((res) => {
+            this.$store.dispatch('setActiveRooms', res)
+          })
+      } else {
+        await this.$store
+          .dispatch('getChatrooms', {
+            populate: '*',
+            'filters[$or][0][user][id]': this.$auth.user.id,
+            'filters[$and][0][isCompleted][$ne]': true,
+            'sort[0][createdAt]': 'DESC',
+          })
+          .then((res) => {
+            this.$store.dispatch('setActiveRooms', res)
+          })
+      }
     },
     async fetchClosedRooms() {
-      this.$bridge.$emit('set_closed_rooms')
+      if (this.$auth.user.role.id === 4) {
+        await this.$store
+          .dispatch('getChatrooms', {
+            populate: '*',
+            'filters[$or][0][consultant][id]': this.$auth.user.id,
+            'filters[$and][0][isCompleted]': true,
+            'sort[0][createdAt]': 'DESC',
+          })
+          .then((res) => {
+            this.$store.dispatch('setClosedRooms', res)
+          })
+      } else {
+        await this.$store
+          .dispatch('getChatrooms', {
+            populate: '*',
+            'filters[$or][0][user][id]': this.$auth.user.id,
+            'filters[$and][0][isCompleted]': true,
+            'sort[0][createdAt]': 'DESC',
+          })
+          .then((res) => {
+            this.$store.dispatch('setClosedRooms', res)
+          })
+      }
     },
   },
 }
