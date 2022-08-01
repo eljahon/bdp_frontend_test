@@ -28,7 +28,7 @@
           {{ $tools.getDate(data.attributes.createdAt) }}
         </div>
         <div class="absolute right-5 text-sm bottom-5 group-hover:text-gray-500 text-white z-20">
-          Read
+          {{$t('read')}}
         </div>
       </nuxt-link>
     </div>
