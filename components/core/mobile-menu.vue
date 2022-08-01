@@ -26,15 +26,15 @@
     </div>
     <div class="block space-y-5 text-gray-700">
       <div class="flex items-center gap-2">
-        <i class="bx bx-envelope text-lg"></i>
-        <p class="text-sm">{{ $t('email') }}: juanjose.robalino@gggi.org</p>
+        <i class="bx bx-envelope lg:text-lg text-base"></i>
+        <p class="text-sm"> juanjose.robalino@gggi.org</p>
       </div>
       <div class="flex items-center gap-2">
-        <i class="bx bx-phone text-lg"></i>
+        <i class="bx bx-phone lg:text-lg text-base"></i>
         <p class="text-sm">+99894 081 23 45</p>
       </div>
       <div class="flex gap-2">
-        <i class="bx bx-map text-lg"></i>
+        <i class="bx bx-map lg:text-lg text-base"></i>
         <p class="text-sm">7a, Bunyodkor av., 100000, Tashkent, Uzbekistan</p>
       </div>
     </div>

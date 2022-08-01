@@ -14,7 +14,7 @@
           <div class="text-xs rounded-md text-green-800 w-20 flex justify-center bg-green-50 py-1.5 px-7 font-medium">
             {{ data.attributes.servicecategory.data ? data.attributes.servicecategory.data.attributes.name: '' }}
           </div>
-          <div class="text-white group-hover:text-green-700 font-medium text-lg my-6 z-20">
+          <div class="text-white group-hover:text-green-700 font-medium line-clamp-1 text-lg my-6 z-20">
             {{ data.attributes.title }}
           </div>
           <div class="text-white group-hover:text-gray-500 text-sm my-6 z-20 line-clamp-4">

@@ -9,34 +9,34 @@
         <div class="grid lg:grid-cols-2 grid-cols-1">
           <div class="grid content-center">
             <div class="lg:text-4xl text-2xl font-semibold text-white">
-             {{$t('we-are-ready-to-cooperate')}}
+              {{ $t('we-are-ready-to-cooperate') }}
             </div>
             <div class="text-white my-6 mr-6">
-              {{$t('join-greenAral-to-contribute')}}
+              {{ $t('join-greenAral-to-contribute') }}
             </div>
             <div class="grid grid-cols-2 gap-4">
               <div class="text-white flex items-center">
                 <i class="bx bx-check-circle text-lg text-white"></i>
-                <div class="ml-2">{{$t('become-a-consultant')}}</div>
+                <div class="ml-2">{{ $t('become-a-consultant') }}</div>
               </div>
               <div class="text-white flex items-center">
                 <i class="bx bx-check-circle text-lg text-white"></i>
-                <div class="ml-2">{{$t('become-service-provider')}}</div>
+                <div class="ml-2">{{ $t('become-service-provider') }}</div>
               </div>
               <div class="text-white flex items-center">
                 <i class="bx bx-check-circle text-lg text-white"></i>
-                <div class="ml-2">{{$t('become-a-content-provider')}}</div>
+                <div class="ml-2">{{ $t('become-a-content-provider') }}</div>
               </div>
               <div class="text-white flex items-center">
                 <i class="bx bx-check-circle text-lg text-white"></i>
-                <div class="ml-2">{{$t('join-as-a-partner')}}</div>
+                <div class="ml-2">{{ $t('join-as-a-partner') }}</div>
               </div>
             </div>
             <div class="lg:mt-5 my-5">
               <button
                 class="text-white focus:outline-none text-sm bg-green-500 rounded-md py-3 px-5"
               >
-                {{$t('discover-more')}}
+                {{ $t('discover-more') }}
               </button>
             </div>
           </div>
@@ -49,7 +49,7 @@
     <div class="max-w-6xl mx-auto sm:px-6 lg:px-8 xl:px-0 px-4">
       <div class="mt-12 space-y-4">
         <div class="font-semibold text-gray-700 text-2xl">
-          {{$t('working')}} <span class="text-green-800">{{$t('process')}}</span>
+          {{ $t('working') }} <span class="text-green-800">{{ $t('process') }}</span>
         </div>
         <div class="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-4">
           <div class="rounded-md border border-gray-200 shadow-md bg-white p-8">
@@ -57,9 +57,15 @@
               <img src="~/assets/images/consultation.png" class="rounded-md h-16" alt="about" />
               <p class="text-gray-200 text-5xl font-extrabold">1</p>
             </div>
-            <div class="text-gray-700 font-semibold text-lg mb-4 mt-8">{{$t('consultation')}}</div>
+            <div class="text-gray-700 font-semibold text-lg mb-4 mt-8">
+              {{ $t('consultation') }}
+            </div>
             <div class="text-sm text-gray-500">
-             {{$t('get-financial-legal-business-and-managerial-consultations-on-interested-area-of-agriculture-and-environment')}}
+              {{
+                $t(
+                  'get-financial-legal-business-and-managerial-consultations-on-interested-area-of-agriculture-and-environment'
+                )
+              }}
             </div>
           </div>
           <div class="rounded-md border border-gray-200 shadow-md bg-white p-8">
@@ -67,9 +73,15 @@
               <img src="~/assets/images/recommendation.png" class="rounded-md h-16" alt="about" />
               <p class="text-gray-200 text-5xl font-extrabold">2</p>
             </div>
-            <div class="text-gray-700 font-semibold text-lg mb-4 mt-8">{{$t('market-price')}}</div>
+            <div class="text-gray-700 font-semibold text-lg mb-4 mt-8">
+              {{ $t('market-price') }}
+            </div>
             <div class="text-sm text-gray-500">
-              {{$t('get-overview-of-current-prices-in-karakalpakstan-split-by-product-and-time-period')}}
+              {{
+                $t(
+                  'get-overview-of-current-prices-in-karakalpakstan-split-by-product-and-time-period'
+                )
+              }}
             </div>
           </div>
           <div class="rounded-md border border-gray-200 shadow-md bg-white p-8">
@@ -77,9 +89,15 @@
               <img src="~/assets/images/financial.png" class="rounded-md h-16" alt="about" />
               <p class="text-gray-200 text-5xl font-extrabold">3</p>
             </div>
-            <div class="text-gray-700 font-semibold text-lg mb-4 mt-8">{{$t('useful-informations')}}</div>
+            <div class="text-gray-700 font-semibold text-lg mb-4 mt-8">
+              {{ $t('useful-informations') }}
+            </div>
             <div class="text-sm text-gray-500">
-              {{$t('get-useful-content-at-e-learning-page-and-new-knowledge-on-areas-of-agriculture-and-environemnt')}}
+              {{
+                $t(
+                  'get-useful-content-at-e-learning-page-and-new-knowledge-on-areas-of-agriculture-and-environemnt'
+                )
+              }}
             </div>
           </div>
           <div class="rounded-md border border-gray-200 shadow-md bg-white p-8">
@@ -87,9 +105,9 @@
               <img src="~/assets/images/management.png" class="rounded-md h-16" alt="about" />
               <p class="text-gray-200 text-5xl font-extrabold">4</p>
             </div>
-            <div class="text-gray-700 font-semibold text-lg mb-4 mt-8">{{$t('navigation')}}</div>
+            <div class="text-gray-700 font-semibold text-lg mb-4 mt-8">{{ $t('navigation') }}</div>
             <div class="text-sm text-gray-500">
-             {{$t('use-manuals-and-guides')}}
+              {{ $t('use-manuals-and-guides') }}
             </div>
           </div>
         </div>
@@ -102,7 +120,7 @@
                 <div class="font-semibold text-green-800 text-2xl col-span-2">
                   {{ $t('contact-us') }}
                 </div>
-                <div>
+                <div class="md:col-span-1 col-span-2">
                   <label for="name" class="sr-only">Name</label>
                   <ValidationProvider
                     v-slot="{ errors }"
@@ -127,7 +145,7 @@
                     />
                   </ValidationProvider>
                 </div>
-                <div>
+                <div class="md:col-span-1 col-span-2">
                   <label for="name" class="sr-only">Last name</label>
                   <ValidationProvider
                     v-slot="{ errors }"
@@ -152,7 +170,7 @@
                     />
                   </ValidationProvider>
                 </div>
-                <div>
+                <div class="md:col-span-1 col-span-2">
                   <label for="email" class="sr-only">Email</label>
                   <input
                     type="email"
@@ -163,7 +181,7 @@
                     class="focus:outline-none appearance-none block w-full p-3 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
                   />
                 </div>
-                <div>
+                <div class="md:col-span-1 col-span-2">
                   <label for="email" class="sr-only">Phone</label>
                   <ValidationProvider
                     v-slot="{ errors }"
@@ -242,25 +260,20 @@
             </form>
           </ValidationObserver>
           <div class="bg-yellow-50 rounded-md p-5">
-            <div class="text-gray-700 font-semibold text-2xl">Get in touch</div>
-            <div class="text-gray-500 text-sm my-5">
-              Lorem Ipsum is simply dummy text of the printingand typesetting industry. Lorem Ipsum
-              has been the industry.
-            </div>
+            <div class="text-gray-700 font-semibold text-2xl mb-6">{{ $t('get-in-touch') }}</div>
             <div class="space-y-6">
               <div class="flex items-center py-2 px-5 bg-green-700 rounded-md text-white">
                 <i class="bx bx-phone text-lg"></i>
-                <p class="text-sm ml-2">+99870 123 4567</p>
+                <p class="text-sm ml-2">+99894 081 23 45</p>
               </div>
               <div class="flex items-center py-2 px-5 bg-white rounded-md text-gray-700">
                 <i class="bx bx-envelope text-green-700 text-lg"></i>
-                <p class="text-sm ml-2">info@ggi.com</p>
+                <p class="text-sm ml-2">juanjose.robalino@gggi.org</p>
               </div>
               <div class="flex items-center py-2 px-5 bg-white rounded-md text-green-700">
                 <i class="bx bx-map text-xl"></i>
                 <p class="text-sm ml-2">
-                  31, Islam Karimov st, Nukus,<br />
-                  Autonom Republic of Karakalpakstan, Uzbekistan,
+                  7a, Bunyodkor av., 100000, Tashkent, Uzbekistan
                 </p>
               </div>
               <div class="flex items-center justify-center space-x-4">

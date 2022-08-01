@@ -180,12 +180,12 @@ export default {
     return {
       isProfileOpened: false,
       navbar: [
-        { name: 'About', route: '/about' },
-        { name: 'E-learning', route: '/e-learning' },
-        { name: 'Agri-business', route: '/agri-business' },
-        { name: 'Agri-finance', route: '/agri-finance' },
-        { name: 'Agri-market', route: '/agri-market' },
-        { name: 'Advisory', route: '/advisory' },
+        { name: 'about', route: '/about' },
+        { name: 'e-learning', route: '/e-learning' },
+        { name: 'agri-business', route: '/agri-business' },
+        { name: 'agri-finance', route: '/agri-finance' },
+        { name: 'agri-market', route: '/agri-market' },
+        { name: 'advisory', route: '/advisory' },
       ],
     }
   },
