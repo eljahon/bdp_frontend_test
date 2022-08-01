@@ -43,7 +43,9 @@ export default {
     })
     socket.on('message', (res) => {
       console.log('Page Received Message Front: ', res)
-      this.getMessages()
+      if (res.type === 'chat') {
+        this.getMessages()
+      }
     })
     socket.on('finishedChat', (res) => {
       this.$store.dispatch('finishedChatId', res)

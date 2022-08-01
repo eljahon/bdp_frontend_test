@@ -176,7 +176,7 @@ export default {
           }
         })
         .then((res) => {
-          this.detail = { ...res.data.data}
+          this.detail = { ...res.data}
         })
     },
   },

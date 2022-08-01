@@ -110,7 +110,7 @@ export default {
           },
         })
         .then((res) => {
-          this.company = { ...res.data.data }
+          this.company = { ...res.data }
           this.detailOpened = true
         })
     },

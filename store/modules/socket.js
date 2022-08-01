@@ -32,6 +32,7 @@ export default {
         },
         SET_CLOSED_ROOMS(state, payload) {
             state.closedRooms = payload
+            console.log('State closed room: ', state.closedRooms)
         },
         CLEAR_MESSAGES(state) {
             state.messages = []

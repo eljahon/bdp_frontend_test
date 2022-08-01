@@ -121,7 +121,7 @@
                             class="h-10 w-10 rounded-full"
                             :src="
                               room.attributes.user && room.attributes.user.data.attributes.avatar
-                                ? $tools.getFileUrl(room.attributes.user.avatar)
+                                ? $tools.getFileUrl(room.attributes.user.data.attributes.avatar)
                                 : require('/assets/images/person/avatar.jpg')
                             "
                             alt=""
@@ -216,7 +216,7 @@
               <div v-if="activetab === 'closed'">
                 <div v-if="closedRooms.length > 0">
                   <div
-                    v-for="(room, index) in activeRooms"
+                    v-for="(room, index) in closedRooms"
                     :key="index"
                     class="hover:bg-gray-100 cursor-pointer"
                     :class="$route.query.room_id === `${room.id}` ? 'bg-green-50' : 'bg-white'"
@@ -230,7 +230,7 @@
                             class="h-10 w-10 rounded-full"
                             :src="
                               room.attributes.user && room.attributes.user.data.attributes.avatar
-                                ? $tools.getFileUrl(room.attributes.user.avatar)
+                                ? $tools.getFileUrl(room.attributes.user.data.attributes.avatar)
                                 : require('/assets/images/person/avatar.jpg')
                             "
                             alt=""
@@ -241,7 +241,7 @@
                             :src="
                               room.attributes.consultant &&
                               room.attributes.consultant.data.attributes.avatar
-                                ? $tools.getFileUrl(room.attributes.consultant.avatar)
+                                ? $tools.getFileUrl(room.attributes.consultant.data.attributes.avatar)
                                 : require('/assets/images/person/avatar.jpg')
                             "
                             alt=""
@@ -325,7 +325,7 @@
           </div>
         </div>
         <div class="md:col-span-8 md:block">
-          <!-- <chat-body :current-user="$auth.user" /> -->
+          <chat-body :current-user="$auth.user" />
         </div>
       </div>
     </div>
@@ -348,6 +348,12 @@ export default {
     }
   },
   watch: {
+    closedRooms: {
+      handler() {
+        console.log('closedRooms', this.closedRooms)
+      },
+      deep: true,
+    },
     '$route.query.room_id'() {
       // if (this.$route.query && this.$route.query.room_id) this.getMessages()
     },
@@ -413,7 +419,6 @@ export default {
       }
     },
     async fetchActiveRooms() {
-      console.log('Fetching active rooms')
       if (this.$auth.user.role.id === 4) {
         await this.$store
           .dispatch('getChatrooms', {
