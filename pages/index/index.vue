@@ -118,7 +118,7 @@
           {{ $t('agri-finance') }} <span class="text-green-800">{{ $t('news') }}</span>
         </div>
         <div class="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1">
-          <news-swiper class="col-span-3" />
+          <news-swiper :news="dataServiceposts" class="col-span-3" />
         </div>
       </div>
       <div class="mt-12 space-y-4">
@@ -230,6 +230,7 @@ export default {
       'dataFaqs',
       'dataPartners',
       'getLocations',
+      'dataServiceposts'
     ]),
   },
   mounted() {
@@ -273,6 +274,11 @@ export default {
         populate: '*',
         locale: this.$i18n.locale,
         'sort[0][product][name]': 'ASC',
+      })
+      await this.$store.dispatch('getServiceposts', {
+        populate: '*',
+        locale: this.$i18n.locale,
+        'sort[0][createdAt]': 'DESC',
       })
       await this.$store.dispatch('getFaqs', {
         populate: '*',
