@@ -94,7 +94,6 @@
               >
                 <div
                   class="block font-medium hover:bg-gray-100 px-4 py-2 text-sm text-gray-600 cursor-pointer"
-                  @click="toUserWork({ path: localePath('/my-profile') })"
                 >
                   {{
                     `${currentUser.name ? currentUser.name : ''} ${
@@ -104,12 +103,12 @@
                   <br />
                   <span class="text-xs text-gray-500">ID: {{ currentUser.id }}</span>
                 </div>
-                <router-link
-                  :to="{ path: localePath('/chats') }"
+                <div
+                  @click="toMyChats"
                   class="block font-medium px-4 py-2 text-sm text-gray-600 hover:bg-gray-100 cursor-pointer"
                 >
                   {{ $t('my-chats') }}
-                </router-link>
+                </div>
                 <div
                   class="block font-medium px-4 py-2 text-sm text-red-600 hover:bg-red-100 cursor-pointer"
                   @click="logOut()"
@@ -201,10 +200,14 @@ export default {
         username: this.currentUser.username,
         user_id: this.currentUser.id,
       })
-      this.isProfileOpened = !this.isProfileOpened
+      this.isProfileOpened = false
       await localStorage.removeItem('local')
       await localStorage.removeItem('user_info')
       await this.$auth.logout()
+    },
+    toMyChats() {
+      this.isProfileOpened = false
+      this.$router.push({ path: this.localePath('/chats') })
     },
     openProfile() {
       this.isProfileOpened = !this.isProfileOpened

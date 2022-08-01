@@ -62,7 +62,7 @@ export default {
   data() {
     return {
       filter: {
-        district: 2,
+        district: 29,
         category: 'all',
         priceDate: null
       },
@@ -120,6 +120,7 @@ export default {
     async fetchDirectories() {
       await this.$store.dispatch('getDistricts', {
         populate: '*',
+        "filters[$and][0][region][id]": 18,
         locale: this.$i18n.locale,
       }).then(res => {
         this.districts = res

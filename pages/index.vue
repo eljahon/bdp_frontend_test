@@ -27,7 +27,6 @@ export default {
     if (!process.client) {
       return
     }
-    // this.currentUser = JSON.parse(localStorage.getItem('user_info'))
   },
   mounted() {
     socket.on('joined', (res) => {
@@ -65,12 +64,12 @@ export default {
     this.$bridge.$on('set_closed_rooms', () => {
       this.fetchClosedRooms()
     })
-    if (Object.keys(this.currentUser).length > 0) {
-      this.$bridge.$emit('join_chat', {
-        username: this.currentUser.username,
-        user_id: this.currentUser.id,
-      })
-    }
+    // if (this.$auth.user && Object.keys(this.$auth.user).length > 0) {
+    //   this.$bridge.$emit('join_chat', {
+    //     username: this.$auth.user.username,
+    //     user_id: this.$auth.user.id,
+    //   })
+    // }
   },
   computed: {
     ...mapState({
@@ -104,7 +103,6 @@ export default {
       )
     },
     joinToRoom(message) {
-      console.log('Join to room: ', message)
       socket.emit(
         'joinRoom',
         {
@@ -134,21 +132,22 @@ export default {
         })
     },
     async fetchActiveRooms() {
-      if (this.currentUser.role.id === 4) {
+      if (this.$auth.user.role.id === 4) {
         await this.$store
           .dispatch('getChatrooms', {
             populate: '*',
-            'filters[$or][0][consultant][id]': this.currentUser.id,
+            'filters[$or][0][consultant][id]': this.$auth.user.id,
             'filters[$and][0][isCompleted]': false,
           })
           .then((res) => {
             this.$store.dispatch('setActiveRooms', res)
+            console.log('Fetching active rooms', res)
           })
       } else {
         await this.$store
           .dispatch('getChatrooms', {
             populate: '*',
-            'filters[$or][0][user][id]': this.currentUser.id,
+            'filters[$or][0][user][id]': this.$auth.user.id,
             'filters[$and][0][isCompleted]': false,
           })
           .then((res) => {
@@ -157,11 +156,11 @@ export default {
       }
     },
     async fetchClosedRooms() {
-      if (this.currentUser.role.id === 4) {
+      if (this.$auth.user.role.id === 4) {
         await this.$store
           .dispatch('getChatrooms', {
             populate: '*',
-            'filters[$or][0][consultant][id]': this.currentUser.id,
+            'filters[$or][0][consultant][id]': this.$auth.user.id,
             'filters[$and][0][isCompleted]': true,
           })
           .then((res) => {
@@ -171,7 +170,7 @@ export default {
         await this.$store
           .dispatch('getChatrooms', {
             populate: '*',
-            'filters[$or][0][user][id]': this.currentUser.id,
+            'filters[$or][0][user][id]': this.$auth.user.id,
             'filters[$and][0][isCompleted]': true,
           })
           .then((res) => {
