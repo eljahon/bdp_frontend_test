@@ -19,7 +19,7 @@
       </div>
       <div class="space-y-5">
         <div
-          v-if="lesson.attributes.attachments"
+          v-if="lesson.attributes.attachments && lesson.attributes.attachments.data.length > 0" 
           class="bg-white rounded-md border border-gray-100 shadow-md p-5 lg:mt-0 mt-6"
         >
           <div class="text-gray-700 font-semibold text-xl">{{ $t('useful-materials') }}</div>

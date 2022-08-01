@@ -191,6 +191,7 @@ export default {
           'filters[$and][0][name][$containsi]': this.$route.query.text
             ? this.$route.query.text
             : null,
+          'filters[$and][0][established]': true,
         })
         .then((res) => {
           this.$store.dispatch('setCompanies', res)
