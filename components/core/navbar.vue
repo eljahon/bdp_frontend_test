@@ -7,16 +7,16 @@
             <div class="flex items-center gap-4">
               <div class="flex items-center gap-2">
                 <i class="bx bx-envelope text-white text-lg"></i>
-                <p class="text-sm">Email: info@gggi.com</p>
+                <p class="text-sm">{{$t('email')}}: juanjose.robalino@gggi.org</p>
               </div>
               <div class="flex items-center gap-2">
                 <i class="bx bx-phone text-white text-lg"></i>
-                <p class="text-sm">+998971 123 45 67</p>
+                <p class="text-sm">+99894 081 23 45</p>
               </div>
               <div class="flex items-center gap-2">
                 <i class="bx bx-map text-white text-lg"></i>
                 <p class="text-sm">
-                  31, Islam Karimov st, Nukus, Autonom Republic of Karakalpakstan, Uzbekistan,
+                  7a, Bunyodkor av., 100000, Tashkent, Uzbekistan
                 </p>
               </div>
             </div>
@@ -58,7 +58,7 @@
                 "
               >
                 <router-link :to="{ path: localePath(menu.route) }">
-                  {{ menu.name }}
+                  {{ $t(menu.name) }}
                 </router-link>
               </div>
             </div>
@@ -122,7 +122,7 @@
               :to="localePath('/login')"
               class="text-white focus:outline-none text-sm rounded-md bg-green-700 p-3"
             >
-              Login / Register
+              {{$t('login-register')}}
             </nuxt-link>
           </div>
         </div>

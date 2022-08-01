@@ -3,9 +3,7 @@
     <div class="flex items-center w-full rounded-md">
       <nuxt-link
         :to="{ path: localePath(`/agri-finance/${data.id}`), query: {id: data.id} }"
-        style="
-          background-image: url(https://caep.org/blog/wp-content/uploads/2020/04/TractorFarm_Lead.jpg);
-        "
+        :style="data.attributes.thumbnail || data.attributes.image ? `background-image: url(${$tools.getFileUrl(data.attributes.thumbnail ? data.attributes.thumbnail : data.attributes.image)})` : 'background-image: url(https://caep.org/blog/wp-content/uploads/2020/04/TractorFarm_Lead.jpg);'"
         class="relative group cursor-pointer lg:h-96 h-72 w-full rounded-md bg-cover"
       >
         <div class="absolute inset-0 z-10 group-hover:opacity-100 opacity-0">
@@ -30,7 +28,7 @@
           {{ $tools.getDate(data.attributes.createdAt) }}
         </div>
         <div class="absolute right-5 text-sm bottom-5 group-hover:text-gray-500 text-white z-20">
-          Read
+          {{$t('read')}}
         </div>
       </nuxt-link>
     </div>
