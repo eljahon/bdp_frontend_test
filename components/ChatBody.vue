@@ -333,12 +333,6 @@
           </div>
         </div>
       </div>
-      <vue-simple-context-menu
-        ref="vueSimpleContextMenu"
-        element-id="myUniqueId"
-        :options="options"
-        @option-clicked="optionClicked"
-      />
     </div>
     <div v-else>
       <div class="align-middle text-center">
@@ -347,6 +341,12 @@
         </span>
       </div>
     </div>
+    <vue-simple-context-menu
+        ref="vueSimpleContextMenu"
+        element-id="myUniqueId"
+        :options="options"
+        @option-clicked="optionClicked"
+      />
   </div>
 </template>
 <script>
@@ -400,22 +400,22 @@ export default {
   },
   created() {},
   mounted() {
-    if (this.$route.query.room_id) {
-      this.fetchConsultant()
-    }
     if (this.$route.query.room_id && this.$route.query.room_id !== 'new') {
-      this.fetchCurrentRoom().then(() => {
-        this.message = {
-          chatroom: this.currentRoom.id,
-          sender: this.currentUser.id,
-          receiver: this.consultant.id,
-          text: '',
-          filepath: null,
-          seen: false,
-        }
-        this.$bridge.$emit('join_room', {
-          username: this.currentUser.username,
-          room: this.currentRoom.id,
+      this.fetchConsultant().then(() => {
+        this.fetchCurrentRoom().then(() => {
+          this.message = {
+            chatroom: this.currentRoom.id,
+            sender: this.currentUser.id,
+            receiver: this.consultant.id,
+            text: '',
+            filepath: null,
+            seen: false,
+          }
+          console.log('message', this.message, this.consultant)
+          this.$bridge.$emit('join_room', {
+            username: this.currentUser.username,
+            room: this.currentRoom.id,
+          })
         })
       })
     }
@@ -604,14 +604,15 @@ export default {
     },
     optionClicked(event) {
       if (event.option.slug === 'edit') {
+        console.log('edit', event)
         const _message = event.item
         this.message = {
-          chatroom: _message.chatroom.id,
-          sender: _message.sender.id,
-          receiver: _message.receiver.id,
-          text: _message.text,
-          filepath: _message.filepath,
-          seen: _message.seen,
+          chatroom: _message.attributes.chatroom.data.id,
+          sender: _message.attributes.sender.data.id,
+          receiver: _message.attributes.receiver.data.id,
+          text: _message.attributes.text,
+          filepath: _message.attributes.filepath,
+          seen: _message.attributes.seen,
           id: _message.id,
         }
       } else if (event.option.slug === 'delete') {
@@ -630,7 +631,7 @@ export default {
           if (item !== 'canceled') {
             socket.emit(
               'deleteMessage',
-              { id: event.item.id, roomID: event.item.chatroom.id },
+              { id: event.item.id, chatroom: event.item.attributes.chatroom.data.id },
               ({ res, rej }) => {}
             )
           }
@@ -686,7 +687,7 @@ export default {
       })
       await this.$store.dispatch("clearMessages");
     },
-    fetchConsultant() {
+    async fetchConsultant() {
       this.$store
         .dispatch('getByIdUsers', {
           id: this.$route.query.consultant_id,
