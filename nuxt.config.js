@@ -13,7 +13,7 @@ export default {
       { hid: 'description', name: 'description', content: '' },
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'icon', type: 'image/x-icon', href: '/logo.svg' },
       {
         rel: 'preload',
         as: 'style',
@@ -37,6 +37,8 @@ export default {
     { src: '~/plugins/client-libraries', mode: 'client' },
     '~/utils/bridge.js',
     '~/utils/tools.js',
+    '~/utils/constants.js',
+    // '~/plugins/all-consts.js',
     // '~/plugins/v-viewer.client.js',
   ],
 
@@ -115,12 +117,12 @@ export default {
           user: { url: 'users/me', method: 'get' },
           logout: false
         },
-        // redirect: {
-        //   login: '/',
-        //   logout: '/',
-        //   user: '/profile',
-        //   callback: '/'
-        // }
+        redirect: {
+          login: '/',
+          logout: '/',
+          user: '/profile',
+          callback: '/'
+        }
       }
     }
   },

@@ -20,6 +20,7 @@
           "
         >
           <input
+            v-model="filter.text"
             id="search"
             type="search"
             name="search"
@@ -34,6 +35,7 @@
               rounded-md
             "
             placeholder="Search"
+            @change="onChangeSearch"
           />
         </div>
         <button
@@ -75,7 +77,8 @@
               px-4
               w-32
             "
-            v-model="query.category"
+            v-model="filter.category"
+            @change="onChangeCategory"
           >
             <option v-for="(category, index) in categories" :key="index" :value="category.id">
               {{ category.attributes.name }}
@@ -116,32 +119,36 @@
 <script>
 import { mapGetters } from 'vuex'
 import { actions, getters } from '~/utils/store_schema'
+import debounce from 'lodash.debounce'
 const _page = 'companies'
 const { get } = actions(_page)
 export default {
   name: 'AgriBusiness',
   auth: false,
+  directives: {
+    debounce,
+  },
   data() {
     return {
       infoOpened: false,
-      query: {
+      filter: {
         category: 0,
+        text: '',
       },
       categories: [],
     }
   },
   mounted() {
     this.fetchDirectories().then(() => {
-      this.fetchData()
+      if (this.$route.query && Object.keys(this.$route.query).length > 0) {
+        this.filter = { ...this.$route.query }
+        this.fetchData()
+      } else {
+        this.setQuery()
+      }
     })
   },
   watch: {
-    query: {
-      handler() {
-        this.setQuery()
-      },
-      deep: true,
-    },
     '$route.query': {
       handler() {
         this.fetchData()
@@ -156,12 +163,20 @@ export default {
   },
   methods: {
     async setQuery() {
+      let _query = {
+        category: this.filter.category,
+        text: this.filter.text && this.filter.text.length > 0 ? this.filter.text : null,
+      }
       this.$router.push({
         path: this.$route.path,
-        query: {
-          category: this.query.category,
-        },
+        query: this.$tools.emptyObject(_query),
       })
+    },
+    onChangeSearch: debounce(function (e) {
+      this.setQuery()
+    }, 500),
+    onChangeCategory() {
+      this.setQuery()
     },
     async fetchData() {
       await this.$store
@@ -173,6 +188,11 @@ export default {
             this.$route.query.category && parseInt(this.$route.query.category) === 0
               ? null
               : this.$route.query.category,
+          'filters[$and][0][name][$containsi]': this.$route.query.text
+            ? this.$route.query.text
+            : null,
+          'filters[$and][0][name][$notNull]': true,
+          'filters[$and][0][established]': true,
         })
         .then((res) => {
           this.$store.dispatch('setCompanies', res)

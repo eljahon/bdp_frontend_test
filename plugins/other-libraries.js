@@ -8,7 +8,8 @@ import { Pagination } from 'swiper'
 import 'swiper/swiper-bundle.css'
 import DatePicker from 'vue2-datepicker'
 import 'vue2-datepicker/index.css'
-
+import vSelect from "vue-select";
+import "vue-select/dist/vue-select.css";
 const options = {
     toast: {
         position: SnotifyPosition.rightBottom,
@@ -23,6 +24,7 @@ Vue.component(SwiperSlide)
 Vue.component(Pagination)
 Vue.component(Autoplay)
 Vue.component('DatePicker', DatePicker)
+Vue.component('v-select', vSelect)
 
 Vue.use(Snotify, options)
 Vue.use(VueLoaders)

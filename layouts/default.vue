@@ -11,27 +11,20 @@ export default {
   components: {},
   data () {
     return {
-      token: null,
-      currentUser: {}
+      token: null
     }
   },
   computed: {
-    ...mapState({
-      isLoggedIn: state => state.auth.loggedIn
-    })
+    ...mapState({})
   },
   created () {
     if (!process.client) {
       return
     }
     this.token = localStorage.getItem('local')
-    this.currentUser = JSON.parse(localStorage.getItem('user_info'))
   },
-  mounted () {
-    this.setUserToStore()
-  },
+  mounted () {},
   methods: {
-    // eslint-disable-next-line require-await
     async setUserToStore () {
       if (this.token && Object.keys(this.currentUser).length > 0) {
         await this.$auth.setToken('local', this.token)

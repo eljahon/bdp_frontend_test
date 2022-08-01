@@ -4,76 +4,62 @@
       <div class="col-span-2">
         <div class="">
           <div class="mb-6 text-gray-700 font-semibold text-4xl">
-            {{serviceDetails.attributes.title}}
+            {{detail.attributes.title}}
           </div>
           <p class="text-sm text-gray-500 leading-8">
-           {{serviceDetails.attributes.content}}
+           {{detail.attributes.content}}
           </p>
-          
-        </div>
-        <div class="grid grid-cols-2 gap-4 my-4">
-          <img src="~/assets/images/about.png" />
-          <img src="~/assets/images/about.png" />
         </div>
       </div>
       <div class="space-y-5">
-        <div class="bg-white rounded-md border border-gray-100 shadow-md p-5">
-          <div class="text-gray-700 font-semibold text-xl">Required documents</div>
-          <p class="text-gray-500 text-sm my-4">
-            Lorem Ipsum is simply dummy text of the printingand typesetting industry. Lorem Ipsum
-            has been the industry.
-          </p>
-          <div class="text-green-700 font-semibold text-xl">Download file</div>
-          <div class="flex items-center justify-between rounded-md bg-green-700 p-3 my-4">
-            <div class="flex items-center space-x-3">
-              <i class="bx bx-file text-white text-xl"></i>
-              <p class="text-base text-white">Requirements</p>
-            </div>
-            <div><i class="bx bx-download text-white text-xl"></i></div>
-          </div>
-          <div class="flex items-center justify-between rounded-md bg-green-50 p-3">
+        <div
+          v-if="detail.attributes.attachments && detail.attributes.attachments.data.length > 0"
+          class="bg-white rounded-md border border-gray-100 shadow-md p-5 lg:mt-0 mt-6"
+        >
+          <div class="text-gray-700 font-semibold text-xl">{{ $t('useful-materials') }}</div>
+          <div
+            v-for="(file, ind) in detail.attributes.attachments.data"
+            :key="ind"
+            @click="openInNewTab(file)"
+            class="flex items-center justify-between rounded-md bg-yellow-100 p-3"
+          >
             <div class="flex items-center space-x-3">
               <i class="bx bxs-file-pdf text-gray-700 text-2xl"></i>
-              <p class="text-base text-gray-700">Form</p>
+              <p class="text-base text-gray-700 line-clamp-1">{{ file.attributes.filename }}</p>
             </div>
             <div><i class="bx bx-download text-gray-700 text-xl"></i></div>
           </div>
         </div>
         <div class="bg-white rounded-md border border-gray-100 shadow-md p-5">
-          <div class="text-gray-700 font-semibold text-xl">Related videos</div>
-          <div class="flex items-center space-x-3 my-4">
+          <div class="text-gray-700 font-semibold text-xl">{{ $t('other-courses') }}</div>
+          <nuxt-link
+            v-for="(service, ind) in services"
+            :key="ind"
+            class="flex items-center space-x-3 my-4 cursor-pointer hover:bg-gray-100 rounded-md"
+            :to="localePath(`/agri-finance/${service.id}`)"
+          >
             <img
-              src="~/assets/images/about.png"
+              :src="
+                $tools.getFileUrl(
+                  service.attributes.thumbnail
+                    ? service.attributes.thumbnail
+                    : service.attributes.image
+                )
+              "
               class="rounded-md w-28 h-20 object-cover"
-              alt="about"
+              :alt="service.id"
             />
-            <div class="grid content-between text-gray-600 text-sm h-14">
-              <p class="">16 Garden design ideas to do</p>
-              <p>Sep 12, 2021</p>
+            <div class="grid content-between text-gray-600 text-sm">
+              <div class="line-clamp-2 text-sm mb-2">{{ service.attributes.title }}</div>
+              <div class="text-xs">{{ $tools.getDate(service.attributes.createdAt) }}</div>
             </div>
-          </div>
-          <div class="flex items-center space-x-3 my-4">
-            <img
-              src="~/assets/images/about.png"
-              class="rounded-md w-28 h-20 object-cover"
-              alt="about"
-            />
-            <div class="grid content-between text-gray-600 text-sm h-14">
-              <p class="">Spring Lawn Care Tips</p>
-              <p>Sep 12, 2021</p>
-            </div>
-          </div>
-          <div class="flex items-center space-x-3 my-4">
-            <img
-              src="~/assets/images/about.png"
-              class="rounded-md w-28 h-20 object-cover"
-              alt="about"
-            />
-            <div class="grid content-between text-gray-600 text-sm h-14">
-              <p class="">How to Make Fresh Flowers</p>
-              <p>Sep 12, 2021</p>
-            </div>
-          </div>
+          </nuxt-link>
+          <nuxt-link
+            :to="localePath('/agri-finance')"
+            class="text-center text-green-500 hover:text-green-700 font-semibold text-sm flex justify-center"
+          >
+            {{ $t('view-all') }}
+          </nuxt-link>
         </div>
       </div>
     </div>
@@ -139,32 +125,58 @@
 import { mapGetters } from 'vuex'
 import { actions, getters } from '~/utils/store_schema'
 const _page = 'serviceposts'
-const { getById } = actions(_page)
+const { get, getById } = actions(_page)
 export default {
   name: 'AgriFinanceDetails',
   auth: false,
   data() {
     return {
-      serviceDetails: {
+      detail: {
         attributes: {} 
-       }
+      },
+      services: []
     }
   },
   computed: {
     ...mapGetters(getters(_page)),
   },
   mounted() {
-    this.fetchData()
+    window.scrollTo(0, 0)
+    this.fetchDirectories().then(() => {
+      this.fetchData()
+    })
   },
   methods: {
-    async fetchData() {
+    openInNewTab(file) {
+      window.open(this.$tools.getFileUrl(file.attributes.url))
+    },
+    async fetchDirectories() {
       await this.$store
-        .dispatch(getById, this.$route.query, {
+        .dispatch(get, {
+          pagination: {
+            page: 1,
+            pageSize: 5,
+          },
           populate: '*',
+          'sort[0][createdAt]': 'DESC',
           locale: this.$i18n.locale,
+          'filters[$and][0][id][$ne]': this.$route.params.detail,
         })
         .then((res) => {
-          this.serviceDetails = { ...res.data.data}
+          this.services = res
+        })
+    },
+    async fetchData() {
+      await this.$store
+        .dispatch(getById, {
+          id: this.$route.params.detail,
+          query: {
+            populate: '*',
+            locale: this.$i18n.locale,
+          }
+        })
+        .then((res) => {
+          this.detail = { ...res.data}
         })
     },
   },

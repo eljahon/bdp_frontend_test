@@ -1,6 +1,10 @@
 <template>
   <div>
-    <div v-if="company.id && detailOpened" class="border rounded-md p-5 bg-white" style="min-height: calc(72vh - 0px)">
+    <div
+      v-if="company.id && detailOpened"
+      class="border relative rounded-md p-5 bg-white"
+      style="min-height: calc(72vh - 0px)"
+    >
       <div class="flex justify-between items-center mb-2">
         <h3 class="text-xl font-semibold text-gray-900 lg:text-2xl dark:text-white">
           {{ company.attributes.name }}
@@ -36,22 +40,24 @@
         </button>
       </div>
       <div v-html="company.attributes.fullinfo"></div>
-      <div class="flex justify-between items-center mb-2">
-        <h3 class="text-xl font-semibold text-gray-900 lg:text-2xl dark:text-white">
-        </h3>
-        <button
-          class="
-            items-center
-            text-white
-            focus:outline-none
-            text-sm
-            rounded-md
-            bg-green-700
-            p-3
-          "
-        >
-          {{ $tools.phoneFormatter(company.attributes.phone) }}
-        </button>
+      <div class="absolute bottom-5 right-5 left-5">
+        <div class="flex justify-between items-center">
+          <h3 class="text-xl font-semibold text-gray-900 lg:text-2xl left-5 dark:text-white"></h3>
+          <button
+            class="
+              right-5
+              items-center
+              text-white
+              focus:outline-none
+              text-sm
+              rounded-md
+              bg-green-700
+              p-3
+            "
+          >
+            {{ $tools.phoneFormatter(company.attributes.phone) }}
+          </button>
+        </div>
       </div>
     </div>
     <yandex-map
@@ -88,7 +94,7 @@ export default {
   },
   watch: {
     '$route.query.company'(val) {
-      this.fetchCompanyDetail(val)
+      if (this.$route.query.company) this.fetchCompanyDetail(val)
     },
   },
   methods: {
@@ -104,7 +110,7 @@ export default {
           },
         })
         .then((res) => {
-          this.company = { ...res.data.data }
+          this.company = { ...res.data }
           this.detailOpened = true
         })
     },

@@ -2,7 +2,7 @@
   <div class="max-w-6xl mx-auto lg:my-12 my-4 sm:px-6 lg:px-8 xl:px-0 px-4">
     <div class="lg:flex block items-center justify-between">
       <div class="font-semibold text-gray-700 text-2xl">
-        <span class="text-green-800">Agri-market - </span> weekly prices
+        <span class="text-green-800">{{$t('agri-market')}} - </span> {{$t('weekly-prices')}}
       </div>
       <div class="lg:mt-1 mt-4 flex space-x-6 items-center">
         <div class="text-green-700 text-sm">
@@ -62,7 +62,7 @@ export default {
   data() {
     return {
       filter: {
-        district: 2,
+        district: 29,
         category: 'all',
         priceDate: null
       },
@@ -72,7 +72,9 @@ export default {
     }
   },
   mounted() {
-    this.fetchDirectories()
+    this.fetchDirectories().then(() => {
+      this.setQuery()
+    })
   },
   computed: {
     ...mapGetters({
@@ -105,7 +107,6 @@ export default {
       })
     },
     fetchPriceLists(query) {
-      console.log('Query', query)
       const _ = {
         populate: query.category !== 'all' ? 'priceData, district, product, product.productcategory' : '*',
         locale: this.$i18n.locale,
@@ -119,6 +120,7 @@ export default {
     async fetchDirectories() {
       await this.$store.dispatch('getDistricts', {
         populate: '*',
+        "filters[$and][0][region][id]": 18,
         locale: this.$i18n.locale,
       }).then(res => {
         this.districts = res

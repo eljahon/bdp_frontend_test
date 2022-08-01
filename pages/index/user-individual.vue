@@ -1,184 +1,118 @@
 <template>
   <div :style="{ backgroundImage: `url(${image})` }" class="bg-cover h-full pb-10 bg-opacity-10">
     <div class="max-w-6xl mx-auto p-4 lg:px-8 xl:px-0">
-      <div class="max-w-2xl mx-auto mt-10">
+      <div class="max-w-2xl mx-auto mt-10 bg-white rounded-md">
+        <div class="flex justify-center text-gray-600 font-semibold text-xl md:p-6 p-4">
+          {{ $t('registration-for-user-individual') }}
+        </div>
+        <main-register class="" @registerSuccess="mainRegisterSuccess" />
         <ValidationObserver v-slot="{ handleSubmit, invalid }" slim>
           <form class="" novalidate @submit.prevent="handleSubmit(onSubmit)">
-            <div class="grid grid-cols-2 bg-white rounded-md p-6 gap-4">
-              <div class="flex justify-center text-gray-600 font-semibold col-span-2 text-xl mb-4">
-                {{ $t('registration-for-user-individual') }}
+            <div class="grid md:grid-cols-2 grid-cols-1 md:p-6 p-4 gap-4">
+              <div class="flex justify-start col-span-2 text-gray-600 font-semibold text-xl">
+                {{ $t('additional-information') }}
               </div>
-              <div>
-                <label for="name" class="block mb-1 text-sm font-medium text-gray-700"
-                  >{{ $t('name') }}*</label
-                >
-                <ValidationProvider v-slot="{ errors }" name="name" rules="required" mode="eager">
-                  <input
-                    type="text"
-                    name="name"
-                    id="name"
-                    v-model="form.name"
-                    class="focus:outline-none appearance-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
-                    :class="
-                      errors.length > 0
-                        ? 'border-red-400'
-                        : form.name
-                        ? 'border-green-600'
-                        : 'border-gray-300'
-                    "
-                  />
-                </ValidationProvider>
+              <div class="md:col-span-1 col-span-2">
+                <label for="phone" class="block mb-1 text-sm font-medium text-gray-700">{{
+                  $t('phone')
+                }}</label>
+                <input
+                  type="text"
+                  name="phone"
+                  id="phone"
+                  v-model="phone"
+                  :disabled="!isMainRegister"
+                  v-mask="'+##### ###-##-##'"
+                  class="
+                    focus:outline-none
+                    appearance-none
+                    block
+                    w-full
+                    px-3
+                    py-2
+                    border
+                    rounded-md
+                    shadow-sm
+                    placeholder-gray-400
+                    sm:text-sm
+                  "
+                  :class="'border-gray-300'"
+                />
               </div>
-              <div>
-                <label for="phone" class="block mb-1 text-sm font-medium text-gray-700"
-                  >{{ $t('phone') }}*</label
-                >
-                <ValidationProvider v-slot="{ errors }" :rules="{required: true, length: 16}" name="phone" mode="eager">
-                  <input
-                    type="text"
-                    name="phone"
-                    id="phone"
-                    v-model="form.phone"
-                    v-mask="'+998## ###-##-##'"
-                    class="focus:outline-none appearance-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
-                    :class="
-                      errors.length > 0
-                        ? 'border-red-400'
-                        : form.phone
-                        ? 'border-green-600'
-                        : 'border-gray-300'
-                    "
-                  />
-                </ValidationProvider>
-              </div>
-              <div>
-                <label for="gender" class="block mb-1 text-sm font-medium text-gray-700"
-                  >{{ $t('gender') }}*</label
-                >
-                <ValidationProvider v-slot="{ errors }" name="gender" rules="required" mode="eager">
-                  <select
-                    v-model="form.gender"
-                    name="option"
-                    class="focus:outline-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
-                    :class="
-                      errors.length > 0
-                        ? 'border-red-400'
-                        : form.gender
-                        ? 'border-green-600'
-                        : 'border-gray-300'
-                    "
-                  >
-                    <option v-for="(gender, index) in dataGenders" :key="index" :value="gender.id">
-                      {{ gender.attributes.name }}
-                    </option>
-                  </select>
-                </ValidationProvider>
-              </div>
-              <div>
-                <label for="birthday" class="block mb-1 text-sm font-medium text-gray-700"
-                  >{{ $t('date-of-birth') }}*</label
-                >
-                <ValidationProvider
-                  v-slot="{ errors }"
+              <div class="md:col-span-1 col-span-2">
+                <label for="birthday" class="block mb-1 text-sm font-medium text-gray-700">{{
+                  $t('date-of-birth')
+                }}</label>
+                <input
+                  type="date"
                   name="birthday"
-                  rules="required"
-                  mode="eager"
-                >
-                  <input
-                    type="text"
-                    name="birthday"
-                    id="birthday"
-                    v-model="form.birthday"
-                    class="focus:outline-none appearance-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
-                    :class="
-                      errors.length > 0
-                        ? 'border-red-400'
-                        : form.birthday
-                        ? 'border-green-600'
-                        : 'border-gray-300'
-                    "
-                  />
-                </ValidationProvider>
+                  id="birthday"
+                  pattern="MM-dd-yyyy"
+                  v-model="form.birthday"
+                  :disabled="!isMainRegister"
+                  class="
+                    focus:outline-none
+                    appearance-none
+                    block
+                    w-full
+                    px-3
+                    py-2
+                    border
+                    rounded-md
+                    shadow-sm
+                    placeholder-gray-400
+                    sm:text-sm
+                  "
+                  :class="'border-gray-300'"
+                />
               </div>
-              <div>
+              <div class="md:col-span-1 col-span-2">
                 <label for="activity-type" class="block mb-1 text-sm font-medium text-gray-700">{{
                   $t('activity-type')
-                }}*</label>
-                <ValidationProvider
-                  v-slot="{ errors }"
-                  name="activity-type"
-                  rules="required"
-                  mode="eager"
-                >
-                  <select
-                    v-model="form.activity_type"
-                    name="option"
-                    class="focus:outline-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
-                    :class="
-                      errors.length > 0
-                        ? 'border-red-400'
-                        : form.activity_type
-                        ? 'border-green-600'
-                        : 'border-gray-300'
-                    "
-                  >
-                    <!-- <option v-for="(type, index) in dataRegions" :key="index" :value="region.id">
-                      {{ type.attributes.name }}
-                    </option> -->
-                  </select>
-                </ValidationProvider>
+                }}</label>
+                <v-select
+                  v-model="form.activitytypes"
+                  :options="activities"
+                  :disabled="!isMainRegister"
+                  label="title"
+                  value="id"
+                  :reduce="(activity) => activity.id"
+                  :multiple="true"
+                ></v-select>
               </div>
-              <div>
+              <div class="md:col-span-1 col-span-2">
                 <label for="field" class="block mb-1 text-sm font-medium text-gray-700">{{
                   $t('field-of-agriculture')
-                }}*</label>
-                <ValidationProvider v-slot="{ errors }" name="field" rules="required" mode="eager">
-                  <select
-                    v-model="form.field"
-                    name="option"
-                    class="focus:outline-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
-                    :class="
-                      errors.length > 0
-                        ? 'border-red-400'
-                        : form.field
-                        ? 'border-green-600'
-                        : 'border-gray-300'
-                    "
-                  >
-                    <!-- <option v-for="(type, index) in dataRegions" :key="index" :value="region.id">
-                      {{ type.attributes.name }}
-                    </option> -->
-                  </select>
-                </ValidationProvider>
-              </div>
-              <div class="col-span-2">
-                <label for="region" class="block mb-1 text-sm font-medium text-gray-700">{{
-                  $t('region')
                 }}</label>
-                <select
-                  v-model="form.region"
-                  name="option"
-                  class="focus:outline-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
-                >
-                  <option v-for="(region, index) in dataRegions" :key="index" :value="region.id">
-                    {{ region.attributes.name }}
-                  </option>
-                </select>
+                <v-select
+                  v-model="form.agrocultureareas"
+                  :options="agrocultureAreas"
+                  :disabled="!isMainRegister"
+                  label="title"
+                  value="id"
+                  :reduce="(agro) => agro.id"
+                  :multiple="true"
+                ></v-select>
               </div>
-              <div class="flex items-center mt-2">
-                <input
-                  name="termsOfUse"
-                  type="checkbox"
-                  :value="true"
-                  class="h-5 w-5 text-green-600 focus:ring-green-600 border-gray-300 rounded"
-                />
-                <label for="termsOfUse" class="ml-2 block text-gray-600 text-base">
-                  {{ $t('i-agree-with') }}
-                  <span class="text-green-600 border-b border-green-600">
-                    {{ $t('terms-of-use') }}
-                  </span>
-                </label>
-              </div>
+              <ValidationProvider name="checked" rules="checked" mode="eager" v-slot="{ errors }">
+                <div class="flex items-center mt-2 col-span-2">
+                  <input
+                    name="termsOfUse"
+                    type="checkbox"
+                    v-model="isAgree"
+                    :value="true"
+                    :disabled="!isMainRegister"
+                    class="h-5 w-5 text-green-600 focus:ring-green-600 border-gray-300 rounded"
+                  />
+                  <label for="termsOfUse" class="ml-2 block text-gray-600 text-base">
+                    {{ $t('i-agree-with') }}
+                    <span class="text-green-600 border-b border-green-600">
+                      {{ $t('terms-of-use') }}
+                    </span>
+                  </label>
+                </div>
+                <div class="text-red-500 text-xs">{{ errors[0] }}</div>
+              </ValidationProvider>
               <button
                 :class="invalid ? 'bg-gray-300' : 'bg-green-600 hover:bg-green-700 text-white'"
                 :disabled="invalid"
@@ -197,39 +131,132 @@
 <script>
 import { mapGetters } from 'vuex'
 import background from '/assets/images/background.png'
+import axios from 'axios'
 export default {
-  name: 'UserInterprise',
+  name: 'UserIndividual',
   auth: false,
   data() {
     return {
       image: background,
+      isMainRegister: false,
+      isAgree: false,
+      phone: '',
       form: {
-        name: '',
-        phone: '+998',
-        gender: '',
+        phone: '',
         birthday: '',
-        activity_type: '',
-        field: '',
-        region: '',
+        activitytypes: [],
+        agrocultureareas: [],
       },
+      auth: {
+        identifier: '',
+        password: '',
+      },
+      activities: [],
+      agrocultureAreas: [],
+      jwt: '',
     }
   },
   mounted() {
     this.fetchDirectories()
   },
-  computed: {
-    ...mapGetters(['dataGenders', 'dataRegions']),
+  computed: {},
+  watch: {
+    // form: {
+    //   handler() {},
+    //   deep: true,
+    // },
+    phone: {
+      handler() {
+        if (this.phone) this.form.phone = this.phone.replace(/[^0-9]/g, '')
+      },
+      deep: true,
+    },
   },
   methods: {
+    onSubmit() {
+      let _form = { ...this.form }
+      delete _form.id
+      axios({
+        baseURL: process.env.VUE_APP_BASE_URL,
+        url: `/users/${this.form.id}`,
+        method: 'PUT',
+        data: _form,
+        headers: {
+          Authorization: `Bearer ${this.jwt}`,
+        },
+      }).then(async (res) => {
+        try {
+          await this.$auth
+            .loginWith('local', {
+              data: this.auth,
+            })
+            .then(async (res) => {
+              await this.$store
+                .dispatch('getUsers', {
+                  link: '/users/me',
+                  query: {
+                    populate: '*',
+                  },
+                })
+                .then((response) => {
+                  localStorage.setItem('user_info', JSON.stringify(response.data))
+                })
+              await this.$bridge.$emit('join_chat', {
+                username: res.data.user.username,
+                user_id: res.data.user.id,
+              })
+              this.loading = false
+              await this.$snotify.success('Successfully Logged In')
+              this.$router.push(this.localePath('/'))
+            })
+        } catch (e) {
+          if (e.response) this.authError = e.response.data.error.message
+          this.loading = false
+        }
+      })
+    },
+    mainRegisterSuccess(e) {
+      this.isMainRegister = e.isSuccess
+      this.auth.identifier = e.user.username
+      this.auth.password = e.password
+      this.form.phone = e.user.phone
+      this.phone = e.user.phone
+      this.form.id = e.user.id
+      this.jwt = e.jwt
+    },
     async fetchDirectories() {
-      await this.$store.dispatch('getGenders', {
-        populate: '*',
-        locale: this.$i18n.locale,
-      })
-      await this.$store.dispatch('getRegions', {
-        populate: '*',
-        locale: this.$i18n.locale,
-      })
+      await this.$store
+        .dispatch('getActivitytypes', {
+          populate: '*',
+          locale: this.$i18n.locale,
+        })
+        .then((res) => {
+          this.activities = res.map((e) => {
+            return {
+              id:
+                e.attributes.locale === 'en'
+                  ? e.id
+                  : this.$tools.getDefaultLanguageID(e.attributes.localizations.data),
+              title: e.attributes.title,
+            }
+          })
+        })
+      await this.$store
+        .dispatch('getAgrocultureareas', {
+          populate: '*',
+          locale: this.$i18n.locale,
+        })
+        .then((res) => {
+          this.agrocultureAreas = res.map((e) => {
+            return {
+              id:
+                e.attributes.locale === 'en'
+                  ? e.id
+                  : this.$tools.getDefaultLanguageID(e.attributes.localizations.data),
+              title: e.attributes.title,
+            }
+          })
+        })
     },
   },
 }

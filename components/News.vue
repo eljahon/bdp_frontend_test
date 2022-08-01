@@ -3,9 +3,7 @@
     <div class="flex items-center w-full rounded-md">
       <nuxt-link
         :to="{ path: localePath(`/agri-finance/${data.id}`), query: {id: data.id} }"
-        style="
-          background-image: url(https://caep.org/blog/wp-content/uploads/2020/04/TractorFarm_Lead.jpg);
-        "
+        :style="data.attributes.thumbnail || data.attributes.image ? `background-image: url(${$tools.getFileUrl(data.attributes.thumbnail ? data.attributes.thumbnail : data.attributes.image)})` : 'background-image: url(https://caep.org/blog/wp-content/uploads/2020/04/TractorFarm_Lead.jpg);'"
         class="relative group cursor-pointer lg:h-96 h-72 w-full rounded-md bg-cover"
       >
         <div class="absolute inset-0 z-10 group-hover:opacity-100 opacity-0">
@@ -16,7 +14,7 @@
           <div class="text-xs rounded-md text-green-800 w-20 flex justify-center bg-green-50 py-1.5 px-7 font-medium">
             {{ data.attributes.servicecategory.data ? data.attributes.servicecategory.data.attributes.name: '' }}
           </div>
-          <div class="text-white group-hover:text-green-700 font-medium text-lg my-6 z-20">
+          <div class="text-white group-hover:text-green-700 font-medium line-clamp-1 text-lg my-6 z-20">
             {{ data.attributes.title }}
           </div>
           <div class="text-white group-hover:text-gray-500 text-sm my-6 z-20 line-clamp-4">
@@ -30,7 +28,7 @@
           {{ $tools.getDate(data.attributes.createdAt) }}
         </div>
         <div class="absolute right-5 text-sm bottom-5 group-hover:text-gray-500 text-white z-20">
-          Read
+          {{$t('read')}}
         </div>
       </nuxt-link>
     </div>
@@ -44,5 +42,6 @@ export default {
     // eslint-disable-next-line vue/require-default-prop
     data: Object,
   },
+  mounted() {}
 }
 </script>

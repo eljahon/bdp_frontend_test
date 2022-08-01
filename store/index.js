@@ -33,7 +33,12 @@ const createStore = () => {
       pricedates: crud('pricedates'),
       priceanalitics: dynamic('priceanalitics'),
       lessons: crud('lessons'),
-      genders: crud('genders')
+      genders: crud('genders'),
+      lessongroups: crud('lessongroups'),
+      consultantcategories: crud('consultantcategories'),
+      contuctuses: crud('contactuses'),
+      activitytypes: crud('activitytypes'),
+      agrocultureareas: crud('agrocultureareas'),
     },
     getters: {
       isAuthenticated: state => { return state.auth.loggedIn },

@@ -7,16 +7,16 @@
             <div class="flex items-center gap-4">
               <div class="flex items-center gap-2">
                 <i class="bx bx-envelope text-white text-lg"></i>
-                <p class="text-sm">Email: info@gggi.com</p>
+                <p class="text-sm">{{$t('email')}}: juanjose.robalino@gggi.org</p>
               </div>
               <div class="flex items-center gap-2">
                 <i class="bx bx-phone text-white text-lg"></i>
-                <p class="text-sm">+998971 123 45 67</p>
+                <p class="text-sm">+99894 081 23 45</p>
               </div>
               <div class="flex items-center gap-2">
                 <i class="bx bx-map text-white text-lg"></i>
                 <p class="text-sm">
-                  31, Islam Karimov st, Nukus, Autonom Republic of Karakalpakstan, Uzbekistan,
+                  7a, Bunyodkor av., 100000, Tashkent, Uzbekistan
                 </p>
               </div>
             </div>
@@ -28,7 +28,7 @@
         <div class="max-w-6xl mx-auto px-4 sm:px-0">
           <div class="flex items-center justify-between text-white">
             <router-link to="/">
-            <!-- <router-link :to="{ path: localePath('/') }"> -->
+              <!-- <router-link :to="{ path: localePath('/') }"> -->
               <svg
                 width="110"
                 height="30"
@@ -58,7 +58,7 @@
                 "
               >
                 <router-link :to="{ path: localePath(menu.route) }">
-                  {{ menu.name }}
+                  {{ $t(menu.name) }}
                 </router-link>
               </div>
             </div>
@@ -73,16 +73,14 @@
                   @click="openProfile"
                 >
                   <img
-                    class="w-10 flex justify-end rounded-full"
+                    class="w-10 h-10 object-cover flex justify-end rounded-full"
                     alt="Avatar"
                     :src="
                       currentUser.avatar
                         ? $tools.getFileUrl(currentUser.avatar)
                         : require('/assets/images/person/avatar.jpg')
                     "
-                    @error="
-                      currentUser.avatar = require('/assets/images/person/avatar.jpg')
-                    "
+                    @error="currentUser.avatar = require('/assets/images/person/avatar.jpg')"
                   />
                 </button>
               </div>
@@ -96,39 +94,36 @@
               >
                 <div
                   class="block font-medium hover:bg-gray-100 px-4 py-2 text-sm text-gray-600 cursor-pointer"
-                  @click="toUserWork({ path: localePath('/my-profile') })"
                 >
                   {{
-                    `${currentUser.name ? currentUser.name : ""} ${
-                      currentUser.surname ? currentUser.surname : ""
+                    `${currentUser.name ? currentUser.name : ''} ${
+                      currentUser.surname ? currentUser.surname : ''
                     }`
                   }}
                   <br />
-                  <span class="text-xs text-gray-500"
-                    >ID: {{ currentUser.id }}</span
-                  >
+                  <span class="text-xs text-gray-500">ID: {{ currentUser.id }}</span>
                 </div>
-                <router-link
-                  :to="{ path: localePath('/chats') }"
+                <div
+                  @click="toMyChats"
                   class="block font-medium px-4 py-2 text-sm text-gray-600 hover:bg-gray-100 cursor-pointer"
                 >
-                  {{ $t('my-chats')}}
-                </router-link>
+                  {{ $t('my-chats') }}
+                </div>
                 <div
                   class="block font-medium px-4 py-2 text-sm text-red-600 hover:bg-red-100 cursor-pointer"
                   @click="logOut()"
                 >
-                  {{ $t("logout") }}
+                  {{ $t('logout') }}
                 </div>
               </div>
             </div>
-            <button
+            <nuxt-link
               v-else
+              :to="localePath('/login')"
               class="text-white focus:outline-none text-sm rounded-md bg-green-700 p-3"
-              @click="signIn()"
             >
-              Login / Register
-            </button>
+              {{$t('login-register')}}
+            </nuxt-link>
           </div>
         </div>
       </div>
@@ -172,7 +167,6 @@
 
 <script>
 import LangSwitcher from '../core/lang-switcher.vue'
-import signInModal from '../modals/signin.vue'
 import mobileMenu from '../core/mobile-menu.vue'
 import { mapState } from 'vuex'
 import { socket } from '~/plugins/socket.client.js'
@@ -185,12 +179,12 @@ export default {
     return {
       isProfileOpened: false,
       navbar: [
-        { name: 'About', route: '/about' },
-        { name: 'E-learning', route: '/e-learning' },
-        { name: 'Agri-business', route: '/agri-business' },
-        { name: 'Agri-finance', route: '/agri-finance' },
-        { name: 'Agri-market', route: '/agri-market' },
-        { name: 'Advisory', route: '/advisory' },
+        { name: 'about', route: '/about' },
+        { name: 'e-learning', route: '/e-learning' },
+        { name: 'agri-business', route: '/agri-business' },
+        { name: 'agri-finance', route: '/agri-finance' },
+        { name: 'agri-market', route: '/agri-market' },
+        { name: 'advisory', route: '/advisory' },
       ],
     }
   },
@@ -206,14 +200,17 @@ export default {
         username: this.currentUser.username,
         user_id: this.currentUser.id,
       })
-      this.isProfileOpened = !this.isProfileOpened;
-      await localStorage.removeItem("local");
-      await localStorage.removeItem("user_info");
-      await this.$auth.logout();
-
+      this.isProfileOpened = false
+      await localStorage.removeItem('local')
+      await localStorage.removeItem('user_info')
+      await this.$auth.logout()
+    },
+    toMyChats() {
+      this.isProfileOpened = false
+      this.$router.push({ path: this.localePath('/chats') })
     },
     openProfile() {
-      this.isProfileOpened = !this.isProfileOpened;
+      this.isProfileOpened = !this.isProfileOpened
     },
     openMobileMenu() {
       this.$showPanel({
@@ -223,19 +220,9 @@ export default {
       })
     },
     signIn() {
-      this.$modal.show(
-        signInModal,
-        { status: 'sign-in' },
-        {
-          height: 'auto',
-          maxWidth: 400,
-          width: window.innerWidth <= 350 ? window.innerWidth - 10 : 350,
-          acrollable: true,
-        }
-      )
-      // this.$root.$once('user-change-modal', (item) => {
-      //   console.log(item)
-      // })
+      this.$router.push({
+        path: this.localePath('/login'),
+      })
     },
   },
 }

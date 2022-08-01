@@ -27,7 +27,6 @@ export default {
     if (!process.client) {
       return
     }
-    this.currentUser = JSON.parse(localStorage.getItem('user_info'))
   },
   mounted() {
     socket.on('joined', (res) => {
@@ -43,9 +42,10 @@ export default {
       console.log('Left from room:', res)
     })
     socket.on('message', (res) => {
-      this.getMessages()
-      // this.$store.dispatch("sendMessage", res);
       console.log('Page Received Message Front: ', res)
+      if (res.type === 'chat') {
+        this.getMessages()
+      }
     })
     socket.on('finishedChat', (res) => {
       this.$store.dispatch('finishedChatId', res)
@@ -59,17 +59,12 @@ export default {
       console.log('Join chat: ', message)
       this.joinToChat(message)
     })
-    this.$bridge.$on('set_active_rooms', () => {
-      this.fetchActiveRooms()
-    })
-    this.$bridge.$on('set_closed_rooms', () => {
-      this.fetchClosedRooms()
-    })
-    if (this.currentUser)
-      this.$bridge.$emit('join_chat', {
-        username: this.currentUser.username,
-        user_id: this.currentUser.id,
-      })
+    // if (this.$auth.user && Object.keys(this.$auth.user).length > 0) {
+    //   this.$bridge.$emit('join_chat', {
+    //     username: this.$auth.user.username,
+    //     user_id: this.$auth.user.id,
+    //   })
+    // }
   },
   computed: {
     ...mapState({
@@ -83,27 +78,10 @@ export default {
         {
           username: message.username,
           user_id: message.user_id,
-        },
-        ({ res, rej }) => {
-          // if (res) {
-          //   if (this.$route.query.room_id !== "new") {
-          //     this.$store
-          //       .dispatch("getChatmessages", {
-          //         "filters[$and][0][chatroom][id]": this.$route.query.room_id,
-          //       })
-          //       .then((res) => {
-          //         console.log("Chat messages: ", res);
-          //         this.$store.dispatch("setMessage", res);
-          //       });
-          //   }
-          // } else {
-          //   console.error(rej);
-          // }
         }
       )
     },
     joinToRoom(message) {
-      console.log('Join to room: ', message)
       socket.emit(
         'joinRoom',
         {
@@ -131,52 +109,6 @@ export default {
           console.log('Chat messages: ', res)
           this.$store.dispatch('setMessage', res)
         })
-    },
-    async fetchActiveRooms() {
-      if (this.currentUser.role.id === 4) {
-        await this.$store
-          .dispatch('getChatrooms', {
-            populate: '*',
-            'filters[$or][0][consultant][id]': this.currentUser.id,
-            'filters[$and][0][isCompleted]': false,
-          })
-          .then((res) => {
-            this.$store.dispatch('setActiveRooms', res)
-          })
-      } else {
-        await this.$store
-          .dispatch('getChatrooms', {
-            populate: '*',
-            'filters[$or][0][user][id]': this.currentUser.id,
-            'filters[$and][0][isCompleted]': false,
-          })
-          .then((res) => {
-            this.$store.dispatch('setActiveRooms', res)
-          })
-      }
-    },
-    async fetchClosedRooms() {
-      if (this.currentUser.role.id === 4) {
-        await this.$store
-          .dispatch('getChatrooms', {
-            populate: '*',
-            'filters[$or][0][consultant][id]': this.currentUser.id,
-            'filters[$and][0][isCompleted]': true,
-          })
-          .then((res) => {
-            this.$store.dispatch('setClosedRooms', res)
-          })
-      } else {
-        await this.$store
-          .dispatch('getChatrooms', {
-            populate: '*',
-            'filters[$or][0][user][id]': this.currentUser.id,
-            'filters[$and][0][isCompleted]': true,
-          })
-          .then((res) => {
-            this.$store.dispatch('setClosedRooms', res)
-          })
-      }
     },
   },
 }

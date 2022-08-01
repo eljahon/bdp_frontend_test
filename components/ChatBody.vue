@@ -8,7 +8,7 @@
               <img
                 :src="
                   consultant.avatar
-                    ? consultant.avatar
+                    ? $tools.getFileUrl(consultant.avatar)
                     : require('/assets/images/person/avatar.jpg')
                 "
                 alt=""
@@ -23,10 +23,9 @@
                   }`
                 }}</span>
               </div>
-              <!-- <span v-if="consultant.consultantcategory" class="text-sm text-gray-600">{{
-                      consultant.consultantcategory.title[$i18n.locale]
-                    }}</span> -->
-              <span class="text-sm text-gray-600">Suvchi</span>
+              <span v-if="consultant.consultantcategory" class="text-sm text-gray-600">{{
+                consultant.consultantcategory.name
+              }}</span>
             </div>
           </div>
         </div>
@@ -79,8 +78,8 @@
               </div>
               <img
                 :src="
-                  msg.attributes.sender && msg.attributes.sender.avatar
-                    ? $tools.getFileUrl(msg.attributes.sender.avatar)
+                  msg.attributes.sender && msg.attributes.sender.data.attributes.avatar
+                    ? $tools.getFileUrl(msg.attributes.sender.data.attributes.avatar)
                     : require('/assets/images/person/avatar.jpg')
                 "
                 @error="require('/assets/images/person/avatar.jpg')"
@@ -125,8 +124,8 @@
               </div>
               <img
                 :src="
-                  msg.attributes.sender && msg.attributes.sender.avatar
-                    ? $tools.getFileUrl(msg.attributes.sender.avatar)
+                  msg.attributes.sender && msg.attributes.sender.data.attributes.avatar
+                    ? $tools.getFileUrl(msg.attributes.sender.data.attributes.avatar)
                     : require('/assets/images/person/avatar.jpg')
                 "
                 @error="require('/assets/images/person/avatar.jpg')"
@@ -138,7 +137,7 @@
           <div class="chat-message"></div>
         </div>
         <div
-          v-if="currentRoom.isCompleted === false || $route.query.room_id === 'new'"
+          v-if="!currentRoom.isCompleted || $route.query.room_id === 'new'"
           class="border-t-2 border-gray-200 px-4 pt-4 mb-2 sm:mb-0"
         >
           <div class="relative flex">
@@ -333,7 +332,6 @@
             </span>
           </div>
         </div>
-        {{ currentRoom.isCompleted }}
       </div>
       <vue-simple-context-menu
         ref="vueSimpleContextMenu"
@@ -360,6 +358,12 @@ import { socket } from '~/plugins/socket.client.js'
 import VueSimpleContextMenu from 'vue-simple-context-menu'
 import 'vue-simple-context-menu/dist/vue-simple-context-menu.css'
 export default {
+  name: 'ChatRoomBody',
+  mixins: [],
+  auth: true,
+  components: {
+    VueSimpleContextMenu,
+  },
   props: {
     currentUser: {
       type: Object,
@@ -394,6 +398,53 @@ export default {
       ],
     }
   },
+  created() {},
+  mounted() {
+    if (this.$route.query.room_id) {
+      this.fetchConsultant()
+    }
+    if (this.$route.query.room_id && this.$route.query.room_id !== 'new') {
+      this.fetchCurrentRoom().then(() => {
+        this.message = {
+          chatroom: this.currentRoom.id,
+          sender: this.currentUser.id,
+          receiver: this.consultant.id,
+          text: '',
+          filepath: null,
+          seen: false,
+        }
+        this.$bridge.$emit('join_room', {
+          username: this.currentUser.username,
+          room: this.currentRoom.id,
+        })
+      })
+    }
+  },
+  beforeDestroy() {
+    this.socketDisconnector()
+  },
+  watch: {
+    '$route.query.room_id'(val) {
+      this.socketDisconnector().then(() => {
+        if (this.$route.query.room_id) {
+          this.fetchCurrentRoom().then(() => {
+            this.message = {
+              chatroom: this.currentRoom.id,
+              sender: this.currentUser.id,
+              receiver: this.consultant.id,
+              text: '',
+              filepath: null,
+              seen: false,
+            }
+            this.$bridge.$emit('join_room', {
+              username: this.currentUser.username,
+              room: this.currentRoom.id,
+            })
+          })
+        }
+      })
+    },
+  },
   computed: {
     ...mapState({
       finishedChatId: (state) => state.socket.finishedChatId,
@@ -413,9 +464,11 @@ export default {
           rate: this.advice.rating,
         },
       }
-      this.$store.dispatch('putChatrooms', { id: _currentRoom.id, data: _currentRoom.data }).then(() => {
-        this.fetchCurrentRoom()
-      })
+      this.$store
+        .dispatch('putChatrooms', { id: _currentRoom.id, data: _currentRoom.data })
+        .then(() => {
+          this.fetchCurrentRoom()
+        })
     },
     closeChatRoom() {
       const _currentRoom = {
@@ -435,16 +488,23 @@ export default {
         {
           height: 'auto',
           maxWidth: 400,
-          width: window.innerWidth <= 600 ? window.innerWidth - 30 : 600,
+          width: window.innerWidth <= 400 ? window.innerWidth - 30 : 400,
           scrollable: true,
           clickToClose: false,
         }
       )
       this.$root.$once('finish-chat-modal', (item) => {
         if (item !== 'canceled') {
-          socket.emit('finishChat', this.currentRoom.id, (res, rej) => {
-            console.log('Finished chat: ', res)
-          })
+          this.sendRoomToSocket(
+            {
+              id: this.currentRoom.id,
+              data: {
+                consultant: this.currentRoom.attributes.consultant.data.id,
+                isCompleted: true,
+                user: this.currentRoom.attributes.user.data.id,
+              },
+            }
+          )
         }
       })
     },
@@ -493,6 +553,24 @@ export default {
         })
       } else {
         socket.emit('sendMessage', message, ({ res, rej }) => {
+          this.setMessage()
+        })
+      }
+    },
+    sendRoomToSocket(message) {
+      if (message.id) {
+        const _id = message.id
+        const data = { ...message }
+        delete data.id
+        const _message = {
+          id: _id,
+          data,
+        }
+        socket.emit('editRoom', _message, ({ res, rej }) => {
+          this.setMessage()
+        })
+      } else {
+        socket.emit('createRoom', message, ({ res, rej }) => {
           this.setMessage()
         })
       }
@@ -567,7 +645,7 @@ export default {
         this.$modal.show(
           sendMedia,
           {
-            image: res.data[0].url,
+            image: res.data[0].url.substring(8),
           },
           {
             height: 'auto',
@@ -589,12 +667,15 @@ export default {
     async fetchCurrentRoom() {
       if (this.$route.query.room_id !== 'new') {
         await this.$store
-          .dispatch('getChatrooms', {
-            populate: '*',
-            'filters[$and][0][id]': this.$route.query.room_id,
+          .dispatch('getByIdChatrooms', {
+            id: this.$route.query.room_id,
+            query: {
+              populate: '*',
+              'filters[$and][0][id]': this.$route.query.room_id,
+            }
           })
           .then((res) => {
-            this.currentRoom = res[0]
+            this.currentRoom = res.data
           })
       }
     },
@@ -603,68 +684,20 @@ export default {
         username: this.currentUser.username,
         room: this.currentRoom.id,
       })
+      await this.$store.dispatch("clearMessages");
     },
     fetchConsultant() {
       this.$store
         .dispatch('getByIdUsers', {
           id: this.$route.query.consultant_id,
+          query: {
+            populate: '*',
+          },
         })
         .then((res) => {
-          this.consultant = res.data
+          this.consultant = res
         })
     },
   },
-  mounted() {
-    if (this.$route.query.room_id) {
-      this.fetchConsultant()
-    }
-    if (this.$route.query.room_id && this.$route.query.room_id !== 'new') {
-      this.fetchCurrentRoom().then(() => {
-        this.message = {
-          chatroom: this.currentRoom.id,
-          sender: this.currentUser.id,
-          receiver: this.consultant.id,
-          text: '',
-          filepath: null,
-          seen: false,
-        }
-        this.$bridge.$emit('join_room', {
-          username: this.currentUser.username,
-          room: this.currentRoom.id,
-        })
-      })
-    }
-  },
-  created() {},
-  beforeDestroy() {
-    this.socketDisconnector()
-  },
-  watch: {
-    '$route.query.room_id'(val) {
-      this.socketDisconnector().then(() => {
-        if (this.$route.query.room_id) {
-          this.fetchCurrentRoom().then(() => {
-            this.message = {
-              chatroom: this.currentRoom.id,
-              sender: this.currentUser.id,
-              receiver: this.consultant.id,
-              text: '',
-              filepath: null,
-              seen: false,
-            }
-            this.$bridge.$emit('join_room', {
-              username: this.currentUser.username,
-              room: this.currentRoom.id,
-            })
-          })
-        }
-      })
-    },
-  },
-  components: {
-    VueSimpleContextMenu,
-  },
-  mixins: [],
-  name: 'ChatRoomBody',
 }
 </script>

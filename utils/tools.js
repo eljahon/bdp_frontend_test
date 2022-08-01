@@ -1,8 +1,12 @@
 /* eslint-disable no-unused-expressions */
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+ 
 const { isNavigationFailure, NavigationFailureType } = VueRouter
 const tools = {
+  getDefaultLanguageID(langs) {
+    return langs.find(l => l.attributes.locale === 'en').id
+  },
   emptyObject(obj) {
     return Object.entries(obj).reduce(
       (a, [k, v]) => (v === null || v === '' ? a : ((a[k] = v), a)),
@@ -73,7 +77,7 @@ const tools = {
     }
     return data
   },
-  phoneFormatter (phone) {
+  phoneFormatter(phone) {
     phone = phone.includes('+') > 0 ? phone.substring(1) : phone
     let match = phone.match(/^(\d{3})(\d{2})(\d{3})(\d{4})$/)
     return `+(${match[1]})${match[2]} ${match[3]}-${match[4]}`

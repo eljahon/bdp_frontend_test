@@ -1,195 +1,421 @@
 <template>
   <div :style="{ backgroundImage: `url(${image})` }" class="bg-cover h-full pb-10 bg-opacity-10">
     <div class="max-w-6xl mx-auto p-4 lg:px-8 xl:px-0">
-      <div class="max-w-2xl mx-auto mt-10">
-        <div class="grid grid-cols-2 bg-white rounded-md p-6 gap-4">
-          <div class="flex justify-center text-gray-600 font-semibold col-span-2 text-xl mb-4">
-            {{ $t('registration-for-consultant-individual') }}
-          </div>
-          <div>
-            <label for="name" class="block mb-1 text-sm font-medium text-gray-700">{{
-              $t('name')
-            }}</label>
-            <input
-              type="text"
-              name="name"
-              id="name"
-              class="focus:outline-none appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
-            />
-          </div>
-          <div>
-            <label for="phone" class="block mb-1 text-sm font-medium text-gray-700">{{
-              $t('phone')
-            }}</label>
-            <input
-              type="text"
-              name="phone"
-              id="phone"
-              class="focus:outline-none appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
-            />
-          </div>
-          <div>
-            <label for="email" class="block mb-1 text-sm font-medium text-gray-700">{{
-              $t('email')
-            }}</label>
-            <input
-              type="email"
-              name="email"
-              id="email"
-              class="focus:outline-none appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
-            />
-          </div>
-          <div>
-            <label for="gender" class="block mb-1 text-sm font-medium text-gray-700">{{
-              $t('gender')
-            }}</label>
-            <input
-              type="gender"
-              name="gender"
-              id="gender"
-              class="focus:outline-none appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
-            />
-          </div>
-          <div>
-            <label for="birth" class="block mb-1 text-sm font-medium text-gray-700">{{
-              $t('date-of-birth')
-            }}</label>
-            <input
-              type="birth"
-              name="birth"
-              id="birth"
-              class="focus:outline-none appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
-            />
-          </div>
-          <div>
-            <label for="area" class="block mb-1 text-sm font-medium text-gray-700">{{
-              $t('area-of-agriculture-and-environment')
-            }}</label>
-            <input
-              type="area"
-              name="area"
-              id="area"
-              class="focus:outline-none appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
-            />
-          </div>
-          <div>
-            <label for="consultancy" class="block mb-1 text-sm font-medium text-gray-700">{{
-              $t('area-of-consultancy')
-            }}</label>
-            <input
-              type="consultancy"
-              name="consultancy"
-              id="consultancy"
-              class="focus:outline-none appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
-            />
-          </div>
-          <div>
-            <label for="workplace" class="block mb-1 text-sm font-medium text-gray-700">{{
-              $t('workplace')
-            }}</label>
-            <input
-              type="workplace"
-              name="workplace"
-              id="workplace"
-              class="focus:outline-none appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
-            />
-          </div>
-          <div>
-            <label for="degree" class="block mb-1 text-sm font-medium text-gray-700">{{
-              $t('last-received-degree')
-            }}</label>
-            <input
-              type="degree"
-              name="degree"
-              id="degree"
-              class="focus:outline-none appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
-            />
-          </div>
-          <div class="">
-            <label for="resume" class="block mb-1 text-sm font-medium text-gray-700">{{
-              $t('upload-resume')
-            }}</label>
-            <input
-              type="resume"
-              name="resume"
-              id="resume"
-              class="focus:outline-none appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
-            />
-          </div>
-          <div class="">
-            <label for="diploma" class="block mb-1 text-sm font-medium text-gray-700">{{
-              $t('upload-diploma')
-            }}</label>
-            <input
-              type="diploma"
-              name="diploma"
-              id="diploma"
-              class="focus:outline-none appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
-            />
-          </div>
-          <div class="">
-            <label for="experience" class="block mb-1 text-sm font-medium text-gray-700">{{
-              $t('experience')
-            }}</label>
-            <input
-              type="experience"
-              name="experience"
-              id="experience"
-              class="focus:outline-none appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
-            />
-          </div>
-          <div class="">
-            <label for="region" class="block mb-1 text-sm font-medium text-gray-700">{{
-              $t('region')
-            }}</label>
-            <input
-              type="region"
-              name="region"
-              id="region"
-              class="focus:outline-none appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
-            />
-          </div>
-          <div>
-            <label for="tin" class="block mb-1 text-sm font-medium text-gray-700">{{
-              $t('tin')
-            }}</label>
-            <input
-              type="text"
-              name="tin"
-              id="tin"
-              class="focus:outline-none appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
-            />
-          </div>
-          <div class="flex items-center mt-2">
-            <input
-              name="termsOfUse"
-              type="checkbox"
-              :value="true"
-              class="h-5 w-5 text-green-600 focus:ring-green-600 border-gray-300 rounded"
-            />
-            <label for="termsOfUse" class="ml-2 block text-gray-600 text-base">
-              {{ $t('i-agree-with') }}
-              <span class="text-green-600 border-b border-green-600">
-                {{ $t('terms-of-use') }}
-              </span>
-            </label>
-          </div>
-          <button class="col-span-2 rounded-md bg-gray-300 py-3 mt-6">{{ $t('register') }}</button>
+      <div class="max-w-2xl mx-auto mt-10 bg-white rounded-md">
+        <div class="flex justify-center text-gray-600 font-semibold text-xl md:p-6 p-4">
+          {{ $t('registration-for-consultant-individual') }}
         </div>
+        <main-register class="" @registerSuccess="mainRegisterSuccess" />
+        <ValidationObserver v-slot="{ handleSubmit, invalid }" slim>
+          <form class="" novalidate @submit.prevent="handleSubmit(onSubmit)">
+            <div class="grid grid-cols-2 bg-white rounded-md p-6 gap-4">
+              <div class="flex justify-start col-span-2 text-gray-600 font-semibold text-xl">
+                {{ $t('additional-information') }}
+              </div>
+              <div class="md:col-span-1 col-span-2">
+                <label for="activity-type" class="block mb-1 text-sm font-medium text-gray-700">{{
+                  $t('activity-type')
+                }}</label>
+                <v-select
+                  v-model="form.activitytypes"
+                  :options="activities"
+                  :disabled="!isMainRegister"
+                  label="title"
+                  value="id"
+                  :reduce="(activity) => activity.id"
+                  :multiple="true"
+                ></v-select>
+              </div>
+              <div class="md:col-span-1 col-span-2">
+                <label for="field" class="block mb-1 text-sm font-medium text-gray-700">{{
+                  $t('field-of-agriculture')
+                }}</label>
+                <v-select
+                  v-model="form.agrocultureareas"
+                  :options="agrocultureAreas"
+                  :disabled="!isMainRegister"
+                  label="title"
+                  value="id"
+                  :reduce="(agro) => agro.id"
+                  :multiple="true"
+                ></v-select>
+              </div>
+              <div class="md:col-span-1 col-span-2">
+                <label for="workplace" class="block mb-1 text-sm font-medium text-gray-700">{{
+                  $t('workplace')
+                }}</label>
+                <ValidationProvider
+                  v-slot="{ errors }"
+                  name="workplace"
+                  rules="required"
+                  mode="eager"
+                >
+                  <input
+                    type="text"
+                    name="workplace"
+                    id="workplace"
+                    v-model="additional.workplace"
+                    class="
+                      focus:outline-none
+                      appearance-none
+                      block
+                      w-full
+                      px-3
+                      py-2
+                      border
+                      rounded-md
+                      shadow-sm
+                      placeholder-gray-400
+                      sm:text-sm
+                    "
+                    :disabled="!isMainRegister"
+                    :class="
+                      errors.length > 0
+                        ? 'border-red-400'
+                        : form.workplace
+                        ? 'border-green-600'
+                        : 'border-gray-300'
+                    "
+                  />
+                </ValidationProvider>
+              </div>
+              <div class="mt-1">
+                <label for="degree" class="block text-sm mb-1 font-medium text-gray-700"
+                  >{{ $t('last-received-degree') }}*</label
+                >
+                <select
+                  v-model="additional.last_degree"
+                  name="option"
+                  class="
+                    focus:outline-none
+                    block
+                    w-full
+                    px-3
+                    py-2
+                    border
+                    rounded-md
+                    shadow-sm
+                    placeholder-gray-400
+                    sm:text-sm
+                    border-gray-300
+                  "
+                  :disabled="!isMainRegister"
+                >
+                  <option v-for="(degree, index) in degrees" :key="index" :value="degree">
+                    {{ degree }}
+                  </option>
+                </select>
+              </div>
+              <div class="md:col-span-1 col-span-2">
+                <label for="resume" class="block mb-1 text-sm font-medium text-gray-700"
+                  >{{ $t('upload-resume') }}(PDF)*</label
+                >
+                <!-- <ValidationProvider v-slot="{ errors }" name="resume" rules="required" mode="eager" vid="file"> -->
+                <input
+                  class="
+                    block
+                    w-full
+                    text-sm text-gray-900
+                    bg-gray-50
+                    rounded-lg
+                    border border-gray-300
+                    cursor-pointer
+                    focus:outline-none
+                  "
+                  aria-describedby="file_input_help"
+                  id="resume"
+                  accept="application/pdf"
+                  type="file"
+                  ref="file"
+                  @change="mediaChange($event, 'resume')"
+                  :disabled="!isMainRegister"
+                />
+                <!-- </ValidationProvider> -->
+              </div>
+              <div class="md:col-span-1 col-span-2">
+                <label for="diploma" class="block mb-1 text-sm font-medium text-gray-700"
+                  >{{ $t('upload-diploma') }}(PDF)*</label
+                >
+                <!-- <ValidationProvider
+                  v-slot="{ errors }"
+                  name="diploma"
+                  rules="required"
+                  vid="file"
+                  mode="eager"
+                > -->
+                <input
+                  class="
+                    block
+                    w-full
+                    text-sm text-gray-900
+                    bg-gray-50
+                    rounded-lg
+                    border border-gray-300
+                    cursor-pointer
+                    focus:outline-none
+                  "
+                  aria-describedby="file_input_help"
+                  id="diploma"
+                  accept="application/pdf"
+                  type="file"
+                  ref="file"
+                  @change="mediaChange($event, 'diploma')"
+                  :disabled="!isMainRegister"
+                />
+                <!-- </ValidationProvider> -->
+              </div>
+              <div class="md:col-span-1 col-span-2">
+                <label for="experience" class="block mb-1 text-sm font-medium text-gray-700">{{
+                  $t('experience')
+                }}</label>
+                <input
+                  name="experience"
+                  id="experience"
+                  type="number"
+                  :min="0"
+                  :max="80"
+                  v-model="additional.experience_year"
+                  :disabled="!isMainRegister"
+                  class="
+                    focus:outline-none
+                    appearance-none
+                    block
+                    w-full
+                    px-3
+                    py-2
+                    border border-gray-300
+                    rounded-md
+                    shadow-sm
+                    placeholder-gray-400
+                    sm:text-sm
+                  "
+                />
+              </div>
+              <div class="md:col-span-1 col-span-2">
+                <label for="tin" class="block mb-1 text-sm font-medium text-gray-700"
+                  >{{ $t('tin') }}*</label
+                >
+                <ValidationProvider v-slot="{ errors }" name="tin" rules="required" mode="eager">
+                  <input
+                    type="text"
+                    name="tin"
+                    id="tin"
+                    v-model="additional.tin"
+                    :disabled="!isMainRegister"
+                    class="
+                      focus:outline-none
+                      appearance-none
+                      block
+                      w-full
+                      px-3
+                      py-2
+                      border
+                      rounded-md
+                      shadow-sm
+                      placeholder-gray-400
+                      sm:text-sm
+                    "
+                    :class="
+                      errors.length > 0
+                        ? 'border-red-400'
+                        : form.tin
+                        ? 'border-green-600'
+                        : 'border-gray-300'
+                    "
+                  />
+                </ValidationProvider>
+              </div>
+              <ValidationProvider name="checked" rules="checked" mode="eager" v-slot="{ errors }">
+                <div class="flex items-center mt-2 col-span-2">
+                  <input
+                    name="termsOfUse"
+                    type="checkbox"
+                    v-model="isAgree"
+                    :value="true"
+                    :disabled="!isMainRegister"
+                    class="h-5 w-5 text-green-600 focus:ring-green-600 border-gray-300 rounded"
+                  />
+                  <label for="termsOfUse" class="ml-2 block text-gray-600 text-base">
+                    {{ $t('i-agree-with') }}
+                    <span class="text-green-600 border-b border-green-600">
+                      {{ $t('terms-of-use') }}
+                    </span>
+                  </label>
+                </div>
+                <div class="text-red-500 text-xs">{{ errors[0] }}</div>
+              </ValidationProvider>
+              <button
+                :class="invalid ? 'bg-gray-300' : 'bg-green-600 hover:bg-green-700 text-white'"
+                :disabled="invalid"
+                class="col-span-2 rounded-md py-3 mt-6"
+              >
+                {{ $t('register') }}
+              </button>
+            </div>
+          </form>
+        </ValidationObserver>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import background from '/assets/images/background.png'
+import axios from 'axios'
 export default {
-  name: 'UserInterprise',
+  name: 'ConsultantIndividual',
   auth: false,
   data() {
     return {
       image: background,
+      additional: {
+        resume_url: null,
+        diploma_url: null,
+        last_degree: '',
+        tin: '',
+        experience_year: null,
+        workplace: '',
+      },
+      form: {
+        activitytypes: [],
+        agrocultureareas: [],
+      },
+      auth: {
+        identifier: '',
+        password: '',
+      },
+      activities: [],
+      agrocultureAreas: [],
+      jwt: '',
+      isMainRegister: false,
+      isAgree: false,
+      degrees: [this.$t('high-school'), this.$t('bachelor-degree'), this.$t('master-degree')],
     }
+  },
+  mounted() {
+    this.fetchDirectories()
+  },
+  computed: {
+    ...mapGetters(['dataGenders', 'dataRegions']),
+  },
+  methods: {
+    onSubmit() {
+      let _form = { ...this.form }
+      delete _form.id
+      this.additional.user = this.form.id
+      axios({
+        baseURL: process.env.VUE_APP_BASE_URL,
+        url: `/users/${this.form.id}`,
+        method: 'PUT',
+        data: _form,
+        headers: {
+          Authorization: `Bearer ${this.jwt}`,
+        },
+      }).then((res) => {
+        axios({
+          baseURL: process.env.VUE_APP_BASE_URL,
+          url: `/additionalinfos`,
+          method: 'POST',
+          data: {data: this.additional},
+          headers: {
+            Authorization: `Bearer ${this.jwt}`,
+          },
+        }).then(async () => {
+          try {
+            await this.$auth
+              .loginWith('local', {
+                data: this.auth,
+              })
+              .then(async (res) => {
+                await this.$store
+                  .dispatch('getUsers', {
+                    link: '/users/me',
+                    query: {
+                      populate: '*',
+                    },
+                  })
+                  .then((response) => {
+                    localStorage.setItem('user_info', JSON.stringify(response.data))
+                  })
+                await this.$bridge.$emit('join_chat', {
+                  username: res.data.user.username,
+                  user_id: res.data.user.id,
+                })
+                this.loading = false
+                await this.$snotify.success('Successfully Logged In')
+                this.$router.push(this.localePath('/'))
+              })
+          } catch (e) {
+            if (e.response) this.authError = e.response.data.error.message
+            this.loading = false
+          }
+        })
+      })
+    },
+    mediaChange({ target }, type) {
+      const formData = new FormData()
+      formData.append('files', target.files[0])
+      axios({
+        baseURL: process.env.VUE_APP_BASE_URL,
+        url: `/upload`,
+        method: 'POST',
+        data: formData,
+        headers: {
+          Authorization: `Bearer ${this.jwt}`,
+        },
+      }).then((res) => {
+        if (type === 'resume') {
+          this.additional.resume_url = res.data[0].url.substring(8)
+          return
+        }
+        if (type === 'diploma') {
+          this.additional.diploma_url = res.data[0].url.substring(8)
+          return
+        }
+      })
+    },
+    async fetchDirectories() {
+      await this.$store
+        .dispatch('getActivitytypes', {
+          populate: '*',
+          locale: this.$i18n.locale,
+        })
+        .then((res) => {
+          this.activities = res.map((e) => {
+            return {
+              id:
+                e.attributes.locale === 'en'
+                  ? e.id
+                  : this.$tools.getDefaultLanguageID(e.attributes.localizations.data),
+              title: e.attributes.title,
+            }
+          })
+        })
+      await this.$store
+        .dispatch('getAgrocultureareas', {
+          populate: '*',
+          locale: this.$i18n.locale,
+        })
+        .then((res) => {
+          this.agrocultureAreas = res.map((e) => {
+            return {
+              id:
+                e.attributes.locale === 'en'
+                  ? e.id
+                  : this.$tools.getDefaultLanguageID(e.attributes.localizations.data),
+              title: e.attributes.title,
+            }
+          })
+        })
+    },
+    mainRegisterSuccess(e) {
+      this.isMainRegister = e.isSuccess
+      this.auth.identifier = e.user.username
+      this.auth.password = e.password
+      this.form.id = e.user.id
+      this.jwt = e.jwt
+    },
   },
 }
 </script>

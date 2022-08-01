@@ -112,10 +112,9 @@ export default {
   },
   watch: {
     currentUser() {
-      let currentUser = JSON.parse(localStorage.getItem('user_info'))
       if (
-        currentUser &&
-        currentUser.role.id === 4
+        this.currentUser &&
+        this.currentUser.role.id === 4
       ) {
         this.isConsultant = true
       } else {
@@ -131,7 +130,7 @@ export default {
             populate: '*',
             'filters[$and][0][consultant][id]': this.data.id,
             'filters[$and][1][user][id]': this.currentUser.id,
-            'filters[$and][2][isCompleted]': false,
+            'filters[$and][2][isCompleted][$ne]': true,
           })
           .then((res) => {
             if (res.length > 0) {

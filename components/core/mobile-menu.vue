@@ -7,7 +7,7 @@
         closePanel()
       "
     >
-      Login / Register
+      {{ $t('login-register') }}
     </button>
     <div
       v-for="(menu, index) in navbar"
@@ -21,59 +21,46 @@
       @click="closePanel()"
     >
       <router-link :to="{ path: localePath(menu.route) }">
-        {{ menu.name }}
+        {{ $t(menu.name) }}
       </router-link>
     </div>
     <div class="block space-y-5 text-gray-700">
       <div class="flex items-center gap-2">
-        <i class="bx bx-envelope text-lg"></i>
-        <p class="text-sm">Email: info@gggi.com</p>
+        <i class="bx bx-envelope lg:text-lg text-base"></i>
+        <p class="text-sm"> juanjose.robalino@gggi.org</p>
       </div>
       <div class="flex items-center gap-2">
-        <i class="bx bx-phone text-lg"></i>
-        <p class="text-sm">+998971 123 45 67</p>
+        <i class="bx bx-phone lg:text-lg text-base"></i>
+        <p class="text-sm">+99894 081 23 45</p>
       </div>
       <div class="flex gap-2">
-        <i class="bx bx-map text-lg"></i>
-        <p class="text-sm">
-          31, Islam Karimov st, Nukus, Autonom Republic of Karakalpakstan, Uzbekistan,
-        </p>
+        <i class="bx bx-map lg:text-lg text-base"></i>
+        <p class="text-sm">7a, Bunyodkor av., 100000, Tashkent, Uzbekistan</p>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import signInModal from '../modals/signin.vue'
 export default {
   name: 'MobileMenu',
   data() {
     return {
       navbar: [
-        { name: 'About', route: '/about' },
-        { name: 'E-learning', route: '/e-learning' },
-        { name: 'Agri-business', route: '/agri-business' },
-        { name: 'Agri-finance', route: '/agri-finance' },
-        { name: 'Agri-market', route: '/agri-market' },
-        { name: 'Advisory', route: '/advisory' },
+        { name: 'about', route: '/about' },
+        { name: 'e-learning', route: '/e-learning' },
+        { name: 'agri-business', route: '/agri-business' },
+        { name: 'agri-finance', route: '/agri-finance' },
+        { name: 'agri-market', route: '/agri-market' },
+        { name: 'advisory', route: '/advisory' },
       ],
     }
   },
   methods: {
     signIn() {
-      this.$modal.show(
-        signInModal,
-        { status: 'sign-in' },
-        {
-          height: 'auto',
-          maxWidth: 400,
-          width: window.innerWidth <= 350 ? window.innerWidth - 10 : 350,
-          acrollable: true,
-        }
-      )
-      // this.$root.$once('user-change-modal', (item) => {
-      //   console.log(item)
-      // })
+      this.$router.push({
+        path: this.localePath('/login'),
+      })
     },
     closePanel() {
       this.$emit('closePanel', {})

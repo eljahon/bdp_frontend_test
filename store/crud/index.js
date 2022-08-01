@@ -81,13 +81,10 @@ export default function (param) {
             .get(`${param}`, { params })
             .then((res) => {
               commit(_mutations.pagination, {
-                page: (params && parseInt(params._start)) || state.pagination.page,
+                page: res.data.meta.pagination.page || state.pagination.page,
                 total: res.data.meta.pagination.total,
-                limit: (params && parseInt(params._limit)) || state.pagination.limit,
-                lastPage:
-                  res.data.meta.pagination.total % state.pagination.limit > 0
-                    ? Math.floor(res.data.meta.pagination.total / state.pagination.limit) + 1
-                    : res.data.meta.pagination.total / state.pagination.limit,
+                pageSize: res.data.meta.pagination.pageSize || state.pagination.pageSize,
+                pageCount: res.data.meta.pagination.pageCount,
               })
               const _res = res.data.data || res
               commit(_mutations.data, _res)
@@ -109,7 +106,7 @@ export default function (param) {
         commit(_mutations.oneLoad, true)
         return new Promise((resolve, reject) => {
           this.$axios
-          .get(`${param}/${payload.id}`, payload.query )
+          .$get(`${param}/${payload.id}`, { params: payload.query } )
           .then((res) => {
             resolve(res)
             })

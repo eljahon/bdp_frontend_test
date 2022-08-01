@@ -19,25 +19,22 @@
               </svg>
 
               <div class="text-gray-800 text-sm font-semibold ml-1">
-                Business Development Platform
+                {{ $t('business-development-platform') }}
               </div>
             </div>
             <div class="lg:text-5xl text-2xl font-semibold">
-              Agriculture business<br />
-              <div class="text-green-800 lg:my-4 my-0">in Karakalpakstan</div>
+              {{ $t('agriculture-business') }}<br />
+              <div class="text-green-800 lg:my-4 my-0">{{ $t('in-karakalpakstan') }}</div>
             </div>
             <div class="text-gray-500 mr-4">
-              The platform aims to provide the needed information for conducting business in the
-              agriculture and environmental sectors in the Aral Sea region, as well as to support
-              day-to-day operations by learning and accessing advisory services, networking, and
-              insightful ideas.
+              {{ $t('info-about-platform') }}
             </div>
             <div class="my-5">
               <button
-              @click="openRegister()"
+                @click="openRegister()"
                 class="text-white text-sm bg-green-700 focus:outline-none rounded-md py-3 px-5"
               >
-                Register
+                {{ $t('register') }}
               </button>
             </div>
           </div>
@@ -49,22 +46,22 @@
     </div>
     <div class="max-w-6xl mx-auto sm:px-6 lg:px-8 xl:px-0 px-4">
       <div class="mt-12 space-y-4">
-        <div class="font-semibold text-gray-700 text-2xl">
-          <span class="text-green-800">Experts</span> consultancy
+        <div class="font-semibold text-green-800 text-2xl">
+          {{ $t('advisory') }}
         </div>
         <div class="">
-          <experts-swiper :experts="experts"/>
+          <experts-swiper :experts="experts" />
         </div>
       </div>
       <div class="mt-12 space-y-4">
-        <div class="font-semibold text-green-800 text-2xl">Price</div>
+        <div class="font-semibold text-green-800 text-2xl">{{ $t('price') }}</div>
         <div class="">
-          <price-swiper :prices="dataPricelists"/>
+          <price-swiper :prices="dataPricelists" />
         </div>
       </div>
       <div class="mt-12 space-y-4">
         <div class="font-semibold text-gray-700 text-2xl">
-          <span class="text-green-800">E-learning</span>
+          <span class="text-green-800"> {{ $t('e-learning') }}</span>
         </div>
         <div class="grid md:grid-cols-3 gap-6 sm:grid-cols-2 grid-cols-1">
           <div v-for="(video, index) in dataCourses" :key="index" class="mt-6">
@@ -73,22 +70,28 @@
         </div>
         <router-link :to="localePath('/e-learning')" class="flex items-center justify-center my-4">
           <button class="text-green-800 focus:outline-none text-sm flex items-center">
-            See all
+            {{ $t('see-all') }}
             <i class="bx bx-right-arrow-alt text-green-800 text-xl ml-1"></i>
           </button>
         </router-link>
       </div>
+      <div class="font-semibold text-green-800 text-2xl">
+        {{ $t('agri-business') }}
+      </div>
       <div class="grid lg:grid-cols-2 grid-cols-1 mt-12 lg:space-x-10">
         <!-- <img src="~/assets/images/map.png" alt="" /> -->
-        <yandex-map :coords="getLocations"/>
+        <yandex-map :coords="getLocations" />
         <div class="relative">
           <div class="text-xl text-gray-800 font-semibold">
-            <span class="text-green-800">Karakalpakstan</span> - didactive map
+            <span class="text-green-800">{{ $t('karakalpakstan') }}</span> -
+            {{ $t('didactive-map') }}
           </div>
           <div class="text-gray-500 text-sm leading-6 mt-7">
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
-            has been the industry's standard dummy text ever since the 1500s, when an unknown
-            printer took a galley of type and scrambled it make a type specimen book.
+            {{
+              $t(
+                'information-on-agri-business-units-that-help-users-to-access-service-providers-for-establishing-and-operating-business'
+              )
+            }}
           </div>
           <div class="grid lg:grid-cols-2 grid-cols-1 mt-10 gap-10">
             <div v-for="(item, index) in items" :key="index">
@@ -103,51 +106,44 @@
           </div>
           <div class="lg:absolute bottom-0 flex justify-center lg:mt-0 mt-6">
             <button
-              class="
-                text-white
-                focus:outline-none
-                py-3
-                px-7
-                font-medium
-                bg-green-700
-                rounded-md
-                text-sm
-              "
+              class="text-white focus:outline-none py-3 px-7 font-medium bg-green-700 rounded-md text-sm"
             >
-              Discover more
+              {{ $t('discover-more') }}
             </button>
           </div>
         </div>
       </div>
       <div class="mt-12 space-y-4">
         <div class="font-semibold text-gray-700 text-2xl">
-          Agri-finance <span class="text-green-800">News</span>
+          {{ $t('agri-finance') }} <span class="text-green-800">{{ $t('news') }}</span>
         </div>
         <div class="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1">
-          <news-swiper class="col-span-3" />
+          <news-swiper :news="dataServiceposts" class="col-span-3" />
         </div>
       </div>
       <div class="mt-12 space-y-4">
         <div class="font-semibold text-gray-700 text-2xl">
-          Frequently <span class="text-green-800">Asked Questions</span>
+          {{ $t('frequently') }} <span class="text-green-800">{{ $t('asked-questions') }}</span>
         </div>
         <div class="grid lg:grid-cols-2 grid-cols-1 gap-6">
           <div>
             <div class="text-gray-500 leading-7 text-sm">
-              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
-              has been the industry's standard dummy text ever since the 1500s, when an unknown of
-              type and scrambled it to make a type specimen book.
+              {{
+                $t(
+                  'below-you-will-find-answers-to-the-questions-we-get-asked-most-about-using-the-platfrom'
+                )
+              }}
             </div>
             <div v-for="(faq, index) in dataFaqs" :key="index">
-              <faq :data="faq"/>
-           </div>
+              <faq :data="faq" />
+            </div>
           </div>
           <img src="~/assets/images/home.png" class="rounded-md" alt="home" />
         </div>
       </div>
       <div class="mt-12 space-y-4">
         <div class="">
-          <partners-swiper :partners="dataPartners"/>
+          <partners-swiper :partners="dataPartners" />
         </div>
       </div>
     </div>
@@ -165,9 +161,15 @@ import YandexMap from '~/components/core/yandex-map.vue'
 import Faq from '~/components/Faq.vue'
 export default {
   auth: false,
-  components: { YandexMap, expertsSwiper, PriceSwiper, NewsSwiper, PartnersSwiper, Faq },
-  props: {
+  components: {
+    YandexMap,
+    expertsSwiper,
+    PriceSwiper,
+    NewsSwiper,
+    PartnersSwiper,
+    Faq,
   },
+  props: {},
   data() {
     return {
       video: {},
@@ -221,7 +223,15 @@ export default {
       userConnection: (state) => state.socket.userConnection,
       userConnectionStatus: (state) => state.socket.userConnectionStatus,
     }),
-    ...mapGetters(['dataCourses', 'dataUsers', 'dataPricelists', 'dataFaqs', 'dataPartners', 'getLocations']),
+    ...mapGetters([
+      'dataCourses',
+      'dataUsers',
+      'dataPricelists',
+      'dataFaqs',
+      'dataPartners',
+      'getLocations',
+      'dataServiceposts'
+    ]),
   },
   mounted() {
     this.fetchDirectories()
@@ -246,22 +256,29 @@ export default {
         populate: '*',
         locale: this.$i18n.locale,
         'pagination[page]': 1,
-        'pagination[pageSize]': 3
+        'pagination[pageSize]': 3,
       })
-      await this.$store.dispatch('getUsers', {
-        link: '/users',
-        query: {
+      await this.$store
+        .dispatch('getUsers', {
+          link: '/users',
+          query: {
             populate: '*',
             locale: this.$i18n.locale,
-            "_where[0][role.id]": 4,
-          }
-      }).then((res) => {
-          this.experts = res
+            'filters[$and][0][role][id]': 4,
+          },
+        })
+        .then((res) => {
+          this.experts = res.users
         })
       await this.$store.dispatch('getPricelists', {
         populate: '*',
         locale: this.$i18n.locale,
         'sort[0][product][name]': 'ASC',
+      })
+      await this.$store.dispatch('getServiceposts', {
+        populate: '*',
+        locale: this.$i18n.locale,
+        'sort[0][createdAt]': 'DESC',
       })
       await this.$store.dispatch('getFaqs', {
         populate: '*',
@@ -271,12 +288,14 @@ export default {
         populate: '*',
         locale: this.$i18n.locale,
       })
-      await this.$store.dispatch('getCompanies', {
-        populate: '*',
-        locale: this.$i18n.locale,
-      }).then(res => {
-        this.$store.dispatch('setCompanies', res)
-      })
+      await this.$store
+        .dispatch('getCompanies', {
+          populate: '*',
+          locale: this.$i18n.locale,
+        })
+        .then((res) => {
+          this.$store.dispatch('setCompanies', res)
+        })
     },
   },
 }

@@ -8,7 +8,7 @@
       :pagination="{ clickable: true, dynamicBullets: true }"
     >
       <swiper-slide
-        v-for="(info, index) in data"
+        v-for="(info, index) in news"
         :key="index"
         class="flex bg-white rounded-md space-x-3 z-0 pb-2 transition duration-500"
         data-swiper-autoplay="2000"
@@ -32,14 +32,13 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 import News from '../News.vue'
-import { actions, getters } from '~/utils/store_schema'
-const _page = 'serviceposts'
-const { get } = actions(_page)
 export default {
   name: 'NewsSwiper',
   components: { News },
+  props: {
+    news: Array,
+  },
   data() {
     return {
       newsOption: {
@@ -89,21 +88,7 @@ export default {
       },
     }
   },
-  computed: {
-    ...mapGetters(getters(_page)),
-  },
-  mounted() {
-    this.fetchData()
-  },
   methods: {
-    async fetchData() {
-      await this.$store
-        .dispatch(get, {
-          populate: '*',
-          locale: this.$i18n.locale,
-        })
-        .then(() => {})
-    },
     prev() {
       this.$refs.swiper.$swiper.slidePrev()
     },
