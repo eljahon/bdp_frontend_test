@@ -6,8 +6,10 @@
   "add-new": "Yangisini qo'shish",
   "agri-finance": "Agri-finans",
   "agri-business": "Agrobiznes",
+  "agri-market": "Agri-market",
   "agriculture-business": "Agriculture business",
   "advisory": "Konsulting",
+  "about": "About",
   "all": "Barchasi",
   "all-categories": "Barcha kategoriyalar",
   "all-products": "Barcha mahsulotlar",
@@ -53,6 +55,7 @@
   "company-name": "Company name",
   "contact-name": "Contact name",
   "contact-us": "Contact us",
+  "contacts": "Contacts",
 
   "d": "D",
   "data-list": "Ma'lumotlar ro'yhati",
@@ -100,6 +103,7 @@
   "hippocrates": "Gippokrat",
   "home": "Asosiy sahifa",
   "how-will-you-use-the-platform": "How will you use the platform?",
+  "how-to-open-business": "How to open business?",
 
   "i-agree-with": " I agree with",
   "image-cropper": "Rasmni kesish",
@@ -156,6 +160,7 @@
   "product": "Mahsulot",
   "products": "Mahsulotlar",
   "phone": "Phone",
+  "privacy-policy": "Privacy Policy",
   "position-at-organization": "Position at organization",
 
   "q": "Q",
@@ -195,11 +200,13 @@
   "short-summary-of-agricultural-environmental-experience-and-activities-of-organization-in-Karakalpakstan": "Short summary of agricultural/ environmental experience and activities of organization in Karakalpakstan",
   "short-description-of-organization-size-relationship-to-agricultural-environmental-sectors-in-Karakalpakstan": "Short description of organization, size, relationship to agricultural/environmental sectors in Karakalpakstan...",
   "submit-now": "Submit now",
+  "services": "Services",
+  "sitemap": "Sitemap",
 
   "tin": "TIN",
   "table-view": "Jadval ko'rinishi",
   "time-interval": "Vaqt intervallari",
-  "terms-of-use": "terms of use",
+  "terms-of-use": "Terms of use",
 
   "u": "U",
   "update": "Yangilash",
@@ -212,7 +219,8 @@
   "user": "User",
   "upload-resume": "Upload resume(s)",
   "upload-diploma": "Upload diploma",
-  " ": " Use manuals and guides to navigate through the platform. get more useful services registering at the platfrom and tailoring experince through your profile page",
+  "use-manuals-and-guides": " Use manuals and guides to navigate through the platform. get more useful services registering at the platfrom and tailoring experince through your profile page",
+  "useful-links": "Useful Links",
 
   "v": "V",
   "view-all": "Barchasini ko'rish",

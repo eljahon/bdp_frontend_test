@@ -18,43 +18,41 @@
       "
     >
       <div class="block">
-        <div class="font-semibold text-base pb-6">Business Development Platform</div>
+        <div class="font-semibold text-base pb-6">{{$t('business-development-platform')}}</div>
         <div class="text-xs leading-5">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer adipiscing erat eget
-          risus sollicitudin pellentes queet non erat. Maecenas nibh dolor.
+          {{$t('info-about-platform')}}
         </div>
       </div>
       <div class="block">
         <div class="grid lg:justify-end justify-start">
-          <div class="font-semibold text-base pb-6">Contacts</div>
+          <div class="font-semibold text-base pb-6">{{$t('contacts')}}</div>
           <div class="text-xs space-y-3">
             <div class="leading-5">
-              31, Islam Karimov st, Nukus, Autonom Republic of Karakalpakstan, Uzbekistan,
+              7a, Bunyodkor av., 100000, Tashkent, Uzbekistan
             </div>
-            <p>+99890 123 45 67</p>
-            <p>+99871 111 11 11</p>
-            <p>indo@gggi.com</p>
+            <p>+99894 081 23 45</p>
+            <p>juanjose.robalino@gggi.org</p>
           </div>
         </div>
       </div>
       <div class="grid lg:justify-end justify-start">
-        <div class="font-semibold text-base pb-5">Useful Links</div>
+        <div class="font-semibold text-base pb-5">{{$t('useful-links')}}</div>
         <div class="grid grid-cols-2 text-xs gap-3">
           <div v-for="(item, index) in footer" :key="index">
-            <router-link :to="{ path: localePath('/') }" class="flex items-center">
+            <router-link :to="{ path: localePath(item.route) }" class="flex items-center">
               <i class="bx bx-chevron-right text-white text-lg"></i>
-              <p>{{ item.title }}</p>
+              <p>{{ $t(item.title) }}</p>
             </router-link>
           </div>
         </div>
       </div>
       <div class="block">
         <div class="grid jlg:justify-end justify-start">
-          <div class="font-semibold text-base pb-6">Services</div>
+          <div class="font-semibold text-base pb-6">{{$t('services')}}</div>
           <div class="space-y-3 text-xs">
             <div v-for="(service, index) in services" :key="index">
-              <router-link :to="{ path: localePath('/') }" class="flex items-center gap-3">
-                <p>{{ service.title }}</p>
+              <router-link :to="{ path: localePath(service.route) }" class="flex items-center gap-3">
+                <p>{{ $t(service.title) }}</p>
               </router-link>
             </div>
           </div>
@@ -70,9 +68,9 @@
     </div>
     <div class="border-t border-white py-5"></div>
     <div class="flex items-center justify-center space-x-5 text-white text-sm pb-10">
-      <div>Privacy Policy</div>
-      <div>Sitemap</div>
-      <div>Terms of Use</div>
+      <div>{{$t('privacy-policy')}}</div>
+      <div>{{$t('sitemap')}}</div>
+      <div>{{$t('terms-of-use')}}</div>
     </div>
   </div>
 </template>
@@ -83,19 +81,18 @@ export default {
   data() {
     return {
       footer: [
-        { title: 'Home', route: '/' },
-        { title: 'Agri-business', route: '/' },
-        { title: 'About', route: '/about' },
-        { title: 'Agri-finance', route: '/' },
-        { title: 'Tutorials', route: '/' },
-        { title: 'Agri-market', route: '/' },
-        { title: 'Advisory', route: '/advisory' },
+        { title: 'home', route: '/' },
+        { title: 'agri-business', route: '/agri-business' },
+        { title: 'about', route: '/about' },
+        { title: 'agri-finance', route: '/agri-finance' },
+        { title: 'e-learning', route: '/e-learning' },
+        { title: 'agri-market', route: '/agri-market' },
+        { title: 'advisory', route: '/advisory' },
       ],
       services: [
-        { title: 'Consultation', route: '/' },
-        { title: 'Market price', route: '/' },
-        { title: 'E-learning', route: '/' },
-        { title: 'How to open business', route: '/' },
+        { title: 'consultation', route: '/' },
+        { title: 'market-price', route: '/' },
+        { title: 'how-to-open-business', route: '/' },
       ],
     }
   },

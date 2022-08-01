@@ -5,8 +5,10 @@
     "address": "Адрес",
     "add-new": "Добавить новое",
     "advisory": "Адвокат",
+    "about": "About",
     "agri-business": "Агробизнес",
     "agri-finance": "Агро финанс",
+    "agri-market": "Agri-market",
     "agriculture-business": "Agriculture business",
     "all": "Все",
     "all-categories": "Все категории",
@@ -52,6 +54,7 @@
     "company-name": "Company name",
     "contact-name": "Contact name",
     "contact-us": "Contact us",
+    "contacts": "Contacts",
   
     "d": "D",
     "data-list": "Список данных",
@@ -99,6 +102,7 @@
     "hippocrates": "Гиппократ",
     "home": "Главный",
     "how-will-you-use-the-platform": "How will you use the platform?",
+    "how-to-open-business": "How to open business?",
   
     "i-agree-with": " I agree with",
     "image-cropper": "Обрезка изображения",
@@ -155,6 +159,7 @@
     "products": "Продукты",
     "process": "Process",
     "phone": "Phone",
+    "privacy-policy": "Privacy Policy",
     "position-at-organization": "Position at organization",
   
     "q": "Q",
@@ -193,11 +198,13 @@
     "short-summary-of-agricultural-environmental-experience-and-activities-of-organization-in-Karakalpakstan": "Short summary of agricultural/ environmental experience and activities of organization in Karakalpakstan",
     "short-description-of-organization-size-relationship-to-agricultural-environmental-sectors-in-Karakalpakstan" : "Short description of organization, size, relationship to agricultural/environmental sectors in Karakalpakstan...",
     "submit-now": "Submit now",
+    "services": "Services",
+    "sitemap": "Sitemap",
   
     "tin": "TIN",
     "table-view": "Предс. таблицы",
     "time-interval": "Временной интервал",
-    "terms-of-use": "terms of use",
+    "terms-of-use": "Terms of use",
   
     "u": "U",
     "update": "Обновить",
@@ -211,6 +218,7 @@
     "upload-resume": "Upload resume(s)",
     "upload-diploma": "Upload diploma",
     "use-manuals-and-guides": " Use manuals and guides to navigate through the platform. get more useful services registering at the platfrom and tailoring experince through your profile page",
+    "useful-links": "Useful Links",
   
     "v": "V",
     "view-all": "Просмотреть все",

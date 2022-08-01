@@ -5,8 +5,10 @@
   "address": "Address",
   "add-new": "Add new",
   "advisory": "Advisory",
+  "about": "About",
   "agri-business": "Agri-business",
   "agri-finance": "Agri-finance",
+  "agri-market": "Agri-market",
   "agriculture-business": "Agriculture business",
   "all": "All",
   "all-categories": "All categories",
@@ -52,6 +54,7 @@
   "company-name": "Company name",
   "contact-name": "Contact name",
   "contact-us": "Contact us",
+  "contacts": "Contacts",
 
   "d": "D",
   "data-list": "Data List",
@@ -101,6 +104,7 @@
   "hippocrates": "Hippocrates",
   "home": "Home",
   "how-will-you-use-the-platform": "How will you use the platform?",
+  "how-to-open-business": "How to open business?",
 
   "i-agree-with": " I agree with",
   "image-cropper": "Image cropper",
@@ -158,6 +162,7 @@
   "product": "Product",
   "products": "Products",
   "phone": "Phone",
+  "privacy-policy": "Privacy Policy",
   "position-at-organization": "Position at organization",
 
   "q": "Q",
@@ -196,13 +201,15 @@
   "short-description": "Short description",
   "short-summary-of-agricultural-environmental-experience-and-activities-of-organization-in-Karakalpakstan": "Short summary of agricultural/ environmental experience and activities of organization in Karakalpakstan",
   "short-description-of-organization-size-relationship-to-agricultural-environmental-sectors-in-Karakalpakstan": "Short description of organization, size, relationship to agricultural/environmental sectors in Karakalpakstan...",
+  "services": "Services",
   "submit-now": "Submit now",
+  "sitemap": "Sitemap",
 
   "tin": "TIN",
   "table-view": "Table view",
   "time-interval": "Time interval",
   "trading": "Trading",
-  "terms-of-use": "terms of use",
+  "terms-of-use": "Terms of use",
 
   "u": "U",
   "update": "Update",
@@ -218,6 +225,7 @@
   "upload-resume": "Upload resume(s)",
   "upload-diploma": "Upload diploma",
   "use-manuals-and-guides": " Use manuals and guides to navigate through the platform. get more useful services registering at the platfrom and tailoring experince through your profile page",
+  "useful-links": "Useful Links",
 
   "v": "V",
   "view-all": "View all",
