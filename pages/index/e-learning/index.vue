@@ -85,6 +85,7 @@ export default {
           'filters[$and][0][title][$containsi]': this.$route.query.text
             ? this.$route.query.text
             : null,
+          'filters[$and][0][title][$notNull]': true,
         })
         .then(() => {})
     },

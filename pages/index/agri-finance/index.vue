@@ -61,6 +61,7 @@ export default {
             page: this.$route.query.page ? this.$route.query.page : 1,
             pageSize: this.pagination.pageSize,
           },
+          'filters[$and][0][title][$notNull]': true,
         })
         .then(() => {})
     },

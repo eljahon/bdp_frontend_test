@@ -225,7 +225,7 @@ export default {
     },
     otp() {
       if (this.otp.length === 4) {
-        this.registerPhone()
+        // this.registerPhone()
       }
     },
   },
