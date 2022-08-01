@@ -130,7 +130,7 @@ export default {
             populate: '*',
             'filters[$and][0][consultant][id]': this.data.id,
             'filters[$and][1][user][id]': this.currentUser.id,
-            'filters[$and][2][isCompleted]': false,
+            'filters[$and][2][isCompleted][$ne]': true,
           })
           .then((res) => {
             if (res.length > 0) {

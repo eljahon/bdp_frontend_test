@@ -684,6 +684,7 @@ export default {
         username: this.currentUser.username,
         room: this.currentRoom.id,
       })
+      await this.$store.dispatch("clearMessages");
     },
     fetchConsultant() {
       this.$store
