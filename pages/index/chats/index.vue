@@ -118,7 +118,7 @@
                       <div class="flex-shrink-0">
                         <span class="inline-block relative">
                           <img
-                            v-if="currentUser.role.id === 4"
+                            v-if="$auth.user.role.id === 4"
                             class="h-10 w-10 rounded-full"
                             :src="
                               room.attributes.user && room.attributes.user.data.attributes.avatar
@@ -150,7 +150,7 @@
                         "
                       >
                         <div class="grid grid-cols-3 ml-3">
-                          <div v-if="currentUser.role.id === 4" class="col-span-2 block mb-1">
+                          <div v-if="$auth.user.role.id === 4" class="col-span-2 block mb-1">
                             <p
                               v-if="
                                 room.attributes.user !== null || room.attributes.user.data !== null
@@ -226,7 +226,7 @@
                       <div class="flex-shrink-0">
                         <span class="inline-block relative">
                           <img
-                            v-if="currentUser.role.id === 4"
+                            v-if="$auth.user.role.id === 4"
                             class="h-10 w-10 rounded-full"
                             :src="
                               room.attributes.user && room.attributes.user.data.attributes.avatar
@@ -258,7 +258,7 @@
                         "
                       >
                         <div class="grid grid-cols-3 ml-3">
-                          <div v-if="currentUser.role.id === 4" class="col-span-2 block mb-1">
+                          <div v-if="$auth.user.role.id === 4" class="col-span-2 block mb-1">
                             <p
                               v-if="
                                 room.attributes.user !== null || room.attributes.user.data !== null
@@ -325,7 +325,7 @@
           </div>
         </div>
         <div class="md:col-span-8 md:block">
-          <chat-body :current-user="currentUser" />
+          <chat-body :current-user="$auth.user" />
         </div>
       </div>
     </div>
@@ -344,7 +344,6 @@ export default {
   },
   data() {
     return {
-      currentUser: {},
       activetab: 'active',
     }
   },
@@ -357,25 +356,14 @@ export default {
     if (!process.client) {
       return
     }
-    this.currentUser = JSON.parse(localStorage.getItem('user_info'))
   },
   mounted() {
-    this.fetchActiveRooms()
-    // if (this.$route.query.room_id) {
-    //   this.connectSocket()
-    // }
-    // if (this.$route.query && this.$route.query.room_id) {
-    //   this.fetchCurrentRoom().then(() => {
-    //     this.message = {
-    //       chatroom: this.currentRoom.id,
-    //       sender: this.currentUser.id,
-    //       receiver: this.state === 'consultant' ? this.consultant.id : this.product.userid.id,
-    //       text: '',
-    //       filePath: null,
-    //       seen: false,
-    //     }
-    //   })
-    // }
+    this.fetchActiveRooms().then(() => {
+      this.$bridge.$emit('join_chat', {
+        username: this.$auth.user.username,
+        user_id: this.$auth.user.id,
+      })
+    })
   },
   computed: {
     ...mapState({
@@ -387,8 +375,14 @@ export default {
       closedRooms: 'getClosedRooms',
     }),
   },
-  beforeDestroy() {},
+  beforeDestroy() {this.socketDisconnector},
   methods: {
+    socketDisconnector() {
+      socket.emit('leaveRoom', {
+        username: this.currentUser.username,
+        room: this.currentRoom.id,
+      })
+    },
     changeTab(status) {
       this.activetab = status
       if (status === 'active') {
@@ -404,8 +398,8 @@ export default {
     },
     toChatting(data) {
       if (data.id !== parseInt(this.$route.query.room_id)) {
-        this.$bridge.$emit('join_room', { username: this.currentUser.id, room: data.id })
-        if (this.currentUser.role.id === 4) {
+        this.$bridge.$emit('join_room', { username: this.$auth.user.id, room: data.id })
+        if (this.$auth.user.role.id === 4) {
           this.$router.push({
             query: { room_id: data.id, consultant_id: data.attributes.user.data.id },
           })

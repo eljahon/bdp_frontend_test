@@ -360,6 +360,7 @@ import { socket } from '~/plugins/socket.client.js'
 import VueSimpleContextMenu from 'vue-simple-context-menu'
 import 'vue-simple-context-menu/dist/vue-simple-context-menu.css'
 export default {
+  auth: true,
   props: {
     currentUser: {
       type: Object,
@@ -608,9 +609,12 @@ export default {
       this.$store
         .dispatch('getByIdUsers', {
           id: this.$route.query.consultant_id,
+          query: {
+            populate: '*',
+          },
         })
         .then((res) => {
-          this.consultant = res.data
+          this.consultant = res
         })
     },
   },
@@ -618,6 +622,7 @@ export default {
     if (this.$route.query.room_id) {
       this.fetchConsultant()
     }
+      console.log('Chat body user: ', this.currentUser)
     if (this.$route.query.room_id && this.$route.query.room_id !== 'new') {
       this.fetchCurrentRoom().then(() => {
         this.message = {

@@ -188,16 +188,6 @@ export default {
           await this.$auth.loginWith('local', {
             data: this.auth,
           }).then(async res => {
-            await this.$store
-              .dispatch('getUsers', {
-                link: '/users/me',
-                query: {
-                  populate: '*',
-                },
-              })
-              .then((response) => {
-                localStorage.setItem('user_info', JSON.stringify(response.data))
-              })
             await this.$bridge.$emit('join_chat', {
               username: res.data.user.username,
               user_id: res.data.user.id,

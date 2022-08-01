@@ -167,7 +167,6 @@ export default {
                 })
                 await this.$snotify.success('Successfully Logged In')
                 this.loading = false
-                this.onClose()
               })
               .catch((e) => {
                 this.loading = false
