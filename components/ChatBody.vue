@@ -4,7 +4,6 @@
       <div style="height: calc(72vh - 0px)" class="flex-1 p-2 justify-between flex flex-col">
         <div class="flex sm:items-center justify-between pb-3 pt-0 border-b-2 border-gray-200">
           <div class="relative flex items-center space-x-4">
-            <button @click="sendRoomToSocket(currentRoom)">Send Room</button>
             <div class="relative" v-if="currentRoom.attributes">
               <img
                 :src="
@@ -404,6 +403,9 @@ export default {
   },
   created() {},
   mounted() {
+    this.$bridge.$on('room_changed', () => {
+      this.fetchCurrentRoom()
+    })
     if (this.$route.query.room_id && this.$route.query.room_id !== 'new') {
       this.fetchConsultant().then(() => {
         this.fetchCurrentRoom().then(() => {
@@ -486,7 +488,19 @@ export default {
       this.$store
         .dispatch('putChatrooms', { id: _currentRoom.id, data: _currentRoom.data })
         .then(() => {
-          this.fetchCurrentRoom()
+          this.fetchCurrentRoom().then(() => {
+            this.sendRoomToSocket({
+              id: this.currentRoom.id,
+              data: {
+                consultant: this.currentRoom.attributes.consultant.data.id,
+                rate: this.currentRoom.attributes.rate,
+                title: this.currentRoom.attributes.title,
+                isCompleted: this.currentRoom.attributes.isCompleted,
+                user: this.currentRoom.attributes.user.data.id,
+                answerDuration: this.currentRoom.attributes.answerDuration,
+              },
+            })
+          })
         })
     },
     closeChatRoom() {

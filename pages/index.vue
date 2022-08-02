@@ -46,7 +46,7 @@ export default {
       if (res.type === 'chat') {
         this.getMessages()
       } else if (res.type === 'room') {
-        this.getRooms()
+        this.getRooms(res.data)
       }
     })
     socket.on('finishedChat', (res) => {
@@ -101,7 +101,10 @@ export default {
         }
       )
     },
-    getRooms() {
+    getRooms(room) {
+      if (room.id === parseInt(this.$route.query.room_id)) {
+        this.$bridge.$emit('room_changed')
+      }
       if (this.$auth.user.role.id === 4) {
         this.$store
           .dispatch('getChatrooms', {
