@@ -85,26 +85,35 @@
             </option>
           </select>
         </div>
-        <div v-for="(company, index) in data" :key="index">
-          <div
-            class="flex items-center space-x-3 my-2 cursor-pointer"
-            :class="
-              $route.query.company && parseInt($route.query.company) === company.id
-                ? 'bg-gray-100 p-2'
-                : ''
-            "
-            @click="toCompanyDetail(company)"
-          >
-            <img
-              src="~/assets/images/about.png"
-              class="rounded-md w-28 h-20 object-cover"
-              alt="about"
-            />
-            <div class="grid content-between text-gray-500 text-base h-14">
-              <p class="text-green-700 font-medium">{{ company.attributes.name }}</p>
-              <p class="text-sm border-b border-green-700 pb-2">
-                {{ company.attributes.shortinfo }}
-              </p>
+        <div
+          class="
+            overflow-y-auto
+            scrollbar-track-blue-lighter scrollbar-thumb-blue scrollbar-w-2
+            scrolling-touch
+          "
+          style="height: calc(60vh - 0px)"
+        >
+          <div v-for="(company, index) in data" :key="index">
+            <div
+              class="flex items-center space-x-3 my-2 cursor-pointer"
+              :class="
+                $route.query.company && parseInt($route.query.company) === company.id
+                  ? 'bg-gray-100 p-2'
+                  : ''
+              "
+              @click="toCompanyDetail(company)"
+            >
+              <img
+                src="~/assets/images/about.png"
+                class="rounded-md w-28 h-20 object-cover"
+                alt="about"
+              />
+              <div class="grid content-between text-gray-500 text-base h-14">
+                <p class="text-green-700 font-medium">{{ company.attributes.name }}</p>
+                <p class="text-sm border-b border-green-700 pb-2">
+                  {{ company.attributes.shortinfo }}
+                </p>
+              </div>
             </div>
           </div>
         </div>
