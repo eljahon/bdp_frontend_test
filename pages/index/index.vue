@@ -54,7 +54,7 @@
         </div>
       </div>
       <div class="mt-12 space-y-4">
-        <div class="font-semibold text-green-800 text-2xl">{{ $t('price') }}</div>
+        <div class="font-semibold text-green-800 text-2xl">{{ $t('agri-market') }}</div>
         <div class="">
           <price-swiper :prices="dataPricelists" />
         </div>
