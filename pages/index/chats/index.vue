@@ -435,8 +435,9 @@ export default {
           .dispatch('getChatrooms', {
             populate: '*',
             'filters[$or][0][user][id]': this.$auth.user.id,
-            'filters[$and][0][isCompleted][$ne]': true,
+            // 'filters[$and][0][isCompleted][$ne]': true,
             'sort[0][createdAt]': 'DESC',
+            'filters[$and][0][rate][$null]': true,
           })
           .then((res) => {
             this.$store.dispatch('setActiveRooms', res)

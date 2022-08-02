@@ -273,10 +273,10 @@ export default {
               .then((response) => {
                 localStorage.setItem('user_info', JSON.stringify(response.data))
               })
-            await this.$bridge.$emit('join_chat', {
-              username: res.data.user.username,
-              user_id: res.data.user.id,
-            })
+            // await this.$bridge.$emit('join_chat', {
+            //   username: res.data.user.username,
+            //   user_id: res.data.user.id,
+            // })
             this.loading = false
             this.$router.push(this.localePath('/'))
             await this.$snotify.success('Successfully Logged In')
@@ -305,10 +305,10 @@ export default {
               .then((response) => {
                 localStorage.setItem('user_info', JSON.stringify(response.data))
               })
-            await this.$bridge.$emit('join_chat', {
-              username: res.user.username,
-              user_id: res.user.id,
-            })
+            // await this.$bridge.$emit('join_chat', {
+            //   username: res.user.username,
+            //   user_id: res.user.id,
+            // })
             this.loading = false
             this.$router.push(this.localePath('/'))
             await this.$snotify.success('Successfully Logged In')

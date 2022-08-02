@@ -125,7 +125,7 @@ export default function (param) {
         commit(_mutations.pending, true)
         return new Promise((resolve, reject) => {
           this.$axios
-            .post(`${param}`, { data: payload.data })
+            .$post(`${param}`, { data: payload.data }, { params: payload.query })
             .then((res) => {
               resolve(res)
             })
@@ -144,7 +144,7 @@ export default function (param) {
         commit(_mutations.pending, true)
         return new Promise((resolve, reject) => {
           this.$axios
-            .put(`${param}/${payload.id}`, { data: payload.data })
+            .$put(`${param}/${payload.id}`, { data: payload.data })
             .then((res) => {
               resolve(res)
             })

@@ -45,6 +45,8 @@ export default {
       console.log('Page Received Message Front: ', res)
       if (res.type === 'chat') {
         this.getMessages()
+      } else if (res.type === 'room') {
+        this.getRooms()
       }
     })
     socket.on('finishedChat', (res) => {
@@ -98,6 +100,32 @@ export default {
           }
         }
       )
+    },
+    getRooms() {
+      if (this.$auth.user.role.id === 4) {
+        this.$store
+          .dispatch('getChatrooms', {
+            populate: '*',
+            'filters[$or][0][consultant][id]': this.$auth.user.id,
+            'filters[$and][0][isCompleted][$ne]': true,
+            'sort[0][createdAt]': 'DESC',
+          })
+          .then((res) => {
+            this.$store.dispatch('setActiveRooms', res)
+          })
+      } else {
+        this.$store
+          .dispatch('getChatrooms', {
+            populate: '*',
+            'filters[$or][0][user][id]': this.$auth.user.id,
+            // 'filters[$and][0][isCompleted][$ne]': true,
+            'filters[$and][0][rate][$null]': true,
+            'sort[0][createdAt]': 'DESC',
+          })
+          .then((res) => {
+            this.$store.dispatch('setActiveRooms', res)
+          })
+      }
     },
     getMessages() {
       this.$store
