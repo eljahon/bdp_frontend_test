@@ -113,6 +113,21 @@
                 <div class="text-red-500 text-xs">{{ errors[0] }}</div>
               </ValidationProvider>
             </div>
+            <div v-if="isPhone">
+              <p :class="[timer === 'on' ? '' : 'hidden']" class="text-sm text-gray-500 mb-2">
+                {{ $t('you-can-resend-code-after') }}
+                <countdown
+                  v-if="timer === 'on'"
+                  class="text-primary font-semibold"
+                  :end-time="timerMinutes"
+                  @finish="onCountdownEnd"
+                >
+                  <template #process="scope">
+                    <span class="ml-1">{{ scope.timeObj.m }} : {{ scope.timeObj.s }}</span>
+                  </template>
+                </countdown>
+              </p>
+            </div>
             <div class="mt-1" v-if="isEmail">
               <ValidationProvider v-slot="{ valid, errors }" rules="required|min:6" name="password">
                 <input
@@ -170,6 +185,19 @@
               {{ $t('sign-in') }}
               <vue-loaders v-if="loading" name="ball-beat" color="white" scale="0.5" />
             </button>
+            <div v-if="isPhone && times < 3" class="flex justify-center mt-3">
+              <p class="text-gray-600 text-sm">
+                {{ $t('did-not-get-code') }}
+              </p>
+              <button
+                :class="[timer !== 'on' ? 'text-primary' : '']"
+                :disabled="timer === 'on'"
+                class="text-gray-400 text-sm ml-1 focus:outline-none"
+                @click="resendCode()"
+              >
+                {{ $t('resend') }}
+              </button>
+            </div>
           </form>
         </ValidationObserver>
         <div class="flex items-center justify-center mt-2">
@@ -195,6 +223,9 @@ export default {
   data() {
     return {
       image: background,
+      timer: 'off',
+      timerMinutes: new Date().getTime() + 180000,
+      times: 1,
       auth: {
         identifier: '',
         password: '',
@@ -230,12 +261,32 @@ export default {
     },
   },
   methods: {
+    resendCode() {
+      this.$axios
+        .$post('/users-permissions/send_otp', { phone: this.auth.identifier })
+        .then((res) => {
+          this.times++
+          if (this.times === 2) {
+            this.timerMinutes = new Date().getTime() + 240000
+          } else if (this.times === 3) {
+            this.timerMinutes = new Date().getTime() + 300000
+          }
+          this.timer = 'on'
+        })
+        .catch((error) => {
+          this.$snotify.error(error)
+        })
+    },
+    onCountdownEnd() {
+      this.timer = 'off'
+    },
     sendOtp() {
       this.$axios
         .$post('/users-permissions/send_otp', { phone: this.auth.identifier })
         .then((response) => {
           this.isPhone = true
           this.isEmail = false
+          this.timer = 'on'
         })
         .catch((error) => {
           this.isPhone = false

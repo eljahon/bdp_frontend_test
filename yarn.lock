@@ -11381,6 +11381,11 @@ vue-advanced-cropper@^1.11.1:
     debounce "^1.2.0"
     easy-bem "^1.0.2"
 
+vue-awesome-countdown@^1.1.4:
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/vue-awesome-countdown/-/vue-awesome-countdown-1.1.4.tgz#2a9206f402cbf9720ea6a16250a6a5707e7e27a7"
+  integrity sha512-joc59fMzEoOMqJZnmqRDD8ROcT+LfanqL7lJ+sZAsrdQ+xgiwnWsHI/Xi4tYdG7oTWethFzb0tGvzYPlaEksew==
+
 vue-awesome-swiper@^4.1.1:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/vue-awesome-swiper/-/vue-awesome-swiper-4.1.1.tgz#8f7ab221ad003021d756b86aa618f429924900fe"

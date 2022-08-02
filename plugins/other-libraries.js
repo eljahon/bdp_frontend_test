@@ -10,6 +10,7 @@ import DatePicker from 'vue2-datepicker'
 import 'vue2-datepicker/index.css'
 import vSelect from "vue-select";
 import "vue-select/dist/vue-select.css";
+import vueAwesomeCountdown from 'vue-awesome-countdown'
 const options = {
     toast: {
         position: SnotifyPosition.rightBottom,
@@ -28,3 +29,4 @@ Vue.component('v-select', vSelect)
 
 Vue.use(Snotify, options)
 Vue.use(VueLoaders)
+Vue.use(vueAwesomeCountdown, 'vac')

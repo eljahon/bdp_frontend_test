@@ -192,7 +192,7 @@ export default {
             ? this.$route.query.text
             : null,
           'filters[$and][0][name][$notNull]': true,
-          'filters[$and][0][established]': true,
+          // 'filters[$and][0][established]': true,
         })
         .then((res) => {
           this.$store.dispatch('setCompanies', res)

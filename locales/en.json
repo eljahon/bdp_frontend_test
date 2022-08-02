@@ -63,6 +63,7 @@
   "delete": "Delete",
   "delete-this": "Delete this",
   "description": "Description",
+  "did-not-get-code": "Did not get code",
   "directions": "Directions",
   "display-options": "Display Options",
   "district": "Disctrict",
@@ -173,6 +174,7 @@
 
   "r": "R",
   "rating": "Rating",
+  "read": "Read",
   "region": "Region",
   "regions": "Regions",
   "register": "Register",
@@ -183,7 +185,7 @@
   "registration-for-consultant-individual": "Registration for individual consultant ",
   "registration-for-consultant-enterprise": "Registration for enterprise consultant ",
   "registration-for-content-provider": "Registration for content provider",
-  "read": "Read",
+  "resend": "Resend",
 
   "s": "S",
   "save": "Save",
@@ -246,6 +248,7 @@
   "y": "Y",
   "your-email-must-be-4-characters": "Your email must be minimum 4 characters",
   "your-password-must-be-between-4-and-16-characters": "Your password must be between 4 and 16 characters",
+  "you-can-resend-code-after": "You can resend code after",
   "you-do-not-have-chats": "You do not have chats",
   "you-do-not-have-active-chats": "You do not have active chats",
   "you-do-not-have-closed-chats": "You do not have closed chats",
