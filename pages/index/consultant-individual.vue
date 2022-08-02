@@ -106,65 +106,7 @@
                   </option>
                 </select>
               </div>
-              <div class="md:col-span-1 col-span-2">
-                <label for="resume" class="block mb-1 text-sm font-medium text-gray-700"
-                  >{{ $t('upload-resume') }}(PDF)*</label
-                >
-                <!-- <ValidationProvider v-slot="{ errors }" name="resume" rules="required" mode="eager" vid="file"> -->
-                <input
-                  class="
-                    block
-                    w-full
-                    text-sm text-gray-900
-                    bg-gray-50
-                    rounded-lg
-                    border border-gray-300
-                    cursor-pointer
-                    focus:outline-none
-                  "
-                  aria-describedby="file_input_help"
-                  id="resume"
-                  accept="application/pdf"
-                  type="file"
-                  ref="file"
-                  @change="mediaChange($event, 'resume')"
-                  :disabled="!isMainRegister"
-                />
-                <!-- </ValidationProvider> -->
-              </div>
-              <div class="md:col-span-1 col-span-2">
-                <label for="diploma" class="block mb-1 text-sm font-medium text-gray-700"
-                  >{{ $t('upload-diploma') }}(PDF)*</label
-                >
-                <!-- <ValidationProvider
-                  v-slot="{ errors }"
-                  name="diploma"
-                  rules="required"
-                  vid="file"
-                  mode="eager"
-                > -->
-                <input
-                  class="
-                    block
-                    w-full
-                    text-sm text-gray-900
-                    bg-gray-50
-                    rounded-lg
-                    border border-gray-300
-                    cursor-pointer
-                    focus:outline-none
-                  "
-                  aria-describedby="file_input_help"
-                  id="diploma"
-                  accept="application/pdf"
-                  type="file"
-                  ref="file"
-                  @change="mediaChange($event, 'diploma')"
-                  :disabled="!isMainRegister"
-                />
-                <!-- </ValidationProvider> -->
-              </div>
-              <div class="md:col-span-1 col-span-2">
+               <div class="md:col-span-1 col-span-2">
                 <label for="experience" class="block mb-1 text-sm font-medium text-gray-700">{{
                   $t('experience')
                 }}</label>
@@ -225,6 +167,65 @@
                   />
                 </ValidationProvider>
               </div>
+              <div class="md:col-span-1 col-span-2">
+                <label for="resume" class="block mb-1 text-sm font-medium text-gray-700"
+                  >{{ $t('upload-resume') }}(PDF)*</label
+                >
+                <!-- <ValidationProvider v-slot="{ errors }" name="resume" rules="required" mode="eager" vid="file"> -->
+                <input
+                  class="
+                    block
+                    w-full
+                    text-sm text-gray-900
+                    bg-gray-50
+                    rounded-lg
+                    border border-gray-300
+                    cursor-pointer
+                    focus:outline-none
+                  "
+                  aria-describedby="file_input_help"
+                  id="resume"
+                  accept="application/pdf"
+                  type="file"
+                  ref="file"
+                  @change="mediaChange($event, 'resume')"
+                  :disabled="!isMainRegister"
+                />
+                <!-- </ValidationProvider> -->
+              </div>
+              <div class="md:col-span-1 col-span-2">
+                <label for="diploma" class="block mb-1 text-sm font-medium text-gray-700"
+                  >{{ $t('upload-diploma') }}(PDF)*</label
+                >
+                <!-- <ValidationProvider
+                  v-slot="{ errors }"
+                  name="diploma"
+                  rules="required"
+                  vid="file"
+                  mode="eager"
+                > -->
+                <input
+                  class="
+                    block
+                    w-full
+                    text-sm text-gray-900
+                    bg-gray-50
+                    rounded-lg
+                    border border-gray-300
+                    cursor-pointer
+                    focus:outline-none
+                  "
+                  aria-describedby="file_input_help"
+                  id="diploma"
+                  accept="application/pdf"
+                  type="file"
+                  ref="file"
+                  @change="mediaChange($event, 'diploma')"
+                  :disabled="!isMainRegister"
+                />
+                <!-- </ValidationProvider> -->
+              </div>
+             
               <ValidationProvider name="checked" rules="checked" mode="eager" v-slot="{ errors }">
                 <div class="flex items-center mt-2 col-span-2">
                   <input

@@ -320,7 +320,7 @@ import axios from 'axios'
 import { mapGetters } from 'vuex'
 import background from '/assets/images/background.png'
 export default {
-  name: 'UserInterprise',
+  name: 'ConsultantEnterprise',
   auth: false,
   data() {
     return {

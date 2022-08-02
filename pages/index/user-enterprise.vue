@@ -285,7 +285,7 @@ import background from '/assets/images/background.png'
 import axios from 'axios'
 export default {
   components: { MainRegister },
-  name: 'UserInterprise',
+  name: 'UserEnterprise',
   auth: false,
   data() {
     return {
