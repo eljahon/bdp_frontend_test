@@ -65,11 +65,12 @@ export default {
   },
   methods: {
     showLocations() {
+      console.log('coords', this.coords)
       if (this.coords && this.map) {
-        if (this.location && this.location.coords) this.map.panTo(this.location.coords, { checkZoomRange: true })
+        if (this.location) this.map.panTo([this.location.lng, this.location.lat], { checkZoomRange: true })
         for (let index = 0; index < this.coords.length; index++) {
           let placemark = new ymaps.Placemark(
-            [this.coords[index].position.lng, this.coords[index].position.lat],
+            [this.coords[index].lng, this.coords[index].lat],
             {
               balloonContent: 'Small icon',
             },
