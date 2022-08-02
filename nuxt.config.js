@@ -30,6 +30,7 @@ export default {
     '~/plugins/clickOutside.client.js',
     '~/plugins/vueAwesomeSwiper.js',
     '~/plugins/other-libraries.js',
+    '~/plugins/vue-gtag.js',
     '~/plugins/vue-js-modal.js',
     '~/plugins/axios.js',
     '~/plugins/vee-validate.js',
@@ -39,7 +40,7 @@ export default {
     '~/utils/tools.js',
     '~/utils/constants.js',
     // '~/plugins/all-consts.js',
-    // '~/plugins/v-viewer.client.js',
+    // '~/plugins/v-viewer.client.js',git
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
