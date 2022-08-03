@@ -100,7 +100,7 @@ export default {
     // 'vue-currency-filter/nuxt',
   ],
   sentry: {
-    dsn: "https://cde752cc3f87493b81e7fe4b1f2ce718@o1344809.ingest.sentry.io/6620896", // Enter your project's DSN here
+    dsn: "https://d958b94121cd4ff58d27e85e5fa7ce4b@o1335273.ingest.sentry.io/6620840", // Enter your project's DSN here
     // Additional Module Options go here
     // https://sentry.nuxtjs.org/sentry/options
     config: {
