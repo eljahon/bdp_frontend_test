@@ -137,7 +137,7 @@
           <div class="chat-message"></div>
         </div>
         <div
-          v-if="!currentRoom.isCompleted || $route.query.room_id === 'new'"
+          v-if="!currentRoom.attributes.isCompleted || $route.query.room_id === 'new'"
           class="border-t-2 border-gray-200 px-4 pt-4 mb-2 sm:mb-0"
         >
           <div class="relative flex">
@@ -290,7 +290,7 @@
           </div>
         </div>
         <div
-          v-else-if="currentRoom.rate0to5 === null && currentUser.role.id !== 4"
+          v-else-if="!currentRoom.attributes.rate && currentUser.role.id !== 4"
           class="border-t-2 border-gray-200 px-4 pt-4 mb-2 sm:mb-0"
         >
           <div class="flex items-center justify-between">
@@ -333,12 +333,6 @@
           </div>
         </div>
       </div>
-      <vue-simple-context-menu
-        ref="vueSimpleContextMenu"
-        element-id="myUniqueId"
-        :options="options"
-        @option-clicked="optionClicked"
-      />
     </div>
     <div v-else>
       <div class="align-middle text-center">
@@ -347,6 +341,12 @@
         </span>
       </div>
     </div>
+    <vue-simple-context-menu
+      ref="vueSimpleContextMenu"
+      element-id="myUniqueId"
+      :options="options"
+      @option-clicked="optionClicked"
+    />
   </div>
 </template>
 <script>
@@ -357,6 +357,7 @@ import { mapState, mapGetters } from 'vuex'
 import { socket } from '~/plugins/socket.client.js'
 import VueSimpleContextMenu from 'vue-simple-context-menu'
 import 'vue-simple-context-menu/dist/vue-simple-context-menu.css'
+import { react } from '@babel/types'
 export default {
   name: 'ChatRoomBody',
   mixins: [],
@@ -385,7 +386,9 @@ export default {
         comment: '',
       },
       consultant: {},
-      currentRoom: {},
+      currentRoom: {
+        attributes: {},
+      },
       options: [
         {
           name: this.$t('edit'),
@@ -400,13 +403,31 @@ export default {
   },
   created() {},
   mounted() {
-    if (this.$route.query.room_id) {
-      this.fetchConsultant()
-    }
+    this.$bridge.$on('room_changed', () => {
+      this.fetchCurrentRoom()
+    })
     if (this.$route.query.room_id && this.$route.query.room_id !== 'new') {
-      this.fetchCurrentRoom().then(() => {
+      this.fetchConsultant().then(() => {
+        this.fetchCurrentRoom().then(() => {
+          this.message = {
+            chatroom: this.currentRoom.id,
+            sender: this.currentUser.id,
+            receiver: this.consultant.id,
+            text: '',
+            filepath: null,
+            seen: false,
+          }
+          this.$bridge.$emit('join_room', {
+            username: this.currentUser.username,
+            room: this.currentRoom.id,
+          })
+        })
+      })
+    }
+    if (this.$route.query.room_id === 'new') {
+      this.fetchConsultant().then(() => {
         this.message = {
-          chatroom: this.currentRoom.id,
+          chatroom: null,
           sender: this.currentUser.id,
           receiver: this.consultant.id,
           text: '',
@@ -467,7 +488,19 @@ export default {
       this.$store
         .dispatch('putChatrooms', { id: _currentRoom.id, data: _currentRoom.data })
         .then(() => {
-          this.fetchCurrentRoom()
+          this.fetchCurrentRoom().then(() => {
+            this.sendRoomToSocket({
+              id: this.currentRoom.id,
+              data: {
+                consultant: this.currentRoom.attributes.consultant.data.id,
+                rate: this.currentRoom.attributes.rate,
+                title: this.currentRoom.attributes.title,
+                isCompleted: this.currentRoom.attributes.isCompleted,
+                user: this.currentRoom.attributes.user.data.id,
+                answerDuration: this.currentRoom.attributes.answerDuration,
+              },
+            })
+          })
         })
     },
     closeChatRoom() {
@@ -479,6 +512,7 @@ export default {
           user: this.currentRoom.attributes.user.data.id,
         },
       }
+      console.log('Current Room', _currentRoom, this.currentRoom)
       this.$modal.show(
         finishChatModal,
         {
@@ -495,16 +529,14 @@ export default {
       )
       this.$root.$once('finish-chat-modal', (item) => {
         if (item !== 'canceled') {
-          this.sendRoomToSocket(
-            {
-              id: this.currentRoom.id,
-              data: {
-                consultant: this.currentRoom.attributes.consultant.data.id,
-                isCompleted: true,
-                user: this.currentRoom.attributes.user.data.id,
-              },
-            }
-          )
+          this.sendRoomToSocket({
+            id: this.currentRoom.id,
+            data: {
+              consultant: _currentRoom.data.consultant,
+              isCompleted: true,
+              user: _currentRoom.data.user,
+            },
+          })
         }
       })
     },
@@ -520,11 +552,24 @@ export default {
               user: this.currentUser.id,
               isCompleted: false,
             },
+            query: {
+              populate: '*',
+            },
           })
           .then(async (res) => {
-            this.currentRoom = res.data.data
-            this.message.chatroom = res.data.data.id
-            await this.$store.dispatch('createRoom', res.data.data)
+            this.currentRoom = res.data
+            this.message.chatroom = res.data.id
+            await this.sendRoomToSocket({
+              id: res.data.id,
+              data: {
+                consultant: res.data.attributes.consultant.data.id,
+                rate: res.data.attributes.rate,
+                title: res.data.attributes.title,
+                isCompleted: res.data.attributes.isCompleted,
+                user: res.data.attributes.user.data.id,
+                answerDuration: res.data.attributes.answerDuration,
+              },
+            })
             await this.$bridge.$emit('join_room', {
               username: this.currentUser.username,
               room: this.currentRoom.id,
@@ -557,38 +602,30 @@ export default {
         })
       }
     },
-    sendRoomToSocket(message) {
-      if (message.id) {
-        const _id = message.id
-        const data = { ...message }
+    sendRoomToSocket(room) {
+      if (room.id) {
+        const _id = room.id
+        const data = room.data
         delete data.id
-        const _message = {
+        const _room = {
           id: _id,
           data,
         }
-        socket.emit('editRoom', _message, ({ res, rej }) => {
-          this.setMessage()
+        socket.emit('editRoom', _room, ({ res, rej }) => {
+          console.log('res', res)
+          console.log('rej', rej)
         })
       } else {
-        socket.emit('createRoom', message, ({ res, rej }) => {
-          this.setMessage()
+        socket.emit('createRoom', room, ({ res, rej }) => {
+          // this.setMessage()
         })
       }
     },
     setMessage() {
       if (this.currentRoom.unread_message && this.currentRoom.unread_message !== 0) {
-        // this.$store
-        //   .dispatch("crud/static/get", {
-        //     url: "/seen_messages",
-        //     query: {
-        //       "_where[0][roomID.id]": this.$route.query.room_id,
-        //       "_where[0][receiverID.id]": this.currentUser.id,
-        //     },
-        //   })
-        //   .then(() => {
-        //     this.$store.dispatch("seenMessage", this.message);
-        //   });
-        this.fetchCurrentRoom()
+        this.fetchCurrentRoom().then(() => {
+          this.sendRoomToSocket(this.currentRoom)
+        })
       }
       this.message = {
         chatroom: this.currentRoom.id,
@@ -604,14 +641,15 @@ export default {
     },
     optionClicked(event) {
       if (event.option.slug === 'edit') {
+        console.log('edit', event)
         const _message = event.item
         this.message = {
-          chatroom: _message.chatroom.id,
-          sender: _message.sender.id,
-          receiver: _message.receiver.id,
-          text: _message.text,
-          filepath: _message.filepath,
-          seen: _message.seen,
+          chatroom: _message.attributes.chatroom.data.id,
+          sender: _message.attributes.sender.data.id,
+          receiver: _message.attributes.receiver.data.id,
+          text: _message.attributes.text,
+          filepath: _message.attributes.filepath,
+          seen: _message.attributes.seen,
           id: _message.id,
         }
       } else if (event.option.slug === 'delete') {
@@ -630,7 +668,7 @@ export default {
           if (item !== 'canceled') {
             socket.emit(
               'deleteMessage',
-              { id: event.item.id, roomID: event.item.chatroom.id },
+              { id: event.item.id, chatroom: event.item.attributes.chatroom.data.id },
               ({ res, rej }) => {}
             )
           }
@@ -672,7 +710,7 @@ export default {
             query: {
               populate: '*',
               'filters[$and][0][id]': this.$route.query.room_id,
-            }
+            },
           })
           .then((res) => {
             this.currentRoom = res.data
@@ -684,9 +722,9 @@ export default {
         username: this.currentUser.username,
         room: this.currentRoom.id,
       })
-      await this.$store.dispatch("clearMessages");
+      await this.$store.dispatch('clearMessages')
     },
-    fetchConsultant() {
+    async fetchConsultant() {
       this.$store
         .dispatch('getByIdUsers', {
           id: this.$route.query.consultant_id,

@@ -42,7 +42,9 @@
       <div v-html="company.attributes.fullinfo"></div>
       <div class="absolute bottom-5 right-5 left-5">
         <div class="flex justify-between items-center">
-          <h3 class="text-xl font-semibold text-gray-900 lg:text-2xl left-5 dark:text-white"></h3>
+          <h3 class="text-xl font-semibold text-gray-900 lg:text-2xl left-5 dark:text-white">
+            {{ company.attributes.address ? company.attributes.address : '' }}
+          </h3>
           <button
             class="
               right-5

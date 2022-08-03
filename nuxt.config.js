@@ -3,7 +3,7 @@ import i18n from './utils/i18n'
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'BDP',
+    title: 'GreenAral',
     htmlAttrs: {
       lang: 'en',
     },
@@ -30,6 +30,7 @@ export default {
     '~/plugins/clickOutside.client.js',
     '~/plugins/vueAwesomeSwiper.js',
     '~/plugins/other-libraries.js',
+    '~/plugins/vue-gtag.js',
     '~/plugins/vue-js-modal.js',
     '~/plugins/axios.js',
     '~/plugins/vee-validate.js',
@@ -39,7 +40,7 @@ export default {
     '~/utils/tools.js',
     '~/utils/constants.js',
     // '~/plugins/all-consts.js',
-    // '~/plugins/v-viewer.client.js',
+    // '~/plugins/v-viewer.client.js',git
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -48,6 +49,7 @@ export default {
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
     '@nuxtjs/dotenv',
+    '@nuxtjs/google-analytics',
     [
       'nuxt-i18n',
       {
@@ -91,6 +93,7 @@ export default {
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     // https://go.nuxtjs.dev/axios
+    '@nuxtjs/sentry',
     '@nuxtjs/axios',
     '@nuxtjs/auth-next',
     // '@nuxtjs/auth',

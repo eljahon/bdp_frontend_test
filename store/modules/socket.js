@@ -73,6 +73,16 @@ export default {
         CREATE_ROOM(state, payload) {
             state.createRoom = payload
         },
+        CHANGE_ROOM(state, payload) {
+            if (payload.status === 'updated') {
+                const index = state.activeRooms.findIndex((room) => {
+                    return room.id === payload.data.id
+                })
+                if (index > -1) {
+                    state.messages.splice(index, 1)
+                }
+            }
+        },
         SEEN_MESSAGE(state, payload) {
             state.seenMessage = payload
         },
@@ -125,6 +135,9 @@ export default {
         },
         createRoom({ commit }, data) {
             commit('CREATE_ROOM', data)
+        },
+        changeRoom({ commit }, data) {
+            commit('CHANGE_ROOM', data)
         },
         seenMessage({ commit }, data) {
             commit('SEEN_MESSAGE', data)

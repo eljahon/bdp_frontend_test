@@ -17,7 +17,8 @@ export default {
             state.locations = payload
         },
         ADD_LOCATIONS(state, payload) {
-            state.locations = [...state.locations, ...payload]
+            state.locations.push(payload)
+            console.log('ADD_LOCATIONS', state.locations, payload)
         }
     },
     actions: {
@@ -25,7 +26,7 @@ export default {
             commit('SET_COMPANIES', payload)
             for (let ind = 0; ind < payload.length; ind++) {
                 if (payload[ind].attributes.location) {
-                    commit('ADD_LOCATIONS', payload[ind].attributes.location.markers)
+                    commit('ADD_LOCATIONS', payload[ind].attributes.location)
                 }
             }
         }

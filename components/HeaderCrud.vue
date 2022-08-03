@@ -60,8 +60,29 @@
           <i class="bx bx-search text-lg text-white"></i>
         </button>
       </div>
+      <div v-else class="">
+        <select
+          class="
+            border
+            rounded-md
+            border-green-700
+            text-green-700
+            font-semibold
+            my-3
+            py-1.5
+            px-4
+            w-32
+          "
+          v-model="filter.category"
+          @change="onChangeCategory"
+        >
+          <option v-for="(category, index) in categories" :key="index" :value="category.id">
+            {{ category.attributes.name }}
+          </option>
+        </select>
+      </div>
     </div>
-    <div class="lg:flex grid grid-cols-3 items-center justify-center lg:gap-7 gap-4 my-6">
+    <div v-if="!isConsultant" class="lg:flex grid grid-cols-3 items-center justify-center lg:gap-7 gap-4 my-6">
       <button
         v-for="(category, index) in categories"
         :key="index"
@@ -107,6 +128,9 @@ export default {
   },
   watch: {},
   methods: {
+    onChangeCategory() {
+      this.setQuery()
+    },
     toChange(category) {
       this.filter.category = category.id
       this.setQuery()

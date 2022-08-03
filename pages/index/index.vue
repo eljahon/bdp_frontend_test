@@ -1,6 +1,6 @@
 <template>
   <div class="">
-    <div class="bg-gradient-to-r from-green-100 to-white">
+    <div class="bg-gradient-to-r from-green-100 to-green-50">
       <div class="max-w-6xl mx-auto px-4 lg:px-8 xl:px-0">
         <div class="grid lg:grid-cols-2 grid-cols-1 px-0">
           <div class="grid content-center">
@@ -38,7 +38,7 @@
               </button>
             </div>
           </div>
-          <div class="pt-11">
+          <div class="">
             <img src="~/assets/images/home.png" class="rounded-md" alt="home" />
           </div>
         </div>
@@ -54,7 +54,7 @@
         </div>
       </div>
       <div class="mt-12 space-y-4">
-        <div class="font-semibold text-green-800 text-2xl">{{ $t('price') }}</div>
+        <div class="font-semibold text-green-800 text-2xl">{{ $t('agri-market') }}</div>
         <div class="">
           <price-swiper :prices="dataPricelists" />
         </div>
@@ -257,6 +257,8 @@ export default {
         locale: this.$i18n.locale,
         'pagination[page]': 1,
         'pagination[pageSize]': 3,
+      }).catch(error => {
+        this.$sentry.captureException(error)
       })
       await this.$store
         .dispatch('getUsers', {
@@ -269,24 +271,38 @@ export default {
         })
         .then((res) => {
           this.experts = res.users
+        }).catch(error => {
+          this.$sentry.captureException(error)
         })
       await this.$store.dispatch('getPricelists', {
         populate: '*',
         locale: this.$i18n.locale,
         'sort[0][product][name]': 'ASC',
+      }).catch(error=> {
+        this.$sentry.captureException(error)
+
       })
       await this.$store.dispatch('getServiceposts', {
         populate: '*',
         locale: this.$i18n.locale,
         'sort[0][createdAt]': 'DESC',
+      }).catch(error => {
+        this.$sentry.captureException(error)
+
       })
       await this.$store.dispatch('getFaqs', {
         populate: '*',
         locale: this.$i18n.locale,
+      }).catch(error=> {
+        this.$sentry.captureException(error)
+
       })
       await this.$store.dispatch('getPartners', {
         populate: '*',
         locale: this.$i18n.locale,
+      }).catch(error=> {
+        this.$sentry.captureException(error)
+
       })
       await this.$store
         .dispatch('getCompanies', {
@@ -295,6 +311,9 @@ export default {
         })
         .then((res) => {
           this.$store.dispatch('setCompanies', res)
+        }).catch(error => {
+          this.$sentry.captureException(error)
+
         })
     },
   },
