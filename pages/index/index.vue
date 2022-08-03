@@ -257,6 +257,8 @@ export default {
         locale: this.$i18n.locale,
         'pagination[page]': 1,
         'pagination[pageSize]': 3,
+      }).catch(error => {
+        this.$sentry.captureException(error)
       })
       await this.$store
         .dispatch('getUsers', {
@@ -269,24 +271,38 @@ export default {
         })
         .then((res) => {
           this.experts = res.users
+        }).catch(error => {
+          this.$sentry.captureException(error)
         })
       await this.$store.dispatch('getPricelists', {
         populate: '*',
         locale: this.$i18n.locale,
         'sort[0][product][name]': 'ASC',
+      }).catch(error=> {
+        this.$sentry.captureException(error)
+
       })
       await this.$store.dispatch('getServiceposts', {
         populate: '*',
         locale: this.$i18n.locale,
         'sort[0][createdAt]': 'DESC',
+      }).catch(error => {
+        this.$sentry.captureException(error)
+
       })
       await this.$store.dispatch('getFaqs', {
         populate: '*',
         locale: this.$i18n.locale,
+      }).catch(error=> {
+        this.$sentry.captureException(error)
+
       })
       await this.$store.dispatch('getPartners', {
         populate: '*',
         locale: this.$i18n.locale,
+      }).catch(error=> {
+        this.$sentry.captureException(error)
+
       })
       await this.$store
         .dispatch('getCompanies', {
@@ -295,6 +311,9 @@ export default {
         })
         .then((res) => {
           this.$store.dispatch('setCompanies', res)
+        }).catch(error => {
+          this.$sentry.captureException(error)
+
         })
     },
   },

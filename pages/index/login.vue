@@ -274,7 +274,9 @@ export default {
           this.timer = 'on'
         })
         .catch((error) => {
-          this.$snotify.error(error)
+          this.$snotify.error(error);
+          this.$sentry.captureException(error)
+
         })
     },
     onCountdownEnd() {
@@ -291,7 +293,9 @@ export default {
         .catch((error) => {
           this.isPhone = false
           this.isEmail = false
-          this.authError = error.response.data.message
+          this.authError = error.response.data.message;
+          this.$sentry.captureException(error)
+
         })
     },
     async tryToLogIn() {
@@ -336,6 +340,8 @@ export default {
         if (e.response) this.authError = e.response.data.error.message
         this.loading = false
       }
+      this.$sentry.captureException(error)
+
     },
     registerPhone() {
       this.$snotify.info('Logging in...')
@@ -368,6 +374,8 @@ export default {
         if (e.response) this.authError = e.response.data.error.message
         this.loading = false
       }
+      this.$sentry.captureException(error)
+
     },
   },
 }

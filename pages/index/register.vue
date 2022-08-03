@@ -170,7 +170,9 @@ export default {
               })
               .catch((e) => {
                 this.loading = false
-                this.$snotify.error(e.response.data.detail)
+                this.$snotify.error(e.response.data.detail);
+                this.$sentry.captureException(error)
+
               })
             return
           }
@@ -182,7 +184,8 @@ export default {
           // eslint-disable-next-line no-console
         })
         .catch((e) => {
-          console.error(e)
+          this.$sentry.captureException(error)
+
         })
     },
     openSignIn() {
