@@ -50,7 +50,7 @@ export default {
           'sort[0][createdAt]': 'DESC',
           populate: '*',
           locale: this.$i18n.locale,
-          'filters[$and][0][coursecategory][id]':
+          'filters[$and][0][servicecategory][id]':
             this.$route.query.category && parseInt(this.$route.query.category) === 0
               ? null
               : this.$route.query.category,
