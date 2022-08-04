@@ -98,13 +98,13 @@
             }}
           </div>
           <div class="grid lg:grid-cols-2 grid-cols-1 mt-10 gap-10">
-            <div v-for="(item, index) in items" :key="index">
-              <div class="flex items-center">
+            <div v-for="(item, index) in companyCategories" :key="index" @click="moveToAgriBusiness(item)">
+              <div class="flex items-center cursor-pointer">
                 <img
-                  :src="require(`~/assets/images/${item.image}.png`)"
+                  :src="item.attributes && item.attributes.icon ? $tools.getFileUrl(item.attributes.icon) : require(`~/assets/images/district.png`)"
                   class="w-6 object-contain"
                 />
-                <p class="text-base font-semibold text-gray-800 ml-4">{{ item.title }}</p>
+                <p class="text-base font-semibold text-gray-800 ml-4">{{ item.attributes.name }}</p>
               </div>
             </div>
           </div>
@@ -196,6 +196,7 @@ export default {
         coordorder: 'latlong',
         version: '2.1',
       },
+      companyCategories: [],
       items: [
         {
           image: 'district',
@@ -253,6 +254,15 @@ export default {
     this.fetchDirectories()
   },
   methods: {
+    moveToAgriBusiness(item) {
+      let _query = {
+        category: item.id
+      }
+      this.$router.push({
+        path: this.localePath('/agri-business'),
+        query: this.$tools.emptyObject(_query),
+      })
+    },
     openRegister() {
       this.$emit('close')
       this.$modal.show(
@@ -337,6 +347,14 @@ export default {
         })
         .catch((error) => {
           this.$sentry.captureException(error)
+        })
+      await this.$store
+        .dispatch('getCompanycategories', {
+          populate: '*',
+          locale: this.$i18n.locale,
+        })
+        .then((res) => {
+          this.companyCategories = res
         })
     },
   },
