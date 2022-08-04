@@ -86,6 +86,7 @@ export default {
             ? this.$route.query.text
             : null,
           'filters[$and][0][title][$notNull]': true,
+          'filters[$and][0][coursetype][id]': 1,
         })
         .then(() => {})
     },
