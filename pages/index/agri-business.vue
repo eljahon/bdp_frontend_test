@@ -35,7 +35,6 @@
               rounded-md
             "
             placeholder="Search"
-            @change="onChangeSearch"
           />
         </div>
         <button
@@ -164,6 +163,13 @@ export default {
       },
       deep: true,
     },
+    'filter.text': {
+      handler: debounce(function(e) {
+        console.log('filter', this.filter)
+        this.setQuery()
+      }, 500),
+      deep: true,
+    },
   },
   computed: {
     ...mapGetters({
@@ -181,9 +187,6 @@ export default {
         query: this.$tools.emptyObject(_query),
       })
     },
-    onChangeSearch: debounce(function (e) {
-      this.setQuery()
-    }, 500),
     onChangeCategory() {
       this.setQuery()
     },

@@ -35,7 +35,6 @@
               rounded-md
             "
             placeholder="Search"
-            @change="onChangeSearch"
           />
         </div>
         <button
@@ -126,7 +125,15 @@ export default {
       this.setQuery()
     }
   },
-  watch: {},
+  watch: {
+    'filter.text': {
+      handler: debounce(function(e) {
+        console.log('filter', this.filter)
+        this.setQuery()
+      }, 500),
+      deep: true,
+    },
+  },
   methods: {
     onChangeCategory() {
       this.setQuery()
@@ -135,9 +142,6 @@ export default {
       this.filter.category = category.id
       this.setQuery()
     },
-    onChangeSearch: debounce(function (e) {
-      this.setQuery()
-    }, 500),
     setQuery() {
       let _query = {
         category: this.filter.category,
