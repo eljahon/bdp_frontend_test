@@ -208,12 +208,12 @@
                   </ValidationProvider>
                 </div>
                 <div class="col-span-2">
-                  <label for="email" class="sr-only">Subject</label>
+                  <label for="subject" class="sr-only">Subject</label>
                   <input
                     id="subject"
                     type="text"
                     name="subject"
-                    v-model="form.email"
+                    v-model="form.subject"
                     class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border border-gray-300 rounded-md p-3"
                     :placeholder="$t('subject')"
                   />
@@ -316,8 +316,8 @@ export default {
         first_name: '',
         last_name: '',
         email: '',
+        subect: '',
         phone: '+998',
-        email: '',
         message: '',
       },
     }

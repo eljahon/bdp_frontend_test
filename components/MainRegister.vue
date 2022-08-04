@@ -15,19 +15,7 @@
                 v-model="account.name"
                 :disabled="isRegisterSuccess"
                 required
-                class="
-                  focus:outline-none
-                  appearance-none
-                  block
-                  w-full
-                  px-3
-                  py-2
-                  border
-                  rounded-md
-                  shadow-sm
-                  placeholder-gray-400
-                  sm:text-sm
-                "
+                class="focus:outline-none appearance-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
                 :class="
                   errors.length > 0
                     ? 'border-red-400'
@@ -50,19 +38,7 @@
                 v-model="account.surname"
                 :disabled="isRegisterSuccess"
                 required
-                class="
-                  focus:outline-none
-                  appearance-none
-                  block
-                  w-full
-                  px-3
-                  py-2
-                  border
-                  rounded-md
-                  shadow-sm
-                  placeholder-gray-400
-                  sm:text-sm
-                "
+                class="focus:outline-none appearance-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
                 :class="
                   errors.length > 0
                     ? 'border-red-400'
@@ -77,22 +53,16 @@
             <label for="gender" class="block text-sm mb-1 font-medium text-gray-700"
               >{{ $t('gender') }}*</label
             >
-            <ValidationProvider v-slot="{ errors }" name="gender" rules="required" mode="eager">
+            <ValidationProvider
+              v-slot="{ errors }"
+              name="gender"
+              rules="required"
+              mode="eager"
+            >
               <select
                 v-model="account.gender"
                 name="option"
-                class="
-                  focus:outline-none
-                  block
-                  w-full
-                  px-3
-                  py-2
-                  border
-                  rounded-md
-                  shadow-sm
-                  placeholder-gray-400
-                  sm:text-sm
-                "
+                class="focus:outline-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
                 :disabled="isRegisterSuccess"
                 :class="
                   errors.length > 0
@@ -116,18 +86,7 @@
               <select
                 v-model="region"
                 name="option"
-                class="
-                  focus:outline-none
-                  block
-                  w-full
-                  px-3
-                  py-2
-                  border
-                  rounded-md
-                  shadow-sm
-                  placeholder-gray-400
-                  sm:text-sm
-                "
+                class="focus:outline-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
                 :disabled="isRegisterSuccess"
                 :class="
                   errors.length > 0
@@ -152,18 +111,7 @@
                 v-model="account.district"
                 :disabled="districts.length === 0 || isRegisterSuccess"
                 name="option"
-                class="
-                  focus:outline-none
-                  block
-                  w-full
-                  px-3
-                  py-2
-                  border
-                  rounded-md
-                  shadow-sm
-                  placeholder-gray-400
-                  sm:text-sm
-                "
+                class="focus:outline-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
                 :class="
                   errors.length > 0
                     ? 'border-red-400'
@@ -195,19 +143,7 @@
                 v-model="phoneOrEmail"
                 :placeholder="$t('email-or-phone')"
                 required
-                class="
-                  focus:outline-none
-                  appearance-none
-                  block
-                  w-full
-                  px-3
-                  py-2
-                  border
-                  rounded-md
-                  shadow-sm
-                  placeholder-gray-400
-                  sm:text-sm
-                "
+                class="focus:outline-none appearance-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
                 :disabled="isRegisterSuccess"
                 :class="
                   errors.length > 0
@@ -237,19 +173,7 @@
                 v-model="otp"
                 :placeholder="$t('enter-confirm-code')"
                 required
-                class="
-                  focus:outline-none
-                  appearance-none
-                  block
-                  w-full
-                  px-3
-                  py-2
-                  border
-                  rounded-md
-                  shadow-sm
-                  placeholder-gray-400
-                  sm:text-sm
-                "
+                class="focus:outline-none appearance-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
                 :class="
                   errors.length > 0
                     ? 'border-red-400'
@@ -279,19 +203,7 @@
                 :placeholder="$t('password')"
                 required
                 :disabled="isRegisterSuccess"
-                class="
-                  focus:outline-none
-                  appearance-none
-                  block
-                  w-full
-                  px-3
-                  py-2
-                  border
-                  rounded-md
-                  shadow-sm
-                  placeholder-gray-400
-                  sm:text-sm
-                "
+                class="focus:outline-none appearance-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
                 :class="
                   errors.length > 0
                     ? 'border-red-400'
@@ -319,19 +231,7 @@
                 :type="hidden.confirm_password ? 'password' : 'text'"
                 :placeholder="$t('confirm-password')"
                 required
-                class="
-                  focus:outline-none
-                  appearance-none
-                  block
-                  w-full
-                  px-3
-                  py-2
-                  border
-                  rounded-md
-                  shadow-sm
-                  placeholder-gray-400
-                  sm:text-sm
-                "
+                class="focus:outline-none appearance-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
                 :disabled="isRegisterSuccess"
                 :class="
                   errors.length > 0
@@ -376,7 +276,7 @@ export default {
         gender: null,
         district: null,
         role: null,
-        confirmed: true
+        confirmed: true,
       },
       region: null,
       districts: [],
@@ -442,7 +342,10 @@ export default {
   methods: {
     confirmOtp() {
       this.$axios
-        .$post('/users-permissions/register_confirm_otp', {phone: this.account.username, otp: this.otp})
+        .$post('/users-permissions/register_confirm_otp', {
+          phone: this.account.username,
+          otp: this.otp,
+        })
         .then(async (data) => {
           this.isRegisterPending = false
           this.isRegisterSuccess = true
@@ -450,7 +353,7 @@ export default {
             isSuccess: true,
             user: data.user,
             password: this.account.password,
-            jwt: data.jwt
+            jwt: data.jwt,
           })
           return
         })

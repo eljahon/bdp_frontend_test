@@ -6,82 +6,46 @@
       </div>
       <div v-if="!isConsultant" class="mt-1 flex rounded-md shadow-sm">
         <div
-          class="
-            relative
-            py-0.5
-            bg-green-700
-            rounded-md rounded-r-none
-            flex
-            items-stretch
-            flex-grow
-            focus-within:z-10
-            lg:my-0
-            mt-4
-          "
+          class="relative py-0.5 bg-green-700 rounded-md rounded-r-none flex items-stretch flex-grow focus-within:z-10 lg:my-0 mt-4"
         >
           <input
             v-model="filter.text"
             id="search"
             type="search"
             name="search"
-            class="
-              block
-              w-full
-              p-2
-              ml-0.5
-              focus:outline-none
-              sm:text-sm
-              border-gray-300 border
-              rounded-md
-            "
+            class="block w-full p-2 ml-0.5 focus:outline-none sm:text-sm border-gray-300 border rounded-md"
             placeholder="Search"
           />
         </div>
         <button
           type="button"
-          class="
-            -ml-px
-            relative
-            inline-flex
-            items-center
-            space-x-2
-            px-4
-            py-2
-            lg:my-0
-            mt-4
-            bg-green-700
-            text-sm
-            font-medium
-            rounded-r-md
-            focus:outline-none
-          "
+          class="-ml-px relative inline-flex items-center space-x-2 px-4 py-2 lg:my-0 mt-4 bg-green-700 text-sm font-medium rounded-r-md focus:outline-none"
         >
           <i class="bx bx-search text-lg text-white"></i>
         </button>
       </div>
-      <div v-else class="">
+      <div v-else class="border rounded-md border-green-700 text-green-700 p-2">
         <select
-          class="
-            border
-            rounded-md
-            border-green-700
-            text-green-700
-            font-semibold
-            my-3
-            py-1.5
-            px-4
-            w-32
-          "
+          class="font-semibold flex justify-between w-32"
           v-model="filter.category"
           @change="onChangeCategory"
         >
-          <option v-for="(category, index) in categories" :key="index" :value="category.id">
+          <option
+            v-for="(category, index) in categories"
+            :key="index"
+            :value="category.id"
+            class="pr-4"
+          >
             {{ category.attributes.name }}
           </option>
+          <i class="bx bx-chevron-down text-lg"></i>
         </select>
       </div>
     </div>
-    <div v-if="!isConsultant" class="lg:flex grid grid-cols-3 items-center justify-center lg:gap-7 gap-4 my-6">
+    <div
+      v-if="!isConsultant"
+      class="lg:flex grid grid-cols-3 items-center justify-center lg:gap-7 gap-4 my-6"
+    >
       <button
         v-for="(category, index) in categories"
         :key="index"
@@ -127,7 +91,7 @@ export default {
   },
   watch: {
     'filter.text': {
-      handler: debounce(function(e) {
+      handler: debounce(function (e) {
         console.log('filter', this.filter)
         this.setQuery()
       }, 500),
@@ -155,3 +119,5 @@ export default {
   },
 }
 </script>
+
+<style scoped></style>

@@ -6,55 +6,20 @@
       </div>
       <div class="mt-1 flex rounded-md shadow-sm">
         <div
-          class="
-            relative
-            py-0.5
-            bg-green-700
-            rounded-md rounded-r-none
-            flex
-            items-stretch
-            flex-grow
-            focus-within:z-10
-            lg:my-0
-            mt-4
-          "
+          class="relative py-0.5 bg-green-700 rounded-md rounded-r-none flex items-stretch flex-grow focus-within:z-10 lg:my-0 mt-4"
         >
           <input
             v-model="filter.text"
             id="search"
             type="search"
             name="search"
-            class="
-              block
-              w-full
-              p-2
-              ml-0.5
-              focus:outline-none
-              sm:text-sm
-              border-gray-300 border
-              rounded-md
-            "
+            class="block w-full p-2 ml-0.5 focus:outline-none sm:text-sm border-gray-300 border rounded-md"
             placeholder="Search"
           />
         </div>
         <button
           type="button"
-          class="
-            -ml-px
-            relative
-            inline-flex
-            items-center
-            space-x-2
-            px-4
-            py-2
-            lg:my-0
-            mt-4
-            bg-green-700
-            text-sm
-            font-medium
-            rounded-r-md
-            focus:outline-none
-          "
+          class="-ml-px relative inline-flex items-center space-x-2 px-4 py-2 lg:my-0 mt-4 bg-green-700 text-sm font-medium rounded-r-md focus:outline-none"
         >
           <i class="bx bx-search text-lg text-white"></i>
         </button>
@@ -64,32 +29,16 @@
       <div class="rounded-md shadow-md p-5">
         <div class="flex items-center justify-between">
           <div class="text-gray-700 text-xl font-semibold">{{ $t('locations') }}</div>
-          <select
-            class="
-              border
-              rounded-md
-              border-green-700
-              text-green-700
-              font-semibold
-              my-3
-              py-1.5
-              px-4
-              w-32
-            "
-            v-model="filter.category"
-            @change="onChangeCategory"
-          >
-            <option v-for="(category, index) in categories" :key="index" :value="category.id">
-              {{ category.attributes.name }}
-            </option>
-          </select>
+          <div class="border rounded-md border-green-700 text-green-700 p-2 mb-4">
+            <select class="font-semibold w-32" v-model="filter.category" @change="onChangeCategory">
+              <option v-for="(category, index) in categories" :key="index" :value="category.id">
+                {{ category.attributes.name }}
+              </option>
+            </select>
+          </div>
         </div>
         <div
-          class="
-            overflow-y-auto
-            scrollbar-track-blue-lighter scrollbar-thumb-blue scrollbar-w-2
-            scrolling-touch
-          "
+          class="overflow-y-auto scrollbar-track-blue-lighter scrollbar-thumb-blue scrollbar-w-2 scrolling-touch"
           style="height: calc(60vh - 0px)"
         >
           <div v-for="(company, index) in data" :key="index">
@@ -164,7 +113,7 @@ export default {
       deep: true,
     },
     'filter.text': {
-      handler: debounce(function(e) {
+      handler: debounce(function (e) {
         console.log('filter', this.filter)
         this.setQuery()
       }, 500),

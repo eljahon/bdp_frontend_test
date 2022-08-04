@@ -46,23 +46,27 @@
     </div>
     <div class="max-w-6xl mx-auto sm:px-6 lg:px-8 xl:px-0 px-4">
       <div class="mt-12 space-y-4">
-        <div class="font-semibold text-green-800 text-2xl">
+        <router-link :to="localePath('/advisory')" class="font-semibold text-green-800 text-2xl">
           {{ $t('advisory') }}
-        </div>
+        </router-link>
         <div class="">
           <experts-swiper :experts="experts" />
         </div>
       </div>
       <div class="mt-12 space-y-4">
-        <div class="font-semibold text-green-800 text-2xl">{{ $t('agri-market') }}</div>
+        <router-link
+          :to="localePath('/agri-market')"
+          class="font-semibold text-green-800 text-2xl"
+          >{{ $t('agri-market') }}</router-link
+        >
         <div class="">
           <price-swiper :prices="dataPricelists" />
         </div>
       </div>
       <div class="mt-12 space-y-4">
-        <div class="font-semibold text-gray-700 text-2xl">
+        <router-link :to="localePath('/e-learning')" class="font-semibold text-gray-700 text-2xl">
           <span class="text-green-800"> {{ $t('e-learning') }}</span>
-        </div>
+        </router-link>
         <div class="grid md:grid-cols-3 gap-6 sm:grid-cols-2 grid-cols-1">
           <div v-for="(video, index) in dataCourses" :key="index" class="mt-6">
             <video-card :data="video" />
@@ -75,9 +79,9 @@
           </button>
         </router-link>
       </div>
-      <div class="font-semibold text-green-800 text-2xl">
+      <router-link :to="localePath('/agri-business')" class="font-semibold text-green-800 text-2xl">
         {{ $t('agri-business') }}
-      </div>
+      </router-link>
       <div class="grid lg:grid-cols-2 grid-cols-1 mt-12 lg:space-x-10">
         <!-- <img src="~/assets/images/map.png" alt="" /> -->
         <yandex-map :coords="getLocations" />
@@ -104,22 +108,34 @@
               </div>
             </div>
           </div>
-          <div class="lg:absolute bottom-0 flex justify-center lg:mt-0 mt-6">
+          <router-link
+            :to="localePath('/agri-business')"
+            class="lg:absolute bottom-0 flex justify-center lg:mt-0 mt-6"
+          >
             <button
               class="text-white focus:outline-none py-3 px-7 font-medium bg-green-700 rounded-md text-sm"
             >
               {{ $t('discover-more') }}
             </button>
-          </div>
+          </router-link>
         </div>
       </div>
       <div class="mt-12 space-y-4">
-        <div class="font-semibold text-gray-700 text-2xl">
+        <router-link :to="localePath('/agri-finance')" class="font-semibold text-gray-700 text-2xl">
           {{ $t('agri-finance') }} <span class="text-green-800">{{ $t('news') }}</span>
-        </div>
+        </router-link>
         <div class="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1">
           <news-swiper :news="dataServiceposts" class="col-span-3" />
         </div>
+        <router-link
+          :to="localePath('/agri-finance')"
+          class="flex items-center justify-center my-4"
+        >
+          <button class="text-green-800 focus:outline-none text-sm flex items-center">
+            {{ $t('see-all') }}
+            <i class="bx bx-right-arrow-alt text-green-800 text-xl ml-1"></i>
+          </button>
+        </router-link>
       </div>
       <div class="mt-12 space-y-4">
         <div class="font-semibold text-gray-700 text-2xl">
@@ -230,7 +246,7 @@ export default {
       'dataFaqs',
       'dataPartners',
       'getLocations',
-      'dataServiceposts'
+      'dataServiceposts',
     ]),
   },
   mounted() {
@@ -251,15 +267,17 @@ export default {
       )
     },
     async fetchDirectories() {
-      await this.$store.dispatch('getCourses', {
-        'sort[0][createdAt]': 'DESC',
-        populate: '*',
-        locale: this.$i18n.locale,
-        'pagination[page]': 1,
-        'pagination[pageSize]': 3,
-      }).catch(error => {
-        this.$sentry.captureException(error)
-      })
+      await this.$store
+        .dispatch('getCourses', {
+          'sort[0][createdAt]': 'DESC',
+          populate: '*',
+          locale: this.$i18n.locale,
+          'pagination[page]': 1,
+          'pagination[pageSize]': 3,
+        })
+        .catch((error) => {
+          this.$sentry.captureException(error)
+        })
       await this.$store
         .dispatch('getUsers', {
           link: '/users',
@@ -271,39 +289,44 @@ export default {
         })
         .then((res) => {
           this.experts = res.users
-        }).catch(error => {
+        })
+        .catch((error) => {
           this.$sentry.captureException(error)
         })
-      await this.$store.dispatch('getPricelists', {
-        populate: '*',
-        locale: this.$i18n.locale,
-        'sort[0][product][name]': 'ASC',
-      }).catch(error=> {
-        this.$sentry.captureException(error)
-
-      })
-      await this.$store.dispatch('getServiceposts', {
-        populate: '*',
-        locale: this.$i18n.locale,
-        'sort[0][createdAt]': 'DESC',
-      }).catch(error => {
-        this.$sentry.captureException(error)
-
-      })
-      await this.$store.dispatch('getFaqs', {
-        populate: '*',
-        locale: this.$i18n.locale,
-      }).catch(error=> {
-        this.$sentry.captureException(error)
-
-      })
-      await this.$store.dispatch('getPartners', {
-        populate: '*',
-        locale: this.$i18n.locale,
-      }).catch(error=> {
-        this.$sentry.captureException(error)
-
-      })
+      await this.$store
+        .dispatch('getPricelists', {
+          populate: '*',
+          locale: this.$i18n.locale,
+          'sort[0][product][name]': 'ASC',
+        })
+        .catch((error) => {
+          this.$sentry.captureException(error)
+        })
+      await this.$store
+        .dispatch('getServiceposts', {
+          populate: '*',
+          locale: this.$i18n.locale,
+          'sort[0][createdAt]': 'DESC',
+        })
+        .catch((error) => {
+          this.$sentry.captureException(error)
+        })
+      await this.$store
+        .dispatch('getFaqs', {
+          populate: '*',
+          locale: this.$i18n.locale,
+        })
+        .catch((error) => {
+          this.$sentry.captureException(error)
+        })
+      await this.$store
+        .dispatch('getPartners', {
+          populate: '*',
+          locale: this.$i18n.locale,
+        })
+        .catch((error) => {
+          this.$sentry.captureException(error)
+        })
       await this.$store
         .dispatch('getCompanies', {
           populate: '*',
@@ -311,9 +334,9 @@ export default {
         })
         .then((res) => {
           this.$store.dispatch('setCompanies', res)
-        }).catch(error => {
+        })
+        .catch((error) => {
           this.$sentry.captureException(error)
-
         })
     },
   },
