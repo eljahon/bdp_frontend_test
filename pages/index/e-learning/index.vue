@@ -1,6 +1,7 @@
 <template>
   <div class="max-w-6xl mx-auto sm:px-6 lg:px-8 xl:px-0 px-4 lg:my-12 my-4">
-    <header-crud :categories="categories" :name="$t('e-learning')" />
+    <header-crud :categories="categories" :name="$t('e-learning')" class=""/>
+    <categories-swiper :data="categories" :name="$t('e-learning')" class="md:hidden flex mt-4"/>
     <div class="grid md:grid-cols-3 gap-6 sm:grid-cols-2 grid-cols-1">
       <div v-for="(video, index) in data" :key="index">
         <video-card :data="video" />
@@ -18,10 +19,12 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import categoriesSwiper from '~/components/swipers/categories-swiper.vue'
 import { actions, getters } from '~/utils/store_schema'
 const _page = 'courses'
 const { get } = actions(_page)
 export default {
+  components: { categoriesSwiper },
   name: 'ELearning',
   auth: false,
   data() {

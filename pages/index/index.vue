@@ -67,57 +67,72 @@
         <router-link :to="localePath('/e-learning')" class="font-semibold text-gray-700 text-2xl">
           <span class="text-green-800"> {{ $t('e-learning') }}</span>
         </router-link>
-        <div class="grid md:grid-cols-3 gap-6 sm:grid-cols-2 grid-cols-1">
+        <div class="grid md:grid-cols-3 md:gap-6 gap-0 sm:grid-cols-2 grid-cols-1">
           <div v-for="(video, index) in dataCourses" :key="index" class="mt-6">
             <video-card :data="video" />
           </div>
         </div>
-        <router-link :to="localePath('/e-learning')" class="flex items-center justify-center my-4">
+        <router-link :to="localePath('/e-learning')" class="flex items-center justify-center my-6">
           <button class="text-green-800 focus:outline-none text-sm flex items-center">
             {{ $t('see-all') }}
             <i class="bx bx-right-arrow-alt text-green-800 text-xl ml-1"></i>
           </button>
         </router-link>
       </div>
-      <router-link :to="localePath('/agri-business')" class="font-semibold text-green-800 text-2xl">
-        {{ $t('agri-business') }}
-      </router-link>
-      <div class="grid lg:grid-cols-2 grid-cols-1 mt-12 lg:space-x-10">
-        <!-- <img src="~/assets/images/map.png" alt="" /> -->
-        <yandex-map :coords="getLocations" />
-        <div class="relative">
-          <div class="text-xl text-gray-800 font-semibold">
-            <span class="text-green-800">{{ $t('karakalpakstan') }}</span> -
-            {{ $t('didactive-map') }}
-          </div>
-          <div class="text-gray-500 text-sm leading-6 mt-7">
-            {{
-              $t(
-                'information-on-agri-business-units-that-help-users-to-access-service-providers-for-establishing-and-operating-business'
-              )
-            }}
-          </div>
-          <div class="grid lg:grid-cols-2 grid-cols-1 mt-10 gap-10">
-            <div v-for="(item, index) in companyCategories" :key="index" @click="moveToAgriBusiness(item)">
-              <div class="flex items-center cursor-pointer">
-                <img
-                  :src="item.attributes && item.attributes.icon ? $tools.getFileUrl(item.attributes.icon) : require(`~/assets/images/district.png`)"
-                  class="w-6 object-contain"
-                />
-                <p class="text-base font-semibold text-gray-800 ml-4">{{ item.attributes.name }}</p>
+      <div class="my-8 space-y-4">
+        <router-link
+          :to="localePath('/agri-business')"
+          class="font-semibold text-green-800 my-4 text-2xl"
+        >
+          {{ $t('agri-business') }}
+        </router-link>
+        <div class="grid lg:grid-cols-2 grid-cols-1 lg:mt-12 my-6 lg:space-x-10 space-y-8">
+          <!-- <img src="~/assets/images/map.png" alt="" /> -->
+          <yandex-map :coords="getLocations" />
+          <div class="relative">
+            <div class="text-xl text-gray-800 font-semibold">
+              <span class="text-green-800">{{ $t('karakalpakstan') }}</span> -
+              {{ $t('didactive-map') }}
+            </div>
+            <div class="text-gray-500 text-sm leading-6 mt-7">
+              {{
+                $t(
+                  'information-on-agri-business-units-that-help-users-to-access-service-providers-for-establishing-and-operating-business'
+                )
+              }}
+            </div>
+            <div class="grid lg:grid-cols-2 grid-cols-1 mt-10 gap-10">
+              <div
+                v-for="(item, index) in companyCategories"
+                :key="index"
+                @click="moveToAgriBusiness(item)"
+              >
+                <div class="flex items-center cursor-pointer">
+                  <img
+                    :src="
+                      item.attributes && item.attributes.icon
+                        ? $tools.getFileUrl(item.attributes.icon)
+                        : require(`~/assets/images/district.png`)
+                    "
+                    class="w-6 object-contain"
+                  />
+                  <p class="text-base font-semibold text-gray-800 ml-4">
+                    {{ item.attributes.name }}
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
-          <router-link
-            :to="localePath('/agri-business')"
-            class="lg:absolute bottom-0 flex justify-center lg:mt-0 mt-6"
-          >
-            <button
-              class="text-white focus:outline-none py-3 px-7 font-medium bg-green-700 rounded-md text-sm"
+            <router-link
+              :to="localePath('/agri-business')"
+              class="lg:absolute bottom-0 flex justify-center lg:mt-0 mt-6"
             >
-              {{ $t('discover-more') }}
-            </button>
-          </router-link>
+              <button
+                class="text-white focus:outline-none py-3 px-7 font-medium bg-green-700 rounded-md text-sm"
+              >
+                {{ $t('discover-more') }}
+              </button>
+            </router-link>
+          </div>
         </div>
       </div>
       <div class="mt-12 space-y-4">
@@ -256,7 +271,7 @@ export default {
   methods: {
     moveToAgriBusiness(item) {
       let _query = {
-        category: item.id
+        category: item.id,
       }
       this.$router.push({
         path: this.localePath('/agri-business'),

@@ -24,7 +24,7 @@
           <i class="bx bx-search text-lg text-white"></i>
         </button>
       </div>
-      <div v-else class="border rounded-md border-green-700 text-green-700 p-2">
+      <div v-else class="border md:block hidden rounded-md border-green-700 text-green-700 p-2">
         <select
           class="font-semibold flex justify-between w-32"
           v-model="filter.category"
@@ -44,7 +44,7 @@
     </div>
     <div
       v-if="!isConsultant"
-      class="lg:flex grid grid-cols-3 items-center justify-center lg:gap-7 gap-4 my-6"
+      class="lg:flex grid grid-cols-3 items-center md:block hidden justify-center lg:gap-7 gap-4 my-6"
     >
       <button
         v-for="(category, index) in categories"
