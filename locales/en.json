@@ -36,6 +36,7 @@
 
   "c": "C",
   "cancel": "Cancel",
+  "card-view": "Card view",
   "chat-room-closed": "Chat room closed",
   "chats": "Chats",
   "clear": "Clear",
@@ -91,6 +92,7 @@
   "finish-this": "Finish this",
   "finished": "Finished",
   "firstname": "First name",
+  "first-name": "First name",
   "forgot-password-question": "Forget password?",
   "field-of-agriculture": "Field of agriculture",
   "frequently": "Frequently",
@@ -123,6 +125,7 @@
 
   "l": "L",
   "lastname": "Last name",
+  "last-name": "Last name",
   "loading": "Loading",
   "locations": "Locations",
   "login": "Login",
@@ -135,6 +138,7 @@
   "master-degree": "Master degree",
   "max": "Max",
   "medicineQuotes": "The life so short, the craft so long to learn.",
+  "message": "Message",
   "min": "Min",
   "my-chats": "My Chats",
   "market-price": "Market price",

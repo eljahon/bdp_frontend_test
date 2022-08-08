@@ -10,7 +10,7 @@
         @error="
           data.attributes.product.data.attributes.image = require('/assets/images/default.png')
         "
-        class="w-14 rounded-md"
+        class="w-16 rounded-md"
       />
       <div class="grid content-between space-y-2">
         <div class="text-gray-700 text-sm font-semibold">

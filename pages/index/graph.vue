@@ -11,7 +11,7 @@
         :to="{ path: localePath('/agri-market') }"
         class="hover:bg-green-600 rounded-md hover:text-white text-green-600 border border-green-600 font-medium px-4 py-2"
       >
-        {{ $t('table-view') }}
+        {{ $t('card-view') }}
       </nuxt-link>
     </div>
     <div class="grid md:grid-cols-4 grid-cols-1 md:gap-3 gap-0 md:space-y-0 space-y-3">
@@ -118,7 +118,7 @@
                       :disabled-date="setLteDisable"
                       style="width: 128px"
                       format="DD-MM-YYYY"
-                      input-class="flex items-center rounded-md border p-2 border-gray-300 w-auto w-32"
+                      input-class="flex items-center rounded-md border p-2 border-gray-300 w-32"
                     />
                   </ValidationProvider>
                 </div>
@@ -395,6 +395,7 @@ export default {
         .dispatch('getDistricts', {
           populate: '*',
           locale: this.$i18n.locale,
+          "filters[$and][0][region][id]": 18,
         })
         .then((res) => {
           this.districts = res

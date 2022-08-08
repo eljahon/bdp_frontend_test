@@ -199,7 +199,7 @@ export default {
                   },
                 })
                 .then((response) => {
-                  localStorage.setItem('user_info', JSON.stringify(response.data))
+                  localStorage.setItem('user_info', JSON.stringify(response))
                 })
               // await this.$bridge.$emit('join_chat', {
               //   username: res.data.user.username,

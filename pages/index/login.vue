@@ -212,6 +212,7 @@
 </template>
 
 <script>
+import { thisTypeAnnotation } from '@babel/types'
 import background from '../../assets/images/background.png'
 export default {
   name: 'Login',
@@ -274,9 +275,8 @@ export default {
           this.timer = 'on'
         })
         .catch((error) => {
-          this.$snotify.error(error);
+          this.$snotify.error(error)
           this.$sentry.captureException(error)
-
         })
     },
     onCountdownEnd() {
@@ -293,9 +293,8 @@ export default {
         .catch((error) => {
           this.isPhone = false
           this.isEmail = false
-          this.authError = error.response.data.message;
+          this.authError = error.response.data.message
           this.$sentry.captureException(error)
-
         })
     },
     async tryToLogIn() {
@@ -318,30 +317,13 @@ export default {
             data: this.auth,
           })
           .then(async (res) => {
-            await this.$store
-              .dispatch('getUsers', {
-                link: '/users/me',
-                query: {
-                  populate: '*',
-                },
-              })
-              .then((response) => {
-                localStorage.setItem('user_info', JSON.stringify(response.data))
-              })
-            // await this.$bridge.$emit('join_chat', {
-            //   username: res.data.user.username,
-            //   user_id: res.data.user.id,
-            // })
-            this.loading = false
-            this.$router.push(this.localePath('/'))
-            await this.$snotify.success('Successfully Logged In')
+            this.afterLoginProcess()
           })
       } catch (e) {
         if (e.response) this.authError = e.response.data.error.message
         this.loading = false
+        this.$sentry.captureException(e)
       }
-      this.$sentry.captureException(error)
-
     },
     registerPhone() {
       this.$snotify.info('Logging in...')
@@ -349,33 +331,39 @@ export default {
         this.$axios
           .$post('/users-permissions/login_otp', { phone: this.auth.identifier, otp: this.otp })
           .then(async (res) => {
-            console.log('User res', res)
             this.$auth.setUser(res.user)
             this.$auth.setUserToken(res.jwt)
-            await this.$store
-              .dispatch('getUsers', {
-                link: '/users/me',
-                query: {
-                  populate: '*',
-                },
-              })
-              .then((response) => {
-                localStorage.setItem('user_info', JSON.stringify(response.data))
-              })
-            // await this.$bridge.$emit('join_chat', {
-            //   username: res.user.username,
-            //   user_id: res.user.id,
-            // })
-            this.loading = false
-            this.$router.push(this.localePath('/'))
-            await this.$snotify.success('Successfully Logged In')
+            this.afterLoginProcess()
           })
       } catch (e) {
         if (e.response) this.authError = e.response.data.error.message
         this.loading = false
+        this.$sentry.captureException(e)
       }
-      this.$sentry.captureException(error)
-
+    },
+    async afterLoginProcess() {
+      let user = {}
+      await this.$store
+        .dispatch('getUsers', {
+          link: '/users/me',
+          query: {
+            populate: '*',
+          },
+        })
+        .then((response) => {
+          localStorage.setItem('user_info', JSON.stringify(response))
+          user = response
+        })
+      this.loading = false
+      if (this.$route.query.from === 'consultant' && user.role.id !== 4) {
+        this.$router.push({
+          path: this.localePath('/chats'),
+          query: { room_id: 'new', consultant_id: this.$route.query.consultant },
+        })
+      } else {
+        this.$router.push(this.localePath('/'))
+      }
+      await this.$snotify.success('Successfully Logged In')
     },
   },
 }

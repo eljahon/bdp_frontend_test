@@ -1,6 +1,6 @@
 <template>
   <div class="max-w-6xl mx-auto sm:px-6 lg:px-8 xl:px-0 px-4 lg:my-12 my-4">
-    <header-crud :categories="categories" :name="$t('e-learning')" />
+    <header-crud :categories="categories" :name="$t('e-learning')" class=""/>
     <div class="grid md:grid-cols-3 gap-6 sm:grid-cols-2 grid-cols-1">
       <div v-for="(video, index) in data" :key="index">
         <video-card :data="video" />
@@ -71,10 +71,10 @@ export default {
     async fetchData() {
       await this.$store
         .dispatch(get, {
-          // pagination: {
-          //   page: this.$route.query.page ? this.$route.query.page : 1,
-          //   pageSize: this.pagination.pageSize,
-          // },
+          pagination: {
+            page: this.$route.query.page ? this.$route.query.page : 1,
+            pageSize: this.pagination.pageSize,
+          },
           populate: '*',
           'sort[0][createdAt]': 'DESC',
           locale: this.$i18n.locale,
@@ -86,6 +86,7 @@ export default {
             ? this.$route.query.text
             : null,
           'filters[$and][0][title][$notNull]': true,
+          'filters[$and][0][coursetype][id]': 1,
         })
         .then(() => {})
     },
