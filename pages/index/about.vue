@@ -114,14 +114,14 @@
       </div>
       <div class="mt-12 space-y-4">
         <div class="grid lg:grid-cols-3 grid-cols-1 gap-4">
-          <ValidationObserver v-slot="{ handleSubmit, invalid }" slim class="col-span-2">
+          <ValidationObserver ref="observer" v-slot="{ handleSubmit, invalid }" slim class="col-span-2">
             <form class="" novalidate @submit.prevent="handleSubmit(onSubmit)">
               <div class="grid grid-cols-2 gap-4">
                 <div class="font-semibold text-green-800 text-2xl col-span-2">
                   {{ $t('contact-us') }}
                 </div>
                 <div class="md:col-span-1 col-span-2">
-                  <label for="name" class="sr-only">Name</label>
+                  <label for="name" class="sr-only">{{ $t('first-name')}}</label>
                   <ValidationProvider
                     v-slot="{ errors }"
                     name="firstname"
@@ -132,13 +132,13 @@
                       type="text"
                       name="firstname"
                       id="firstname"
-                      v-model="form.first_name"
+                      v-model="form.name"
                       :placeholder="$t('firstname')"
                       class="focus:outline-none appearance-none block w-full p-3 border rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
                       :class="
                         errors.length > 0
                           ? 'border-red-400'
-                          : form.first_name
+                          : form.name
                           ? 'border-green-600'
                           : 'border-gray-300'
                       "
@@ -146,7 +146,7 @@
                   </ValidationProvider>
                 </div>
                 <div class="md:col-span-1 col-span-2">
-                  <label for="name" class="sr-only">Last name</label>
+                  <label for="name" class="sr-only">{{$t('last-name')}}</label>
                   <ValidationProvider
                     v-slot="{ errors }"
                     name="lastname"
@@ -171,7 +171,7 @@
                   </ValidationProvider>
                 </div>
                 <div class="md:col-span-1 col-span-2">
-                  <label for="email" class="sr-only">Email</label>
+                  <label for="email" class="sr-only">{{$t('email')}}</label>
                   <input
                     type="email"
                     name="email"
@@ -182,7 +182,7 @@
                   />
                 </div>
                 <div class="md:col-span-1 col-span-2">
-                  <label for="email" class="sr-only">Phone</label>
+                  <label for="email" class="sr-only">{{$t('phone')}}</label>
                   <ValidationProvider
                     v-slot="{ errors }"
                     :rules="{ required: true, length: 16 }"
@@ -193,8 +193,8 @@
                       type="text"
                       name="phone"
                       id="phone"
-                      v-model="form.phone"
-                      v-mask="'+998## ###-##-##'"
+                      v-model="phone"
+                      v-mask="'+##### ###-##-##'"
                       :placeholder="$t('phone')"
                       class="focus:outline-none appearance-none block w-full p-3 border rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
                       :class="
@@ -208,7 +208,7 @@
                   </ValidationProvider>
                 </div>
                 <div class="col-span-2">
-                  <label for="subject" class="sr-only">Subject</label>
+                  <label for="subject" class="sr-only">{{$t('subject')}}</label>
                   <input
                     id="subject"
                     type="text"
@@ -218,11 +218,12 @@
                     :placeholder="$t('subject')"
                   />
                 </div>
+                
                 <div class="col-span-2">
-                  <label for="comment" class="sr-only">Message</label>
+                  <label for="comment" class="sr-only">{{$t('message')}}</label>
                   <ValidationProvider
                     v-slot="{ errors }"
-                    name="message"
+                    name="description"
                     rules="required"
                     mode="eager"
                   >
@@ -230,14 +231,14 @@
                       type="text"
                       name="lastname"
                       id="lastname"
-                      v-model="form.message"
+                      v-model="form.description"
                       rows="4"
                       :placeholder="$t('write-a-message')"
                       class="focus:outline-none appearance-none block w-full p-3 border rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
                       :class="
                         errors.length > 0
                           ? 'border-red-400'
-                          : form.message
+                          : form.description
                           ? 'border-green-600'
                           : 'border-gray-300'
                       "
@@ -312,13 +313,14 @@ export default {
         },
       },
       loading: false,
+      phone: '',
       form: {
-        first_name: '',
+        name: '',
         last_name: '',
         email: '',
-        subect: '',
-        phone: '+998',
-        message: '',
+        subject: '',
+        phone: '',
+        description: '',
       },
     }
   },
@@ -334,6 +336,14 @@ export default {
       this.fetchData()
     })
   },
+  watch: {
+    phone: {
+      handler() {
+        if (this.phone) this.form.phone = this.phone.replace(/[^0-9]/g, '')
+      },
+      deep: true,
+    },
+  },
   methods: {
     onSubmit() {
       this.loading = true
@@ -341,7 +351,16 @@ export default {
         data: this.form,
       })
       this.loading = false
-      this.form = ''
+      this.$refs.observer.reset();
+      this.form = {
+        name: '',
+        last_name: '',
+        email: '',
+        subject: '',
+        phone: '',
+        description: '',
+      }
+      this.phone = ''
     },
     async fetchData() {
       await this.$store
