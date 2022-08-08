@@ -71,10 +71,10 @@ export default {
     async fetchData() {
       await this.$store
         .dispatch(get, {
-          // pagination: {
-          //   page: this.$route.query.page ? this.$route.query.page : 1,
-          //   pageSize: this.pagination.pageSize,
-          // },
+          pagination: {
+            page: this.$route.query.page ? this.$route.query.page : 1,
+            pageSize: this.pagination.pageSize,
+          },
           populate: '*',
           'sort[0][createdAt]': 'DESC',
           locale: this.$i18n.locale,
