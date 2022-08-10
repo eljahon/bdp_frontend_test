@@ -6,21 +6,21 @@
       </div>
       <div class="lg:mt-1 mt-4 flex space-x-6 items-center">
         <div class="text-green-700 text-sm">
-          <select v-model="filter.district">
+          <select v-model="filter.district" class="focus:outline-none">
             <option v-for="(district, index) in districts" :key="index" :value="district.id">
              {{ district.attributes.name }}
             </option>
            </select>
          </div>
         <div class="text-green-700 text-sm">
-          <select v-model="filter.category">
+          <select v-model="filter.category" class="focus:outline-none">
             <option v-for="(category, index) in categories" :key="index" :value="category.id">
              {{ category.attributes.name }}
             </option>
            </select>
         </div>
         <div class="text-green-700 text-sm">
-          <select v-model="filter.priceDate">
+          <select v-model="filter.priceDate" class="focus:outline-none">
             <option v-for="(priceDate, index) in priceDates" :key="index" :value="priceDate.id">
              {{ $tools.getDate(priceDate.attributes.date) }}
             </option>

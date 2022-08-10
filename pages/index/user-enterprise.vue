@@ -55,13 +55,14 @@
                 <label for="tin" class="block mb-1 text-sm font-medium text-gray-700"
                   >{{ $t('tin') }}*</label
                 >
-                <ValidationProvider v-slot="{ errors }" name="tin" rules="required" mode="eager">
+                <ValidationProvider v-slot="{ errors }" name="tin" :rules="{ required: true, min: 7, max: 7 }" mode="eager">
                   <input
                     type="text"
                     name="tin"
                     id="tin"
                     :disabled="!isMainRegister"
                     v-model="form.tin"
+                    v-mask="'### ###'"
                     class="
                       focus:outline-none
                       appearance-none
