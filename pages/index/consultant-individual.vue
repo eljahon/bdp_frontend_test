@@ -55,19 +55,7 @@
                     name="workplace"
                     id="workplace"
                     v-model="additional.workplace"
-                    class="
-                      focus:outline-none
-                      appearance-none
-                      block
-                      w-full
-                      px-3
-                      py-2
-                      border
-                      rounded-md
-                      shadow-sm
-                      placeholder-gray-400
-                      sm:text-sm
-                    "
+                    class="focus:outline-none appearance-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
                     :disabled="!isMainRegister"
                     :class="
                       errors.length > 0
@@ -86,19 +74,7 @@
                 <select
                   v-model="additional.last_degree"
                   name="option"
-                  class="
-                    focus:outline-none
-                    block
-                    w-full
-                    px-3
-                    py-2
-                    border
-                    rounded-md
-                    shadow-sm
-                    placeholder-gray-400
-                    sm:text-sm
-                    border-gray-300
-                  "
+                  class="focus:outline-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 sm:text-sm border-gray-300"
                   :disabled="!isMainRegister"
                 >
                   <option v-for="(degree, index) in degrees" :key="index" :value="degree">
@@ -106,7 +82,7 @@
                   </option>
                 </select>
               </div>
-               <div class="md:col-span-1 col-span-2">
+              <div class="md:col-span-1 col-span-2">
                 <label for="experience" class="block mb-1 text-sm font-medium text-gray-700">{{
                   $t('experience')
                 }}</label>
@@ -118,46 +94,27 @@
                   :max="80"
                   v-model="additional.experience_year"
                   :disabled="!isMainRegister"
-                  class="
-                    focus:outline-none
-                    appearance-none
-                    block
-                    w-full
-                    px-3
-                    py-2
-                    border border-gray-300
-                    rounded-md
-                    shadow-sm
-                    placeholder-gray-400
-                    sm:text-sm
-                  "
+                  class="focus:outline-none appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
                 />
               </div>
               <div class="md:col-span-1 col-span-2">
                 <label for="tin" class="block mb-1 text-sm font-medium text-gray-700"
                   >{{ $t('tin') }}*</label
                 >
-                <ValidationProvider v-slot="{ errors }" name="tin" :rules="{ required: true, min: 7, max: 7 }" mode="eager">
+                <ValidationProvider
+                  v-slot="{ errors }"
+                  name="tin"
+                  :rules="{ required: true, min: 11, max: 11 }"
+                  mode="eager"
+                >
                   <input
                     type="text"
                     name="tin"
                     id="tin"
                     v-model="additional.tin"
                     :disabled="!isMainRegister"
-                    v-mask="'### ###'"
-                    class="
-                      focus:outline-none
-                      appearance-none
-                      block
-                      w-full
-                      px-3
-                      py-2
-                      border
-                      rounded-md
-                      shadow-sm
-                      placeholder-gray-400
-                      sm:text-sm
-                    "
+                    v-mask="'### ### ###'"
+                    class="focus:outline-none appearance-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
                     :class="
                       errors.length > 0
                         ? 'border-red-400'
@@ -174,16 +131,7 @@
                 >
                 <!-- <ValidationProvider v-slot="{ errors }" name="resume" rules="required" mode="eager" vid="file"> -->
                 <input
-                  class="
-                    block
-                    w-full
-                    text-sm text-gray-900
-                    bg-gray-50
-                    rounded-lg
-                    border border-gray-300
-                    cursor-pointer
-                    focus:outline-none
-                  "
+                  class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer focus:outline-none"
                   aria-describedby="file_input_help"
                   id="resume"
                   accept="application/pdf"
@@ -206,16 +154,7 @@
                   mode="eager"
                 > -->
                 <input
-                  class="
-                    block
-                    w-full
-                    text-sm text-gray-900
-                    bg-gray-50
-                    rounded-lg
-                    border border-gray-300
-                    cursor-pointer
-                    focus:outline-none
-                  "
+                  class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer focus:outline-none"
                   aria-describedby="file_input_help"
                   id="diploma"
                   accept="application/pdf"
@@ -226,7 +165,7 @@
                 />
                 <!-- </ValidationProvider> -->
               </div>
-             
+
               <ValidationProvider name="checked" rules="checked" mode="eager" v-slot="{ errors }">
                 <div class="flex items-center mt-2 col-span-2">
                   <input
@@ -319,7 +258,7 @@ export default {
           baseURL: process.env.VUE_APP_BASE_URL,
           url: `/additionalinfos`,
           method: 'POST',
-          data: {data: this.additional},
+          data: { data: this.additional },
           headers: {
             Authorization: `Bearer ${this.jwt}`,
           },

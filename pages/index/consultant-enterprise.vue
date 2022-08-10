@@ -27,19 +27,7 @@
                     name="company-name"
                     id="company-name"
                     v-model="company.name"
-                    class="
-                      focus:outline-none
-                      appearance-none
-                      block
-                      w-full
-                      px-3
-                      py-2
-                      border
-                      rounded-md
-                      shadow-sm
-                      placeholder-gray-400
-                      sm:text-sm
-                    "
+                    class="focus:outline-none appearance-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
                     :class="
                       errors.length > 0
                         ? 'border-red-400'
@@ -54,26 +42,19 @@
                 <label for="tin" class="block mb-1 text-sm font-medium text-gray-700"
                   >{{ $t('tin') }}*</label
                 >
-                <ValidationProvider v-slot="{ errors }" name="tin" :rules="{ required: true, min: 7, max: 7 }" mode="eager">
+                <ValidationProvider
+                  v-slot="{ errors }"
+                  name="tin"
+                  :rules="{ required: true, min: 11, max: 11 }"
+                  mode="eager"
+                >
                   <input
                     type="text"
                     name="tin"
                     id="tin"
                     v-model="company.tin"
-                    v-mask="'### ###'"
-                    class="
-                      focus:outline-none
-                      appearance-none
-                      block
-                      w-full
-                      px-3
-                      py-2
-                      border
-                      rounded-md
-                      shadow-sm
-                      placeholder-gray-400
-                      sm:text-sm
-                    "
+                    v-mask="'### ### ###'"
+                    class="focus:outline-none appearance-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
                     :class="
                       errors.length > 0
                         ? 'border-red-400'
@@ -122,19 +103,7 @@
                   id="experience"
                   v-model="additional.experience"
                   rows="4"
-                  class="
-                    focus:outline-none
-                    appearance-none
-                    block
-                    w-full
-                    px-3
-                    py-2
-                    border border-gray-300
-                    rounded-md
-                    shadow-sm
-                    placeholder-gray-400
-                    sm:text-sm
-                  "
+                  class="focus:outline-none appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
                 />
               </div>
               <div class="mt-1">
@@ -145,18 +114,7 @@
                   <select
                     v-model="region"
                     name="option"
-                    class="
-                      focus:outline-none
-                      block
-                      w-full
-                      px-3
-                      py-2
-                      border
-                      rounded-md
-                      shadow-sm
-                      placeholder-gray-400
-                      sm:text-sm
-                    "
+                    class="focus:outline-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
                     :disabled="!isMainRegister"
                     :class="
                       errors.length > 0
@@ -186,18 +144,7 @@
                     v-model="company.district"
                     :disabled="districts.length === 0 || !isMainRegister"
                     name="option"
-                    class="
-                      focus:outline-none
-                      block
-                      w-full
-                      px-3
-                      py-2
-                      border
-                      rounded-md
-                      shadow-sm
-                      placeholder-gray-400
-                      sm:text-sm
-                    "
+                    class="focus:outline-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
                     :class="
                       errors.length > 0
                         ? 'border-red-400'
@@ -222,16 +169,7 @@
                 >
                 <!-- <ValidationProvider v-slot="{ errors }" name="resume" rules="required" mode="eager" vid="file"> -->
                 <input
-                  class="
-                    block
-                    w-full
-                    text-sm text-gray-900
-                    bg-gray-50
-                    rounded-lg
-                    border border-gray-300
-                    cursor-pointer
-                    focus:outline-none
-                  "
+                  class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer focus:outline-none"
                   aria-describedby="file_input_help"
                   id="resume"
                   accept="application/pdf"
@@ -258,19 +196,7 @@
                     id="phone"
                     v-model="phone"
                     v-mask="'+##### ###-##-##'"
-                    class="
-                      focus:outline-none
-                      appearance-none
-                      block
-                      w-full
-                      px-3
-                      py-2
-                      border
-                      rounded-md
-                      shadow-sm
-                      placeholder-gray-400
-                      sm:text-sm
-                    "
+                    class="focus:outline-none appearance-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
                     :class="
                       errors.length > 0
                         ? 'border-red-400'

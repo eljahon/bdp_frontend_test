@@ -28,19 +28,7 @@
                     id="company-name"
                     v-model="form.name"
                     :disabled="!isMainRegister"
-                    class="
-                      focus:outline-none
-                      appearance-none
-                      block
-                      w-full
-                      px-3
-                      py-2
-                      border
-                      rounded-md
-                      shadow-sm
-                      placeholder-gray-400
-                      sm:text-sm
-                    "
+                    class="focus:outline-none appearance-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
                     :class="
                       errors.length > 0
                         ? 'border-red-400'
@@ -55,27 +43,20 @@
                 <label for="tin" class="block mb-1 text-sm font-medium text-gray-700"
                   >{{ $t('tin') }}*</label
                 >
-                <ValidationProvider v-slot="{ errors }" name="tin" :rules="{ required: true, min: 7, max: 7 }" mode="eager">
+                <ValidationProvider
+                  v-slot="{ errors }"
+                  name="tin"
+                  :rules="{ required: true, min: 11, max: 11 }"
+                  mode="eager"
+                >
                   <input
                     type="text"
                     name="tin"
                     id="tin"
                     :disabled="!isMainRegister"
                     v-model="form.tin"
-                    v-mask="'### ###'"
-                    class="
-                      focus:outline-none
-                      appearance-none
-                      block
-                      w-full
-                      px-3
-                      py-2
-                      border
-                      rounded-md
-                      shadow-sm
-                      placeholder-gray-400
-                      sm:text-sm
-                    "
+                    v-mask="'### ### ###'"
+                    class="focus:outline-none appearance-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
                     :class="
                       errors.length > 0
                         ? 'border-red-400'
@@ -97,20 +78,7 @@
                   v-model="phone"
                   :disabled="!isMainRegister"
                   v-mask="'+##### ###-##-##'"
-                  class="
-                    focus:outline-none
-                    appearance-none
-                    block
-                    w-full
-                    px-3
-                    py-2
-                    border
-                    rounded-md
-                    shadow-sm
-                    placeholder-gray-400
-                    sm:text-sm
-                    border-gray-300
-                  "
+                  class="focus:outline-none appearance-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 sm:text-sm border-gray-300"
                 />
               </div>
               <div class="md:col-span-1 col-span-2">
@@ -123,19 +91,7 @@
                   id="email"
                   v-model="form.email"
                   :disabled="!isMainRegister"
-                  class="
-                    focus:outline-none
-                    appearance-none
-                    block
-                    w-full
-                    px-3
-                    py-2
-                    border border-gray-300
-                    rounded-md
-                    shadow-sm
-                    placeholder-gray-400
-                    sm:text-sm
-                  "
+                  class="focus:outline-none appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
                 />
               </div>
               <div class="md:col-span-1 col-span-2">
@@ -174,18 +130,7 @@
                   <select
                     v-model="region"
                     name="option"
-                    class="
-                      focus:outline-none
-                      block
-                      w-full
-                      px-3
-                      py-2
-                      border
-                      rounded-md
-                      shadow-sm
-                      placeholder-gray-400
-                      sm:text-sm
-                    "
+                    class="focus:outline-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
                     :disabled="!isMainRegister"
                     :class="
                       errors.length > 0
@@ -215,18 +160,7 @@
                     v-model="form.district"
                     :disabled="districts.length === 0 || !isMainRegister"
                     name="option"
-                    class="
-                      focus:outline-none
-                      block
-                      w-full
-                      px-3
-                      py-2
-                      border
-                      rounded-md
-                      shadow-sm
-                      placeholder-gray-400
-                      sm:text-sm
-                    "
+                    class="focus:outline-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
                     :class="
                       errors.length > 0
                         ? 'border-red-400'
