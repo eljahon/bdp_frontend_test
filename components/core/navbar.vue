@@ -7,7 +7,7 @@
             <div class="flex items-center gap-4">
               <div class="flex items-center gap-2">
                 <i class="bx bx-envelope text-white text-lg"></i>
-                <p class="text-sm">{{$t('email')}}: juanjose.robalino@gggi.org</p>
+                <p class="text-sm">{{ $t('email') }}: juanjose.robalino@gggi.org</p>
               </div>
               <div class="flex items-center gap-2">
                 <i class="bx bx-phone text-white text-lg"></i>
@@ -15,9 +15,7 @@
               </div>
               <div class="flex items-center gap-2">
                 <i class="bx bx-map text-white text-lg"></i>
-                <p class="text-sm">
-                  7a, Bunyodkor av., 100000, Tashkent, Uzbekistan
-                </p>
+                <p class="text-sm">7a, Bunyodkor av., 100000, Tashkent, Uzbekistan</p>
               </div>
             </div>
             <lang-switcher />
@@ -47,17 +45,56 @@
               </svg>
             </router-link>
             <div class="flex items-center gap-6">
-              <div
-                v-for="(menu, index) in navbar"
-                :key="index"
-                class="flex items-center"
-                :class="
-                  $route.path.search(menu.route) > 0
-                    ? 'text-base text-green-700 border-b-2 font-medium border-green-700'
-                    : 'text-gray-800 hover:text-green-700 font-medium hover:border-b-2 hover:border-green-700 text-base '
-                "
-              >
-                <router-link :to="{ path: localePath(menu.route) }">
+              <div v-for="(menu, index) in navbar" :key="index" class="flex items-center relative">
+                <div v-if="menu.children">
+                  <div class="flex items-center cursor-pointer">
+                    <a
+                      :class="
+                        menu.current
+                          ? 'text-base text-gray-800  font-medium flex items-center'
+                          : 'text-gray-800 font-medium text-base flex items-center'
+                      "
+                      @click="menuWithChildClicked(menu)"
+                    >
+                      {{ $t(menu.name) }}
+                      <i
+                        class="text-gray-800 text-xl"
+                        :class="[menu.current ? menu.iconUp : menu.iconDown]"
+                      />
+                    </a>
+                  </div>
+                  <div class="absolute top-8">
+                    <div class="w-32 rounded-md bg-white shadow-md">
+                      <div
+                        v-for="(child, k) in menu.children"
+                        v-show="menu.current"
+                        :key="k"
+                        class="pb-2"
+                      >
+                        <div
+                          v-if="child.route"
+                          :class="
+                            child.current
+                              ? 'cursor-pointer text-gray-800 px-4 text-sm font-medium rounded-md'
+                              : 'cursor-pointer text-gray-800 px-4 text-sm font-medium rounded-md'
+                          "
+                          @click="menuChildClicked(menu, child)"
+                        >
+                          {{ $t(child.name) }}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <router-link
+                  v-else
+                  :to="localePath(menu.route)"
+                  :class="
+                    $route.path.search(menu.route) > 0
+                      ? 'text-base text-green-700 border-b-2 font-medium border-green-700'
+                      : 'text-gray-800 hover:text-green-700 font-medium hover:border-b-2 hover:border-green-700 text-base '
+                  "
+                >
                   {{ $t(menu.name) }}
                 </router-link>
               </div>
@@ -122,7 +159,7 @@
               :to="localePath('/login')"
               class="text-white focus:outline-none text-sm rounded-md bg-green-700 p-3"
             >
-              {{$t('login-register')}}
+              {{ $t('login-register') }}
             </nuxt-link>
           </div>
         </div>
@@ -179,12 +216,57 @@ export default {
     return {
       isProfileOpened: false,
       navbar: [
-        { name: 'about', route: '/about' },
-        { name: 'e-learning', route: '/e-learning' },
-        { name: 'agri-business', route: '/agri-business' },
-        { name: 'agri-finance', route: '/agri-finance' },
-        { name: 'agri-market', route: '/agri-market' },
-        { name: 'advisory', route: '/advisory' },
+        {
+          id: 1,
+          name: 'about',
+          route: '/about',
+          current: false,
+          iconDown: 'bx bx-chevron-down',
+          iconUp: 'bx bx-chevron-up',
+        },
+        {
+          id: 2,
+          name: 'e-learning',
+          route: '/e-learning',
+          current: false,
+          iconDown: 'bx bx-chevron-down',
+          iconUp: 'bx bx-chevron-up',
+        },
+        {
+          id: 3,
+          name: 'agri-business',
+          route: '/agri-business',
+          current: false,
+          iconDown: 'bx bx-chevron-down',
+          iconUp: 'bx bx-chevron-up',
+        },
+        {
+          id: 4,
+          name: 'agri-finance',
+          route: '/agri-finance',
+          current: false,
+          iconDown: 'bx bx-chevron-down',
+          iconUp: 'bx bx-chevron-up',
+        },
+        {
+          id: 5,
+          name: 'agri-market',
+          iconDown: 'bx bx-chevron-down',
+          iconUp: 'bx bx-chevron-up',
+          children: [
+            { name: 'weekly-prices', route: '/agri-market', current: false },
+            { name: 'marketplace', route: '/marketplace', current: false },
+          ],
+          current: false,
+        },
+        {
+          id: 6,
+          name: 'advisory',
+          route: '/advisory',
+          current: false,
+          iconDown: 'bx bx-chevron-down',
+          iconUp: 'bx bx-chevron-up',
+        },
       ],
     }
   },
@@ -218,6 +300,30 @@ export default {
         openOn: 'left',
         width: (window.innerWidth * 3) / 4,
       })
+    },
+    menuChildClicked(menu, child) {
+      menu.children.forEach((ch) => {
+        if (child === ch) {
+          ch.current = true
+        } else {
+          ch.current = false
+        }
+      })
+      this.$router.push(this.localePath(child.route))
+      return child
+    },
+    menuWithChildClicked(menu) {
+      this.navbar.forEach((navbar) => {
+        if (menu === navbar) {
+          navbar.current = !navbar.current
+          navbar.children.forEach((child) => {
+            child.current = false
+          })
+        } else {
+          navbar.current = false
+        }
+      })
+      return menu
     },
     signIn() {
       this.$router.push({
