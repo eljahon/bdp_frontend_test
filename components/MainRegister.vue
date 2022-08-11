@@ -153,7 +153,6 @@
                     : 'border-gray-300'
                 "
               />
-              <div class="text-red-500 text-xs">{{ errors[0] }}</div>
             </ValidationProvider>
           </div>
           <div v-if="isPhone && isRegisterPending" class="mt-1">
@@ -182,7 +181,6 @@
                     : 'border-gray-300'
                 "
               />
-              <div class="text-red-500 text-xs">{{ errors[0] }}</div>
             </ValidationProvider>
           </div>
           <div v-if="isEmail" class="mt-1">
@@ -212,7 +210,6 @@
                     : 'border-gray-300'
                 "
               />
-              <div class="text-red-500 text-xs">{{ errors[0] }}</div>
             </ValidationProvider>
           </div>
           <div class="mt-1" v-if="isEmail">
@@ -241,7 +238,6 @@
                     : 'border-gray-300'
                 "
               />
-              <div class="text-red-500 text-xs">{{ errors[0] }}</div>
             </ValidationProvider>
           </div>
         </div>

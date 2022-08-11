@@ -94,7 +94,7 @@
                   :multiple="true"
                 ></v-select>
               </div>
-              <ValidationProvider name="checked" rules="checked" mode="eager" v-slot="{ errors }">
+              <ValidationProvider name="checked" rules="checked" mode="eager" v-slot="{}">
                 <div class="flex items-center mt-2 col-span-2">
                   <input
                     name="termsOfUse"
@@ -111,7 +111,6 @@
                     </span>
                   </label>
                 </div>
-                <div class="text-red-500 text-xs">{{ errors[0] }}</div>
               </ValidationProvider>
               <button
                 :class="invalid ? 'bg-gray-300' : 'bg-green-600 hover:bg-green-700 text-white'"

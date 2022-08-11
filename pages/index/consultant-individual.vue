@@ -28,7 +28,7 @@
               </div>
               <div class="md:col-span-1 col-span-2">
                 <label for="field" class="block mb-1 text-sm font-medium text-gray-700">{{
-                  $t('field-of-agriculture')
+                  $t('area-of-agriculture-and-environment')
                 }}</label>
                 <v-select
                   v-model="form.agrocultureareas"
@@ -104,7 +104,7 @@
                 <ValidationProvider
                   v-slot="{ errors }"
                   name="tin"
-                  :rules="{ required: true, min: 11, max: 11 }"
+                  :rules="{ required: true, min: 9, max: 9 }"
                   mode="eager"
                 >
                   <input
@@ -166,7 +166,7 @@
                 <!-- </ValidationProvider> -->
               </div>
 
-              <ValidationProvider name="checked" rules="checked" mode="eager" v-slot="{ errors }">
+              <ValidationProvider name="checked" rules="checked" mode="eager" v-slot="{}">
                 <div class="flex items-center mt-2 col-span-2">
                   <input
                     name="termsOfUse"
@@ -183,7 +183,6 @@
                     </span>
                   </label>
                 </div>
-                <div class="text-red-500 text-xs">{{ errors[0] }}</div>
               </ValidationProvider>
               <button
                 :class="invalid ? 'bg-gray-300' : 'bg-green-600 hover:bg-green-700 text-white'"

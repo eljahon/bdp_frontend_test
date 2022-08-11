@@ -69,7 +69,6 @@
                       : 'border-gray-300'
                   "
                 />
-                <div class="text-red-500 text-xs">{{ errors[0] }}</div>
               </ValidationProvider>
             </div>
             <div v-if="isPhone" class="mt-1">
@@ -110,7 +109,6 @@
                       : 'border-gray-300'
                   "
                 />
-                <div class="text-red-500 text-xs">{{ errors[0] }}</div>
               </ValidationProvider>
             </div>
             <div v-if="isPhone">
@@ -158,7 +156,6 @@
                       : 'border-gray-300'
                   "
                 />
-                <div class="text-red-500 text-xs">{{ errors[0] }}</div>
               </ValidationProvider>
             </div>
             <div class="text-red-500 text-xs">{{ authError }}</div>

@@ -145,7 +145,7 @@
                   class="focus:outline-none appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
                 />
               </div>
-              <ValidationProvider name="checked" rules="checked" mode="eager" v-slot="{ errors }">
+              <ValidationProvider name="checked" rules="checked" mode="eager" v-slot="{}">
                 <div class="flex items-center mt-2 col-span-2">
                   <input
                     name="termsOfUse"
@@ -162,7 +162,6 @@
                     </span>
                   </label>
                 </div>
-                <div class="text-red-500 text-xs">{{ errors[0] }}</div>
               </ValidationProvider>
               <button
                 :class="invalid ? 'bg-gray-300' : 'bg-green-600 hover:bg-green-700 text-white'"
