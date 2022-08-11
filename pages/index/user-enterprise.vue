@@ -216,6 +216,7 @@
 import { mapGetters } from 'vuex'
 import MainRegister from '~/components/MainRegister.vue'
 import background from '/assets/images/background.png'
+import successfulModal from '~/components/modals/successful'
 import axios from 'axios'
 export default {
   components: { MainRegister },
@@ -298,7 +299,7 @@ export default {
               //   user_id: res.data.user.id,
               // })
               this.loading = false
-              await this.$snotify.success('Successfully Logged In')
+              this.successfulModal()
               this.$router.push(this.localePath('/'))
             })
         } catch (e) {
@@ -351,6 +352,21 @@ export default {
         populate: '*',
         locale: this.$i18n.locale,
       })
+    },
+    successfulModal() {
+      this.$modal.show(
+        successfulModal,
+        {
+          title: 'Successful',
+        },
+        {
+          height: 'auto',
+          maxWidth: 400,
+          width: window.innerWidth <= 400 ? window.innerWidth - 30 : 400,
+          scrollable: true,
+          clickToClose: true,
+        }
+      )
     },
   },
 }

@@ -202,6 +202,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import background from '/assets/images/background.png'
+import successfulModal from '~/components/modals/successful'
 import axios from 'axios'
 export default {
   name: 'ConsultantIndividual',
@@ -283,7 +284,7 @@ export default {
                 //   user_id: res.data.user.id,
                 // })
                 this.loading = false
-                await this.$snotify.success('Successfully Logged In')
+                this.successfulModal()
                 this.$router.push(this.localePath('/'))
               })
           } catch (e) {
@@ -355,6 +356,21 @@ export default {
       this.auth.password = e.password
       this.form.id = e.user.id
       this.jwt = e.jwt
+    },
+    successfulModal() {
+      this.$modal.show(
+        successfulModal,
+        {
+          title: 'Successful',
+        },
+        {
+          height: 'auto',
+          maxWidth: 400,
+          width: window.innerWidth <= 400 ? window.innerWidth - 30 : 400,
+          scrollable: true,
+          clickToClose: true,
+        }
+      )
     },
   },
 }

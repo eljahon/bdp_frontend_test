@@ -245,6 +245,7 @@
 import axios from 'axios'
 import { mapGetters } from 'vuex'
 import background from '/assets/images/background.png'
+import successfulModal from '~/components/modals/successful'
 export default {
   name: 'ConsultantEnterprise',
   auth: false,
@@ -361,7 +362,7 @@ export default {
                 //   user_id: res.data.user.id,
                 // })
                 this.loading = false
-                await this.$snotify.success('Successfully Logged In')
+                this.successfulModal()
                 this.$router.push(this.localePath('/'))
               })
           } catch (e) {
@@ -416,6 +417,21 @@ export default {
       this.additional.user = e.user.id
       this.company.users.push(e.user.id)
       this.jwt = e.jwt
+    },
+    successfulModal() {
+      this.$modal.show(
+        successfulModal,
+        {
+          title: 'Successful',
+        },
+        {
+          height: 'auto',
+          maxWidth: 400,
+          width: window.innerWidth <= 400 ? window.innerWidth - 30 : 400,
+          scrollable: true,
+          clickToClose: true,
+        }
+      )
     },
   },
 }
