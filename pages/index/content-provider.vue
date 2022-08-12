@@ -6,7 +6,7 @@
           {{ $t('registration-for-content-provider') }}
         </div>
         <main-register class="" />
-        <ValidationObserver v-slot="{ handleSubmit, invalid }" slim>
+        <ValidationObserver v-if="isMainRegister" v-slot="{ handleSubmit, invalid }" slim>
           <form class="" novalidate @submit.prevent="handleSubmit(onSubmit)">
             <div class="grid grid-cols-2 bg-white rounded-md p-6 gap-4">
               <div class="flex justify-start col-span-2 text-gray-600 font-semibold text-xl">
