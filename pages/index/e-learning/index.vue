@@ -92,7 +92,8 @@ export default {
     },
     async fetchDirectories() {
       await this.$store.dispatch('getCoursecategories', {
-        locale: this.$i18n.locale
+        populate: '*',
+        locale: this.$i18n.locale,
       }).then((res) => {
         this.categories = res
         this.categories.unshift({
