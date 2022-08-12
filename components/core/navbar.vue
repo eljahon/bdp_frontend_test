@@ -22,7 +22,7 @@
           </div>
         </div>
       </div>
-      <div class="sm:px-6 lg:px-8 bg-white p-3 shadow-md">
+      <div class="sm:px-6 lg:px-8 bg-white p-3 shadow-md" :class="{'activeClass': isActive}">
         <div class="max-w-6xl mx-auto px-4 sm:px-0">
           <div class="flex items-center justify-between text-white">
             <router-link to="/">
@@ -215,6 +215,7 @@ export default {
   data() {
     return {
       isProfileOpened: false,
+      isActive: false,
       navbar: [
         {
           id: 1,
@@ -270,6 +271,9 @@ export default {
       ],
     }
   },
+  mounted() {
+    window.addEventListener('scroll', this.handleScroll)
+  },
   computed: {
     ...mapState({
       isLoggedIn: (state) => state.auth.loggedIn,
@@ -277,6 +281,13 @@ export default {
     }),
   },
   methods: {
+    handleScroll() {
+      if (window.pageYOffset > 400) {
+        this.isActive = true
+      } else {
+        this.isActive = false
+      }
+    },
     async logOut() {
       await socket.emit('leave', {
         username: this.currentUser.username,
@@ -333,3 +344,11 @@ export default {
   },
 }
 </script>
+<style scoped>
+.activeClass {
+  position: fixed;
+  top: 0;
+  z-index: 10000;
+  width: 100%;
+}
+</style>

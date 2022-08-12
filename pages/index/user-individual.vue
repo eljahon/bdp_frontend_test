@@ -6,7 +6,7 @@
           {{ $t('registration-for-user-individual') }}
         </div>
         <main-register class="" @registerSuccess="mainRegisterSuccess" />
-        <ValidationObserver v-slot="{ handleSubmit, invalid }" slim>
+        <ValidationObserver v-if="isMainRegister" v-slot="{ handleSubmit, invalid }" slim>
           <form class="" novalidate @submit.prevent="handleSubmit(onSubmit)">
             <div class="grid md:grid-cols-2 grid-cols-1 md:p-6 p-4 gap-4">
               <div class="flex justify-start col-span-2 text-gray-600 font-semibold text-xl">
