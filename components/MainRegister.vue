@@ -302,6 +302,7 @@
             </ValidationProvider>
           </div>
           <div v-if="isPhoneConfirmPending" class="mt-1">
+          <!-- <div class="mt-1"> -->
             <label for="otp" class="block mb-1 text-sm font-medium text-gray-700">
               {{ $t('enter-confirm-code') }}</label
             >
@@ -365,6 +366,30 @@
                   <span>{{ $t('confirm') }}</span>
                 </button>
               </div>
+              <div class="md:col-span-1"></div>
+              <div v-if="isPhoneConfirmPending">
+                <span :class="[timer === 'on' ? '' : 'hidden']" class="text-sm text-gray-500 mb-2">
+                  {{ $t('you-can-resend-code-after') }}
+                  <countdown
+                    v-if="timer === 'on'"
+                    class="text-primary font-semibold"
+                    :end-time="timerMinutes"
+                    @finish="onCountdownEnd"
+                  >
+                    <template #process="scope">
+                      <span class="ml-1">{{ scope.timeObj.m }} : {{ scope.timeObj.s }}</span>
+                    </template>
+                  </countdown>
+                </span>
+                <span
+                  v-if="timer === 'off'"
+                  :class="[timer === 'off' ? 'text-yellow-600' : 'text-gray-400']"
+                  class="text-sm ml-1 focus:outline-none cursor-pointer"
+                  @click="resendCode()"
+                >
+                  {{ $t('resend') }}
+                </span>
+              </div>
             </ValidationProvider>
           </div>
           <button
@@ -407,6 +432,9 @@ export default {
   },
   data() {
     return {
+      timer: 'off',
+      timerMinutes: new Date().getTime() + 180000,
+      times: 1,
       phoneOrEmail: '',
       isEmail: false,
       isPhone: false,
@@ -453,6 +481,7 @@ export default {
       handler() {
         this.isPhone = false
         this.isPhoneConfirmPending = false
+        this.timer = 'off'
       },
       deep: true,
     },
@@ -486,6 +515,26 @@ export default {
     this.fetchDirectories()
   },
   methods: {
+    onCountdownEnd() {
+      this.timer = 'off'
+    },
+    resendCode() {
+      this.$axios
+        .$post('/users-permissions/resend_otp', { phone: this.account.username })
+        .then((res) => {
+          this.times++
+          if (this.times === 2) {
+            this.timerMinutes = new Date().getTime() + 50000
+          } else if (this.times === 3) {
+            this.timerMinutes = new Date().getTime() + 300000
+          }
+          this.timer = 'on'
+        })
+        .catch((error) => {
+          this.$snotify.error(error)
+          this.$sentry.captureException(error)
+        })
+    },
     confirmOtp() {
       this.$axios
         .$post('/users-permissions/register_confirm_otp', {
@@ -560,6 +609,7 @@ export default {
         .$post('/users-permissions/register_otp', user)
         .then(async (data) => {
           this.isPhoneConfirmPending = true
+          this.timer = 'on'
           return
         })
         .catch((e) => {
@@ -585,13 +635,15 @@ export default {
             }
           })
         })
-      await this.$store.dispatch('getDistricts', {
-        populate: '*',
-        "filters[$and][0][region][id]": 18,
-        locale: this.$i18n.locale,
-      }).then(res => {
-        this.districts = res
-      })
+      await this.$store
+        .dispatch('getDistricts', {
+          populate: '*',
+          'filters[$and][0][region][id]': 18,
+          locale: this.$i18n.locale,
+        })
+        .then((res) => {
+          this.districts = res
+        })
       // await this.$store.dispatch('getRegions', {
       //   populate: '*',
       //   locale: this.$i18n.locale,
