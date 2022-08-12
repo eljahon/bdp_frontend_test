@@ -1,6 +1,6 @@
 <template>
   <div class="space-y-3">
-    <ValidationObserver v-slot="{ handleSubmit }" slim>
+    <ValidationObserver v-slot="{ handleSubmit, invalid }" slim>
       <form class="" novalidate @submit.prevent="handleSubmit(onSubmit)">
         <div class="grid md:grid-cols-2 grid-cols-1 md:px-6 px-4 gap-4">
           <div class="mt-1">
@@ -15,7 +15,19 @@
                 v-model="account.name"
                 :disabled="isRegisterSuccess"
                 required
-                class="focus:outline-none appearance-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
+                class="
+                  focus:outline-none
+                  appearance-none
+                  block
+                  w-full
+                  px-3
+                  py-2
+                  border
+                  rounded-md
+                  shadow-sm
+                  placeholder-gray-400
+                  sm:text-sm
+                "
                 :class="
                   errors.length > 0
                     ? 'border-red-400'
@@ -38,7 +50,19 @@
                 v-model="account.surname"
                 :disabled="isRegisterSuccess"
                 required
-                class="focus:outline-none appearance-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
+                class="
+                  focus:outline-none
+                  appearance-none
+                  block
+                  w-full
+                  px-3
+                  py-2
+                  border
+                  rounded-md
+                  shadow-sm
+                  placeholder-gray-400
+                  sm:text-sm
+                "
                 :class="
                   errors.length > 0
                     ? 'border-red-400'
@@ -53,16 +77,22 @@
             <label for="gender" class="block text-sm mb-1 font-medium text-gray-700"
               >{{ $t('gender') }}*</label
             >
-            <ValidationProvider
-              v-slot="{ errors }"
-              name="gender"
-              rules="required"
-              mode="eager"
-            >
+            <ValidationProvider v-slot="{ errors }" name="gender" rules="required" mode="eager">
               <select
                 v-model="account.gender"
                 name="option"
-                class="focus:outline-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
+                class="
+                  focus:outline-none
+                  block
+                  w-full
+                  px-3
+                  py-2
+                  border
+                  rounded-md
+                  shadow-sm
+                  placeholder-gray-400
+                  sm:text-sm
+                "
                 :disabled="isRegisterSuccess"
                 :class="
                   errors.length > 0
@@ -86,7 +116,18 @@
               <select
                 v-model="region"
                 name="option"
-                class="focus:outline-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
+                class="
+                  focus:outline-none
+                  block
+                  w-full
+                  px-3
+                  py-2
+                  border
+                  rounded-md
+                  shadow-sm
+                  placeholder-gray-400
+                  sm:text-sm
+                "
                 :disabled="isRegisterSuccess"
                 :class="
                   errors.length > 0
@@ -111,7 +152,18 @@
                 v-model="account.district"
                 :disabled="districts.length === 0 || isRegisterSuccess"
                 name="option"
-                class="focus:outline-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
+                class="
+                  focus:outline-none
+                  block
+                  w-full
+                  px-3
+                  py-2
+                  border
+                  rounded-md
+                  shadow-sm
+                  placeholder-gray-400
+                  sm:text-sm
+                "
                 :class="
                   errors.length > 0
                     ? 'border-red-400'
@@ -143,40 +195,24 @@
                 v-model="phoneOrEmail"
                 :placeholder="$t('email-or-phone')"
                 required
-                class="focus:outline-none appearance-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
+                class="
+                  focus:outline-none
+                  appearance-none
+                  block
+                  w-full
+                  px-3
+                  py-2
+                  border
+                  rounded-md
+                  shadow-sm
+                  placeholder-gray-400
+                  sm:text-sm
+                "
                 :disabled="isRegisterSuccess"
                 :class="
                   errors.length > 0
                     ? 'border-red-400'
                     : phoneOrEmail
-                    ? 'border-green-600'
-                    : 'border-gray-300'
-                "
-              />
-            </ValidationProvider>
-          </div>
-          <div v-if="isPhone && isRegisterPending" class="mt-1">
-            <label for="otp" class="block mb-1 text-sm font-medium text-gray-700">
-              {{ $t('enter-confirm-code') }}</label
-            >
-            <ValidationProvider
-              v-slot="{ errors }"
-              name="otp"
-              rules="required|min:4|max:4"
-              mode="eager"
-            >
-              <input
-                name="otp"
-                type="text"
-                autocomplete="text"
-                v-model="otp"
-                :placeholder="$t('enter-confirm-code')"
-                required
-                class="focus:outline-none appearance-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
-                :class="
-                  errors.length > 0
-                    ? 'border-red-400'
-                    : otp
                     ? 'border-green-600'
                     : 'border-gray-300'
                 "
@@ -201,7 +237,19 @@
                 :placeholder="$t('password')"
                 required
                 :disabled="isRegisterSuccess"
-                class="focus:outline-none appearance-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
+                class="
+                  focus:outline-none
+                  appearance-none
+                  block
+                  w-full
+                  px-3
+                  py-2
+                  border
+                  rounded-md
+                  shadow-sm
+                  placeholder-gray-400
+                  sm:text-sm
+                "
                 :class="
                   errors.length > 0
                     ? 'border-red-400'
@@ -228,7 +276,19 @@
                 :type="hidden.confirm_password ? 'password' : 'text'"
                 :placeholder="$t('confirm-password')"
                 required
-                class="focus:outline-none appearance-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
+                class="
+                  focus:outline-none
+                  appearance-none
+                  block
+                  w-full
+                  px-3
+                  py-2
+                  border
+                  rounded-md
+                  shadow-sm
+                  placeholder-gray-400
+                  sm:text-sm
+                "
                 :disabled="isRegisterSuccess"
                 :class="
                   errors.length > 0
@@ -240,6 +300,95 @@
               />
             </ValidationProvider>
           </div>
+          <div v-if="isPhone && isRegisterPending" class="mt-1">
+          <!-- <div class="mt-1"> -->
+            <label for="otp" class="block mb-1 text-sm font-medium text-gray-700">
+              {{ $t('enter-confirm-code') }}</label
+            >
+            <ValidationProvider
+              v-slot="{ errors }"
+              name="otp"
+              rules="required|min:4|max:4"
+              mode="eager"
+            >
+              <div class="relative flex items-stretch flex-grow focus-within:z-10">
+                <input
+                  name="otp"
+                  type="text"
+                  autocomplete="text"
+                  v-model="otp"
+                  :placeholder="$t('enter-confirm-code')"
+                  required
+                  class="
+                    focus:outline-none
+                    appearance-none
+                    block
+                    w-full
+                    px-3
+                    py-2
+                    border
+                    rounded-none
+                    rounded-l-md
+                    shadow-sm
+                    placeholder-gray-400
+                    sm:text-sm
+                  "
+                  :class="
+                    errors.length > 0
+                      ? 'border-red-400'
+                      : otp
+                      ? 'border-green-600'
+                      : 'border-gray-300'
+                  "
+                />
+                <button
+                  type="button"
+                  @click="confirmOtp"
+                  class="
+                    -ml-px
+                    relative
+                    inline-flex
+                    items-center
+                    space-x-2
+                    px-4
+                    py-2
+                    border border-gray-300
+                    text-sm
+                    font-medium
+                    rounded-r-md
+                    text-gray-700
+                    bg-gray-50
+                    hover:bg-gray-100
+                  "
+                >
+                  <span>{{ $t('confirm')}}</span>
+                </button>
+              </div>
+            </ValidationProvider>
+          </div>
+          <div v-else class="col-span-1"></div>
+          <button
+            type="submit"
+            class="
+              col-span-1
+              text-center
+              px-2.5
+              py-1.5
+              border
+              borxder-transparent
+              font-medium
+              rounded
+              md:mt-7
+            "
+            :class="
+              invalid
+                ? 'text-gray-700 bg-gray-100 hover:bg-gray-200 border-gray-100 hover:border-gray-200 focus:ring-gray-500'
+                : 'text-green-700 bg-green-100 hover:bg-green-200 border-green-100 hover:border-green-200 focus:ring-green-500'
+            "
+            :disabled="invalid"
+          >
+            {{ $t('submit') }}
+          </button>
         </div>
       </form>
     </ValidationObserver>
@@ -295,10 +444,16 @@ export default {
       } else if (MOBILEREG.test(this.phoneOrEmail)) {
         this.isPhone = true
         this.isEmail = false
-        this.onSubmit()
       } else {
         this.isEmail = false
       }
+    },
+    account: {
+      handler() {
+        this.isPhone = false
+        this.isRegisterPending = false
+      },
+      deep: true,
     },
     region() {
       if (this.region.id) {
@@ -307,14 +462,9 @@ export default {
     },
     confirm_password() {
       if (this.account.password === this.confirm_password) {
-        this.onSubmit()
       }
     },
-    otp() {
-      if (this.otp.length === 4) {
-        this.confirmOtp()
-      }
-    },
+    otp() {},
   },
   computed: {
     ...mapGetters(['dataGenders', 'dataRegions']),
@@ -332,7 +482,6 @@ export default {
       this.account.role = this.$const.role.contentprovider
       this.account.confirmed = false
     }
-    console.log('Account: ', this.account)
     this.fetchDirectories()
   },
   methods: {
