@@ -180,7 +180,7 @@
 
 <script>
 import background from '/assets/images/background.png'
-import successfulModal from '~/components/modals/successful'
+import consultantWarningModal from '~/components/modals/consultant-warning'
 import axios from 'axios'
 export default {
   name: 'ContentProvider',
@@ -288,7 +288,7 @@ export default {
     },
     successfulModal() {
       this.$modal.show(
-        successfulModal,
+        consultantWarningModal,
         {
           title: 'Successful',
         },

@@ -45,6 +45,7 @@
   "confirm": "Подтвердить",
   "confirm-password": "Подтвердите пароль",
   "consultant": "Consultant",
+  "consultant-warning-info": "Следующий шаг - проверка предоставленной информации. Это займет 1-3 рабочих дня. Администрация Greenaral свяжется с вами по электронной почте или телефону для завершения процесса регистрации. Благодарим Вас!",
   "content-provider": "Content Provider",
   "consultants": "Консультанты",
   "consultation": "Consultation",
@@ -111,13 +112,14 @@
   "image-cropper": "Обрезка изображения",
   "in-karakalpakstan": "in Karakalpakstan",
   "info-about-platform": "The platform aims to provide the needed information for conducting business in the agriculture and environmental sectors in the Aral Sea region, as well as to support day-to-day operations by learning and accessing advisory services, networking, and insightful ideas.",
+  "information-submitted": "Данные получены",
   "information-on-agri-business-units-that-help-users-to-access-service-providers-for-establishing-and-operating-business": "Information on agri-business units that help users to access service providers for establishing and operating business.",
-
+  
   "join-greenAral-to-contribute": "The platform intends to create enabling business environment for the agriculture and environmental sectors in the Aral Sea region by knowledge dissemination and access to agri-services. Please join GreenAral to contribute",
   "join-as-a-partner": "Join as a partner",
-
+  
   "karakalpakstan": "Karakalpakstan",
-
+  
   "l": "L",
   "lastname": "Фамилия",
   "loading": "Загрузка",

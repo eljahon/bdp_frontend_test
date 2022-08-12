@@ -245,7 +245,7 @@
 import axios from 'axios'
 import { mapGetters } from 'vuex'
 import background from '/assets/images/background.png'
-import successfulModal from '~/components/modals/successful'
+import consultantWarningModal from '~/components/modals/consultant-warning.vue'
 export default {
   name: 'ConsultantEnterprise',
   auth: false,
@@ -420,7 +420,7 @@ export default {
     },
     successfulModal() {
       this.$modal.show(
-        successfulModal,
+        consultantWarningModal,
         {
           title: 'Successful',
         },

@@ -43,25 +43,20 @@
         >
           <div>
             <div
-              class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100"
+              class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-yellow-100"
             >
               <!-- Heroicon name: outline/check -->
-              <svg
-                class="h-6 w-6 text-green-600"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="2"
-                stroke="currentColor"
-                aria-hidden="true"
-              >
-                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-              </svg>
+              <i class="h-6 w-6 bx bx-error text-yellow-600"></i>
             </div>
             <div class="mt-3 text-center sm:mt-5">
               <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
-                {{ $t('successfully-login') }}
+                {{ $t('information-submitted') }}
               </h3>
+              <div class="mt-2">
+                <p class="text-sm text-gray-500">
+                  {{ $t('consultant-warning-info') }}
+                </p>
+              </div>
             </div>
           </div>
           <div class="mt-5 sm:mt-6">
@@ -76,12 +71,12 @@
                 shadow-sm
                 px-4
                 py-2
-                bg-green-600
+                bg-yellow-600
                 text-base
                 font-medium
                 text-white
-                hover:bg-green-700
-                focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500
+                hover:bg-yellow-700
+                focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500
                 sm:text-sm
               "
               @click="onClose()"
@@ -96,11 +91,11 @@
 </template>
 <script>
 export default {
-  name: 'Successful',
+  name: 'ConsultantWarning',
   props: {
     title: {
       type: String,
-      default: 'Successful',
+      default: 'Consultant Warning',
     },
   },
   methods: {
