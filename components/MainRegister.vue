@@ -108,7 +108,7 @@
               </select>
             </ValidationProvider>
           </div>
-          <div class="mt-1">
+          <!-- <div class="mt-1">
             <label for="region" class="block text-sm mb-1 font-medium text-gray-700"
               >{{ $t('region') }}*</label
             >
@@ -142,7 +142,7 @@
                 </option>
               </select>
             </ValidationProvider>
-          </div>
+          </div> -->
           <div class="mt-1">
             <label for="district" class="block text-sm mb-1 font-medium text-gray-700"
               >{{ $t('district') }}*</label
@@ -178,23 +178,23 @@
               </select>
             </ValidationProvider>
           </div>
-          <div class="md:col-span-1"></div>
+          <!-- <div class="md:col-span-1"></div> -->
           <div class="mt-1">
             <label for="phone" class="block mb-1 text-sm font-medium text-gray-700">
-              {{ $t('username') }}*</label
+              {{ $t('phone') }}*</label
             >
             <ValidationProvider
               v-slot="{ errors }"
-              name="phoneOrEmail"
-              rules="required|phoneOrEmail"
+              name="phone"
+              rules="required|phone"
               mode="eager"
             >
               <input
-                name="phoneOrEmail"
+                name="phone"
                 type="text"
                 autocomplete="text"
                 v-model="phoneOrEmail"
-                :placeholder="$t('email-or-phone')"
+                :placeholder="$t('phone')"
                 required
                 class="
                   focus:outline-none
@@ -585,10 +585,17 @@ export default {
             }
           })
         })
-      await this.$store.dispatch('getRegions', {
+      await this.$store.dispatch('getDistricts', {
         populate: '*',
+        "filters[$and][0][region][id]": 18,
         locale: this.$i18n.locale,
+      }).then(res => {
+        this.districts = res
       })
+      // await this.$store.dispatch('getRegions', {
+      //   populate: '*',
+      //   locale: this.$i18n.locale,
+      // })
     },
   },
 }
