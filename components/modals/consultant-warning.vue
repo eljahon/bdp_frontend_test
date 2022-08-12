@@ -43,10 +43,10 @@
         >
           <div>
             <div
-              class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-yellow-100"
+              class="mx-auto flex items-center justify-center h-12 w-12 text-5xl"
             >
               <!-- Heroicon name: outline/check -->
-              <i class="h-6 w-6 bx bx-error text-yellow-600"></i>
+              <i class="bx bx-error text-yellow-600"></i>
             </div>
             <div class="mt-3 text-center sm:mt-5">
               <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
