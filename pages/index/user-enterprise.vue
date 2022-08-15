@@ -2,11 +2,14 @@
   <div :style="{ backgroundImage: `url(${image})` }" class="bg-cover h-full pb-10 bg-opacity-10">
     <div class="max-w-6xl mx-auto p-4 lg:px-8 xl:px-0">
       <div class="max-w-2xl mx-auto mt-10 bg-white rounded-md">
-        <div class="flex justify-center text-gray-600 font-semibold text-xl md:p-6 p-4">
-          {{ $t('registration-for-user-enterprise') }}
+        <div class="md:p-6 p-4">
+          <div class="flex justify-center text-gray-600 font-semibold text-xl">
+            {{ $t('registration-for-user-enterprise') }}
+          </div>
+          <div class="flex justify-center text-gray-600 font-semibold text-sm">{{ $t('company-representative-information')}}</div>
         </div>
         <main-register @registerSuccess="mainRegisterSuccess" />
-        <ValidationObserver v-slot="{ handleSubmit, invalid }" slim>
+        <ValidationObserver v-if="isMainRegister" v-slot="{ handleSubmit, invalid }" slim>
           <form class="" novalidate @submit.prevent="handleSubmit(onSubmit)">
             <div class="grid md:grid-cols-2 grid-cols-1 md:p-6 p-4 gap-4">
               <div class="flex justify-start col-span-2 text-gray-600 font-semibold text-xl">
@@ -28,19 +31,7 @@
                     id="company-name"
                     v-model="form.name"
                     :disabled="!isMainRegister"
-                    class="
-                      focus:outline-none
-                      appearance-none
-                      block
-                      w-full
-                      px-3
-                      py-2
-                      border
-                      rounded-md
-                      shadow-sm
-                      placeholder-gray-400
-                      sm:text-sm
-                    "
+                    class="focus:outline-none appearance-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
                     :class="
                       errors.length > 0
                         ? 'border-red-400'
@@ -55,26 +46,20 @@
                 <label for="tin" class="block mb-1 text-sm font-medium text-gray-700"
                   >{{ $t('tin') }}*</label
                 >
-                <ValidationProvider v-slot="{ errors }" name="tin" rules="required" mode="eager">
+                <ValidationProvider
+                  v-slot="{ errors }"
+                  name="tin"
+                  :rules="{ required: true, min: 9, max: 9 }"
+                  mode="eager"
+                >
                   <input
                     type="text"
                     name="tin"
                     id="tin"
                     :disabled="!isMainRegister"
                     v-model="form.tin"
-                    class="
-                      focus:outline-none
-                      appearance-none
-                      block
-                      w-full
-                      px-3
-                      py-2
-                      border
-                      rounded-md
-                      shadow-sm
-                      placeholder-gray-400
-                      sm:text-sm
-                    "
+                    v-mask="'### ### ###'"
+                    class="focus:outline-none appearance-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
                     :class="
                       errors.length > 0
                         ? 'border-red-400'
@@ -96,20 +81,7 @@
                   v-model="phone"
                   :disabled="!isMainRegister"
                   v-mask="'+##### ###-##-##'"
-                  class="
-                    focus:outline-none
-                    appearance-none
-                    block
-                    w-full
-                    px-3
-                    py-2
-                    border
-                    rounded-md
-                    shadow-sm
-                    placeholder-gray-400
-                    sm:text-sm
-                    border-gray-300
-                  "
+                  class="focus:outline-none appearance-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 sm:text-sm border-gray-300"
                 />
               </div>
               <div class="md:col-span-1 col-span-2">
@@ -122,19 +94,7 @@
                   id="email"
                   v-model="form.email"
                   :disabled="!isMainRegister"
-                  class="
-                    focus:outline-none
-                    appearance-none
-                    block
-                    w-full
-                    px-3
-                    py-2
-                    border border-gray-300
-                    rounded-md
-                    shadow-sm
-                    placeholder-gray-400
-                    sm:text-sm
-                  "
+                  class="focus:outline-none appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
                 />
               </div>
               <div class="md:col-span-1 col-span-2">
@@ -145,6 +105,7 @@
                   v-model="form.activitytypes"
                   :options="activities"
                   :disabled="!isMainRegister"
+                  :searchable="false"
                   label="title"
                   value="id"
                   :reduce="(activity) => activity.id"
@@ -159,6 +120,7 @@
                   v-model="form.agrocultureareas"
                   :options="agrocultureAreas"
                   :disabled="!isMainRegister"
+                  :searchable="false"
                   label="title"
                   value="id"
                   :reduce="(agro) => agro.id"
@@ -173,18 +135,7 @@
                   <select
                     v-model="region"
                     name="option"
-                    class="
-                      focus:outline-none
-                      block
-                      w-full
-                      px-3
-                      py-2
-                      border
-                      rounded-md
-                      shadow-sm
-                      placeholder-gray-400
-                      sm:text-sm
-                    "
+                    class="focus:outline-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
                     :disabled="!isMainRegister"
                     :class="
                       errors.length > 0
@@ -214,18 +165,7 @@
                     v-model="form.district"
                     :disabled="districts.length === 0 || !isMainRegister"
                     name="option"
-                    class="
-                      focus:outline-none
-                      block
-                      w-full
-                      px-3
-                      py-2
-                      border
-                      rounded-md
-                      shadow-sm
-                      placeholder-gray-400
-                      sm:text-sm
-                    "
+                    class="focus:outline-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
                     :class="
                       errors.length > 0
                         ? 'border-red-400'
@@ -244,7 +184,7 @@
                   </select>
                 </ValidationProvider>
               </div>
-              <ValidationProvider name="checked" rules="checked" mode="eager" v-slot="{ errors }">
+              <ValidationProvider name="checked" rules="checked" mode="eager" v-slot="{}">
                 <div class="flex items-center mt-2 col-span-2">
                   <input
                     name="termsOfUse"
@@ -261,7 +201,6 @@
                     </span>
                   </label>
                 </div>
-                <div class="text-red-500 text-xs">{{ errors[0] }}</div>
               </ValidationProvider>
               <button
                 :class="invalid ? 'bg-gray-300' : 'bg-green-600 hover:bg-green-700 text-white'"
@@ -282,6 +221,7 @@
 import { mapGetters } from 'vuex'
 import MainRegister from '~/components/MainRegister.vue'
 import background from '/assets/images/background.png'
+import successfulModal from '~/components/modals/successful'
 import axios from 'axios'
 export default {
   components: { MainRegister },
@@ -364,7 +304,7 @@ export default {
               //   user_id: res.data.user.id,
               // })
               this.loading = false
-              await this.$snotify.success('Successfully Logged In')
+              this.successfulModal()
               this.$router.push(this.localePath('/'))
             })
         } catch (e) {
@@ -417,6 +357,21 @@ export default {
         populate: '*',
         locale: this.$i18n.locale,
       })
+    },
+    successfulModal() {
+      this.$modal.show(
+        successfulModal,
+        {
+          title: 'Successful',
+        },
+        {
+          height: 'auto',
+          maxWidth: 400,
+          width: window.innerWidth <= 400 ? window.innerWidth - 30 : 400,
+          scrollable: true,
+          clickToClose: true,
+        }
+      )
     },
   },
 }

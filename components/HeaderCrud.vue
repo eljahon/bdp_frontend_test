@@ -26,7 +26,7 @@
       </div>
       <div v-else class="border md:block hidden rounded-md border-green-700 text-green-700 p-2">
         <select
-          class="font-semibold flex justify-between w-32"
+          class="font-semibold focus:outline-none flex justify-between w-32"
           v-model="filter.category"
           @change="onChangeCategory"
         >

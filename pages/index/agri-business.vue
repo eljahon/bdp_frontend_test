@@ -30,7 +30,7 @@
         <div class="flex items-center justify-between">
           <div class="text-gray-700 text-xl font-semibold">{{ $t('locations') }}</div>
           <div class="border rounded-md border-green-700 text-green-700 p-2 mb-4">
-            <select class="font-semibold w-32" v-model="filter.category" @change="onChangeCategory">
+            <select class="font-semibold w-32 focus:outline-none" v-model="filter.category" @change="onChangeCategory">
               <option v-for="(category, index) in categories" :key="index" :value="category.id">
                 {{ category.attributes.name }}
               </option>

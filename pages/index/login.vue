@@ -33,7 +33,7 @@
           </div>
         </div>
         <ValidationObserver ref="observer" v-slot="{ passes, invalid }">
-          <form @submit.prevent="passes(tryToLogIn)" class="space-y-3">
+          <form @submit.prevent="passes(onSubmit)" class="space-y-3">
             <div class="mt-2">
               <ValidationProvider
                 v-slot="{ valid, errors }"
@@ -69,7 +69,6 @@
                       : 'border-gray-300'
                   "
                 />
-                <div class="text-red-500 text-xs">{{ errors[0] }}</div>
               </ValidationProvider>
             </div>
             <div v-if="isPhone" class="mt-1">
@@ -82,35 +81,61 @@
                 rules="required|min:4|max:4"
                 mode="eager"
               >
-                <input
-                  name="otp"
-                  type="text"
-                  autocomplete="text"
-                  v-model="otp"
-                  :placeholder="$t('enter-confirm-code')"
-                  required
-                  class="
-                    focus:outline-none
-                    appearance-none
-                    block
-                    w-full
-                    px-3
-                    py-2
-                    border
-                    rounded-md
-                    shadow-sm
-                    placeholder-gray-400
-                    sm:text-sm
-                  "
-                  :class="
-                    errors.length > 0
-                      ? 'border-red-400'
-                      : otp
-                      ? 'border-green-600'
-                      : 'border-gray-300'
-                  "
-                />
-                <div class="text-red-500 text-xs">{{ errors[0] }}</div>
+                <div class="relative flex items-stretch flex-grow focus-within:z-10">
+                  <input
+                    name="otp"
+                    type="text"
+                    autocomplete="text"
+                    v-model="otp"
+                    :placeholder="$t('enter-confirm-code')"
+                    required
+                    class="
+                      focus:outline-none
+                      appearance-none
+                      block
+                      w-full
+                      px-3
+                      py-2
+                      border
+                      rounded-none
+                      rounded-l-md
+                      shadow-sm
+                      placeholder-gray-400
+                      sm:text-sm
+                    "
+                    :class="
+                      errors.length > 0
+                        ? 'border-red-400'
+                        : otp
+                        ? 'border-green-600'
+                        : 'border-gray-300'
+                    "
+                  />
+                  <button
+                    type="button"
+                    @click="tryToLogin"
+                    class="
+                      -ml-px
+                      relative
+                      inline-flex
+                      items-center
+                      space-x-2
+                      px-4
+                      py-2
+                      border
+                      text-sm
+                      font-medium
+                      rounded-r-md
+                    "
+                    :class="
+                      invalid
+                        ? 'text-gray-700 bg-gray-100 hover:bg-gray-200 border-gray-600'
+                        : 'text-white focus:outline-none text-sm bg-green-700 p-3'
+                    "
+                  >
+                    <span>{{ $t('confirm') }}</span>
+                  </button>
+                </div>
               </ValidationProvider>
             </div>
             <div v-if="isPhone">
@@ -158,11 +183,11 @@
                       : 'border-gray-300'
                   "
                 />
-                <div class="text-red-500 text-xs">{{ errors[0] }}</div>
               </ValidationProvider>
             </div>
             <div class="text-red-500 text-xs">{{ authError }}</div>
             <button
+              v-if="!isPhoneOtpPending"
               :class="invalid ? 'bg-gray-300' : 'bg-green-600 hover:bg-green-700 text-white'"
               :disabled="invalid"
               type="submit"
@@ -190,7 +215,7 @@
                 {{ $t('did-not-get-code') }}
               </p>
               <button
-                :class="[timer !== 'on' ? 'text-primary' : '']"
+                :class="[timer !== 'on' ? 'text-yellow-600' : '']"
                 :disabled="timer === 'on'"
                 class="text-gray-400 text-sm ml-1 focus:outline-none"
                 @click="resendCode()"
@@ -212,8 +237,11 @@
 </template>
 
 <script>
-import { thisTypeAnnotation } from '@babel/types'
 import background from '../../assets/images/background.png'
+import consultantWarningModal from '~/components/modals/consultant-warning'
+const EMAILREG =
+  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+const MOBILEREG = /^([+]?[9]{2}[8][0-9]{2}[0-9]{7})$/
 export default {
   name: 'Login',
   auth: false,
@@ -238,27 +266,19 @@ export default {
       isEmail: false,
       isPhone: false,
       otp: '',
+      isPhoneOtpPending: false,
     }
   },
   watch: {
     'auth.identifier'() {
-      const EMAILREG =
-        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-      const MOBILEREG = /^([+]?[9]{2}[8][0-9]{2}[0-9]{7})$/
       if (EMAILREG.test(this.auth.identifier)) {
         this.isPhone = false
         this.isEmail = true
-      } else if (MOBILEREG.test(this.auth.identifier)) {
-        this.sendOtp()
       } else {
         this.isEmail = false
         this.isPhone = false
       }
-    },
-    otp() {
-      if (this.otp.length === 4) {
-        // this.registerPhone()
-      }
+      this.isPhoneOtpPending = false
     },
   },
   methods: {
@@ -283,31 +303,32 @@ export default {
       this.timer = 'off'
     },
     sendOtp() {
+      this.isPhoneOtpPending = true
       this.$axios
         .$post('/users-permissions/send_otp', { phone: this.auth.identifier })
         .then((response) => {
           this.isPhone = true
           this.isEmail = false
           this.timer = 'on'
+          this.isPhoneOtpPending = true
         })
         .catch((error) => {
           this.isPhone = false
           this.isEmail = false
           this.authError = error.response.data.message
           this.$sentry.captureException(error)
+          this.isPhoneOtpPending = false
         })
     },
-    async tryToLogIn() {
+    async onSubmit() {
       if (this.auth.identifier.includes('+') > 0) {
         this.auth.identifier = this.auth.identifier.substring(1)
       }
-      this.authError = ''
-      this.loading = true
-      if (this.isEmail) {
-        this.registerEmail()
-      } else {
-        this.registerPhone()
+      if (MOBILEREG.test(this.auth.identifier)) {
+        this.sendOtp()
+        return
       }
+      this.tryToLogin()
     },
     async registerEmail() {
       this.$snotify.info('Logging in...')
@@ -323,6 +344,14 @@ export default {
         if (e.response) this.authError = e.response.data.error.message
         this.loading = false
         this.$sentry.captureException(e)
+      }
+    },
+    tryToLogin() {
+      this.loading = true
+      if (this.isEmail) {
+        this.registerEmail()
+      } else {
+        this.registerPhone()
       }
     },
     registerPhone() {
@@ -363,8 +392,27 @@ export default {
       } else {
         this.$router.push(this.localePath('/'))
       }
-      await this.$snotify.success('Successfully Logged In')
+      if(user.confirmed === false) {
+        this.consultantWarningModal()
+      } else {
+        await this.$snotify.success('Successfully Logged In')
+      }
     },
+    consultantWarningModal() {
+      this.$modal.show(
+        consultantWarningModal,
+        {
+          title: 'Successful',
+        },
+        {
+          height: 'auto',
+          maxWidth: 400,
+          width: window.innerWidth <= 400 ? window.innerWidth - 30 : 400,
+          scrollable: true,
+          clickToClose: true,
+        }
+      )
+    }
   },
 }
 </script>

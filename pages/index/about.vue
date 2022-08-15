@@ -15,30 +15,30 @@
               {{ $t('join-greenAral-to-contribute') }}
             </div>
             <div class="grid grid-cols-2 gap-4">
-              <div class="text-white flex items-center">
+              <router-link :to="localePath('/consultant-individual')" class="text-white flex items-center">
                 <i class="bx bx-check-circle text-lg text-white"></i>
                 <div class="ml-2">{{ $t('become-a-consultant') }}</div>
-              </div>
-              <div class="text-white flex items-center">
+              </router-link>
+              <router-link :to="localePath('/content-provider')" class="text-white flex items-center">
                 <i class="bx bx-check-circle text-lg text-white"></i>
                 <div class="ml-2">{{ $t('become-service-provider') }}</div>
-              </div>
-              <div class="text-white flex items-center">
+              </router-link>
+              <router-link :to="localePath('/content-provider')" class="text-white flex items-center">
                 <i class="bx bx-check-circle text-lg text-white"></i>
                 <div class="ml-2">{{ $t('become-a-content-provider') }}</div>
-              </div>
+              </router-link>
               <div class="text-white flex items-center">
                 <i class="bx bx-check-circle text-lg text-white"></i>
                 <div class="ml-2">{{ $t('join-as-a-partner') }}</div>
               </div>
             </div>
-            <div class="lg:mt-5 my-5">
+            <!-- <div class="lg:mt-5 my-5">
               <button
                 class="text-white focus:outline-none text-sm bg-green-500 rounded-md py-3 px-5"
               >
                 {{ $t('discover-more') }}
               </button>
-            </div>
+            </div> -->
           </div>
           <div class="">
             <img src="~/assets/images/about.png" class="rounded-md" alt="about" />

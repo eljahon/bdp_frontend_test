@@ -6,7 +6,7 @@
           {{ $t('registration-for-content-provider') }}
         </div>
         <main-register class="" />
-        <ValidationObserver v-slot="{ handleSubmit, invalid }" slim>
+        <ValidationObserver v-if="isMainRegister" v-slot="{ handleSubmit, invalid }" slim>
           <form class="" novalidate @submit.prevent="handleSubmit(onSubmit)">
             <div class="grid grid-cols-2 bg-white rounded-md p-6 gap-4">
               <div class="flex justify-start col-span-2 text-gray-600 font-semibold text-xl">
@@ -145,7 +145,7 @@
                   class="focus:outline-none appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
                 />
               </div>
-              <ValidationProvider name="checked" rules="checked" mode="eager" v-slot="{ errors }">
+              <ValidationProvider name="checked" rules="checked" mode="eager" v-slot="{}">
                 <div class="flex items-center mt-2 col-span-2">
                   <input
                     name="termsOfUse"
@@ -162,7 +162,6 @@
                     </span>
                   </label>
                 </div>
-                <div class="text-red-500 text-xs">{{ errors[0] }}</div>
               </ValidationProvider>
               <button
                 :class="invalid ? 'bg-gray-300' : 'bg-green-600 hover:bg-green-700 text-white'"
@@ -181,6 +180,7 @@
 
 <script>
 import background from '/assets/images/background.png'
+import consultantWarningModal from '~/components/modals/consultant-warning'
 import axios from 'axios'
 export default {
   name: 'ContentProvider',
@@ -270,7 +270,7 @@ export default {
               //   user_id: res.data.user.id,
               // })
               this.loading = false
-              await this.$snotify.success('Successfully Logged In')
+              this.successfulModal()
               this.$router.push(this.localePath('/'))
             })
         } catch (e) {
@@ -285,6 +285,21 @@ export default {
       this.auth.password = e.password
       this.company.users.push(e.user.id)
       this.jwt = e.jwt
+    },
+    successfulModal() {
+      this.$modal.show(
+        consultantWarningModal,
+        {
+          title: 'Successful',
+        },
+        {
+          height: 'auto',
+          maxWidth: 400,
+          width: window.innerWidth <= 400 ? window.innerWidth - 30 : 400,
+          scrollable: true,
+          clickToClose: true,
+        }
+      )
     },
   },
 }
