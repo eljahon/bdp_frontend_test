@@ -130,7 +130,7 @@
                     :class="
                       invalid
                         ? 'text-gray-700 bg-gray-100 hover:bg-gray-200 border-gray-600'
-                        : 'text-green-700 bg-green-100 hover:bg-green-200 border-green-600'
+                        : 'text-white focus:outline-none text-sm bg-green-700 p-3'
                     "
                   >
                     <span>{{ $t('confirm') }}</span>
@@ -215,7 +215,7 @@
                 {{ $t('did-not-get-code') }}
               </p>
               <button
-                :class="[timer !== 'on' ? 'text-primary' : '']"
+                :class="[timer !== 'on' ? 'text-yellow-600' : '']"
                 :disabled="timer === 'on'"
                 class="text-gray-400 text-sm ml-1 focus:outline-none"
                 @click="resendCode()"
