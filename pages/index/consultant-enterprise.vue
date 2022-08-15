@@ -171,7 +171,7 @@
                 >
                 <!-- <ValidationProvider v-slot="{ errors }" name="resume" rules="required" mode="eager" vid="file"> -->
                 <input
-                  class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer focus:outline-none"
+                  class="focus:outline-none appearance-none block w-full px-3 py-1 border rounded-md shadow-sm placeholder-gray-400 sm:text-sm border-gray-300"
                   aria-describedby="file_input_help"
                   id="resume"
                   accept="application/pdf"
