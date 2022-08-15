@@ -194,7 +194,7 @@
                 type="text"
                 autocomplete="text"
                 v-model="phoneOrEmail"
-                :placeholder="$t('phone')"
+                placeholder="+998931234567"
                 required
                 class="
                   focus:outline-none
