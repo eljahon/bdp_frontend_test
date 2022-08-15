@@ -317,6 +317,9 @@ export default {
           if (authError === 'User is not confirmed.') {
             this.consultantWarningModal()
           }
+          if (authError === 'User is not defined.') {
+            this.$router.push(this.localePath('/register'))
+          }
           this.isPhone = false
           this.isEmail = false
           this.$sentry.captureException(error)
