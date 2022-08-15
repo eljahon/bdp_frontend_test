@@ -409,7 +409,7 @@
             :class="
               invalid
                 ? 'text-gray-700 bg-gray-100 hover:bg-gray-200 border-gray-100 hover:border-gray-200 focus:ring-gray-500'
-                : 'text-green-700 bg-green-100 hover:bg-green-200 border-green-100 hover:border-green-200 focus:ring-green-500'
+                : 'text-white focus:outline-none text-sm bg-green-700 p-3'
             "
             :disabled="invalid"
           >
