@@ -7,6 +7,7 @@
         </div>
         <main-register class="" @registerSuccess="mainRegisterSuccess" />
         <ValidationObserver v-slot="{ handleSubmit, invalid }" slim>
+        <!-- <ValidationObserver v-if="isMainRegister" v-slot="{ handleSubmit, invalid }" slim> -->
           <form class="" novalidate @submit.prevent="handleSubmit(onSubmit)">
             <div class="grid grid-cols-2 bg-white rounded-md p-6 gap-4">
               <div class="flex justify-start col-span-2 text-gray-600 font-semibold text-xl">
@@ -14,12 +15,13 @@
               </div>
               <div class="md:col-span-1 col-span-2">
                 <label for="activity-type" class="block mb-1 text-sm font-medium text-gray-700">{{
-                  $t('activity-type')
+                  $t('area-of-consultancy')
                 }}</label>
                 <v-select
                   v-model="form.activitytypes"
                   :options="activities"
                   :disabled="!isMainRegister"
+                  :searchable="false"
                   label="title"
                   value="id"
                   :reduce="(activity) => activity.id"
@@ -28,12 +30,13 @@
               </div>
               <div class="md:col-span-1 col-span-2">
                 <label for="field" class="block mb-1 text-sm font-medium text-gray-700">{{
-                  $t('field-of-agriculture')
+                  $t('area-of-agriculture-and-environment')
                 }}</label>
                 <v-select
                   v-model="form.agrocultureareas"
                   :options="agrocultureAreas"
                   :disabled="!isMainRegister"
+                  :searchable="false"
                   label="title"
                   value="id"
                   :reduce="(agro) => agro.id"
@@ -55,19 +58,7 @@
                     name="workplace"
                     id="workplace"
                     v-model="additional.workplace"
-                    class="
-                      focus:outline-none
-                      appearance-none
-                      block
-                      w-full
-                      px-3
-                      py-2
-                      border
-                      rounded-md
-                      shadow-sm
-                      placeholder-gray-400
-                      sm:text-sm
-                    "
+                    class="focus:outline-none appearance-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
                     :disabled="!isMainRegister"
                     :class="
                       errors.length > 0
@@ -86,19 +77,7 @@
                 <select
                   v-model="additional.last_degree"
                   name="option"
-                  class="
-                    focus:outline-none
-                    block
-                    w-full
-                    px-3
-                    py-2
-                    border
-                    rounded-md
-                    shadow-sm
-                    placeholder-gray-400
-                    sm:text-sm
-                    border-gray-300
-                  "
+                  class="focus:outline-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 sm:text-sm border-gray-300"
                   :disabled="!isMainRegister"
                 >
                   <option v-for="(degree, index) in degrees" :key="index" :value="degree">
@@ -106,7 +85,7 @@
                   </option>
                 </select>
               </div>
-               <div class="md:col-span-1 col-span-2">
+              <div class="md:col-span-1 col-span-2">
                 <label for="experience" class="block mb-1 text-sm font-medium text-gray-700">{{
                   $t('experience')
                 }}</label>
@@ -118,45 +97,27 @@
                   :max="80"
                   v-model="additional.experience_year"
                   :disabled="!isMainRegister"
-                  class="
-                    focus:outline-none
-                    appearance-none
-                    block
-                    w-full
-                    px-3
-                    py-2
-                    border border-gray-300
-                    rounded-md
-                    shadow-sm
-                    placeholder-gray-400
-                    sm:text-sm
-                  "
+                  class="focus:outline-none appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
                 />
               </div>
               <div class="md:col-span-1 col-span-2">
                 <label for="tin" class="block mb-1 text-sm font-medium text-gray-700"
                   >{{ $t('tin') }}*</label
                 >
-                <ValidationProvider v-slot="{ errors }" name="tin" rules="required" mode="eager">
+                <ValidationProvider
+                  v-slot="{ errors }"
+                  name="tin"
+                  :rules="{ required: true, min: 9, max: 9 }"
+                  mode="eager"
+                >
                   <input
                     type="text"
                     name="tin"
                     id="tin"
                     v-model="additional.tin"
                     :disabled="!isMainRegister"
-                    class="
-                      focus:outline-none
-                      appearance-none
-                      block
-                      w-full
-                      px-3
-                      py-2
-                      border
-                      rounded-md
-                      shadow-sm
-                      placeholder-gray-400
-                      sm:text-sm
-                    "
+                    v-mask="'### ### ###'"
+                    class="focus:outline-none appearance-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
                     :class="
                       errors.length > 0
                         ? 'border-red-400'
@@ -173,16 +134,7 @@
                 >
                 <!-- <ValidationProvider v-slot="{ errors }" name="resume" rules="required" mode="eager" vid="file"> -->
                 <input
-                  class="
-                    block
-                    w-full
-                    text-sm text-gray-900
-                    bg-gray-50
-                    rounded-lg
-                    border border-gray-300
-                    cursor-pointer
-                    focus:outline-none
-                  "
+                  class="focus:outline-none appearance-none block w-full px-3 py-1 border rounded-md shadow-sm placeholder-gray-400 sm:text-sm border-gray-300"
                   aria-describedby="file_input_help"
                   id="resume"
                   accept="application/pdf"
@@ -205,16 +157,7 @@
                   mode="eager"
                 > -->
                 <input
-                  class="
-                    block
-                    w-full
-                    text-sm text-gray-900
-                    bg-gray-50
-                    rounded-lg
-                    border border-gray-300
-                    cursor-pointer
-                    focus:outline-none
-                  "
+                  class="focus:outline-none appearance-none block w-full px-3 py-1 border rounded-md shadow-sm placeholder-gray-400 sm:text-sm border-gray-300"
                   aria-describedby="file_input_help"
                   id="diploma"
                   accept="application/pdf"
@@ -225,8 +168,8 @@
                 />
                 <!-- </ValidationProvider> -->
               </div>
-             
-              <ValidationProvider name="checked" rules="checked" mode="eager" v-slot="{ errors }">
+
+              <ValidationProvider name="checked" rules="checked" mode="eager" v-slot="{}">
                 <div class="flex items-center mt-2 col-span-2">
                   <input
                     name="termsOfUse"
@@ -243,7 +186,6 @@
                     </span>
                   </label>
                 </div>
-                <div class="text-red-500 text-xs">{{ errors[0] }}</div>
               </ValidationProvider>
               <button
                 :class="invalid ? 'bg-gray-300' : 'bg-green-600 hover:bg-green-700 text-white'"
@@ -263,6 +205,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import background from '/assets/images/background.png'
+import consultantWarningModal from '~/components/modals/consultant-warning.vue'
 import axios from 'axios'
 export default {
   name: 'ConsultantIndividual',
@@ -318,7 +261,7 @@ export default {
           baseURL: process.env.VUE_APP_BASE_URL,
           url: `/additionalinfos`,
           method: 'POST',
-          data: {data: this.additional},
+          data: { data: this.additional },
           headers: {
             Authorization: `Bearer ${this.jwt}`,
           },
@@ -337,14 +280,14 @@ export default {
                     },
                   })
                   .then((response) => {
-                    localStorage.setItem('user_info', JSON.stringify(response.data))
+                    localStorage.setItem('user_info', JSON.stringify(response))
                   })
                 // await this.$bridge.$emit('join_chat', {
                 //   username: res.data.user.username,
                 //   user_id: res.data.user.id,
                 // })
                 this.loading = false
-                await this.$snotify.success('Successfully Logged In')
+                this.successfulModal()
                 this.$router.push(this.localePath('/'))
               })
           } catch (e) {
@@ -416,6 +359,21 @@ export default {
       this.auth.password = e.password
       this.form.id = e.user.id
       this.jwt = e.jwt
+    },
+    successfulModal() {
+      this.$modal.show(
+        consultantWarningModal,
+        {
+          title: 'Successful',
+        },
+        {
+          height: 'auto',
+          maxWidth: 400,
+          width: window.innerWidth <= 400 ? window.innerWidth - 30 : 400,
+          scrollable: true,
+          clickToClose: true,
+        }
+      )
     },
   },
 }

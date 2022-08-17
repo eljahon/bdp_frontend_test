@@ -53,6 +53,20 @@ const phoneOrEmailRule = {
     return false
   },
 }
+const phoneRule = {
+  message(field, params, data) {
+    if (!MOBILEREG.test(params._value_)) {
+      return 'Phone is not valid'
+    }
+  },
+  validate(value, args) {
+    // Check for either of these to return true
+    if (MOBILEREG.test(value)) {
+      return true
+    }
+    return false
+  },
+}
 extend('checked', {
   validate: value => {
     return value === true
@@ -60,3 +74,4 @@ extend('checked', {
   message: 'Пожалуйста, примите все условия обслуживания'
 })
 extend('phoneOrEmail', phoneOrEmailRule)
+extend('phone', phoneRule)

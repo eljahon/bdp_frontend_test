@@ -146,23 +146,13 @@ export default {
             }
           })
       } else {
-        // this.$store
-        //   .dispatch('postChatrooms', {
-        //     data: {
-        //       consultant: this.data.id,
-        //       user: this.currentUser.id,
-        //       isCompleted: false,
-        //     },
-        //   }).then(res => {
-        //     console.log('Chat room created: ', res)
-        //   })
-        // this.$router.push({
-        //   path: this.localePath('/login'),
-        //   query: {
-        //     consultantID: this.data.id,
-        //     from: 'consultant',
-        //   },
-        // })
+        this.$router.push({
+          path: this.localePath('/login'),
+          query: {
+            consultant: this.data.id,
+            from: 'consultant',
+          },
+        })
       }
     },
   },

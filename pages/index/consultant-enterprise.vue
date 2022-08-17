@@ -6,7 +6,7 @@
           {{ $t('registration-for-consultant-enterprise') }}
         </div>
         <main-register @registerSuccess="mainRegisterSuccess" />
-        <ValidationObserver v-slot="{ handleSubmit, invalid }" slim>
+        <ValidationObserver v-if="isMainRegister" v-slot="{ handleSubmit, invalid }" slim>
           <form class="" novalidate @submit.prevent="handleSubmit(onSubmit)">
             <div class="grid grid-cols-2 bg-white rounded-md p-6 gap-4">
               <div class="flex justify-start col-span-2 text-gray-600 font-semibold text-xl">
@@ -27,19 +27,7 @@
                     name="company-name"
                     id="company-name"
                     v-model="company.name"
-                    class="
-                      focus:outline-none
-                      appearance-none
-                      block
-                      w-full
-                      px-3
-                      py-2
-                      border
-                      rounded-md
-                      shadow-sm
-                      placeholder-gray-400
-                      sm:text-sm
-                    "
+                    class="focus:outline-none appearance-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
                     :class="
                       errors.length > 0
                         ? 'border-red-400'
@@ -54,25 +42,19 @@
                 <label for="tin" class="block mb-1 text-sm font-medium text-gray-700"
                   >{{ $t('tin') }}*</label
                 >
-                <ValidationProvider v-slot="{ errors }" name="tin" rules="required" mode="eager">
+                <ValidationProvider
+                  v-slot="{ errors }"
+                  name="tin"
+                  :rules="{ required: true, min: 9, max: 9 }"
+                  mode="eager"
+                >
                   <input
                     type="text"
                     name="tin"
                     id="tin"
                     v-model="company.tin"
-                    class="
-                      focus:outline-none
-                      appearance-none
-                      block
-                      w-full
-                      px-3
-                      py-2
-                      border
-                      rounded-md
-                      shadow-sm
-                      placeholder-gray-400
-                      sm:text-sm
-                    "
+                    v-mask="'### ### ###'"
+                    class="focus:outline-none appearance-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
                     :class="
                       errors.length > 0
                         ? 'border-red-400'
@@ -85,12 +67,13 @@
               </div>
               <div class="md:col-span-1 col-span-2">
                 <label for="activity-type" class="block mb-1 text-sm font-medium text-gray-700">{{
-                  $t('activity-type')
+                  $t('area-of-consultancy')
                 }}</label>
                 <v-select
                   v-model="company.activitytypes"
                   :options="activities"
                   :disabled="!isMainRegister"
+                  :searchable="false"
                   label="title"
                   value="id"
                   :reduce="(activity) => activity.id"
@@ -99,12 +82,13 @@
               </div>
               <div class="md:col-span-1 col-span-2">
                 <label for="field" class="block mb-1 text-sm font-medium text-gray-700">{{
-                  $t('field-of-agriculture')
+                  $t('area-of-agriculture-and-environment')
                 }}</label>
                 <v-select
                   v-model="company.agrocultureareas"
                   :options="agrocultureAreas"
                   :disabled="!isMainRegister"
+                  :searchable="false"
                   label="title"
                   value="id"
                   :reduce="(agro) => agro.id"
@@ -121,19 +105,7 @@
                   id="experience"
                   v-model="additional.experience"
                   rows="4"
-                  class="
-                    focus:outline-none
-                    appearance-none
-                    block
-                    w-full
-                    px-3
-                    py-2
-                    border border-gray-300
-                    rounded-md
-                    shadow-sm
-                    placeholder-gray-400
-                    sm:text-sm
-                  "
+                  class="focus:outline-none appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
                 />
               </div>
               <div class="mt-1">
@@ -144,18 +116,7 @@
                   <select
                     v-model="region"
                     name="option"
-                    class="
-                      focus:outline-none
-                      block
-                      w-full
-                      px-3
-                      py-2
-                      border
-                      rounded-md
-                      shadow-sm
-                      placeholder-gray-400
-                      sm:text-sm
-                    "
+                    class="focus:outline-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
                     :disabled="!isMainRegister"
                     :class="
                       errors.length > 0
@@ -185,18 +146,7 @@
                     v-model="company.district"
                     :disabled="districts.length === 0 || !isMainRegister"
                     name="option"
-                    class="
-                      focus:outline-none
-                      block
-                      w-full
-                      px-3
-                      py-2
-                      border
-                      rounded-md
-                      shadow-sm
-                      placeholder-gray-400
-                      sm:text-sm
-                    "
+                    class="focus:outline-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
                     :class="
                       errors.length > 0
                         ? 'border-red-400'
@@ -221,16 +171,7 @@
                 >
                 <!-- <ValidationProvider v-slot="{ errors }" name="resume" rules="required" mode="eager" vid="file"> -->
                 <input
-                  class="
-                    block
-                    w-full
-                    text-sm text-gray-900
-                    bg-gray-50
-                    rounded-lg
-                    border border-gray-300
-                    cursor-pointer
-                    focus:outline-none
-                  "
+                  class="focus:outline-none appearance-none block w-full px-3 py-1 border rounded-md shadow-sm placeholder-gray-400 sm:text-sm border-gray-300"
                   aria-describedby="file_input_help"
                   id="resume"
                   accept="application/pdf"
@@ -257,19 +198,7 @@
                     id="phone"
                     v-model="phone"
                     v-mask="'+##### ###-##-##'"
-                    class="
-                      focus:outline-none
-                      appearance-none
-                      block
-                      w-full
-                      px-3
-                      py-2
-                      border
-                      rounded-md
-                      shadow-sm
-                      placeholder-gray-400
-                      sm:text-sm
-                    "
+                    class="focus:outline-none appearance-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
                     :class="
                       errors.length > 0
                         ? 'border-red-400'
@@ -281,7 +210,7 @@
                 </ValidationProvider>
               </div>
 
-              <ValidationProvider name="checked" rules="checked" mode="eager" v-slot="{ errors }">
+              <ValidationProvider name="checked" rules="checked" mode="eager" v-slot="{}">
                 <div class="flex items-center mt-2 col-span-2">
                   <input
                     name="termsOfUse"
@@ -298,7 +227,6 @@
                     </span>
                   </label>
                 </div>
-                <div class="text-red-500 text-xs">{{ errors[0] }}</div>
               </ValidationProvider>
               <button
                 :class="invalid ? 'bg-gray-300' : 'bg-green-600 hover:bg-green-700 text-white'"
@@ -319,6 +247,7 @@
 import axios from 'axios'
 import { mapGetters } from 'vuex'
 import background from '/assets/images/background.png'
+import consultantWarningModal from '~/components/modals/consultant-warning.vue'
 export default {
   name: 'ConsultantEnterprise',
   auth: false,
@@ -351,7 +280,7 @@ export default {
       jwt: '',
       activities: [],
       agrocultureAreas: [],
-      isMainRegister: true,
+      isMainRegister: false,
       isAgree: false,
       region: null,
       districts: [],
@@ -435,7 +364,7 @@ export default {
                 //   user_id: res.data.user.id,
                 // })
                 this.loading = false
-                await this.$snotify.success('Successfully Logged In')
+                this.successfulModal()
                 this.$router.push(this.localePath('/'))
               })
           } catch (e) {
@@ -490,6 +419,21 @@ export default {
       this.additional.user = e.user.id
       this.company.users.push(e.user.id)
       this.jwt = e.jwt
+    },
+    successfulModal() {
+      this.$modal.show(
+        consultantWarningModal,
+        {
+          title: 'Successful',
+        },
+        {
+          height: 'auto',
+          maxWidth: 400,
+          width: window.innerWidth <= 400 ? window.innerWidth - 30 : 400,
+          scrollable: true,
+          clickToClose: true,
+        }
+      )
     },
   },
 }

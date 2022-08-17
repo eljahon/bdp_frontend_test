@@ -6,7 +6,7 @@
           {{ $t('registration-for-user-individual') }}
         </div>
         <main-register class="" @registerSuccess="mainRegisterSuccess" />
-        <ValidationObserver v-slot="{ handleSubmit, invalid }" slim>
+        <ValidationObserver v-if="isMainRegister" v-slot="{ handleSubmit, invalid }" slim>
           <form class="" novalidate @submit.prevent="handleSubmit(onSubmit)">
             <div class="grid md:grid-cols-2 grid-cols-1 md:p-6 p-4 gap-4">
               <div class="flex justify-start col-span-2 text-gray-600 font-semibold text-xl">
@@ -74,6 +74,7 @@
                   v-model="form.activitytypes"
                   :options="activities"
                   :disabled="!isMainRegister"
+                  :searchable="false"
                   label="title"
                   value="id"
                   :reduce="(activity) => activity.id"
@@ -88,13 +89,14 @@
                   v-model="form.agrocultureareas"
                   :options="agrocultureAreas"
                   :disabled="!isMainRegister"
+                  :searchable="false"
                   label="title"
                   value="id"
                   :reduce="(agro) => agro.id"
                   :multiple="true"
                 ></v-select>
               </div>
-              <ValidationProvider name="checked" rules="checked" mode="eager" v-slot="{ errors }">
+              <ValidationProvider name="checked" rules="checked" mode="eager" v-slot="{}">
                 <div class="flex items-center mt-2 col-span-2">
                   <input
                     name="termsOfUse"
@@ -111,7 +113,6 @@
                     </span>
                   </label>
                 </div>
-                <div class="text-red-500 text-xs">{{ errors[0] }}</div>
               </ValidationProvider>
               <button
                 :class="invalid ? 'bg-gray-300' : 'bg-green-600 hover:bg-green-700 text-white'"
@@ -131,6 +132,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import background from '/assets/images/background.png'
+import successfulModal from '~/components/modals/successful'
 import axios from 'axios'
 export default {
   name: 'UserIndividual',
@@ -199,14 +201,14 @@ export default {
                   },
                 })
                 .then((response) => {
-                  localStorage.setItem('user_info', JSON.stringify(response.data))
+                  localStorage.setItem('user_info', JSON.stringify(response))
                 })
               // await this.$bridge.$emit('join_chat', {
               //   username: res.data.user.username,
               //   user_id: res.data.user.id,
               // })
               this.loading = false
-              await this.$snotify.success('Successfully Logged In')
+              this.successfulModal()
               this.$router.push(this.localePath('/'))
             })
         } catch (e) {
@@ -214,6 +216,21 @@ export default {
           this.loading = false
         }
       })
+    },
+    successfulModal() {
+      this.$modal.show(
+        successfulModal,
+        {
+          title: 'Successful',
+        },
+        {
+          height: 'auto',
+          maxWidth: 400,
+          width: window.innerWidth <= 400 ? window.innerWidth - 30 : 400,
+          scrollable: true,
+          clickToClose: true,
+        }
+      )
     },
     mainRegisterSuccess(e) {
       this.isMainRegister = e.isSuccess
