@@ -100,13 +100,20 @@ export default {
     // 'vue-currency-filter/nuxt',
   ],
   sentry: {
-    dsn: "https://d958b94121cd4ff58d27e85e5fa7ce4b@o1335273.ingest.sentry.io/6620840", // Enter your project's DSN here
+    dsn: "https://d958b94121cd4ff58d27e85e5fa7ce4b@o1335273.ingest.sentry.io/6620840",
+    publishRelease: true,
     // Additional Module Options go here
     // https://sentry.nuxtjs.org/sentry/options
     config: {
       // Add native Sentry config here
       // https://docs.sentry.io/platforms/javascript/guides/vue/configuration/options/
     },
+    tracing: true,
+    clientConfig: {
+      beforeSend(event) {
+        return event;
+      },
+    }
   },
   auth: {
     // localStorage: false,
