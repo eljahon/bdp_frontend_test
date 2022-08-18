@@ -5,6 +5,7 @@ import dynamic from './crud/dynamic'
 import socket from './modules/socket'
 import upload from './modules/upload'
 import company from './modules/company' 
+import sidebar from './modules/sidebar'
 Vue.use(Vuex)
 
 const createStore = () => {
@@ -13,6 +14,7 @@ const createStore = () => {
       socket,
       upload,
       company,
+      sidebar,
       products: crud('products'),
       productcategories: crud('productcategories'),
       pricelists: crud('pricelists'),
@@ -39,6 +41,8 @@ const createStore = () => {
       contuctuses: crud('contactuses'),
       activitytypes: crud('activitytypes'),
       agrocultureareas: crud('agrocultureareas'),
+      tradinposts: crud('tradinposts'),
+      tradingpostcategories: crud('tradingpostcategories')
     },
     getters: {
       isAuthenticated: state => { return state.auth.loggedIn },
