@@ -6,7 +6,7 @@
           {{ $t('registration-for-content-provider') }}
         </div>
         <main-register class="" />
-        <ValidationObserver v-slot="{ handleSubmit, invalid }" slim>
+        <ValidationObserver v-if="isMainRegister" v-slot="{ handleSubmit, invalid }" slim>
           <form class="" novalidate @submit.prevent="handleSubmit(onSubmit)">
             <div class="grid grid-cols-2 bg-white rounded-md p-6 gap-4">
               <div class="flex justify-start col-span-2 text-gray-600 font-semibold text-xl">
@@ -180,7 +180,7 @@
 
 <script>
 import background from '/assets/images/background.png'
-import successfulModal from '~/components/modals/successful'
+import consultantWarningModal from '~/components/modals/consultant-warning'
 import axios from 'axios'
 export default {
   name: 'ContentProvider',
@@ -288,7 +288,7 @@ export default {
     },
     successfulModal() {
       this.$modal.show(
-        successfulModal,
+        consultantWarningModal,
         {
           title: 'Successful',
         },

@@ -7,6 +7,7 @@
         </div>
         <main-register class="" @registerSuccess="mainRegisterSuccess" />
         <ValidationObserver v-slot="{ handleSubmit, invalid }" slim>
+        <!-- <ValidationObserver v-if="isMainRegister" v-slot="{ handleSubmit, invalid }" slim> -->
           <form class="" novalidate @submit.prevent="handleSubmit(onSubmit)">
             <div class="grid grid-cols-2 bg-white rounded-md p-6 gap-4">
               <div class="flex justify-start col-span-2 text-gray-600 font-semibold text-xl">
@@ -14,12 +15,13 @@
               </div>
               <div class="md:col-span-1 col-span-2">
                 <label for="activity-type" class="block mb-1 text-sm font-medium text-gray-700">{{
-                  $t('activity-type')
+                  $t('area-of-consultancy')
                 }}</label>
                 <v-select
                   v-model="form.activitytypes"
                   :options="activities"
                   :disabled="!isMainRegister"
+                  :searchable="false"
                   label="title"
                   value="id"
                   :reduce="(activity) => activity.id"
@@ -34,6 +36,7 @@
                   v-model="form.agrocultureareas"
                   :options="agrocultureAreas"
                   :disabled="!isMainRegister"
+                  :searchable="false"
                   label="title"
                   value="id"
                   :reduce="(agro) => agro.id"
@@ -131,7 +134,7 @@
                 >
                 <!-- <ValidationProvider v-slot="{ errors }" name="resume" rules="required" mode="eager" vid="file"> -->
                 <input
-                  class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer focus:outline-none"
+                  class="focus:outline-none appearance-none block w-full px-3 py-1 border rounded-md shadow-sm placeholder-gray-400 sm:text-sm border-gray-300"
                   aria-describedby="file_input_help"
                   id="resume"
                   accept="application/pdf"
@@ -154,7 +157,7 @@
                   mode="eager"
                 > -->
                 <input
-                  class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer focus:outline-none"
+                  class="focus:outline-none appearance-none block w-full px-3 py-1 border rounded-md shadow-sm placeholder-gray-400 sm:text-sm border-gray-300"
                   aria-describedby="file_input_help"
                   id="diploma"
                   accept="application/pdf"
@@ -202,7 +205,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import background from '/assets/images/background.png'
-import successfulModal from '~/components/modals/successful'
+import consultantWarningModal from '~/components/modals/consultant-warning.vue'
 import axios from 'axios'
 export default {
   name: 'ConsultantIndividual',
@@ -359,7 +362,7 @@ export default {
     },
     successfulModal() {
       this.$modal.show(
-        successfulModal,
+        consultantWarningModal,
         {
           title: 'Successful',
         },

@@ -2,7 +2,7 @@
   <div class="space-y-3">
     <ValidationObserver v-slot="{ handleSubmit, invalid }" slim>
       <form class="" novalidate @submit.prevent="handleSubmit(onSubmit)">
-        <div class="grid md:grid-cols-2 grid-cols-1 md:px-6 px-4 gap-4">
+        <div class="grid md:grid-cols-2 grid-cols-1 md:px-6 px-4 pb-4 md:pb-6 gap-4">
           <div class="mt-1">
             <label for="firstname" class="block mb-1 text-sm font-medium text-gray-700">
               {{ $t('firstname') }}*</label
@@ -108,7 +108,7 @@
               </select>
             </ValidationProvider>
           </div>
-          <div class="mt-1">
+          <!-- <div class="mt-1">
             <label for="region" class="block text-sm mb-1 font-medium text-gray-700"
               >{{ $t('region') }}*</label
             >
@@ -142,7 +142,7 @@
                 </option>
               </select>
             </ValidationProvider>
-          </div>
+          </div> -->
           <div class="mt-1">
             <label for="district" class="block text-sm mb-1 font-medium text-gray-700"
               >{{ $t('district') }}*</label
@@ -178,22 +178,23 @@
               </select>
             </ValidationProvider>
           </div>
+          <!-- <div class="md:col-span-1"></div> -->
           <div class="mt-1">
             <label for="phone" class="block mb-1 text-sm font-medium text-gray-700">
-              {{ $t('username') }}*</label
+              {{ $t('phone') }}*</label
             >
             <ValidationProvider
               v-slot="{ errors }"
-              name="phoneOrEmail"
-              rules="required|phoneOrEmail"
+              name="phone"
+              rules="required|phone"
               mode="eager"
             >
               <input
-                name="phoneOrEmail"
+                name="phone"
                 type="text"
                 autocomplete="text"
                 v-model="phoneOrEmail"
-                :placeholder="$t('email-or-phone')"
+                placeholder="+998931234567"
                 required
                 class="
                   focus:outline-none
@@ -300,7 +301,7 @@
               />
             </ValidationProvider>
           </div>
-          <div v-if="isPhone && isRegisterPending" class="mt-1">
+          <div v-if="isPhoneConfirmPending" class="mt-1">
           <!-- <div class="mt-1"> -->
             <label for="otp" class="block mb-1 text-sm font-medium text-gray-700">
               {{ $t('enter-confirm-code') }}</label
@@ -327,8 +328,7 @@
                     px-3
                     py-2
                     border
-                    rounded-none
-                    rounded-l-md
+                    rounded-none rounded-l-md
                     shadow-sm
                     placeholder-gray-400
                     sm:text-sm
@@ -352,24 +352,51 @@
                     space-x-2
                     px-4
                     py-2
-                    border border-gray-300
+                    border
                     text-sm
                     font-medium
                     rounded-r-md
-                    text-gray-700
-                    bg-gray-50
-                    hover:bg-gray-100
+                  "
+                  :class="
+                    invalid
+                      ? 'text-gray-700 bg-gray-100 hover:bg-gray-200 border-gray-100 hover:border-gray-200'
+                      : 'text-white focus:outline-none text-sm bg-green-700 p-3'
                   "
                 >
-                  <span>{{ $t('confirm')}}</span>
+                  <span>{{ $t('confirm') }}</span>
                 </button>
+              </div>
+              <div class="md:col-span-1"></div>
+              <div v-if="isPhoneConfirmPending">
+                <span :class="[timer === 'on' ? '' : 'hidden']" class="text-sm text-gray-500 mb-2">
+                  {{ $t('you-can-resend-code-after') }}
+                  <countdown
+                    v-if="timer === 'on'"
+                    class="text-primary font-semibold"
+                    :end-time="timerMinutes"
+                    @finish="onCountdownEnd"
+                  >
+                    <template #process="scope">
+                      <span class="ml-1">{{ scope.timeObj.m }} : {{ scope.timeObj.s }}</span>
+                    </template>
+                  </countdown>
+                </span>
+                <span
+                  v-if="timer === 'off'"
+                  :class="[timer === 'off' ? 'text-yellow-600' : 'text-gray-400']"
+                  class="text-sm ml-1 focus:outline-none cursor-pointer"
+                  @click="resendCode()"
+                >
+                  {{ $t('resend') }}
+                </span>
               </div>
             </ValidationProvider>
           </div>
-          <div v-else class="col-span-1"></div>
           <button
+            v-if="!isPhoneConfirmPending && !isRegisterSuccess"
             type="submit"
             class="
+              md:col-span-2
               col-span-1
               text-center
               px-2.5
@@ -378,12 +405,11 @@
               borxder-transparent
               font-medium
               rounded
-              md:mt-7
             "
             :class="
               invalid
                 ? 'text-gray-700 bg-gray-100 hover:bg-gray-200 border-gray-100 hover:border-gray-200 focus:ring-gray-500'
-                : 'text-green-700 bg-green-100 hover:bg-green-200 border-green-100 hover:border-green-200 focus:ring-green-500'
+                : 'text-white focus:outline-none text-sm bg-green-700 p-3'
             "
             :disabled="invalid"
           >
@@ -406,10 +432,13 @@ export default {
   },
   data() {
     return {
+      timer: 'off',
+      timerMinutes: new Date().getTime() + 180000,
+      times: 1,
       phoneOrEmail: '',
       isEmail: false,
       isPhone: false,
-      isRegisterPending: false,
+      isPhoneConfirmPending: false,
       isRegisterSuccess: false,
       otp: '',
       genders: [],
@@ -451,7 +480,8 @@ export default {
     account: {
       handler() {
         this.isPhone = false
-        this.isRegisterPending = false
+        this.isPhoneConfirmPending = false
+        this.timer = 'off'
       },
       deep: true,
     },
@@ -485,6 +515,26 @@ export default {
     this.fetchDirectories()
   },
   methods: {
+    onCountdownEnd() {
+      this.timer = 'off'
+    },
+    resendCode() {
+      this.$axios
+        .$post('/users-permissions/resend_otp', { phone: this.account.username })
+        .then((res) => {
+          this.times++
+          if (this.times === 2) {
+            this.timerMinutes = new Date().getTime() + 50000
+          } else if (this.times === 3) {
+            this.timerMinutes = new Date().getTime() + 300000
+          }
+          this.timer = 'on'
+        })
+        .catch((error) => {
+          this.$snotify.error(error)
+          this.$sentry.captureException(error)
+        })
+    },
     confirmOtp() {
       this.$axios
         .$post('/users-permissions/register_confirm_otp', {
@@ -492,7 +542,7 @@ export default {
           otp: this.otp,
         })
         .then(async (data) => {
-          this.isRegisterPending = false
+          this.isPhoneConfirmPending = false
           this.isRegisterSuccess = true
           this.$emit('registerSuccess', {
             isSuccess: true,
@@ -503,7 +553,7 @@ export default {
           return
         })
         .catch((e) => {
-          this.isRegisterPending = false
+          this.isPhoneConfirmPending = false
           this.isRegisterSuccess = false
           console.log(e.response.data.error.message)
         })
@@ -540,7 +590,6 @@ export default {
       this.$axios
         .$post('/auth/local/register', user)
         .then(async (data) => {
-          this.isRegisterPending = false
           this.isRegisterSuccess = true
           this.$emit('registerSuccess', {
             isSuccess: true,
@@ -551,7 +600,6 @@ export default {
           return
         })
         .catch((e) => {
-          this.isRegisterPending = false
           this.isRegisterSuccess = false
           console.log(e.response.data.error.message)
         })
@@ -560,12 +608,12 @@ export default {
       this.$axios
         .$post('/users-permissions/register_otp', user)
         .then(async (data) => {
-          this.isRegisterPending = true
-          this.isRegisterSuccess = true
+          this.isPhoneConfirmPending = true
+          this.timer = 'on'
           return
         })
         .catch((e) => {
-          this.isRegisterPending = false
+          this.isPhoneConfirmPending = false
           this.isRegisterSuccess = false
           console.log(e.response.data.error.message)
         })
@@ -587,10 +635,19 @@ export default {
             }
           })
         })
-      await this.$store.dispatch('getRegions', {
-        populate: '*',
-        locale: this.$i18n.locale,
-      })
+      await this.$store
+        .dispatch('getDistricts', {
+          populate: '*',
+          'filters[$and][0][region][id]': 18,
+          locale: this.$i18n.locale,
+        })
+        .then((res) => {
+          this.districts = res
+        })
+      // await this.$store.dispatch('getRegions', {
+      //   populate: '*',
+      //   locale: this.$i18n.locale,
+      // })
     },
   },
 }

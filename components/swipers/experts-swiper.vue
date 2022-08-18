@@ -77,6 +77,7 @@ export default {
   },
   methods: {
     prev() {
+    console.log(this.$refs.swiper)
       this.$refs.swiper.$swiper.slidePrev()
     },
     next() {

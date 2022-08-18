@@ -66,15 +66,20 @@ export default {
         .then(() => {})
     },
     async fetchDirectories() {
-      await this.$store.dispatch('getServicecategories').then((res) => {
-        this.categories = res
-        this.categories.unshift({
-          id: 0,
-          attributes: {
-            name: this.$t('all'),
-          },
+      await this.$store
+        .dispatch('getServicecategories', {
+          populate: '*',
+          locale: this.$i18n.locale,
         })
-      })
+        .then((res) => {
+          this.categories = res
+          this.categories.unshift({
+            id: 0,
+            attributes: {
+              name: this.$t('all'),
+            },
+          })
+        })
     },
   },
 }

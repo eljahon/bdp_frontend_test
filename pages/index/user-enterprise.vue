@@ -2,11 +2,14 @@
   <div :style="{ backgroundImage: `url(${image})` }" class="bg-cover h-full pb-10 bg-opacity-10">
     <div class="max-w-6xl mx-auto p-4 lg:px-8 xl:px-0">
       <div class="max-w-2xl mx-auto mt-10 bg-white rounded-md">
-        <div class="flex justify-center text-gray-600 font-semibold text-xl md:p-6 p-4">
-          {{ $t('registration-for-user-enterprise') }}
+        <div class="md:p-6 p-4">
+          <div class="flex justify-center text-gray-600 font-semibold text-xl">
+            {{ $t('registration-for-user-enterprise') }}
+          </div>
+          <div class="flex justify-center text-gray-600 font-semibold text-sm">{{ $t('company-representative-information')}}</div>
         </div>
         <main-register @registerSuccess="mainRegisterSuccess" />
-        <ValidationObserver v-slot="{ handleSubmit, invalid }" slim>
+        <ValidationObserver v-if="isMainRegister" v-slot="{ handleSubmit, invalid }" slim>
           <form class="" novalidate @submit.prevent="handleSubmit(onSubmit)">
             <div class="grid md:grid-cols-2 grid-cols-1 md:p-6 p-4 gap-4">
               <div class="flex justify-start col-span-2 text-gray-600 font-semibold text-xl">
@@ -102,6 +105,7 @@
                   v-model="form.activitytypes"
                   :options="activities"
                   :disabled="!isMainRegister"
+                  :searchable="false"
                   label="title"
                   value="id"
                   :reduce="(activity) => activity.id"
@@ -116,6 +120,7 @@
                   v-model="form.agrocultureareas"
                   :options="agrocultureAreas"
                   :disabled="!isMainRegister"
+                  :searchable="false"
                   label="title"
                   value="id"
                   :reduce="(agro) => agro.id"
