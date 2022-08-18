@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="max-w-6xl mx-auto sm:px-6 lg:px-8 xl:px-0 px-4 lg:my-12 my-4">
-      <div class="text-2xl font-semibold text-gray-700">{{ about.attributes.title }}</div>
-      <div v-html="about.attributes.content"></div>
+      <div class="text-2xl font-semibold text-gray-700">{{ about[0].attributes.title }}</div>
+    <div v-html="about[0].attributes.content"></div>
     </div>
     <div class="bg-green-900 my-10 py-10">
       <div class="max-w-6xl mx-auto sm:px-6 lg:px-8 xl:px-0 px-4">
@@ -63,8 +63,8 @@
             <div class="text-sm text-gray-500">
               {{
                 $t(
-                  'get-financial-legal-business-and-managerial-consultations-on-interested-area-of-agriculture-and-environment'
-                )
+                  'get-financial-legal-business-and-managerial-consultations-on-interested-area-of-agriculture-and-environment')
+                
               }}
             </div>
           </div>
@@ -299,19 +299,14 @@
 import { mapGetters } from 'vuex'
 import PartnersSwiper from '~/components/swipers/partners-swiper.vue'
 import { actions, getters } from '~/utils/store_schema'
-const _page = 'about'
+const _page = 'pages'
 const { get } = actions(_page)
 export default {
   name: 'About',
   auth: false,
   data() {
     return {
-      about: {
-        attributes: {
-          title: '',
-          description: '',
-        },
-      },
+      about: [],
       loading: false,
       phone: '',
       form: {
@@ -365,13 +360,17 @@ export default {
     async fetchData() {
       await this.$store
         .dispatch(get, {
-          link: '/about',
+          link: '/pages',
           query: {
             populate: '*',
             locale: this.$i18n.locale,
+            filters: {
+              slogan: 'about'
+            }
           },
         })
         .then((res) => {
+          console.log(res);
           this.about = res.data
         })
     },

@@ -45,7 +45,7 @@
                   type="text"
                   autocomplete="text"
                   v-model="auth.identifier"
-                  :placeholder="$t('email-or-phone')"
+                  :placeholder="$t('phone')"
                   :state="errors[0] ? false : valid ? true : null"
                   required
                   class="
@@ -185,7 +185,7 @@
                 />
               </ValidationProvider>
             </div>
-            <div class="text-red-500 text-xs">{{ authError }}</div>
+            <!-- <div class="text-red-500 text-xs">{{ authError }}</div> -->
             <button
               v-if="!isPhoneOtpPending"
               :class="invalid ? 'bg-gray-300' : 'bg-green-600 hover:bg-green-700 text-white'"
@@ -313,9 +313,15 @@ export default {
           this.isPhoneOtpPending = true
         })
         .catch((error) => {
+          let authError = error.response.data.error.details[0].messages[0].message
+          if (authError === 'User is not confirmed.') {
+            this.consultantWarningModal()
+          }
+          if (authError === 'User is not defined.') {
+            this.$router.push(this.localePath('/register'))
+          }
           this.isPhone = false
           this.isEmail = false
-          this.authError = error.response.data.message
           this.$sentry.captureException(error)
           this.isPhoneOtpPending = false
         })

@@ -280,7 +280,7 @@ export default {
       jwt: '',
       activities: [],
       agrocultureAreas: [],
-      isMainRegister: true,
+      isMainRegister: false,
       isAgree: false,
       region: null,
       districts: [],
