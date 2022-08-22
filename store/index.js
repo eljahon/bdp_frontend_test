@@ -37,7 +37,7 @@ const createStore = () => {
       lessons: crud('lessons'),
       genders: crud('genders'),
       lessongroups: crud('lessongroups'),
-      consultantcategories: crud('consultantcategories'),
+      agrocultureareas: crud('agrocultureareas'),
       contuctuses: crud('contactuses'),
       activitytypes: crud('activitytypes'),
       agrocultureareas: crud('agrocultureareas'),

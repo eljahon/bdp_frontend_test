@@ -7,6 +7,7 @@ const tools = {
   getDefaultLanguageID(langs) {
     return langs.find(l => l.attributes.locale === 'en').id
   },
+  
   emptyObject(obj) {
     return Object.entries(obj).reduce(
       (a, [k, v]) => (v === null || v === '' ? a : ((a[k] = v), a)),
