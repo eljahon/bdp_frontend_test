@@ -1,7 +1,7 @@
 {
   "a": "A",
   "action": "Действие",
-  "active": "Активный",
+  "active": "Активные",
   "address": "Адрес",
   "add-new": "Добавить новый",
   "advisory": "Онлайн консультации",
@@ -9,7 +9,7 @@
   "agri-business": "Агробизнес",
   "agri-finance": "Агрофинансирование",
   "agri-market": "Агромаркет",
-  "agriculture-business": "Сельскохозяйственный бизнес",
+  "agriculture-business": "Агробизнес",
   "all": "Все",
   "all-categories": "Все категории",
   "all-products": "Все продукты",
@@ -20,7 +20,7 @@
   "area-of-agriculture-and-environment": "Сфера сельского хозяйства",
   "area-of-consultancy": "Область консультирования",
   "additional-information": "Дополнительная информация",
-  "asked-questions": "Заданные вопросы",
+  "asked-questions": "задаваемые вопросы",
 
   "b": "B",
   "back": "Назад",
@@ -84,7 +84,7 @@
   "finish": "Завершить",
   "finish-chat": "Завершить чат",
   "finish-this": "Завершить это",
-  "finished": "Завершен",
+  "finished": "Завершенные",
   "firstname": "Имя",
   "forgot-password-question": "Забыли пароль?",
   "field-of-agriculture": "Сфера сельского хозяйства",
@@ -119,11 +119,11 @@
   "lastname": "Фамилия",
   "loading": "Загрузка",
   "locations": "Локации",
-  "login": "Логин",
+  "login": "Войти",
   "logo": "Лого",
   "logout": "Выйти",
   "last-received-degree": "Последняя полученная степень",
-  "login-register": "Войти / Зарегистрироваться",
+  "login-register": "Войти / Регистрация",
 
   "m": "M",
   "max": "Максимум",
@@ -134,7 +134,6 @@
 
   "navigation": "Навигация",
   "name": "Наименования",
-  "news": "Новости",
 
   "organization-name": "Наименование организации",
   "order-by": "Сортировать по",

@@ -47,8 +47,14 @@ export default {
   },
   methods: {
     async fetchDirectories() {
-      await this.$store.dispatch('getConsultantcategories').then((res) => {
-        this.categories = res
+      await this.$store.dispatch('getAgrocultureareas', {populate: '*', locale: this.$i18n.locale}).then((res) => {
+        const list  = res.map(el => {
+          return {
+            attributes: { name: el.attributes.title},
+            id: el.attributes.locale === 'en' ? el.id : el.attributes.localizations.data.find(l=> l.attributes.locale === 'en')?.id ?? 0
+          }
+        })
+        this.categories = list;
         this.categories.unshift({
           id: 0,
           attributes: {

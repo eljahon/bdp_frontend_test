@@ -75,6 +75,7 @@ export default function (param) {
     actions: {
       // get    getSomething
       [tools.camelize(`get ${_param}`)]({ commit, state }, params) {
+      
         commit(_mutations.load, true)
         return new Promise((resolve, reject) => {
           this.$axios
