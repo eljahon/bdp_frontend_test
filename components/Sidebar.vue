@@ -151,20 +151,20 @@
                     >
                       {{ item.attributes.title }}
                     </a>
-                    <div class="flex cursor-pointer justify-end items-center">
+                    <div v-if="item.attributes.children.data.length > 0" class="flex cursor-pointer justify-end items-center">
                       <i
                         class="mx-4 h-4 w-4 bx"
                         :class="item.current ? 'bx bx-chevron-up' : 'bx bx-chevron-down'"
                       />
                     </div>
                   </div>
-                  <div v-for="(child, k) in item.attributes.children" v-show="item.current === true" :key="k">
-                    <div v-if="child.data">
+                  <div v-for="(child, k) in item.attributes.children.data" v-show="item.current === true" :key="k">
+                    <div v-if="child">
                       <a
                         :to="child.route"
                         class="
                           cursor-pointer
-                          ml-10
+                          ml-4
                           group
                           flex
                           items-center
@@ -261,7 +261,7 @@ export default {
       const sidebar = JSON.parse(JSON.stringify(this.sidebar))
       sidebar.forEach((el) => {
         if (el.id === item.id) {
-          return item.attributes.children.forEach((ch) => {
+          return item.attributes.children.data.forEach((ch) => {
             if (child === ch) {
               ch.current = true
             } else {
@@ -282,7 +282,7 @@ export default {
       sidebar.forEach((menu) => {
         if (menu.id === item.id) {
           menu.current = !menu.current
-          menu.children.forEach((child) => {
+          menu.attributes.children.data.forEach((child) => {
             child.current = false
           })
         } else {

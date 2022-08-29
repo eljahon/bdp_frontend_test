@@ -122,7 +122,7 @@
                 </div>
                 <div class="p-3">
                   <h3 class="text-gray-600 font-medium line-clamp-1 text-base">
-                    {{ product.attributes.title[$i18n.locale] }}
+                    {{ product.attributes.title }}
                   </h3>
                   <div class="flex items-center font-medium mt-3">
                     <p
@@ -140,17 +140,15 @@
                     <p v-else class="text-light-orange w-auto rounded-xl font-semibold text-lg">
                       {{ product.attributes.price }}
                     </p>
-                    <!-- <div
-                        v-if="product.pricetype !== 'contract' && product.unit"
-                        class="text-gray-500 lowercase ml-2 text-base"
-                      >
-                        {{ $t('word.sum') }} / {{ product.unit.namejson[$i18n.locale] }}
-                      </div> -->
+                    <!-- v-if="product.attributes.tradingposttype !== 'contract' && product.attributes.unit" -->
+                    <div class="text-gray-500 lowercase ml-2 text-base">
+                      {{ $t('sum') }} / {{ product.attributes.unit.data.attributes.name }}
+                    </div>
                   </div>
                   <div class="flex items-end justify-between mt-4">
-                    <!-- <div v-if="product.userid" class="flex items-center gap-4">
+                    <div v-if="product.attributes.user" class="flex items-center gap-4">
                         <div
-                          v-if="!product.userid.avatar"
+                          v-if="product.attributes.user.data.attributes.avatar === null"
                           class="w-10 h-10 object-cover overflow-hidden rounded-full"
                         >
                           <img
@@ -159,21 +157,21 @@
                           />
                         </div>
                         <div v-else class="w-12 h-12 object-cover overflow-hidden rounded-full">
-                          <img :src="$tools.getFileUrl(product.userid.avatar)" alt="Avatar" />
+                          <img :src="$tools.getFileUrl(product.user.data.attributes.avatar)" alt="Avatar" />
                         </div>
                         <div>
                           <h4 class="text-base text-gray-600 font-normal line-clamp-1">
                             {{
-                              `${product.userid.name ? product.userid.name : ''} ${
-                                product.userid.surname ? product.userid.surname : ''
+                              `${product.attributes.user.data.attributes.name ? product.attributes.user.data.attributes.name : ''} ${
+                                product.attributes.user.data.attributes.surname ? product.attributes.user.data.attributes.surname : ''
                               }`
                             }}
                           </h4>
                           <span class="text-xs text-gray-400 font-normal">{{
-                            $tools.getDate(product.created_at)
+                            $tools.getDate(product.attributes.createdAt)
                           }}</span>
                         </div>
-                      </div> -->
+                      </div>
                     <div class="flex items-center gap-2">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
