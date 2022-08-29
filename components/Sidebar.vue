@@ -105,7 +105,17 @@
           <div class="flex-1 flex flex-col overflow-y-auto w-full">
             <nav class="flex-1 bg-white px-2">
               <div
-                class="cursor-pointer group flex items-center px-2 py-2 text-sm font-medium rounded-md"
+                class="
+                  cursor-pointer
+                  group
+                  flex
+                  items-center
+                  px-2
+                  py-2
+                  text-sm
+                  font-medium
+                  rounded-md
+                "
                 :class="
                   locale.current
                     ? 'text-green-600 hover:text-green-600'
@@ -116,13 +126,23 @@
                 {{ $t(locale.name[$i18n.locale]) }}
               </div>
               <div v-for="(item, key) in sidebar" :key="key" class="border-b">
-                <div v-if="item.children">
+                <div v-if="item.attributes.children">
                   <div
                     class="flex cursor-pointer justify-between"
                     @click="menuWithChildClicked(item)"
                   >
                     <a
-                      class="cursor-pointer group flex items-center px-2 py-2 text-sm font-medium rounded-md"
+                      class="
+                        cursor-pointer
+                        group
+                        flex
+                        items-center
+                        px-2
+                        py-2
+                        text-sm
+                        font-medium
+                        rounded-md
+                      "
                       :class="
                         item.current
                           ? 'text-green-600 hover:text-green-600'
@@ -132,22 +152,28 @@
                       {{ item.attributes.title }}
                     </a>
                     <div class="flex cursor-pointer justify-end items-center">
-                      <font-awesome-icon
-                        class="mx-4 h-4 w-4"
-                        :class="
-                          item.current
-                            ? 'text-green-600 hover:text-green-600'
-                            : 'text-gray-500 hover:text-gray-700'
-                        "
-                        :icon="item.current ? 'chevron-up' : 'chevron-down'"
+                      <i
+                        class="mx-4 h-4 w-4 bx"
+                        :class="item.current ? 'bx bx-chevron-up' : 'bx bx-chevron-down'"
                       />
                     </div>
                   </div>
-                  <div v-for="(child, k) in item.children" v-show="item.current === true" :key="k">
-                    <div v-if="!child.hide || child.hide === null">
+                  <div v-for="(child, k) in item.attributes.children" v-show="item.current === true" :key="k">
+                    <div v-if="child.data">
                       <a
                         :to="child.route"
-                        class="cursor-pointer ml-10 group flex items-center px-2 py-2 text-sm font-medium rounded-md"
+                        class="
+                          cursor-pointer
+                          ml-10
+                          group
+                          flex
+                          items-center
+                          px-2
+                          py-2
+                          text-sm
+                          font-medium
+                          rounded-md
+                        "
                         :class="
                           child.current
                             ? 'text-green-600 hover:text-green-600'
@@ -161,8 +187,18 @@
                   </div>
                 </div>
                 <div
-                  v-else-if="!item.hide || item.hide === null"
-                  class="cursor-pointer group flex items-center px-2 py-2 text-sm font-medium rounded-md"
+                  v-else
+                  class="
+                    cursor-pointer
+                    group
+                    flex
+                    items-center
+                    px-2
+                    py-2
+                    text-sm
+                    font-medium
+                    rounded-md
+                  "
                   :class="
                     item.current
                       ? 'text-green-600 hover:text-green-600'
@@ -182,50 +218,50 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 export default {
   name: 'Sidebar',
   props: {
     name: {
       type: String,
-      required: true,
-    },
+      required: true
+    }
   },
-  data() {
+  data () {
     return {
       locale: {
         created_at: '2021-11-11T23:25:16.744559+05:00',
-        id: 'all',
+        id: 0,
         name: { uz: 'Hammasi', ru: 'Все', en: 'All' },
         children: [],
         current: false,
         status: true,
-        updated_at: '2021-11-11T23:25:16.744646+05:00',
-      },
-      filter: {
-        category: 0
+        updated_at: '2021-11-11T23:25:16.744646+05:00'
       }
     }
   },
   computed: {
+    ...mapState({
+      
+    }),
     ...mapGetters({
       sidebar: 'sidebar',
-    }),
+    })
   },
-  mounted() {
-     if (this.$route.path.length <= (this.name.length + 2) || this.$route.path.search('all') > -1) {
+  mounted () {
+    if (this.$route.path.length <= this.name.length + 4 || this.$route.path.search('all') > -1) {
       this.menuClicked(this.locale)
     }
   },
   methods: {
-    showHideMenu() {
+    showHideMenu () {
       this.showMenuInMobile = !this.showMenuInMobile
     },
-    menuChildClicked(item, child) {
+    menuChildClicked (item, child) {
       const sidebar = JSON.parse(JSON.stringify(this.sidebar))
       sidebar.forEach((el) => {
         if (el.id === item.id) {
-          return item.children.forEach((ch) => {
+          return item.attributes.children.forEach((ch) => {
             if (child === ch) {
               ch.current = true
             } else {
@@ -237,12 +273,12 @@ export default {
       })
       this.$store.dispatch('changeSidebar', sidebar)
       this.$router.push({
-        path: t12his.localePath(`${this.$route.path.slice(0, this.name.length + 4)}`),
-        query: this.checkQuery(item, child),
+        path: this.localePath(`${this.$route.path.slice(0, this.name.length + 4)}`),
+        query: this.checkQuery(item, child)
       })
     },
-    menuWithChildClicked(item) {
-      let sidebar = JSON.parse(JSON.stringify(this.sidebar))
+    menuWithChildClicked (item) {
+      let sidebar =  JSON.parse(JSON.stringify(this.sidebar))
       sidebar.forEach((menu) => {
         if (menu.id === item.id) {
           menu.current = !menu.current
@@ -256,14 +292,14 @@ export default {
       this.locale.current = false
       this.$store.dispatch('changeSidebar', sidebar)
     },
-    menuClicked(item) {
+    menuClicked (item) {
       const sidebar = JSON.parse(JSON.stringify(this.sidebar))
-      if (item.id === 'all') {
+      if (item.id === 0) {
         this.locale.current = !this.locale.current
       }
       sidebar.forEach((menu) => {
         if (item === menu) {
-          menu.current = item.id !== 'all'
+          menu.current = item.id !== 0
         } else {
           menu.current = false
         }
@@ -271,43 +307,24 @@ export default {
       this.$store.dispatch('changeSidebar', sidebar)
       this.$router.push({
         path: this.localePath(`${this.$route.path.slice(0, this.name.length + 4)}`),
-        query: this.checkQuery(item, {}),
+        query: this.checkQuery(item, {})
       })
     },
-    checkQuery(parent, child) {
-      let _query = {
-        category: this.filter.category,
-      }
-      this.$router.push({
-        path: this.$route.path,
-        query: this.$tools.emptyObject(_query),
-      })
-      // if (parent.id === 'all') {
-      //   return {
-      //     limit: this.$route.query.limit ? this.$route.query.limit : 12,
-      //     offset: this.$route.query.offset ? this.$route.query.offset : 1
-      //   }
-      // }
+    checkQuery (parent, child) {
       if (parent.count === 0) {
         return {
-          category: parent.id,
-          // limit: 12,
-          // offset: 1,
+          category: parent.id
         }
       }
       if (Object.keys(child).length > 0) {
         return {
           category: child.id,
-          // limit: 12,
-          // offset: 1,
         }
       }
       return {
         category: parent.id,
-        // limit: 12,
-        // offset: 1,
       }
-    },
-  },
+    }
+  }
 }
 </script>

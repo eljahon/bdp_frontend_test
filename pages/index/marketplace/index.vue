@@ -79,7 +79,6 @@
         </main>
         <div class="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-3">
           <div v-for="(product, index) in products" :key="index">
-            Lorem ipsum dolor sit amet.
             <div class="col-span-3 flex gap-4 h-auto w-full cursor-pointer">
               <div class="gap-x-2 bg-white rounded-md hover:shadow-lg border shadow-md w-full">
                 <div class="relative overflow-hidden">
@@ -223,10 +222,34 @@ export default {
     }
   },
   mounted() {
-    this.fetchDirectories()
+    this.fetchDirectories().then(() => {
+      this.fetchData()
+    })
+  },
+  watch: {
+    '$route.query': {
+      handler() {
+        this.fetchData()
+      },
+      deep: true,
+    },
   },
   computed: {},
   methods: {
+    async fetchData() {
+      await this.$store
+        .dispatch('getTradinposts', {
+          populate: '*',
+          locale: this.$i18n.locale,
+          'filters[$and][0][tradingpostcategory][id]':
+            this.$route.query.category && parseInt(this.$route.query.category) === 0
+              ? null
+              : this.$route.query.category,
+        })
+        .then((res) => {
+          this.products = res
+        })
+    },
     async fetchDirectories() {
       await this.$store
         .dispatch('getTradingpostcategories', {
@@ -250,19 +273,7 @@ export default {
             category.current = false
           })
           this.$store.dispatch('setSidebar', this.categories)
-        }),
-        await this.$store
-          .dispatch('getTradinposts', {
-            populate: '*',
-            locale: this.$i18n.locale,
-            // pagination: {
-            //   page: this.$route.query.page ? this.$route.query.page : 1,
-            //   pageSize: this.pagination.pageSize,
-            // },
-          })
-          .then((res) => {
-            this.products = res.data
-          })
+        })
     },
     openFilter(bool) {
       this.isFilterOpened = bool
