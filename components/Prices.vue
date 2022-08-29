@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <div class="group w-full hover:shadow-md shadow-sm border border-gray-100 rounded-md relative">
     <div class="flex items-center w-full bg-white rounded-md p-2 gap-2">
       <img
@@ -26,14 +26,24 @@
       </div>
     </div>
   </div>
-</template>
+</template> -->
 
 <script>
 export default {
   name: 'Prices',
   props: {
     // eslint-disable-next-line vue/require-default-prop
-    data: Object,
+    dataList: Object,
   },
-}
+  computed: {
+    list () {
+      return this.dataList
+    }
+    },
+    watch: {
+      list (old) {
+        console.log(' =======>>>', old);
+      }
+    }
+  }
 </script>
