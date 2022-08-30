@@ -72,7 +72,7 @@ export default {
             locale: this.$i18n.locale,
             'filters[$and][0][role][id]': 4,
             'filters[$and][0][confirmed]': true,
-            'filters[$and][0][consultantcategory][id]':
+            'filters[$and][0][agrocultureareas][id]':
               this.$route.query.category && parseInt(this.$route.query.category) === 0
                 ? null
                 : this.$route.query.category,

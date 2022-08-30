@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="max-w-6xl mx-auto sm:px-6 lg:px-8 xl:px-0 px-4 lg:my-12 my-4">
-      <!-- <div class="text-2xl font-semibold text-gray-700">{{ about[0].attributes.title }}</div>
-    <div v-html="about[0].attributes.content"></div> -->
+      <div v-if="about.length > 0" class="text-2xl font-semibold text-gray-700">{{ about[0].attributes.title }}</div>
+    <div v-if="about.length > 0" v-html="about[0].attributes.content"></div>
     </div>
     <div class="bg-green-900 my-10 py-10">
       <div class="max-w-6xl mx-auto sm:px-6 lg:px-8 xl:px-0 px-4">
