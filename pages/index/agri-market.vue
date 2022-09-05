@@ -20,7 +20,7 @@
            </select>
         </div>
         <div class="text-green-700 text-sm">
-          <select v-model="filter.priceDate" class="focus:outline-none">
+          <select v-model="filter.pricedate" class="focus:outline-none">
             <option v-for="(priceDate, index) in priceDates" :key="index" :value="priceDate.id">
              {{ $tools.getDate(priceDate.attributes.date) }}
             </option>
@@ -64,16 +64,18 @@ export default {
       filter: {
         district: 29,
         category: 'all',
-        priceDate: null
+        pricedate: null
       },
       districts: [],
       categories: [],
       priceDates: []
     }
   },
+
   mounted() {
     this.fetchDirectories().then(() => {
       this.setQuery()
+      this.fetchPriceLists()
     })
   },
   computed: {
@@ -102,20 +104,22 @@ export default {
         query: {
           district: this.filter.district,
           category: this.filter.category,
-          priceDate: this.filter.priceDate
+          pricedate: this.filter.pricedate
         }
       })
     },
-    fetchPriceLists(query) {
+   async fetchPriceLists(query) {
       const _ = {
-        populate: query.category !== 'all' ? 'priceData, district, product, product.productcategory' : '*',
+        populate: '*',
         locale: this.$i18n.locale,
         "filters[$and][0][district][id]": query.district,
-        "filters[$and][0][pricedate][id]": query.priceDate,
-        "filters[product][productcategory]": query.category !== 'all' ? query.category : null,
+        "filters[$and][0][pricedate][id]": query.pricedate,
+        // "filters[product][productcategory]": query.category !== 'all' ? query.category : null,
         'sort[0][product][name]': 'ASC',
       }
-      this.$store.dispatch(get, _)
+     await this.$store.dispatch(get, _)
+      .then(res => {
+K      })
     },
     async fetchDirectories() {
       await this.$store.dispatch('getDistricts', {
@@ -123,7 +127,7 @@ export default {
         "filters[$and][0][region][id]": 18,
         locale: this.$i18n.locale,
       }).then(res => {
-        this.districts = res
+        this.districts = res;
       })
       await this.$store.dispatch('getProductcategories', {
         populate: '*',
@@ -143,7 +147,7 @@ export default {
         sort: 'createdAt:DESC'
       }).then(res => {
         this.priceDates = res
-        this.filter.priceDate = this.priceDates[0].id
+        this.filter.pricedate = this.priceDates[0].id
       })
     }
   },
