@@ -49,7 +49,7 @@ export default {
     async fetchDirectories() {
       await this.$store.dispatch('getAgrocultureareas', {populate: '*', locale: this.$i18n.locale}).then((res) => {
         const list  = res.map(el => {
-          return {
+          return {  
             attributes: { name: el.attributes.title},
             id: el.attributes.locale === 'en' ? el.id : el.attributes.localizations.data.find(l=> l.attributes.locale === 'en')?.id ?? 0
           }
