@@ -41,7 +41,7 @@
             </div> -->
           </div>
           <div class="">
-            <img src="~/assets/images/about.png" class="rounded-md" alt="about" />
+            <img src="~/assets/images/about.jpg" class="rounded-md" alt="about" />
           </div>
         </div>
       </div>
@@ -64,7 +64,7 @@
               {{
                 $t(
                   'get-financial-legal-business-and-managerial-consultations-on-interested-area-of-agriculture-and-environment')
-                
+
               }}
             </div>
           </div>
@@ -218,7 +218,7 @@
                     :placeholder="$t('subject')"
                   />
                 </div>
-                
+
                 <div class="col-span-2">
                   <label for="comment" class="sr-only">{{$t('message')}}</label>
                   <ValidationProvider
