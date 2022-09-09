@@ -39,7 +39,7 @@
             </div>
           </div>
           <div class="">
-            <img src="~/assets/images/home.png" class="rounded-md" alt="home" />
+            <img src="~/assets/images/homeBig.jpg" class="rounded-md" alt="home" />
           </div>
         </div>
       </div>
@@ -137,7 +137,7 @@
       </div>
       <div class="mt-12 space-y-4">
         <router-link :to="localePath('/agri-finance')" class="font-semibold text-gray-700 text-2xl">
-          {{ $t('agri-finance') }} <span class="text-green-800">{{ $t('news') }}</span>
+          <span class="text-green-800">{{ $t('news') }}</span>
         </router-link>
         <div class="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1">
           <news-swiper :news="dataServiceposts" class="col-span-3" />
@@ -169,13 +169,13 @@
               <faq :data="faq" />
             </div>
           </div>
-          <img src="~/assets/images/home.png" class="rounded-md" alt="home" />
+          <img src="~/assets/images/homeSmall.jpg" class="rounded-md" alt="home" />
         </div>
       </div>
       <div class="mt-12 space-y-4">
-        <div class="">
-          <partners-swiper :partners="dataPartners" />
-        </div>
+<!--        <div class="">-->
+<!--          <partners-swiper :partners="dataPartners" />-->
+<!--        </div>-->
       </div>
     </div>
   </div>
@@ -186,7 +186,7 @@ import { mapGetters, mapState } from 'vuex'
 import registeModal from '../../components/modals/register.vue'
 import expertsSwiper from '~/components/swipers/experts-swiper.vue'
 import NewsSwiper from '~/components/swipers/news-swiper.vue'
-import PriceSwiper from '~/components/swipers/price-swiper.vue'
+// import PriceSwiper from '~/components/swipers/price-swiper.vue'
 import PartnersSwiper from '~/components/swipers/partners-swiper.vue'
 import YandexMap from '~/components/core/yandex-map.vue'
 import Faq from '~/components/Faq.vue'
@@ -195,7 +195,7 @@ export default {
   components: {
     YandexMap,
     expertsSwiper,
-    PriceSwiper,
+    // PriceSwiper,
     NewsSwiper,
     PartnersSwiper,
     Faq,

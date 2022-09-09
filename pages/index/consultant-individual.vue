@@ -130,14 +130,14 @@
               </div>
               <div class="md:col-span-1 col-span-2">
                 <label for="resume" class="block mb-1 text-sm font-medium text-gray-700"
-                  >{{ $t('upload-resume') }}(PDF)*</label
+                  >{{ $t('upload-resume') }}(PDF)*(Word)</label
                 >
                 <!-- <ValidationProvider v-slot="{ errors }" name="resume" rules="required" mode="eager" vid="file"> -->
                 <input
                   class="focus:outline-none appearance-none block w-full px-3 py-1 border rounded-md shadow-sm placeholder-gray-400 sm:text-sm border-gray-300"
                   aria-describedby="file_input_help"
                   id="resume"
-                  accept="application/pdf"
+                  accept="application/pdf,.doc,.docx,application/msword"
                   type="file"
                   ref="file"
                   @change="mediaChange($event, 'resume')"

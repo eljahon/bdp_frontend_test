@@ -72,12 +72,12 @@ export default {
           },
           {
             code: 'uz',
-            name: 'O\'zbekcha',
+            name: "O'zbekcha",
             iso: 'uz',
           },
           {
             code: 'kl',
-            name: 'Qoraqalpoq',
+            name: 'Қарақалпақша',
             iso: 'kl',
           },
         ],
