@@ -116,7 +116,7 @@
                     id="tin"
                     v-model="additional.tin"
                     :disabled="!isMainRegister"
-                    v-mask="'### ### ###'"
+                    v-mask="'#########'"
                     class="focus:outline-none appearance-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
                     :class="
                       errors.length > 0
