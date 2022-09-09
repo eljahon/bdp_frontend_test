@@ -108,13 +108,13 @@
               </select>
             </ValidationProvider>
           </div>
-          <!-- <div class="mt-1">
+           <div class="mt-1">
             <label for="region" class="block text-sm mb-1 font-medium text-gray-700"
               >{{ $t('region') }}*</label
             >
             <ValidationProvider v-slot="{ errors }" name="region" rules="required" mode="eager">
               <select
-                v-model="region"
+                v-model="account.region"
                 name="option"
                 class="
                   focus:outline-none
@@ -142,7 +142,7 @@
                 </option>
               </select>
             </ValidationProvider>
-          </div> -->
+          </div>
           <div class="mt-1">
             <label for="district" class="block text-sm mb-1 font-medium text-gray-700"
               >{{ $t('district') }}*</label
@@ -451,6 +451,7 @@ export default {
         district: null,
         role: null,
         confirmed: true,
+        region: null,
       },
       region: null,
       districts: [],
@@ -644,10 +645,10 @@ export default {
         .then((res) => {
           this.districts = res
         })
-      // await this.$store.dispatch('getRegions', {
-      //   populate: '*',
-      //   locale: this.$i18n.locale,
-      // })
+      await this.$store.dispatch('getRegions', {
+        populate: '*',
+        locale: this.$i18n.locale,
+      })
     },
   },
 }
