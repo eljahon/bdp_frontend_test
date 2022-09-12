@@ -234,7 +234,7 @@ export default {
       jwt: '',
       isMainRegister: false,
       isAgree: false,
-      degrees: [this.$t('high-school'), this.$t('bachelor-degree'), this.$t('master-degree')],
+      degrees: [this.$t('high-school'), this.$t('bachelor-degree'), this.$t('master-degree'), this.$t('PhD')],
     }
   },
   mounted() {

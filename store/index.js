@@ -4,7 +4,7 @@ import crud from './crud'
 import dynamic from './crud/dynamic'
 import socket from './modules/socket'
 import upload from './modules/upload'
-import company from './modules/company' 
+import company from './modules/company'
 import sidebar from './modules/sidebar'
 Vue.use(Vuex)
 
@@ -16,6 +16,7 @@ const createStore = () => {
       company,
       sidebar,
       products: crud('products'),
+      news: crud('news'),
       productcategories: crud('productcategories'),
       pricelists: crud('pricelists'),
       regions: crud('regions'),
@@ -40,7 +41,6 @@ const createStore = () => {
       agrocultureareas: crud('agrocultureareas'),
       contuctuses: crud('contactuses'),
       activitytypes: crud('activitytypes'),
-      agrocultureareas: crud('agrocultureareas'),
       tradinposts: crud('tradinposts'),
       tradingpostcategories: crud('tradingpostcategories')
     },
