@@ -2,6 +2,7 @@
   <div class="max-w-6xl sm:px-6 lg:px-8 xl:px-0 px-4 mx-auto lg:my-12 my-4">
     <div class="grid lg:grid-cols-3 grid-cols-1 lg:gap-6 gap-0">
       <div class="col-span-2">
+        <div v-if='lesson && lesson.attributes && lesson.attributes.videourl'>
         <div v-if="lesson.attributes.videourl" class="h-auto cursor-pointer w-full mb-4">
           <iframe
             width="100%"
@@ -11,29 +12,34 @@
             allowfullscreen
             class="responsive-iframe rounded-md"
           />
-        </div>
+
+        </div></div>
         <div class="my-6 text-gray-700 font-semibold text-4xl">
-          {{ lesson.attributes.title }}
+          {{ lesson.attributes.title ? lesson.attributes.title : ''  }}
         </div>
-        <div v-html="lesson.attributes.content"></div>
+          <div v-if='lesson && lesson.attributes && lesson.attributes.content'>
+            <div v-html="lesson.attributes.content"></div>
+          </div>
       </div>
       <div class="space-y-5">
         <div
-          v-if="lesson.attributes.attachments && lesson.attributes.attachments.data.length > 0" 
+          v-if="lesson.attributes.attachments && lesson.attributes.attachments.data.length > 0"
           class="bg-white rounded-md border border-gray-100 shadow-md p-5 lg:mt-0 mt-6"
         >
           <div class="text-gray-700 font-semibold text-xl">{{ $t('useful-materials') }}</div>
-          <div
-            v-for="(file, ind) in lesson.attributes.attachments.data"
-            :key="ind"
-            @click="openInNewTab(file)"
-            class="flex items-center justify-between rounded-md bg-yellow-100 p-3"
-          >
-            <div class="flex items-center space-x-3">
-              <i class="bx bxs-file-pdf text-gray-700 text-2xl"></i>
-              <p class="text-base text-gray-700 line-clamp-1">{{ file.attributes.filename }}</p>
+          <div v-if='lesson.attributes.attachments.data.length'>
+            <div
+              v-for="(file, ind) in lesson.attributes.attachments.data"
+              :key="ind"
+              @click="openInNewTab(file)"
+              class="flex items-center justify-between rounded-md bg-yellow-100 p-3"
+            >
+              <div class="flex items-center space-x-3">
+                <i class="bx bxs-file-pdf text-gray-700 text-2xl"></i>
+                <p class="text-base text-gray-700 line-clamp-1">{{ file.attributes.filename ? file.attributes.filename : '' }}</p>
+              </div>
+              <div><i class="bx bx-download text-gray-700 text-xl"></i></div>
             </div>
-            <div><i class="bx bx-download text-gray-700 text-xl"></i></div>
           </div>
         </div>
         <div class="bg-white rounded-md border border-gray-100 shadow-md p-5">
@@ -56,7 +62,7 @@
               :alt="course.id"
             />
             <div class="grid content-between text-gray-600 text-sm">
-              <div class="line-clamp-2 text-sm mb-2">{{ course.attributes.title }}</div>
+              <div class="line-clamp-2 text-sm mb-2">{{ course.attributes.title ? course.attributes.title : '' }}</div>
               <div class="text-xs">{{ $tools.getDate(course.attributes.createdAt) }}</div>
             </div>
           </nuxt-link>
