@@ -267,7 +267,6 @@ export default {
   },
   mounted() {
     this.fetchDirectories()
-    console.log(this.dataNews, 'newsss====>>>>')
   },
   methods: {
     moveToAgriBusiness(item) {

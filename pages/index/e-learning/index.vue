@@ -95,7 +95,6 @@ export default {
         populate: '*',
         locale: this.$i18n.locale,
       }).then((res) => {
-        console.log(res, '=======>>>')
         this.categories = res
         this.categories.unshift({
           id: 0,
