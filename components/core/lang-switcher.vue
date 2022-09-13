@@ -1,14 +1,14 @@
 <template>
 <!--  <div class="lang-switcher">-->
     <div class='flex justify-end  items-center lang-switcher-wapper'>
-      <button @click='langChages' class=' lang-switcher-button w-full flex items-center '>
+      <button class=' lang-switcher-button w-full flex items-center '>
         <img class='w-6' :src='localeImage[$i18n.locale]' alt=''>
         <span>{{$i18n.locales.find(el => el.code === locale).name}}</span>
       </button>
       <nav class='none-active nav'>
         <ul>
-          <li v-for="(lang, index) in $i18n.locales" :key='index' >
-            <button @click='onChange(lang)' class='w-6 h-6 flex items-center gap-1.5'><img :src='localeImage[lang.code]' alt=''>{{lang.name}}</button>
+          <li v-for="(lang, index) in $i18n.locales" :key='index' @click='onChange(lang)' >
+            <button  class='w-6 h-6 flex items-center gap-1.5'><img :src='localeImage[lang.code]' alt=''>{{lang.name}}</button>
           </li>
         </ul>
       </nav>
@@ -52,7 +52,7 @@ export default  {
       isLang: false,
       localeImage: {
         uz: uz,
-        kl: ka,
+        kaa: ka,
         ru: ru,
         en: en
       }
@@ -60,14 +60,10 @@ export default  {
   },
   methods: {
     onChange(event) {
-      console.log(event)
       this.$router.push(this.switchLocalePath(event.code))
       this.isLang = !this.isLang;
       this.locale = this.$i18n.locale
     },
-    langChages () {
-      this.isLang = !this.isLang
-    }
   },
   mounted() {
   }
