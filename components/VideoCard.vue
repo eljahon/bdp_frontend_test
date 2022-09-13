@@ -66,13 +66,13 @@ export default {
   },
   methods: {
     toDetail() {
-      if (this.data.attributes.coursetype.data.id === 1) {
+      // if (this.data.attributes.coursetype.data.id === 1) {
         this.$router.push({
           path: this.localePath(`/e-learning/${this.data.id}`),
         })
-      } else {
-        this.$snotify.warning('Multiple courses')
-      }
+      // } else {
+      //   this.$snotify.warning('Multiple courses')
+      // }
     },
   },
 }

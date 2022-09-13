@@ -7,7 +7,7 @@
             {{detail.attributes.title}}
           </div>
           <div v-html='detail.attributes.content' class="text-sm text-gray-500 leading-8">
-<!--           {{detail.attributes.content}}-->
+            <!--           {{detail.attributes.content}}-->
           </div>
         </div>
       </div>
@@ -36,7 +36,7 @@
             v-for="(service, ind) in services"
             :key="ind"
             class="flex items-center space-x-3 my-4 cursor-pointer hover:bg-gray-100 rounded-md"
-            :to="localePath(`/agri-finance/${service.id}`)"
+            :to="localePath(`/news/${service.id}`)"
           >
             <img
               :src="
@@ -55,66 +55,11 @@
             </div>
           </nuxt-link>
           <nuxt-link
-            :to="localePath('/agri-finance')"
+            :to="localePath('/news')"
             class="text-center text-green-500 hover:text-green-700 font-semibold text-sm flex justify-center"
           >
             {{ $t('view-all') }}
           </nuxt-link>
-        </div>
-      </div>
-    </div>
-    <div class="text-gray-700 font-semibold text-2xl my-6">Our work process</div>
-    <p class="text-sm text-gray-500 leading-8">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer adipiscing erat eget risus
-      sollicitudin pellentesque et non erat. Maecenas nibh dolor, malesuada et bibendum a, sagittis
-      accumsan ipsum. Pellentesque ultrices ultrices sapien, nec tincidunt nunc posuere ut. Lorem
-      ipsum dolor sit amet, consectetur adipiscing elit. Nam scelerisque tristique dolor vitae
-      tincidunt. Aenean quis massa uada mi elementum elementum. Nec sapien convallis vulputate
-      rhoncus vel dui.
-    </p>
-    <div class="grid lg:grid-cols-4 grid-cols-1 gap-4 my-6">
-      <div class="rounded-md border border-gray-200 shadow-md bg-white p-8">
-        <div class="flex items-center justify-between">
-          <img src="~/assets/images/consultation.png" class="rounded-md" alt="about" />
-          <p class="text-gray-200 text-5xl font-extrabold">1</p>
-        </div>
-        <div class="text-gray-700 font-semibold text-lg mb-4 mt-8">Consultation</div>
-        <div class="text-sm text-gray-500">
-          Lorem Ipsum is simply dummy of the printing and typesetting test industry. Lorem Ipsum has
-          been the industry's standard.
-        </div>
-      </div>
-      <div class="rounded-md border border-gray-200 shadow-md bg-white p-8">
-        <div class="flex items-center justify-between">
-          <img src="~/assets/images/recommendation.png" class="rounded-md" alt="about" />
-          <p class="text-gray-200 text-5xl font-extrabold">2</p>
-        </div>
-        <div class="text-gray-700 font-semibold text-lg mb-4 mt-8">Design & work</div>
-        <div class="text-sm text-gray-500">
-          Lorem Ipsum is simply dummy of the printing and typesetting test industry. Lorem Ipsum has
-          been the industry's standard.
-        </div>
-      </div>
-      <div class="rounded-md border border-gray-200 shadow-md bg-white p-8">
-        <div class="flex items-center justify-between">
-          <img src="~/assets/images/financial.png" class="rounded-md" alt="about" />
-          <p class="text-gray-200 text-5xl font-extrabold">3</p>
-        </div>
-        <div class="text-gray-700 font-semibold text-lg mb-4 mt-8">Maintenance</div>
-        <div class="text-sm text-gray-500">
-          Lorem Ipsum is simply dummy of the printing and typesetting test industry. Lorem Ipsum has
-          been the industry's standard.
-        </div>
-      </div>
-      <div class="rounded-md border border-gray-200 shadow-md bg-white p-8">
-        <div class="flex items-center justify-between">
-          <img src="~/assets/images/management.png" class="rounded-md" alt="about" />
-          <p class="text-gray-200 text-5xl font-extrabold">4</p>
-        </div>
-        <div class="text-gray-700 font-semibold text-lg mb-4 mt-8">Complete</div>
-        <div class="text-sm text-gray-500">
-          Lorem Ipsum is simply dummy of the printing and typesetting test industry. Lorem Ipsum has
-          been the industry's standard.
         </div>
       </div>
     </div>
@@ -124,7 +69,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import { actions, getters } from '~/utils/store_schema'
-const _page = 'serviceposts'
+const _page = 'news'
 const { get, getById } = actions(_page)
 export default {
   name: 'AgriFinanceDetails',
@@ -135,6 +80,12 @@ export default {
         attributes: {}
       },
       services: []
+    }
+  },
+  watch: {
+    '$route.params.detail': function(value) {
+      // console.log(value)
+      this.fetchData()
     }
   },
   computed: {
@@ -155,7 +106,7 @@ export default {
         .dispatch(get, {
           pagination: {
             page: 1,
-            pageSize: 5,
+            pageSize: 12,
           },
           populate: '*',
           'sort[0][createdAt]': 'DESC',

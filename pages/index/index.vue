@@ -136,11 +136,11 @@
 <!--        </div>-->
 <!--      </div>-->
       <div class="mt-12 space-y-4">
-        <router-link :to="localePath('/agri-finance')" class="font-semibold text-gray-700 text-2xl">
+        <router-link :to="localePath('/news')" class="font-semibold text-gray-700 text-2xl">
           <span class="text-green-800">{{ $t('news') }}</span>
         </router-link>
         <div class="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1">
-          <news-swiper :news="dataServiceposts" class="col-span-3" />
+          <news-swiper :news="dataNews" class="col-span-3" />
         </div>
         <router-link
           :to="localePath('/agri-finance')"
@@ -262,12 +262,12 @@ export default {
       'dataFaqs',
       'dataPartners',
       'getLocations',
-      'dataServiceposts',
+        'dataNews',
     ]),
   },
   mounted() {
     this.fetchDirectories()
-    console.log(this.$store)
+    console.log(this.dataNews, 'newsss====>>>>')
   },
   methods: {
     moveToAgriBusiness(item) {
@@ -330,7 +330,7 @@ export default {
           this.$sentry.captureException(error)
         })
       await this.$store
-        .dispatch('getServiceposts', {
+        .dispatch('getNews', {
           populate: '*',
           locale: this.$i18n.locale,
           'sort[0][createdAt]': 'DESC',

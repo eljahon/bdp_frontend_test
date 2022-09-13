@@ -86,7 +86,7 @@ export default {
             ? this.$route.query.text
             : null,
           'filters[$and][0][title][$notNull]': true,
-          'filters[$and][0][coursetype][id]': 1,
+          // 'filters[$and][0][coursetype][id]': 1,
         })
         .then(() => {})
     },
@@ -95,6 +95,7 @@ export default {
         populate: '*',
         locale: this.$i18n.locale,
       }).then((res) => {
+        console.log(res, '=======>>>')
         this.categories = res
         this.categories.unshift({
           id: 0,

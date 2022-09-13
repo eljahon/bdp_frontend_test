@@ -76,9 +76,9 @@ export default {
             iso: 'uz',
           },
           {
-            code: 'kl',
+            code: 'kaa',
             name: 'Қарақалпақша',
-            iso: 'kl',
+            iso: 'kaa',
           },
         ],
         vueI18n: i18n,
