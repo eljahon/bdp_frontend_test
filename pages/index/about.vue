@@ -288,7 +288,9 @@
           </div>
         </div>
       </div>
+
       <div class="mt-12 space-y-4">
+        <h1>{{$t('key_content_partners')}}</h1>
         <partners-swiper :partners="dataPartners" />
       </div>
     </div>
