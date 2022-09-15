@@ -43,7 +43,7 @@
         >
           <div v-for="(company, index) in data" :key="index">
             <div
-              class="flex items-center space-x-3 my-2 cursor-pointer"
+              class="flex items-center space-x-3 my-2 cursor-pointer "
               :class="
                 $route.query.company && parseInt($route.query.company) === company.id
                   ? 'bg-gray-100 p-2'
@@ -51,15 +51,20 @@
               "
               @click="toCompanyDetail(company)"
             >
-              <img
-                src="~/assets/images/about.png"
-                class="rounded-md w-28 h-20 object-cover"
+              <img v-if='company && company.attributes && company.attributes.logo'
+                :src="$tools.getFileUrl(company.attributes.logo)"
+                class="rounded-md max-w-28 max-h-20 object-cover"
                 alt="about"
               />
+              <img v-else
+                   src="~/assets/images/com.jpg"
+                   class="rounded-md max-w-28 max-h-20 object-cover"
+                   alt="about"
+              />
               <div class="grid content-between text-gray-500 text-base h-14">
-                <p class="text-green-700 font-medium">{{ company.attributes.name }}</p>
-                <p class="text-sm border-b border-green-700 pb-2">
-                  {{ company.attributes.shortinfo }}
+                <p class="text-green-700 font-medium">{{ company.attributes.name ? textFormat(company.attributes.name)  : ''  }}</p>
+                <p class="text-sm border-b mt-1 border-green-700 pb-2">
+                  {{textFormat(company.attributes.shortinfo)}}
                 </p>
               </div>
             </div>
@@ -126,6 +131,14 @@ export default {
     }),
   },
   methods: {
+    textFormat(item) {
+      let len = item.length;
+      if (len > 30) {
+        return item.slice(1, 50) + "..."
+      } else {
+        return  item ? item : ''
+      }
+    },
     async setQuery() {
       let _query = {
         category: this.filter.category,
@@ -145,10 +158,10 @@ export default {
           populate: '*',
           locale: this.$i18n.locale,
           'sort[0][name]': 'ASC',
-          'filters[$and][0][companycategory][id]':
-            this.$route.query.category && parseInt(this.$route.query.category) === 0
-              ? null
-              : this.$route.query.category,
+          // 'filters[$and][0][companycategory][id]':
+          //   this.$route.query.category && parseInt(this.$route.query.category) === 0
+          //     ? null
+          //     : this.$route.query.category,
           'filters[$and][0][name][$containsi]': this.$route.query.text
             ? this.$route.query.text
             : null,
@@ -156,7 +169,7 @@ export default {
           // 'filters[$and][0][established]': true,
         })
         .then((res) => {
-          this.$store.dispatch('setCompanies', res)
+          // console.log('res ==>>>', res )
         })
     },
     async fetchDirectories() {
@@ -176,6 +189,7 @@ export default {
         })
     },
     toCompanyDetail(data) {
+      // console.log(data, '=====>>>>>')
       this.$router.push({
         path: this.$route.path,
         query: {

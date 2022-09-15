@@ -35,7 +35,7 @@ export default {
       settings: {
         apiKey: this.$const.yandexKey,
         lang: 'ru_RU',
-        coordorder: 'latlong',
+        coordorder: 'latlng',
         version: '2.1',
       },
       sendingAddress: {
@@ -47,6 +47,7 @@ export default {
       addresses: [],
       address: '',
       searchedAddresses: [],
+      placeList: null,
     }
   },
   computed: {},
@@ -65,22 +66,35 @@ export default {
   },
   methods: {
     showLocations() {
-      console.log('coords', this.coords)
+      // console.log('coords', this.coords)
       if (this.coords && this.map) {
-        if (this.location) this.map.panTo([this.location.lng, this.location.lat], { checkZoomRange: true })
-        for (let index = 0; index < this.coords.length; index++) {
-          let placemark = new ymaps.Placemark(
-            [this.coords[index].lng, this.coords[index].lat],
-            {
-              balloonContent: 'Small icon',
-            },
-            {
-              preset: 'islands#icon',
-              iconColor: '#0095b6'
-            }
-          )
-          this.map.geoObjects.add(placemark)
-        }
+        if (this.location) this.map.panTo([this.location.lat,this.location.lng], { checkZoomRange: true })
+        this.map.geoObjects.remove(this.placeList)
+        let placemark = new ymaps.Placemark(
+          [this.location.lat,this.location.lng],
+          {
+            balloonContent: 'Small icon',
+          },
+          {
+            preset: 'islands#icon',
+            iconColor: '#0095b6'
+          }
+        );
+        this.map.geoObjects.add(placemark)
+        this.placeList = placemark;
+        // for (let index = 0; index < this.coords.length; index++) {
+        //   let placemark = new ymaps.Placemark(
+        //     [this.coords[index].lng, this.coords[index].lat],
+        //     {
+        //       balloonContent: 'Small icon',
+        //     },
+        //     {
+        //       preset: 'islands#icon',
+        //       iconColor: '#0095b6'
+        //     }
+        //   )
+        //   this.map.geoObjects.add(placemark)
+        // }
       }
     },
     initMap() {

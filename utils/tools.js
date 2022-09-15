@@ -1,14 +1,14 @@
 /* eslint-disable no-unused-expressions */
 import Vue from 'vue'
 import VueRouter from 'vue-router'
- 
+
 const { isNavigationFailure, NavigationFailureType } = VueRouter
 const tools = {
   getDefaultLanguageID(langs) {
     return langs.find(l => l.attributes.locale === 'en').id
   },
-  
-  emptyObject(obj) {
+
+    emptyObject(obj) {
     return Object.entries(obj).reduce(
       (a, [k, v]) => (v === null || v === '' ? a : ((a[k] = v), a)),
       {}

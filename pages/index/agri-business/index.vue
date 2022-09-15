@@ -6,8 +6,8 @@
       style="min-height: calc(72vh - 0px)"
     >
       <div class="flex justify-between items-center mb-2">
-        <h3 class="text-xl font-semibold text-gray-900 lg:text-2xl dark:text-white">
-          {{ company.attributes.name }}
+        <h3 v-if='company.attributes && company.attributes&& company.attributes.name' class="text-xl font-semibold text-gray-900 lg:text-2xl dark:text-white">
+          {{ company.attributes.name ? company.attributes.name : ''  }}
         </h3>
         <button
           type="button"
@@ -95,6 +95,9 @@ export default {
     ...mapGetters(['getLocations']),
   },
   watch: {
+    'getLocations': function(oldvalue, newvalue) {
+      console.log(oldvalue, newvalue)
+    },
     '$route.query.company'(val) {
       if (this.$route.query.company) this.fetchCompanyDetail(val)
     },
@@ -113,7 +116,7 @@ export default {
         })
         .then((res) => {
           this.company = { ...res.data }
-          this.detailOpened = true
+          // this.detailOpened = true
         })
     },
   },
