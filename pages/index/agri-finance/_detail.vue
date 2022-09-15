@@ -6,7 +6,7 @@
           <div class="mb-6 text-gray-700 font-semibold text-4xl">
             {{detail.attributes.title}}
           </div>
-          <div v-html='detail.attributes.content' class="text-sm text-gray-500 leading-8">
+          <div v-html='detail.attributes.content' class=" cutom-table text-sm text-gray-500 leading-8">
 <!--           {{detail.attributes.content}}-->
           </div>
         </div>
@@ -36,20 +36,23 @@
             v-for="(service, ind) in services"
             :key="ind"
             class="flex items-center space-x-3 my-4 cursor-pointer hover:bg-gray-100 rounded-md"
-            :to="{path:localePath(`/agri-finance/${service.id}`), query: {id: service.id}}"
+            :class="{'bg-gray-100':service.id === $route.query.id}"
+            :to="{path:localePath(`/agri-finance/${$route.params.detail}`), query: {id: service.id}}"
           >
-            <img
-              :src="
+            <div class="w-1/3 object-cover">
+              <img class="rounded-md w-full  object-cover"
+                :src="
                 $tools.getFileUrl(
                   service.attributes.thumbnail
                     ? service.attributes.thumbnail
                     : service.attributes.image
                 )
               "
-              class="rounded-md w-28 h-20 object-cover"
-              :alt="service.id"
-            />
-            <div class="grid content-between text-gray-600 text-sm">
+                :alt="service.id"
+              />
+
+            </div>
+            <div class="grid w-2/3 content-between text-gray-600 text-sm">
               <div class="line-clamp-2 text-sm mb-2">{{ service.attributes.title }}</div>
               <div class="text-xs">{{ $tools.getDate(service.attributes.createdAt) }}</div>
             </div>
@@ -141,13 +144,13 @@ export default {
     ...mapGetters(getters(_page)),
   },
   watch: {
-    '$route.params': {
-      handler() {
+    '$route.query.id': function() {
+      // handler() {
         this.fetchData()
         // this.fetchDirectories()
-      },
-      deep: true,
-    },
+    //   },
+    //   deep: true,
+    }
   },
   async mounted() {
     window.scrollTo(0 , 0)
@@ -178,7 +181,7 @@ export default {
     async fetchData() {
       return await this.$store
         .dispatch(getById, {
-          id: this.$route.params.detail,
+          id: this.$route.query.id,
           query: {
             populate: '*',
             locale: this.$i18n.locale,
@@ -192,3 +195,32 @@ export default {
 
 }
 </script>
+<style>
+ table {
+  border: 1px solid black !important;
+  border-collapse: collapse !important;
+}
+ th {
+   border: 1px solid black !important;
+   border-collapse: collapse !important;
+   text-align: center !important;
+   padding-left: 4px;
+ }
+ tr:nth-child(2) {
+   background-color: rgb(220 252 231);
+ }
+ td {
+   border: 1px solid black !important;
+   border-collapse: collapse !important;
+      /*text-align: center !important;*/
+   padding-left: 4px;
+
+ }
+ tr {
+   border: 1px solid black !important;
+   border-collapse: collapse !important;
+      /*text-align: center !important;*/
+   padding-left: 4px;
+
+ }
+</style>
