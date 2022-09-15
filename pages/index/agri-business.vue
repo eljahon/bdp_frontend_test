@@ -38,12 +38,12 @@
           </div>
         </div>
         <div
-          class="overflow-y-auto scrollbar-track-blue-lighter scrollbar-thumb-blue scrollbar-w-2 scrolling-touch"
+          class="overflow-y-auto hide-scrolbar scrollbar-track-blue-lighter scrollbar-thumb-blue scrollbar-w-2 scrolling-touch"
           style="height: calc(60vh - 0px)"
         >
           <div v-for="(company, index) in data" :key="index">
             <div
-              class="flex items-center space-x-3 my-2 cursor-pointer "
+              class="flex pb-1 items-center space-x-3 my-2 cursor-pointer "
               :class="
                 $route.query.company && parseInt($route.query.company) === company.id
                   ? 'bg-gray-100 p-2'
@@ -51,20 +51,22 @@
               "
               @click="toCompanyDetail(company)"
             >
-              <img v-if='company && company.attributes && company.attributes.logo'
-                :src="$tools.getFileUrl(company.attributes.logo)"
-                class="rounded-md max-w-28 max-h-20 object-cover"
-                alt="about"
-              />
-              <img v-else
-                   src="~/assets/images/com.jpg"
-                   class="rounded-md max-w-28 max-h-20 object-cover"
-                   alt="about"
-              />
-              <div class="grid content-between text-gray-500 text-base h-14">
-                <p class="text-green-700 font-medium">{{ company.attributes.name ? textFormat(company.attributes.name)  : ''  }}</p>
-                <p class="text-sm border-b mt-1 border-green-700 pb-2">
-                  {{textFormat(company.attributes.shortinfo)}}
+              <div class="w-24 h-20">
+                <img v-if='company && company.attributes && company.attributes.logo'
+                     :src="$tools.getFileUrl(company.attributes.logo)"
+                     class="rounded-md w-full h-full object-cover"
+                     alt="about"
+                />
+                <img v-else
+                     src="~/assets/images/com.jpg"
+                     class="rounded-md w-full h-full object-cover"
+                     alt="about"
+                />
+              </div>
+              <div class="grid w-full border-b pb-1 border-green-700 content-between text-gray-500 text-base h-14">
+                <p class="text-green-700 font-medium">{{ company.attributes.name ? textFormatTop(company.attributes.name)  : ''  }}</p>
+                <p class="text-sm mt-1 pb-2">
+                  {{textFormatBottom(company.attributes.shortinfo)}}
                 </p>
               </div>
             </div>
@@ -131,10 +133,18 @@ export default {
     }),
   },
   methods: {
-    textFormat(item) {
+    textFormatTop(item) {
       let len = item.length;
-      if (len > 30) {
-        return item.slice(1, 50) + "..."
+      if (len > 18) {
+        return item.slice(1, 18) + "..."
+      } else {
+        return  item ? item : ''
+      }
+    },
+    textFormatBottom(item) {
+      let len = item.length;
+      if (len > 26) {
+        return item.slice(1, 26) + "..."
       } else {
         return  item ? item : ''
       }
@@ -200,3 +210,13 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.hide-scrolbar::-webkit-scrollbar {
+  display: none;
+}
+.hide-scrolbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+</style>
