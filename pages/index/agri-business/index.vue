@@ -98,8 +98,8 @@ export default {
     'getLocations': function(oldvalue, newvalue) {
       console.log(oldvalue, newvalue)
     },
-    '$route.query.company'(val) {
-      if (this.$route.query.company) this.fetchCompanyDetail(val)
+    '$route.query.id'(val) {
+      if (this.$route.query.id) this.fetchCompanyDetail(val)
     },
   },
   methods: {

@@ -96,7 +96,7 @@ export default {
     return {
       infoOpened: false,
       filter: {
-        category: 0,
+        category: this.$route.query.category ?? 0,
         text: '',
       },
       categories: [],
@@ -113,7 +113,7 @@ export default {
     })
   },
   watch: {
-    '$route.query': {
+    '$route.query.category': {
       handler() {
         this.fetchData()
       },
@@ -151,6 +151,7 @@ export default {
     },
     async setQuery() {
       let _query = {
+        ...this.$route.query,
         category: this.filter.category,
         text: this.filter.text && this.filter.text.length > 0 ? this.filter.text : null,
       }
@@ -168,18 +169,19 @@ export default {
           populate: '*',
           locale: this.$i18n.locale,
           'sort[0][name]': 'ASC',
-          // 'filters[$and][0][companycategory][id]':
-          //   this.$route.query.category && parseInt(this.$route.query.category) === 0
-          //     ? null
-          //     : this.$route.query.category,
+          'filters[$and][0][companycategory][id]':
+            this.$route.query.category && parseInt(this.$route.query.category) === 0
+              ? null
+              : this.$route.query.category,
           'filters[$and][0][name][$containsi]': this.$route.query.text
             ? this.$route.query.text
             : null,
           'filters[$and][0][name][$notNull]': true,
-          // 'filters[$and][0][established]': true,
+          'filters[$and][0][established]': true,
         })
         .then((res) => {
           // console.log('res ==>>>', res )
+          this.$store.dispatch('setCompanies', res)
         })
     },
     async fetchDirectories() {
@@ -203,7 +205,8 @@ export default {
       this.$router.push({
         path: this.$route.path,
         query: {
-          company: data.id,
+          ...this.$route.query,
+          id: data.id,
         },
       })
     },
