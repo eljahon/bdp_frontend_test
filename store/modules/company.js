@@ -18,7 +18,7 @@ export default {
         },
         ADD_LOCATIONS(state, payload) {
             state.locations.push(payload)
-            console.log('ADD_LOCATIONS', state.locations, payload)
+            // console.log('ADD_LOCATIONS', state.locations, payload)
         }
     },
     actions: {

@@ -38,12 +38,12 @@
           </div>
         </div>
         <div
-          class="overflow-y-auto scrollbar-track-blue-lighter scrollbar-thumb-blue scrollbar-w-2 scrolling-touch"
+          class="overflow-y-auto hide-scrolbar scrollbar-track-blue-lighter scrollbar-thumb-blue scrollbar-w-2 scrolling-touch"
           style="height: calc(60vh - 0px)"
         >
           <div v-for="(company, index) in data" :key="index">
             <div
-              class="flex items-center space-x-3 my-2 cursor-pointer"
+              class="flex pb-1 items-center space-x-3 my-2 cursor-pointer "
               :class="
                 $route.query.company && parseInt($route.query.company) === company.id
                   ? 'bg-gray-100 p-2'
@@ -51,15 +51,22 @@
               "
               @click="toCompanyDetail(company)"
             >
-              <img
-                src="~/assets/images/about.png"
-                class="rounded-md w-28 h-20 object-cover"
-                alt="about"
-              />
-              <div class="grid content-between text-gray-500 text-base h-14">
-                <p class="text-green-700 font-medium">{{ company.attributes.name }}</p>
-                <p class="text-sm border-b border-green-700 pb-2">
-                  {{ company.attributes.shortinfo }}
+              <div class="w-24 h-20">
+                <img v-if='company && company.attributes && company.attributes.logo'
+                     :src="$tools.getFileUrl(company.attributes.logo)"
+                     class="rounded-md w-full h-full object-cover"
+                     alt="about"
+                />
+                <img v-else
+                     src="~/assets/images/com.jpg"
+                     class="rounded-md w-full h-full object-cover"
+                     alt="about"
+                />
+              </div>
+              <div class="grid w-full border-b pb-1 border-green-700 content-between text-gray-500 text-base h-14">
+                <p class="text-green-700 font-medium">{{ company.attributes.name ? textFormatTop(company.attributes.name)  : ''  }}</p>
+                <p class="text-sm mt-1 pb-2">
+                  {{textFormatBottom(company.attributes.shortinfo)}}
                 </p>
               </div>
             </div>
@@ -89,7 +96,7 @@ export default {
     return {
       infoOpened: false,
       filter: {
-        category: 0,
+        category: this.$route.query.category ?? 0,
         text: '',
       },
       categories: [],
@@ -106,7 +113,7 @@ export default {
     })
   },
   watch: {
-    '$route.query': {
+    '$route.query.category': {
       handler() {
         this.fetchData()
       },
@@ -126,8 +133,25 @@ export default {
     }),
   },
   methods: {
+    textFormatTop(item) {
+      let len = item.length;
+      if (len > 18) {
+        return item.slice(1, 18) + "..."
+      } else {
+        return  item ? item : ''
+      }
+    },
+    textFormatBottom(item) {
+      let len = item.length;
+      if (len > 26) {
+        return item.slice(1, 26) + "..."
+      } else {
+        return  item ? item : ''
+      }
+    },
     async setQuery() {
       let _query = {
+        ...this.$route.query,
         category: this.filter.category,
         text: this.filter.text && this.filter.text.length > 0 ? this.filter.text : null,
       }
@@ -153,9 +177,10 @@ export default {
             ? this.$route.query.text
             : null,
           'filters[$and][0][name][$notNull]': true,
-          // 'filters[$and][0][established]': true,
+          'filters[$and][0][established]': true,
         })
         .then((res) => {
+          // console.log('res ==>>>', res )
           this.$store.dispatch('setCompanies', res)
         })
     },
@@ -176,13 +201,25 @@ export default {
         })
     },
     toCompanyDetail(data) {
+      // console.log(data, '=====>>>>>')
       this.$router.push({
         path: this.$route.path,
         query: {
-          company: data.id,
+          ...this.$route.query,
+          id: data.id,
         },
       })
     },
   },
 }
 </script>
+
+<style scoped>
+.hide-scrolbar::-webkit-scrollbar {
+  display: none;
+}
+.hide-scrolbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+</style>

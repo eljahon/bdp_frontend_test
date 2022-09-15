@@ -36,7 +36,7 @@
             v-for="(service, ind) in services"
             :key="ind"
             class="flex items-center space-x-3 my-4 cursor-pointer hover:bg-gray-100 rounded-md"
-            :to="localePath(`/agri-finance/${service.id}`)"
+            :to="{path:localePath(`/agri-finance/${service.id}`), query: {id: service.id}}"
           >
             <img
               :src="
@@ -140,9 +140,18 @@ export default {
   computed: {
     ...mapGetters(getters(_page)),
   },
-  mounted() {
-    window.scrollTo(0, 0)
-    this.fetchDirectories().then(() => {
+  watch: {
+    '$route.params': {
+      handler() {
+        this.fetchData()
+        // this.fetchDirectories()
+      },
+      deep: true,
+    },
+  },
+  async mounted() {
+    window.scrollTo(0 , 0)
+    await  this.fetchDirectories().then(() => {
       this.fetchData()
     })
   },
@@ -151,7 +160,7 @@ export default {
       window.open(this.$tools.getFileUrl(file.attributes.url))
     },
     async fetchDirectories() {
-      await this.$store
+     return  await this.$store
         .dispatch(get, {
           pagination: {
             page: 1,
@@ -167,7 +176,7 @@ export default {
         })
     },
     async fetchData() {
-      await this.$store
+      return await this.$store
         .dispatch(getById, {
           id: this.$route.params.detail,
           query: {

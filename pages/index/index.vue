@@ -140,7 +140,7 @@
           <span class="text-green-800">{{ $t('news') }}</span>
         </router-link>
         <div class="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1">
-          <news-swiper :news="dataNews" class="col-span-3" />
+          <NewsSwiper :news="dataNews" class="col-span-3" />
         </div>
         <router-link
           :to="localePath('/agri-finance')"
@@ -185,8 +185,8 @@
 import { mapGetters, mapState } from 'vuex'
 import registeModal from '../../components/modals/register.vue'
 import expertsSwiper from '~/components/swipers/experts-swiper.vue'
-import NewsSwiper from '~/components/swipers/news-swiper.vue'
-// import PriceSwiper from '~/components/swipers/price-swiper.vue'
+import NewsSwiper from '~/components/swipers/news-swipers/new-swipers'
+import PriceSwiper from '~/components/swipers/price-swiper.vue'
 import PartnersSwiper from '~/components/swipers/partners-swiper.vue'
 import YandexMap from '~/components/core/yandex-map.vue'
 import Faq from '~/components/Faq.vue'
@@ -195,7 +195,7 @@ export default {
   components: {
     YandexMap,
     expertsSwiper,
-    // PriceSwiper,
+    PriceSwiper,
     NewsSwiper,
     PartnersSwiper,
     Faq,
@@ -260,7 +260,7 @@ export default {
       'dataUsers',
       'dataPricelists',
       'dataFaqs',
-      'dataPartners',
+      // 'dataPartners',
       'getLocations',
         'dataNews',
     ]),
@@ -292,17 +292,7 @@ export default {
       )
     },
     async fetchDirectories() {
-      await this.$store
-        .dispatch('getCourses', {
-          'sort[0][createdAt]': 'DESC',
-          populate: '*',
-          locale: this.$i18n.locale,
-          'pagination[page]': 1,
-          'pagination[pageSize]': 3,
-        })
-        .catch((error) => {
-          this.$sentry.captureException(error)
-        })
+      //
       await this.$store
         .dispatch('getUsers', {
           link: '/users',
@@ -319,24 +309,8 @@ export default {
         .catch((error) => {
           this.$sentry.captureException(error)
         })
-      await this.$store
-        .dispatch('getPricelists', {
-          populate: '*',
-          locale: this.$i18n.locale,
-          'sort[0][product][name]': 'ASC',
-        })
-        .catch((error) => {
-          this.$sentry.captureException(error)
-        })
-      await this.$store
-        .dispatch('getNews', {
-          populate: '*',
-          locale: this.$i18n.locale,
-          'sort[0][createdAt]': 'DESC',
-        })
-        .catch((error) => {
-          this.$sentry.captureException(error)
-        })
+      //
+
       await this.$store
         .dispatch('getFaqs', {
           populate: '*',
@@ -345,14 +319,14 @@ export default {
         .catch((error) => {
           this.$sentry.captureException(error)
         })
-      await this.$store
-        .dispatch('getPartners', {
-          populate: '*',
-          locale: this.$i18n.locale,
-        })
-        .catch((error) => {
-          this.$sentry.captureException(error)
-        })
+      // await this.$store
+      //   .dispatch('getPartners', {
+      //     populate: '*',
+      //     locale: this.$i18n.locale,
+      //   })
+      //   .catch((error) => {
+      //     this.$sentry.captureException(error)
+      //   })
       await this.$store
         .dispatch('getCompanies', {
           populate: '*',
@@ -371,6 +345,15 @@ export default {
         })
         .then((res) => {
           this.companyCategories = res
+        })
+      await this.$store
+        .dispatch('getNews', {
+          populate: '*',
+          locale: this.$i18n.locale,
+          'sort[0][createdAt]': 'DESC',
+        })
+        .catch((error) => {
+          this.$sentry.captureException(error)
         })
     },
   },
