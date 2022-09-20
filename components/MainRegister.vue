@@ -114,7 +114,7 @@
             >
             <ValidationProvider v-slot="{ errors }" name="region" rules="required" mode="eager">
               <select
-                v-model="region"
+                v-model="account.region"
                 name="option"
                 class="
                   focus:outline-none
@@ -220,7 +220,7 @@
               />
             </ValidationProvider>
           </div>
-          <div v-if="isEmail" class="mt-1">
+          <div class="mt-1">
             <label for="password" class="block mb-1 text-sm font-medium text-gray-700">
               {{ $t('password') }}*</label
             >
@@ -451,6 +451,7 @@ export default {
         district: null,
         role: null,
         confirmed: true,
+        region: null,
       },
       region: null,
       districts: [],
@@ -474,12 +475,15 @@ export default {
         this.isPhone = true
         this.isEmail = false
       } else {
-        this.isEmail = false
+        this.isEmail = false;
+        this.isPhone = true
+
       }
     },
     account: {
       handler() {
-        this.isPhone = false
+        this.isPhone = false;
+        this.isEmail = true;
         this.isPhoneConfirmPending = false
         this.timer = 'off'
       },
@@ -581,21 +585,23 @@ export default {
         _user.username = this.phoneOrEmail
         this.account.username = _user.username
         delete _user.phone
-      } else if (this.phoneOrEmail.includes('+') > 0) {
+      } else
+        if (this.phoneOrEmail.includes('+') > 0) {
         _user.phone = this.phoneOrEmail.substring(1)
         _user.username = this.phoneOrEmail.substring(1)
         _user.email = `${_user.phone}@gmail.com`
-        _user.password = _user.name + 123456
+        // _user.password = _user.name + 123456
         this.account.username = _user.username
         this.account.password = _user.password
       } else {
         _user.phone = this.phoneOrEmail
         _user.username = this.phoneOrEmail
-        _user.password = _user.name + 123456
+        // _user.password = _user.name + 123456
         _user.email = `${_user.phone}@gmail.com`
         this.account.username = _user.username
         this.account.password = _user.password
       }
+      console.log(this.isPhone)
       if (this.isEmail) {
         this.registerEmail(_user)
       } else if (this.isPhone) {

@@ -18,7 +18,7 @@
   import en from '~/assets/svg/Eng.svg'
   import ka from '~/assets/svg/Kaa.svg'
   import ru from '~/assets/svg/Ru.svg'
-  import uz from '~/assets/svg/Uz.svg'
+  import uz from '~/assets/images/Uz.jpg'
   export default  {
     name: 'LangSwitcher',
     data() {
