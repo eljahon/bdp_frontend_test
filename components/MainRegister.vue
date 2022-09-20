@@ -108,13 +108,13 @@
               </select>
             </ValidationProvider>
           </div>
-           <div class="mt-1">
+           <div class="mt-1" v-if="$route.query.type === 'consultant' " >
             <label for="region" class="block text-sm mb-1 font-medium text-gray-700"
               >{{ $t('region') }}*</label
             >
             <ValidationProvider v-slot="{ errors }" name="region" rules="required" mode="eager">
               <select
-                v-model="account.region"
+                v-model="region"
                 name="option"
                 class="
                   focus:outline-none
@@ -137,7 +137,7 @@
                     : 'border-gray-300'
                 "
               >
-                <option v-for="(region, index) in dataRegions" :key="index" :value="region">
+                <option v-for="(region, index) in dataRegions" :key="index" :value="region.id">
                   {{ region.attributes.name }}
                 </option>
               </select>
@@ -451,7 +451,6 @@ export default {
         district: null,
         role: null,
         confirmed: true,
-        region: null,
       },
       region: null,
       districts: [],
@@ -487,8 +486,13 @@ export default {
       deep: true,
     },
     region() {
+      console.log('=====>>')
       if (this.region.id) {
         this.districts = this.region.attributes.districts.data
+      }
+    }, "account.region"(oldvalue) {
+      if (this.$route.query.type === 'consultant') {
+        this.districts = this.dataRegions.find(el => el.id === oldvalue)?.attributes.districts.data
       }
     },
     confirm_password() {
@@ -518,6 +522,17 @@ export default {
   methods: {
     onCountdownEnd() {
       this.timer = 'off'
+    },
+   async fetchGenders (locale) {
+      await this.$store
+        .dispatch('getDistricts', {
+          populate: '*',
+          'filters[$and][0][region][id]': locale ?? 18,
+          locale: this.$i18n.locale,
+        })
+        .then((res) => {
+          this.districts = res
+        })
     },
     resendCode() {
       this.$axios
@@ -626,6 +641,7 @@ export default {
           locale: this.$i18n.locale,
         })
         .then((res) => {
+          console.log(res, '======>>>>')
           this.genders = res.map((e) => {
             return {
               id:
@@ -636,19 +652,17 @@ export default {
             }
           })
         })
-      await this.$store
-        .dispatch('getDistricts', {
+     await this.fetchGenders()
+      if (this.$route.query.type === 'consultant') {
+        await this.$store.dispatch('getRegions', {
           populate: '*',
-          'filters[$and][0][region][id]': 18,
           locale: this.$i18n.locale,
         })
-        .then((res) => {
-          this.districts = res
-        })
-      await this.$store.dispatch('getRegions', {
-        populate: '*',
-        locale: this.$i18n.locale,
-      })
+          .then(res => {
+            console.log(res, '===>>')
+          })
+      }
+
     },
   },
 }

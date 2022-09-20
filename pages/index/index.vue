@@ -165,8 +165,10 @@
                 )
               }}
             </div>
-            <div v-for="(faq, index) in dataFaqs" :key="index">
-              <faq :data="faq" />
+            <div>
+              <div v-for="(faq, index) in dataFaqs" :key="index">
+                <faq :data="faq" />
+              </div>
             </div>
           </div>
           <img src="~/assets/images/homeSmall.jpg" class="rounded-md" alt="home" />
@@ -318,15 +320,35 @@ export default {
         })
         .catch((error) => {
           this.$sentry.captureException(error)
+        });
+      await this.$store
+        .dispatch('getCourses', {
+          populate: '*',
+          locale: this.$i18n.locale,
+          "pagination[page]": 1,
+          "pagination[pageSize]": 6
         })
-      // await this.$store
-      //   .dispatch('getPartners', {
-      //     populate: '*',
-      //     locale: this.$i18n.locale,
-      //   })
-      //   .catch((error) => {
-      //     this.$sentry.captureException(error)
-      //   })
+        .catch((error) => {
+          this.$sentry.captureException(error)
+        });
+      await this.$store
+        .dispatch('getPricelists', {
+          populate: '*',
+          locale: this.$i18n.locale,
+          "pagination[page]": 1,
+          "pagination[pageSize]": 12
+        })
+        .catch((error) => {
+          this.$sentry.captureException(error)
+        })
+      await this.$store
+        .dispatch('getPartners', {
+          populate: '*',
+          locale: this.$i18n.locale,
+        })
+        .catch((error) => {
+          this.$sentry.captureException(error)
+        })
       await this.$store
         .dispatch('getCompanies', {
           populate: '*',
