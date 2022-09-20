@@ -273,45 +273,46 @@ export default {
     },
   },
   methods: {
-    onSubmit() {
-      axios({
-        baseURL: process.env.VUE_APP_BASE_URL,
-        url: `/companies`,
-        method: 'POST',
-        data: { data: this.form },
-        headers: {
-          Authorization: `Bearer ${this.jwt}`,
-        },
-      }).then(async (res) => {
-        try {
-          await this.$auth
-            .loginWith('local', {
-              data: this.auth,
-            })
-            .then(async (res) => {
-              await this.$store
-                .dispatch('getUsers', {
-                  link: '/users/me',
-                  query: {
-                    populate: '*',
-                  },
-                })
-                .then((response) => {
-                  localStorage.setItem('user_info', JSON.stringify(response))
-                })
-              // await this.$bridge.$emit('join_chat', {
-              //   username: res.data.user.username,
-              //   user_id: res.data.user.id,
-              // })
-              this.loading = false
-              this.successfulModal()
-              this.$router.push(this.localePath('/'))
-            })
-        } catch (e) {
-          if (e.response) this.authError = e.response.data.error.message
-          this.loading = false
-        }
-      })
+   async onSubmit() {
+      try {
+        await this.$auth
+          .loginWith('local', {
+            data: this.auth,
+          })
+          .then(async (res) => {
+            await this.$store
+              .dispatch('getUsers', {
+                link: '/users/me',
+                query: {
+                  populate: '*',
+                },
+              })
+              .then((response) => {
+                localStorage.setItem('user_info', JSON.stringify(response))
+              })
+            // await this.$bridge.$emit('join_chat', {
+            //   username: res.data.user.username,
+            //   user_id: res.data.user.id,
+            // })
+            this.loading = false
+            this.successfulModal()
+            this.$router.push(this.localePath('/'))
+          })
+      } catch (e) {
+        if (e.response) this.authError = e.response.data.error.message
+        this.loading = false
+      }
+      // axios({
+      //   baseURL: process.env.VUE_APP_BASE_URL,
+      //   url: `/companies`,
+      //   method: 'POST',
+      //   data: { data: this.form },
+      //   headers: {
+      //     Authorization: `Bearer ${this.jwt}`,
+      //   },
+      // }).then(async (res) => {
+      //
+      // })
     },
     mainRegisterSuccess(e) {
       this.isMainRegister = e.isSuccess
@@ -354,6 +355,10 @@ export default {
           })
         })
       await this.$store.dispatch('getRegions', {
+        populate: '*',
+        locale: this.$i18n.locale,
+      })
+      await this.$store.dispatch('getGenders', {
         populate: '*',
         locale: this.$i18n.locale,
       })

@@ -45,8 +45,35 @@
               </div>
               <div class="md:col-span-1 col-span-2">
                 <label for="workplace" class="block mb-1 text-sm font-medium text-gray-700">{{
-                  $t('workplace')
+                  $t('otherarea')
                 }}</label>
+                <ValidationProvider
+                  v-slot="{ errors }"
+                  name="workplace"
+                  rules="required"
+                  mode="eager"
+                >
+                  <input
+                    type="text"
+                    name="workplace"
+                    id="workplace"
+                    v-model="additional.otherarea"
+                    class="focus:outline-none appearance-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
+                    :disabled="!isMainRegister"
+                    :class="
+                      errors.length > 0
+                        ? 'border-red-400'
+                        : form.workplace
+                        ? 'border-green-600'
+                        : 'border-gray-300'
+                    "
+                  />
+                </ValidationProvider>
+              </div>
+              <div class="md:col-span-1 col-span-2">
+                <label for="workplace" class="block mb-1 text-sm font-medium text-gray-700">{{
+                    $t('workplace')
+                  }}</label>
                 <ValidationProvider
                   v-slot="{ errors }"
                   name="workplace"
@@ -168,6 +195,7 @@
                 />
                 <!-- </ValidationProvider> -->
               </div>
+              <br>
 
               <ValidationProvider name="checked" rules="checked" mode="eager" v-slot="{}">
                 <div class="flex items-center mt-2 col-span-2">
@@ -218,6 +246,7 @@ export default {
         diploma_url: null,
         last_degree: '',
         tin: '',
+        otherarea: '',
         experience_year: null,
         workplace: '',
       },
