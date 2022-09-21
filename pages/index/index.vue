@@ -325,6 +325,9 @@ export default {
         .dispatch('getCourses', {
           populate: '*',
           locale: this.$i18n.locale,
+          sort: [
+            'createdAt:desc'
+          ],
           "pagination[page]": 1,
           "pagination[pageSize]": 6
         })
