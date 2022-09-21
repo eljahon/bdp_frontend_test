@@ -290,7 +290,7 @@
       </div>
 
       <div class="mt-12 space-y-4">
-        <div class="font-semibold text-gray-700 text-2xl">
+        <div class="font-semibold text-green-800 text-2xl col-span-2">
           {{$t('key_content_partners')}}
         </div>
         <partners-swiper :partners="dataPartners" />
@@ -387,3 +387,8 @@ export default {
   },
 }
 </script>
+<style>
+table, th, tb, td {
+  border: none;
+}
+</style>
