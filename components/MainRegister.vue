@@ -1,6 +1,6 @@
 <template>
   <div class="space-y-3">
-    <ValidationObserver v-slot="{ handleSubmit, invalid }" slim>
+    <ValidationObserver v-slot="{ handleSubmit, invalid, valid }" slim>
       <form class="" novalidate @submit.prevent="handleSubmit(onSubmit)">
         <div class="grid md:grid-cols-2 grid-cols-1 md:px-6 px-4 pb-4 md:pb-6 gap-4">
           <div class="mt-1">
@@ -227,7 +227,7 @@
             <ValidationProvider
               v-slot="{ errors }"
               name="password"
-              rules="required|min:6"
+              rules="required|min:1"
               mode="eager"
             >
               <input
@@ -393,7 +393,7 @@
             </ValidationProvider>
           </div>
           <button
-            v-if="!isPhoneConfirmPending && !isRegisterSuccess"
+            v-if="!isPhoneConfirmPending && !isRegisterSuccess "
             type="submit"
             class="
               md:col-span-2
@@ -440,6 +440,7 @@ export default {
       isPhone: false,
       isPhoneConfirmPending: false,
       isRegisterSuccess: false,
+      is_confirm: false,
       otp: '',
       genders: [],
       account: {
@@ -499,8 +500,10 @@ export default {
         this.districts = this.dataRegions.find(el => el.id === oldvalue)?.attributes.districts.data
       }
     },
-    confirm_password() {
+    confirm_password(oldvalue) {
+      console.log(oldvalue, '====>>>>')
       if (this.account.password === this.confirm_password) {
+        this. is_confirm = true;
       }
     },
     otp() {},

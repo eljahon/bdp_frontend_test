@@ -43,7 +43,7 @@
                   :multiple="true"
                 ></v-select>
               </div>
-              <div class="md:col-span-1 col-span-2">
+              <div class="md:col-span-1 col-span-2" v-if='is_other'>
                 <label for="workplace" class="block mb-1 text-sm font-medium text-gray-700">{{
                   $t('otherarea')
                 }}</label>
@@ -238,6 +238,16 @@ import axios from 'axios'
 export default {
   name: 'ConsultantIndividual',
   auth: false,
+  watch: {
+    'form.activitytypes': function(newValue) {
+      console.log(newValue, '====>>')
+      if (newValue.includes(23) ) {
+        this.is_other = true;
+      } else {
+        this.is_other = false;
+      }
+    }
+  },
   data() {
     return {
       image: background,
@@ -262,6 +272,7 @@ export default {
       agrocultureAreas: [],
       jwt: '',
       isMainRegister: false,
+      is_other: false,
       isAgree: false,
       degrees: [this.$t('high-school'), this.$t('bachelor-degree'), this.$t('master-degree'), this.$t('PhD')],
     }
