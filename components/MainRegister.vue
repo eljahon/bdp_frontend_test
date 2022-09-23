@@ -193,7 +193,7 @@
                 name="phone"
                 type="text"
                 autocomplete="text"
-                v-model="phoneOrEmail"
+                v-model="account.phone"
                 placeholder="+998931234567"
                 required
                 class="
@@ -217,6 +217,28 @@
                     ? 'border-green-600'
                     : 'border-gray-300'
                 "
+              />
+            </ValidationProvider>
+          </div>
+          <div class="md:col-span-1 col-span-2">
+            <label for="email" class="block mb-1 text-sm font-medium text-gray-700">{{
+                $t('email') + '*'
+              }}</label>
+            <ValidationProvider v-slot="{ errors }" name="gender" rules="required" mode="eager">
+
+              <input
+                type="email"
+                name="email"
+                id="email"
+                v-model="account.email"
+                :class="
+                  errors.length > 0
+                    ? 'border-red-400'
+                    : account.email
+                    ? 'border-green-600'
+                    : 'border-gray-300'
+                "
+                class="focus:outline-none appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
               />
             </ValidationProvider>
           </div>
@@ -598,13 +620,12 @@ export default {
         this.account.password = _user.password
       } else {
         _user.phone = this.phoneOrEmail
-        _user.username = this.phoneOrEmail
+        _user.username = this.account.email
         // _user.password = _user.name + 123456
-        _user.email = `${_user.phone}@gmail.com`
+        // _user.email = `${_user.phone}@gmail.com`
         this.account.username = _user.username
         this.account.password = _user.password
       }
-      console.log(this.isPhone)
       if (this.isEmail) {
         this.registerEmail(_user)
       } else if (this.isPhone) {
@@ -650,7 +671,6 @@ export default {
           locale: this.$i18n.locale,
         })
         .then((res) => {
-          console.log(res, '======>>>>')
           this.genders = res.map((e) => {
             return {
               id:

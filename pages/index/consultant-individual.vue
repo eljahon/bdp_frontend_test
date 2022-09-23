@@ -43,10 +43,39 @@
                   :multiple="true"
                 ></v-select>
               </div>
-              <div class="md:col-span-1 col-span-2" v-if='is_other'>
+              <div class="md:col-span-1 col-span-2" v-if='is_otherone'>
                 <label for="workplace" class="block mb-1 text-sm font-medium text-gray-700">{{
-                  $t('otherarea')
-                }}</label>
+                    $t('area-of-consultancy') + '  other'
+
+                  }}</label>
+                <ValidationProvider
+                  v-slot="{ errors }"
+                  name="workplace"
+                  rules="required"
+                  mode="eager"
+                >
+                  <input
+                    type="text"
+                    name="workplace"
+                    id="workplace"
+                    v-model="additional.otherarea"
+                    class="focus:outline-none appearance-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
+                    :disabled="!isMainRegister"
+                    :class="
+                      errors.length > 0
+                        ? 'border-red-400'
+                        : form.workplace
+                        ? 'border-green-600'
+                        : 'border-gray-300'
+                    "
+                  />
+                </ValidationProvider>
+              </div>
+              <div class="md:col-span-1 col-span-2" v-if='is_othertwo'>
+                <label for="workplace" class="block mb-1 text-sm font-medium text-gray-700">{{
+                    $t('area-of-agriculture-and-environment') + '  other'
+
+                  }}</label>
                 <ValidationProvider
                   v-slot="{ errors }"
                   name="workplace"
@@ -77,7 +106,6 @@
                 <ValidationProvider
                   v-slot="{ errors }"
                   name="workplace"
-                  rules="required"
                   mode="eager"
                 >
                   <input
@@ -242,11 +270,20 @@ export default {
     'form.activitytypes': function(newValue) {
       console.log(newValue, '====>>')
       if (newValue.includes(23) ) {
-        this.is_other = true;
+        this.is_otherone = true;
       } else {
-        this.is_other = false;
+        this.is_otherone = false;
       }
-    }
+    },
+    "form.agrocultureareas":
+      function(newValue) {
+        console.log(newValue, '====>>')
+        if (newValue.includes(14) ) {
+          this.is_othertwo = true;
+        } else {
+          this.is_othertwo = false;
+        }
+      },
   },
   data() {
     return {
@@ -272,7 +309,8 @@ export default {
       agrocultureAreas: [],
       jwt: '',
       isMainRegister: false,
-      is_other: false,
+      is_otherone: false,
+      is_othertwo: false,
       isAgree: false,
       degrees: [this.$t('high-school'), this.$t('bachelor-degree'), this.$t('master-degree'), this.$t('PhD')],
     }

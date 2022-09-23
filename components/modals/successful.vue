@@ -42,6 +42,7 @@
           "
         >
           <div>
+            <div @click='onClose()' style='display: flex; justify-content: flex-end; cursor: pointer'><img width='35' height='35' src='~/assets/images/close.png' alt=''></div>
             <div
               class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100"
             >
@@ -64,31 +65,31 @@
               </h3>
             </div>
           </div>
-          <div class="mt-5 sm:mt-6">
-            <button
-              type="button"
-              class="
-                inline-flex
-                justify-center
-                w-full
-                rounded-md
-                border border-transparent
-                shadow-sm
-                px-4
-                py-2
-                bg-green-600
-                text-base
-                font-medium
-                text-white
-                hover:bg-green-700
-                focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500
-                sm:text-sm
-              "
-              @click="onClose()"
-            >
-              {{ $t('close') }}
-            </button>
-          </div>
+<!--          <div class="mt-5 sm:mt-6">-->
+<!--            <button-->
+<!--              type="button"-->
+<!--              class="-->
+<!--                inline-flex-->
+<!--                justify-center-->
+<!--                w-full-->
+<!--                rounded-md-->
+<!--                border border-transparent-->
+<!--                shadow-sm-->
+<!--                px-4-->
+<!--                py-2-->
+<!--                bg-green-600-->
+<!--                text-base-->
+<!--                font-medium-->
+<!--                text-white-->
+<!--                hover:bg-green-700-->
+<!--                focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500-->
+<!--                sm:text-sm-->
+<!--              "-->
+<!--              @click="onClose()"-->
+<!--            >-->
+<!--              {{ $t('close') }}-->
+<!--            </button>-->
+<!--          </div>-->
         </div>
       </div>
     </div>

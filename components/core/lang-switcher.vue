@@ -68,6 +68,7 @@
     top: 22px;
     left: -50px;
     transition: 0.5s;
+    z-index: 9999;
   }
 
   ul >  li {

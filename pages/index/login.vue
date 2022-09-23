@@ -42,10 +42,10 @@
               >
                 <input
                   name="text"
-                  type="text"
+                  type="email"
                   autocomplete="text"
                   v-model="auth.identifier"
-                  :placeholder="$t('phone')"
+                  :placeholder="$t('email')"
                   :state="errors[0] ? false : valid ? true : null"
                   required
                   class="
@@ -153,6 +153,7 @@
                 </countdown>
               </p>
             </div>
+<!--            //password-->
             <div class="mt-1" v-if="isEmail">
               <ValidationProvider v-slot="{ valid, errors }" rules="required|min:6" name="password">
                 <input
@@ -274,10 +275,11 @@ export default {
       if (EMAILREG.test(this.auth.identifier)) {
         this.isPhone = false
         this.isEmail = true
-      } else {
-        this.isEmail = false
-        this.isPhone = false
       }
+      // else {
+      //   this.isEmail = false
+      //   this.isPhone = false
+      // }
       this.isPhoneOtpPending = false
     },
   },
@@ -335,6 +337,7 @@ export default {
         return
       }
       this.tryToLogin()
+      console.log('password==>>', this.password)
     },
     async registerEmail() {
       this.$snotify.info('Logging in...')
