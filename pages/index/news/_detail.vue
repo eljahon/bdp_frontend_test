@@ -31,29 +31,52 @@
           </div>
         </div>
         <div class="bg-white rounded-md border border-gray-100 shadow-md p-5">
-          <div class="text-gray-700 font-semibold text-xl">{{ $t('other-courses') }}</div>
-          <nuxt-link
-            v-for="(service, ind) in services"
-            :key="ind"
-            class="flex items-center space-x-3 my-4 cursor-pointer hover:bg-gray-100 rounded-md"
-            :to="localePath(`/news/${service.id}`)"
-          >
-            <img
-              :src="
+          <div class="text-gray-700 font-semibold text-xl">{{ $t('other-news') }}</div>
+          <div v-for="(service, ind) in services"
+               :key="ind">
+            <a v-if='service && service.attributes && service.attributes.link' :href='service.attributes.link' target="_blank"
+               class="flex items-center space-x-3 my-4 cursor-pointer hover:bg-gray-100 rounded-md"
+
+            >
+              <img
+                :src="
                 $tools.getFileUrl(
                   service.attributes.thumbnail
                     ? service.attributes.thumbnail
                     : service.attributes.image
                 )
               "
-              class="rounded-md w-28 h-20 object-cover"
-              :alt="service.id"
-            />
-            <div class="grid content-between text-gray-600 text-sm">
-              <div class="line-clamp-2 text-sm mb-2">{{ service.attributes.title }}</div>
-              <div class="text-xs">{{ $tools.getDate(service.attributes.createdAt) }}</div>
-            </div>
-          </nuxt-link>
+                class="rounded-md w-28 h-20 object-cover"
+                :alt="service.id"
+              />
+              <div class="grid content-between text-gray-600 text-sm">
+                <div class="line-clamp-2 text-sm mb-2">{{ service.attributes.title }}</div>
+                <div class="text-xs">{{ $tools.getDate(service.attributes.createdAt) }}</div>
+              </div>
+            </a>
+            <nuxt-link
+              v-else
+
+              class="flex items-center space-x-3 my-4 cursor-pointer hover:bg-gray-100 rounded-md"
+              :to="localePath(`/news/${service.id}`)"
+            >
+              <img
+                :src="
+                $tools.getFileUrl(
+                  service.attributes.thumbnail
+                    ? service.attributes.thumbnail
+                    : service.attributes.image
+                )
+              "
+                class="rounded-md w-28 h-20 object-cover"
+                :alt="service.id"
+              />
+              <div class="grid content-between text-gray-600 text-sm">
+                <div class="line-clamp-2 text-sm mb-2">{{ service.attributes.title }}</div>
+                <div class="text-xs">{{ $tools.getDate(service.attributes.createdAt) }}</div>
+              </div>
+            </nuxt-link>
+          </div>
           <nuxt-link
             :to="localePath('/news')"
             class="text-center text-green-500 hover:text-green-700 font-semibold text-sm flex justify-center"

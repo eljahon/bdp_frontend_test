@@ -45,7 +45,7 @@
                   type="text"
                   autocomplete="text"
                   v-model="auth.identifier"
-                  :placeholder="$t('phone')"
+                  :placeholder="$t('email')"
                   :state="errors[0] ? false : valid ? true : null"
                   required
                   class="
@@ -335,6 +335,7 @@ export default {
         return
       }
       this.tryToLogin()
+      console.log('password==>>', this.password)
     },
     async registerEmail() {
       this.$snotify.info('Logging in...')

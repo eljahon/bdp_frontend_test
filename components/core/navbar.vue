@@ -47,7 +47,7 @@
             <div class="flex items-center gap-6">
               <div v-for="(menu, index) in navbar" :key="index" class="flex items-center relative">
                 <div v-if="menu.children">
-                  <div class="flex items-center cursor-pointer">
+                  <div class="flex items-center cursor-pointer classAvtive">
                     <a
                       :class="
                         menu.current
@@ -313,6 +313,12 @@ export default {
       })
     },
     menuChildClicked(menu, child) {
+      this.navbar.forEach(el=> {
+        if(el.name === menu.name) {
+          el.current = false
+        }
+
+      })
       menu.children.forEach((ch) => {
         if (child === ch) {
           ch.current = true
@@ -350,5 +356,11 @@ export default {
   top: 0;
   z-index: 10000;
   width: 100%;
+}
+.classAvtive {
+  position: relative;
+}
+.notAvtive {
+  display: none;
 }
 </style>

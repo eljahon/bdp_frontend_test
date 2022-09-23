@@ -329,7 +329,12 @@ export default {
             'createdAt:desc'
           ],
           "pagination[page]": 1,
-          "pagination[pageSize]": 6
+          "pagination[pageSize]": 3,
+          filters: {
+            status: {
+              title: 'Post'
+            }
+          }
         })
         .catch((error) => {
           this.$sentry.captureException(error)

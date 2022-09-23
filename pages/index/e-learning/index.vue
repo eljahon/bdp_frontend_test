@@ -3,7 +3,9 @@
     <header-crud :categories="categories" :name="$t('e-learning')" class=""/>
     <div class="grid md:grid-cols-3 gap-6 sm:grid-cols-2 grid-cols-1">
       <div v-for="(video, index) in data" :key="index">
-        <video-card :data="video" />
+<!--        <div v-if='video && video.attributes && video.attributes.status && video.attributes.status.data && video.attributes.status.data.attributes && video.attributes.status.data.attributes.title'>-->
+          <video-card :data="video" />
+<!--        </div>-->
       </div>
     </div>
     <pagination
@@ -86,6 +88,11 @@ export default {
             ? this.$route.query.text
             : null,
           'filters[$and][0][title][$notNull]': true,
+           filters: {
+            status: {
+              title: 'Post'
+            }
+           }
           // 'filters[$and][0][coursetype][id]': 1,
         })
         .then(() => {})
