@@ -42,10 +42,10 @@
               >
                 <input
                   name="text"
-                  type="email"
+                  type="text"
                   autocomplete="text"
                   v-model="auth.identifier"
-                  :placeholder="$t('email')"
+                  :placeholder="$t('phone')"
                   :state="errors[0] ? false : valid ? true : null"
                   required
                   class="
@@ -272,7 +272,7 @@ export default {
   },
   watch: {
     'auth.identifier'() {
-      if (EMAILREG.test(this.auth.identifier)) {
+      if (MOBILEREG.test(this.auth.identifier)) {
         this.isPhone = false
         this.isEmail = true
       }
