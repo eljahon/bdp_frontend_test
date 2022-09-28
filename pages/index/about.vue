@@ -3,7 +3,14 @@
     <div class="max-w-6xl mx-auto sm:px-6 lg:px-8 xl:px-0 px-4 lg:my-12 my-4">
       <div v-if="about.length > 0" class="text-2xl font-semibold text-gray-700">{{ about[0].attributes.title }}</div>
     <div v-if="about.length > 0" v-html="about[0].attributes.content"></div>
+      <div class="mt-12 space-y-4">
+        <div class="font-semibold text-green-800 text-2xl col-span-2">
+          {{$t('key_content_partners')}}
+        </div>
+        <partners-swiper :partners="dataPartners" />
+      </div>
     </div>
+
     <div class="bg-green-900 my-10 py-10">
       <div class="max-w-6xl mx-auto sm:px-6 lg:px-8 xl:px-0 px-4">
         <div class="grid lg:grid-cols-2 grid-cols-1">
@@ -47,72 +54,72 @@
       </div>
     </div>
     <div class="max-w-6xl mx-auto sm:px-6 lg:px-8 xl:px-0 px-4">
-      <div class="mt-12 space-y-4">
-        <div class="font-semibold text-gray-700 text-2xl">
-          {{ $t('working') }} <span class="text-green-800">{{ $t('process') }}</span>
-        </div>
-        <div class="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-4">
-          <div class="rounded-md border border-gray-200 shadow-md bg-white p-8">
-            <div class="flex items-center justify-between">
-              <img src="~/assets/images/consultation.png" class="rounded-md h-16" alt="about" />
-              <p class="text-gray-200 text-5xl font-extrabold">1</p>
-            </div>
-            <div class="text-gray-700 font-semibold text-lg mb-4 mt-8">
-              {{ $t('consultation') }}
-            </div>
-            <div class="text-sm text-gray-500">
-              {{
-                $t(
-                  'get-financial-legal-business-and-managerial-consultations-on-interested-area-of-agriculture-and-environment')
+<!--      <div class="mt-12 space-y-4">-->
+<!--        <div class="font-semibold text-gray-700 text-2xl">-->
+<!--          {{ $t('working') }} <span class="text-green-800">{{ $t('process') }}</span>-->
+<!--        </div>-->
+<!--        <div class="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-4">-->
+<!--          <div class="rounded-md border border-gray-200 shadow-md bg-white p-8">-->
+<!--            <div class="flex items-center justify-between">-->
+<!--              <img src="~/assets/images/consultation.png" class="rounded-md h-16" alt="about" />-->
+<!--              <p class="text-gray-200 text-5xl font-extrabold">1</p>-->
+<!--            </div>-->
+<!--            <div class="text-gray-700 font-semibold text-lg mb-4 mt-8">-->
+<!--              {{ $t('consultation') }}-->
+<!--            </div>-->
+<!--            <div class="text-sm text-gray-500">-->
+<!--              {{-->
+<!--                $t(-->
+<!--                  'get-financial-legal-business-and-managerial-consultations-on-interested-area-of-agriculture-and-environment')-->
 
-              }}
-            </div>
-          </div>
-          <div class="rounded-md border border-gray-200 shadow-md bg-white p-8">
-            <div class="flex items-center justify-between">
-              <img src="~/assets/images/recommendation.png" class="rounded-md h-16" alt="about" />
-              <p class="text-gray-200 text-5xl font-extrabold">2</p>
-            </div>
-            <div class="text-gray-700 font-semibold text-lg mb-4 mt-8">
-              {{ $t('market-price') }}
-            </div>
-            <div class="text-sm text-gray-500">
-              {{
-                $t(
-                  'get-overview-of-current-prices-in-karakalpakstan-split-by-product-and-time-period'
-                )
-              }}
-            </div>
-          </div>
-          <div class="rounded-md border border-gray-200 shadow-md bg-white p-8">
-            <div class="flex items-center justify-between">
-              <img src="~/assets/images/financial.png" class="rounded-md h-16" alt="about" />
-              <p class="text-gray-200 text-5xl font-extrabold">3</p>
-            </div>
-            <div class="text-gray-700 font-semibold text-lg mb-4 mt-8">
-              {{ $t('useful-informations') }}
-            </div>
-            <div class="text-sm text-gray-500">
-              {{
-                $t(
-                  'get-useful-content-at-e-learning-page-and-new-knowledge-on-areas-of-agriculture-and-environemnt'
-                )
-              }}
-            </div>
-          </div>
-          <div class="rounded-md border border-gray-200 shadow-md bg-white p-8">
-            <div class="flex items-center justify-between">
-              <img src="~/assets/images/management.png" class="rounded-md h-16" alt="about" />
-              <p class="text-gray-200 text-5xl font-extrabold">4</p>
-            </div>
-            <div class="text-gray-700 font-semibold text-lg mb-4 mt-8">{{ $t('navigation') }}</div>
-            <div class="text-sm text-gray-500">
-              {{ $t('use-manuals-and-guides') }}
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="mt-12 space-y-4">
+<!--              }}-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div class="rounded-md border border-gray-200 shadow-md bg-white p-8">-->
+<!--            <div class="flex items-center justify-between">-->
+<!--              <img src="~/assets/images/recommendation.png" class="rounded-md h-16" alt="about" />-->
+<!--              <p class="text-gray-200 text-5xl font-extrabold">2</p>-->
+<!--            </div>-->
+<!--            <div class="text-gray-700 font-semibold text-lg mb-4 mt-8">-->
+<!--              {{ $t('market-price') }}-->
+<!--            </div>-->
+<!--            <div class="text-sm text-gray-500">-->
+<!--              {{-->
+<!--                $t(-->
+<!--                  'get-overview-of-current-prices-in-karakalpakstan-split-by-product-and-time-period'-->
+<!--                )-->
+<!--              }}-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div class="rounded-md border border-gray-200 shadow-md bg-white p-8">-->
+<!--            <div class="flex items-center justify-between">-->
+<!--              <img src="~/assets/images/financial.png" class="rounded-md h-16" alt="about" />-->
+<!--              <p class="text-gray-200 text-5xl font-extrabold">3</p>-->
+<!--            </div>-->
+<!--            <div class="text-gray-700 font-semibold text-lg mb-4 mt-8">-->
+<!--              {{ $t('useful-informations') }}-->
+<!--            </div>-->
+<!--            <div class="text-sm text-gray-500">-->
+<!--              {{-->
+<!--                $t(-->
+<!--                  'get-useful-content-at-e-learning-page-and-new-knowledge-on-areas-of-agriculture-and-environemnt'-->
+<!--                )-->
+<!--              }}-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div class="rounded-md border border-gray-200 shadow-md bg-white p-8">-->
+<!--            <div class="flex items-center justify-between">-->
+<!--              <img src="~/assets/images/management.png" class="rounded-md h-16" alt="about" />-->
+<!--              <p class="text-gray-200 text-5xl font-extrabold">4</p>-->
+<!--            </div>-->
+<!--            <div class="text-gray-700 font-semibold text-lg mb-4 mt-8">{{ $t('navigation') }}</div>-->
+<!--            <div class="text-sm text-gray-500">-->
+<!--              {{ $t('use-manuals-and-guides') }}-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+      <div class="mt-12 mb-12 space-y-4">
         <div class="grid lg:grid-cols-3 grid-cols-1 gap-4">
           <ValidationObserver ref="observer" v-slot="{ handleSubmit, invalid }" slim class="col-span-2">
             <form class="" novalidate @submit.prevent="handleSubmit(onSubmit)">
@@ -289,12 +296,6 @@
         </div>
       </div>
 
-      <div class="mt-12 space-y-4">
-        <div class="font-semibold text-green-800 text-2xl col-span-2">
-          {{$t('key_content_partners')}}
-        </div>
-        <partners-swiper :partners="dataPartners" />
-      </div>
     </div>
   </div>
 </template>

@@ -28,6 +28,12 @@ export default {
   auth: false,
   data() {
     return {
+      dataTitle: {
+        en: "Post",
+        ru: 'Пост',
+        uz: 'post',
+        kaa: 'Post Kaa'
+      },
       categories: [],
       selectedCategory: null,
     }
@@ -90,12 +96,14 @@ export default {
           'filters[$and][0][title][$notNull]': true,
            filters: {
             status: {
-              title: 'Post'
+              title: this.dataTitle[this.$i18n.locale]
             }
            }
           // 'filters[$and][0][coursetype][id]': 1,
         })
-        .then(() => {})
+        .then(() => {
+          console.log('====>>', this.dataTitle[this.$i18n.locale])
+        })
     },
     async fetchDirectories() {
       await this.$store.dispatch('getCoursecategories', {

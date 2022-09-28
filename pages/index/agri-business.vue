@@ -136,7 +136,7 @@ export default {
     textFormatTop(item) {
       let len = item.length;
       if (len > 18) {
-        return item.slice(1, 18) + "..."
+        return item.slice(0, 18) + "..."
       } else {
         return  item ? item : ''
       }
@@ -144,7 +144,7 @@ export default {
     textFormatBottom(item) {
       let len = item.length;
       if (len > 26) {
-        return item.slice(1, 26) + "..."
+        return item.slice(0, 26) + "..."
       } else {
         return  item ? item : ''
       }

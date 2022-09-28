@@ -248,6 +248,12 @@ export default {
           title: 'Supply points',
         },
       ],
+        dataTitle: {
+        en: "Post",
+        ru: 'Пост',
+        uz: 'post',
+        kaa: 'Post Kaa'
+      },
     }
   },
   computed: {
@@ -332,7 +338,7 @@ export default {
           "pagination[pageSize]": 3,
           filters: {
             status: {
-              title: 'Post'
+              title: this.dataTitle[this.$i18n.locale]
             }
           }
         })

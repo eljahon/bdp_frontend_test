@@ -65,7 +65,7 @@
     <yandex-map
       v-if="!detailOpened"
       :coords="getLocations"
-      :location="company.attributes.location"
+      :location="company.attributes"
     />
   </div>
 </template>
