@@ -27,6 +27,8 @@
   "bad-request": "Неверный запрос",
   "basic-information": "Основная информация",
   "branches": "Филиалы",
+  "bachelor-degree": "бакалавриат",
+  "master-degree": "",
   "business-development-platform": "Платформа для развития бизнеса",
   "below-you-will-find-answers-to-the-questions-we-get-asked-most-about-using-the-platfrom": "Ниже вы найдете ответы на вопросы, которые нам чаще всего задают об использовании платформы",
   "become-a-consultant": "Стать консультантом",
@@ -102,6 +104,7 @@
   "h": "H",
   "hippocrates": "Гиппократ",
   "home": "Главный",
+  "high-school": "средняя школа",
   "how-will-you-use-the-platform": "Как Вы будете пользоваться платформой?",
   "how-to-open-business": "Как начать бизнес?",
 

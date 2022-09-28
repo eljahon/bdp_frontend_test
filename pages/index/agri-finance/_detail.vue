@@ -66,61 +66,61 @@
         </div>
       </div>
     </div>
-    <div class="text-gray-700 font-semibold text-2xl my-6">Our work process</div>
-    <p class="text-sm text-gray-500 leading-8">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer adipiscing erat eget risus
-      sollicitudin pellentesque et non erat. Maecenas nibh dolor, malesuada et bibendum a, sagittis
-      accumsan ipsum. Pellentesque ultrices ultrices sapien, nec tincidunt nunc posuere ut. Lorem
-      ipsum dolor sit amet, consectetur adipiscing elit. Nam scelerisque tristique dolor vitae
-      tincidunt. Aenean quis massa uada mi elementum elementum. Nec sapien convallis vulputate
-      rhoncus vel dui.
-    </p>
-    <div class="grid lg:grid-cols-4 grid-cols-1 gap-4 my-6">
-      <div class="rounded-md border border-gray-200 shadow-md bg-white p-8">
-        <div class="flex items-center justify-between">
-          <img src="~/assets/images/consultation.png" class="rounded-md" alt="about" />
-          <p class="text-gray-200 text-5xl font-extrabold">1</p>
-        </div>
-        <div class="text-gray-700 font-semibold text-lg mb-4 mt-8">Consultation</div>
-        <div class="text-sm text-gray-500">
-          Lorem Ipsum is simply dummy of the printing and typesetting test industry. Lorem Ipsum has
-          been the industry's standard.
-        </div>
-      </div>
-      <div class="rounded-md border border-gray-200 shadow-md bg-white p-8">
-        <div class="flex items-center justify-between">
-          <img src="~/assets/images/recommendation.png" class="rounded-md" alt="about" />
-          <p class="text-gray-200 text-5xl font-extrabold">2</p>
-        </div>
-        <div class="text-gray-700 font-semibold text-lg mb-4 mt-8">Design & work</div>
-        <div class="text-sm text-gray-500">
-          Lorem Ipsum is simply dummy of the printing and typesetting test industry. Lorem Ipsum has
-          been the industry's standard.
-        </div>
-      </div>
-      <div class="rounded-md border border-gray-200 shadow-md bg-white p-8">
-        <div class="flex items-center justify-between">
-          <img src="~/assets/images/financial.png" class="rounded-md" alt="about" />
-          <p class="text-gray-200 text-5xl font-extrabold">3</p>
-        </div>
-        <div class="text-gray-700 font-semibold text-lg mb-4 mt-8">Maintenance</div>
-        <div class="text-sm text-gray-500">
-          Lorem Ipsum is simply dummy of the printing and typesetting test industry. Lorem Ipsum has
-          been the industry's standard.
-        </div>
-      </div>
-      <div class="rounded-md border border-gray-200 shadow-md bg-white p-8">
-        <div class="flex items-center justify-between">
-          <img src="~/assets/images/management.png" class="rounded-md" alt="about" />
-          <p class="text-gray-200 text-5xl font-extrabold">4</p>
-        </div>
-        <div class="text-gray-700 font-semibold text-lg mb-4 mt-8">Complete</div>
-        <div class="text-sm text-gray-500">
-          Lorem Ipsum is simply dummy of the printing and typesetting test industry. Lorem Ipsum has
-          been the industry's standard.
-        </div>
-      </div>
-    </div>
+<!--    <div class="text-gray-700 font-semibold text-2xl my-6">Our work process</div>-->
+<!--    <p class="text-sm text-gray-500 leading-8">-->
+<!--      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer adipiscing erat eget risus-->
+<!--      sollicitudin pellentesque et non erat. Maecenas nibh dolor, malesuada et bibendum a, sagittis-->
+<!--      accumsan ipsum. Pellentesque ultrices ultrices sapien, nec tincidunt nunc posuere ut. Lorem-->
+<!--      ipsum dolor sit amet, consectetur adipiscing elit. Nam scelerisque tristique dolor vitae-->
+<!--      tincidunt. Aenean quis massa uada mi elementum elementum. Nec sapien convallis vulputate-->
+<!--      rhoncus vel dui.-->
+<!--    </p>-->
+<!--    <div class="grid lg:grid-cols-4 grid-cols-1 gap-4 my-6">-->
+<!--      <div class="rounded-md border border-gray-200 shadow-md bg-white p-8">-->
+<!--        <div class="flex items-center justify-between">-->
+<!--          <img src="~/assets/images/consultation.png" class="rounded-md" alt="about" />-->
+<!--          <p class="text-gray-200 text-5xl font-extrabold">1</p>-->
+<!--        </div>-->
+<!--        <div class="text-gray-700 font-semibold text-lg mb-4 mt-8">Consultation</div>-->
+<!--        <div class="text-sm text-gray-500">-->
+<!--          Lorem Ipsum is simply dummy of the printing and typesetting test industry. Lorem Ipsum has-->
+<!--          been the industry's standard.-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="rounded-md border border-gray-200 shadow-md bg-white p-8">-->
+<!--        <div class="flex items-center justify-between">-->
+<!--          <img src="~/assets/images/recommendation.png" class="rounded-md" alt="about" />-->
+<!--          <p class="text-gray-200 text-5xl font-extrabold">2</p>-->
+<!--        </div>-->
+<!--        <div class="text-gray-700 font-semibold text-lg mb-4 mt-8">Design & work</div>-->
+<!--        <div class="text-sm text-gray-500">-->
+<!--          Lorem Ipsum is simply dummy of the printing and typesetting test industry. Lorem Ipsum has-->
+<!--          been the industry's standard.-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="rounded-md border border-gray-200 shadow-md bg-white p-8">-->
+<!--        <div class="flex items-center justify-between">-->
+<!--          <img src="~/assets/images/financial.png" class="rounded-md" alt="about" />-->
+<!--          <p class="text-gray-200 text-5xl font-extrabold">3</p>-->
+<!--        </div>-->
+<!--        <div class="text-gray-700 font-semibold text-lg mb-4 mt-8">Maintenance</div>-->
+<!--        <div class="text-sm text-gray-500">-->
+<!--          Lorem Ipsum is simply dummy of the printing and typesetting test industry. Lorem Ipsum has-->
+<!--          been the industry's standard.-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="rounded-md border border-gray-200 shadow-md bg-white p-8">-->
+<!--        <div class="flex items-center justify-between">-->
+<!--          <img src="~/assets/images/management.png" class="rounded-md" alt="about" />-->
+<!--          <p class="text-gray-200 text-5xl font-extrabold">4</p>-->
+<!--        </div>-->
+<!--        <div class="text-gray-700 font-semibold text-lg mb-4 mt-8">Complete</div>-->
+<!--        <div class="text-sm text-gray-500">-->
+<!--          Lorem Ipsum is simply dummy of the printing and typesetting test industry. Lorem Ipsum has-->
+<!--          been the industry's standard.-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
   </div>
 </template>
 
