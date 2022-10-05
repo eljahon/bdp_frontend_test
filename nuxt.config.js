@@ -13,7 +13,7 @@ export default {
       { hid: 'description', name: 'description', content: '' },
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/logo.svg' },
+      { rel: 'icon', type: 'image/x-icon', href: '/logo.png' },
       {
         rel: 'preload',
         as: 'style',
@@ -27,18 +27,18 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    '~/plugins/clickOutside.client.js',
-    '~/plugins/vueAwesomeSwiper.js',
-    '~/plugins/other-libraries.js',
-    '~/plugins/vue-gtag.js',
-    '~/plugins/vue-js-modal.js',
-    '~/plugins/axios.js',
-    '~/plugins/vee-validate.js',
-    '~/plugins/v-mask',
+    {src: '~/plugins/clickOutside.client.js', defer: true},
+    {src: '~/plugins/vueAwesomeSwiper.js', defer: true},
+    {src: '~/plugins/other-libraries.js', defer: true},
+    {src: '~/plugins/vue-gtag.js', defer: true},
+    {src: '~/plugins/vue-js-modal.js', defer: true},
+    {src: '~/plugins/axios.js', defer: true},
+    {src:'~/plugins/vee-validate.js', defer: true},
+    {src: '~/plugins/v-mask', defer: true},
     { src: '~/plugins/client-libraries', mode: 'client' },
-    '~/utils/bridge.js',
-    '~/utils/tools.js',
-    '~/utils/constants.js',
+    {src: '~/utils/bridge.js', defer: true},
+    {src: '~/utils/tools.js', defer: true},
+    {src: '~/utils/constants.js', defer: true},
     // '~/plugins/all-consts.js',
     // '~/plugins/v-viewer.client.js',git
   ],
@@ -99,6 +99,7 @@ export default {
     // '@nuxtjs/auth',
     // 'vue-currency-filter/nuxt',
   ],
+  loading: false,
   sentry: {
     dsn: "https://d958b94121cd4ff58d27e85e5fa7ce4b@o1335273.ingest.sentry.io/6620840",
     publishRelease: true,

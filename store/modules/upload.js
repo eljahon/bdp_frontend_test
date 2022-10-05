@@ -18,7 +18,6 @@ export default {
     actions: {
         async uploadFile({ commit }, payload) {
             const token = localStorage.getItem('local')
-            console.log(token);
             const res = await this.$axios({
                 method: 'post',
                 url: `${process.env.VUE_APP_IMG_URL}/api/upload`,

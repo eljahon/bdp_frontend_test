@@ -1,26 +1,34 @@
 <template>
-  <div class="max-w-6xl mx-auto sm:px-6 lg:px-8 xl:px-0 px-4 lg:my-12 my-4">
-    <header-crud :categories="categories" :name="$t('e-learning')" class=""/>
-    <div class="grid md:grid-cols-3 gap-6 sm:grid-cols-2 grid-cols-1">
-      <div v-for="(video, index) in data" :key="index">
-<!--        <div v-if='video && video.attributes && video.attributes.status && video.attributes.status.data && video.attributes.status.data.attributes && video.attributes.status.data.attributes.title'>-->
-          <video-card :data="video" />
-<!--        </div>-->
-      </div>
+  <div class='max-w-6xl mx-auto sm:px-6 lg:px-8 xl:px-0 px-4 lg:my-12 my-4'>
+    <div v-if='$fetchState.pending'>
+      <main-loading />
     </div>
-    <pagination
-      v-if="pagination.pageCount > 1"
-      :pageCount="pagination.pageCount"
-      :pageSize="pagination.pageSize"
-      :page="pagination.page"
-      @onChange="changePage($event)"
-    />
+    <div v-else-if='$fetchState.error'>An error occurred</div>
+    <div v-else>
+      <header-crud :categories='categories' :name="$t('e-learning')" class='' />
+      <div class='grid md:grid-cols-3 gap-6 sm:grid-cols-2 grid-cols-1'>
+        <div v-for='(video, index) in data' :key='index'>
+
+          <video-card :data='video' />
+
+
+        </div>
+      </div>
+      <pagination
+        v-if='pagination.pageCount > 1'
+        :pageCount='pagination.pageCount'
+        :pageSize='pagination.pageSize'
+        :page='pagination.page'
+        @onChange='changePage($event)'
+      />
+    </div>
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 import { actions, getters } from '~/utils/store_schema'
+
 const _page = 'courses'
 const { get } = actions(_page)
 export default {
@@ -29,43 +37,46 @@ export default {
   data() {
     return {
       dataTitle: {
-        en: "Post",
+        en: 'Post',
         ru: 'Пост',
         uz: 'post',
         kaa: 'Post Kaa'
       },
       categories: [],
       selectedCategory: null,
+      loading: false
     }
   },
   computed: {
     ...mapGetters(getters(_page)),
-    ...mapGetters(['dataCoursecategories']),
+    ...mapGetters(['dataCoursecategories'])
   },
-  mounted() {
-    this.fetchDirectories().then(() => {
-      if (this.$route.query.category) {
-        this.fetchData()
-      }
-    })
-  },
+  // mounted() {
+  //   console.log(this.pagination, this.data,'======>>>>>>>>>>>>')
+  //   this.fetchDirectories().then(() => {
+  //     if (this.$route.query.category) {
+  //       this.fetchData()
+  //     }
+  //   })
+  // },
   watch: {
-    '$route.query': {
-      handler() {
-        this.fetchData()
-      },
-      deep: true,
-    },
+    '$route.query': function(val) {
+      this.fetchData()
+    }
+  },
+  async fetch() {
+    await this.fetchDirectories()
+    await this.fetchData()
   },
   methods: {
-    onChangeCategory(category) {
-      this.$router.push({
-        path: this.$route.path,
-        query: {
-          category: category.id,
-        },
-      })
-    },
+    // onChangeCategory(category) {
+    //   this.$router.push({
+    //     path: this.$route.path,
+    //     query: {
+    //       category: category.id,
+    //     },
+    //   })
+    // },
     changePage(e) {
       let _query = {
         ...this.$route.query,
@@ -73,7 +84,7 @@ export default {
       }
       this.$router.push({
         path: this.$route.path,
-        query: _query,
+        query: _query
       })
     },
     async fetchData() {
@@ -81,7 +92,7 @@ export default {
         .dispatch(get, {
           pagination: {
             page: this.$route.query.page ? this.$route.query.page : 1,
-            pageSize: this.pagination.pageSize,
+            pageSize: this.pagination.pageSize
           },
           populate: '*',
           'sort[0][createdAt]': 'DESC',
@@ -94,31 +105,28 @@ export default {
             ? this.$route.query.text
             : null,
           'filters[$and][0][title][$notNull]': true,
-           filters: {
+          filters: {
             status: {
               title: this.dataTitle[this.$i18n.locale]
             }
-           }
+          }
           // 'filters[$and][0][coursetype][id]': 1,
-        })
-        .then(() => {
-          console.log('====>>', this.dataTitle[this.$i18n.locale])
         })
     },
     async fetchDirectories() {
       await this.$store.dispatch('getCoursecategories', {
         populate: '*',
-        locale: this.$i18n.locale,
+        locale: this.$i18n.locale
       }).then((res) => {
         this.categories = res
         this.categories.unshift({
           id: 0,
           attributes: {
-            name: this.$t('all'),
-          },
+            name: this.$t('all')
+          }
         })
       })
-    },
-  },
+    }
+  }
 }
 </script>

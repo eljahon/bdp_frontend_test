@@ -64,7 +64,6 @@ export default {
   async mounted() {
       window.removeAllBalloons = this.removeAllBalloons();
       window.call = function(event)  {
-        console.log(event, '=====>>')
       };
     await loadYmap(this.settings)
     this.ymaps = ymaps
@@ -79,13 +78,10 @@ export default {
       // }
     },
     call(event) {
-      console.log('======>>>',event)
     },
     cardGenerate (data) {
-      console.log(data, '====>>>>')
       let url = this.$tools.getFileUrl(data.logo) ? this.$tools.getFileUrl(data.logo)  : this.img;
       let yandexUrl = `https://yandex.ru/maps/?ll=${data.location.lng},${data.location.lat}&z=12`;
-      console.log('lat ===>>', yandexUrl)
       return `
       <div style='width: 318px; overflow: hidden position: relative;'>
               <div style='width: 100%; height: 155px; '>
@@ -185,7 +181,6 @@ export default {
       `
     },
     showLocations() {
-      console.log('coords', this.location.location)
       if (this.coords && this.map) {
         if (this.location.location) this.map.panTo([this.location.location.lat,this.location.location.lng], { checkZoomRange: true })
         this.map.geoObjects.remove(this.placeList);

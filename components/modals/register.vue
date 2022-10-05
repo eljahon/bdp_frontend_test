@@ -144,7 +144,6 @@ export default {
       this.$axios.post('/auth/local/register', _user).then(async (data) => {
         if (this.isEmail) {
           this.$snotify.info('Logging in...')
-          console.log(this.account, _user)
           await this.$auth.loginWith('local', {
             data: { identifier: _user.email, password: _user.password }
           }).then(async (res) => {

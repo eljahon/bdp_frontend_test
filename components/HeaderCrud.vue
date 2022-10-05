@@ -61,27 +61,27 @@
       </button>
     </div>
     <div class="lg:hidden flex mt-4">
-     <swiper
-      ref="swiper"
-      class="swiper"
-      :options="categoriesOption"
-      :autoplay="{ delay: 2000, disableOnIteraction: false }"
-      :pagination="{ clickable: true }"
-    >
-      <swiper-slide v-for="(category, index) in categories" :key="index">
-        <button
-          class="rounded-md py-1.5 mb-4 w-full"
-          :class="
+      <swiper
+        ref="swiper"
+        class="swiper"
+        :options="categoriesOption"
+        :autoplay="{ delay: 2000, disableOnIteraction: false }"
+        :pagination="{ clickable: true }"
+      >
+        <swiper-slide v-for="(category, index) in categories" :key="index">
+          <button
+            class="rounded-md py-1.5 mb-4 w-full"
+            :class="
             $route.query.category && parseInt($route.query.category) === category.id
               ? 'bg-green-700 text-white'
               : 'border border-green-700 text-green-700 hover:text-white hover:bg-green-700'
           "
-          @click="toChange(category)"
-        >
-          {{ category.attributes ? category.attributes.name : '' }}
-        </button>
-      </swiper-slide>
-    </swiper>
+            @click="toChange(category)"
+          >
+            {{ category.attributes ? category.attributes.name : '' }}
+          </button>
+        </swiper-slide>
+      </swiper>
     </div>
   </div>
 </template>
@@ -102,7 +102,7 @@ export default {
         category: 0,
         text: '',
       },
-       categoriesOption: {
+      categoriesOption: {
         direction: 'horizontal',
         slideToClickedSlide: false,
         pagination: {
@@ -148,7 +148,6 @@ export default {
   watch: {
     'filter.text': {
       handler: debounce(function (e) {
-        console.log('filter', this.filter)
         this.setQuery()
       }, 500),
       deep: true,
@@ -175,5 +174,3 @@ export default {
   },
 }
 </script>
-
-<style scoped></style>

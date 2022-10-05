@@ -337,7 +337,6 @@ export default {
         return
       }
       this.tryToLogin()
-      console.log('password==>>', this.password)
     },
     async registerEmail() {
       this.$snotify.info('Logging in...')

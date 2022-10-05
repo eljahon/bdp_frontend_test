@@ -1,9 +1,13 @@
 <template>
-  <div class="max-w-6xl mx-auto lg:my-12 my-4 sm:px-6 lg:px-8 xl:px-0 px-4">
-    <header-crud :categories="categories" :name="$t('agri-finance')" />
-    <div class="grid md:grid-cols-3 gap-6 sm:grid-cols-2 grid-cols-1">
-      <div v-for="(info, index) in data" :key="index">
-        <news :data="info" />
+  <div>
+    <div v-if="$fetchState.pending"><main-loading /></div>
+    <div v-else-if="$fetchState.error">An error request not or Internal server error</div>
+    <div v-else class="max-w-6xl mx-auto lg:my-12 my-4 sm:px-6 lg:px-8 xl:px-0 px-4">
+      <header-crud :categories="categories" :name="$t('agri-finance')" />
+      <div class="grid md:grid-cols-3 gap-6 sm:grid-cols-2 grid-cols-1">
+        <div v-for="(info, index) in data" :key="index">
+          <news :data="info" />
+        </div>
       </div>
     </div>
   </div>
@@ -22,6 +26,7 @@ export default {
   data() {
     return {
       categories: [],
+      loading: false
     }
   },
   watch: {
@@ -36,16 +41,20 @@ export default {
     ...mapGetters(getters(_page)),
     ...mapGetters(['dataServicecategories']),
   },
-  mounted() {
-    this.fetchDirectories().then(() => {
-      if (this.$route.query.category) {
-        this.fetchData()
-      }
-    })
+  // mounted() {
+  //   this.fetchDirectories().then(() => {
+  //     if (this.$route.query.category) {
+  //       this.fetchData()
+  //     }
+  //   })
+  // },
+  async fetch() {
+    await this.fetchDirectories()
+    await this.fetchData()
   },
   methods: {
     async fetchData() {
-      await this.$store
+     return  await this.$store
         .dispatch(get, {
           'sort[0][createdAt]': 'DESC',
           populate: '*',
@@ -66,7 +75,7 @@ export default {
         .then(() => {})
     },
     async fetchDirectories() {
-      await this.$store
+     return  await this.$store
         .dispatch('getServicecategories', {
           populate: '*',
           locale: this.$i18n.locale,

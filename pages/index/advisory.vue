@@ -1,9 +1,13 @@
 <template>
-  <div class="max-w-6xl mx-auto lg:my-12 my-4 sm:px-6 lg:px-8 xl:px-0 px-4">
-    <header-crud :categories="categories" :name="$t('advisory')" :isConsultant="true" />
-    <div class="grid md:grid-cols-3 gap-6 sm:grid-cols-2 grid-cols-1">
-      <div v-for="(expert, index) in consultants" :key="index" class="my-4">
-        <experts :data="expert" />
+  <div>
+    <div v-if="$fetchState.pending"><main-loading /></div>
+    <div v-else-if="$fetchState.error">An error request not or Internal server error</div>
+    <div v-else class="max-w-6xl mx-auto lg:my-12 my-4 sm:px-6 lg:px-8 xl:px-0 px-4">
+      <header-crud :categories="categories" :name="$t('advisory')" :isConsultant='true' />
+      <div class="grid md:grid-cols-3 gap-6 sm:grid-cols-2 grid-cols-1">
+        <div v-for="(expert, index) in consultants" :key="index" class="my-4">
+          <experts :data="expert" />
+        </div>
       </div>
     </div>
   </div>
@@ -23,8 +27,10 @@ export default {
     return {
       consultants: [],
       categories: [],
+      loading: false
     }
   },
+  fetchOnServer: true,
   mounted() {
     this.fetchDirectories().then(() => {
       if (this.$route.query.category) {
@@ -38,33 +44,45 @@ export default {
     }),
   },
   watch: {
-    '$route.query': {
-      handler() {
+    '$route.query.category': function(val) {
         this.fetchData()
-      },
-      deep: true,
+
     },
+  },
+  async fetch() {
+    try {
+      await this.fetchDirectories()
+      await this.fetchData()
+    } catch (err) {
+      console.log(err)
+    }
   },
   methods: {
     async fetchDirectories() {
-      await this.$store.dispatch('getAgrocultureareas', {populate: '*', locale: this.$i18n.locale}).then((res) => {
-        const list  = res.map(el => {
-          return {  
-            attributes: { name: el.attributes.title},
-            id: el.attributes.locale === 'en' ? el.id : el.attributes.localizations.data.find(l=> l.attributes.locale === 'en')?.id ?? 0
-          }
+      return await this.$store
+        .dispatch('getAgrocultureareas', { populate: '*', locale: this.$i18n.locale })
+        .then((res) => {
+          const list = res.map((el) => {
+            return {
+              attributes: { name: el.attributes.title },
+              id:
+                el.attributes.locale === 'en'
+                  ? el.id
+                  : el.attributes.localizations.data.find((l) => l.attributes.locale === 'en')
+                      ?.id ?? 0,
+            }
+          })
+          this.categories = list
+          this.categories.unshift({
+            id: 0,
+            attributes: {
+              name: this.$t('all'),
+            },
+          })
         })
-        this.categories = list;
-        this.categories.unshift({
-          id: 0,
-          attributes: {
-            name: this.$t('all'),
-          },
-        })
-      })
     },
-    fetchData() {
-      this.$store
+    async fetchData() {
+      return await this.$store
         .dispatch(get, {
           link: 'users',
           query: {
@@ -80,6 +98,8 @@ export default {
         })
         .then((res) => {
           this.consultants = res.users
+        })
+        .finally(() => {
         })
     },
   },

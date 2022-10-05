@@ -513,7 +513,6 @@ export default {
       deep: true,
     },
     region() {
-      console.log('=====>>')
       if (this.region.id) {
         this.districts = this.region.attributes.districts.data
       }
@@ -523,7 +522,6 @@ export default {
       }
     },
     confirm_password(oldvalue) {
-      console.log(oldvalue, '====>>>>')
       if (this.account.password === this.confirm_password) {
         this. is_confirm = true;
       }
@@ -600,7 +598,6 @@ export default {
         .catch((e) => {
           this.isPhoneConfirmPending = false
           this.isRegisterSuccess = false
-          console.log(e.response.data.error.message)
         })
     },
     onSubmit() {
@@ -647,7 +644,6 @@ export default {
         })
         .catch((e) => {
           this.isRegisterSuccess = false
-          console.log(e.response.data.error.message)
         })
     },
     registerPhone(user) {
@@ -661,7 +657,6 @@ export default {
         .catch((e) => {
           this.isPhoneConfirmPending = false
           this.isRegisterSuccess = false
-          console.log(e.response.data.error.message)
         })
     },
     async fetchDirectories() {
@@ -688,7 +683,6 @@ export default {
           locale: this.$i18n.locale,
         })
           .then(res => {
-            console.log(res, '===>>')
           })
       }
 

@@ -1,7 +1,9 @@
 <template>
   <div>
+    <div>
     <nuxt />
     <vue-snotify />
+    </div>
   </div>
 </template>
 
