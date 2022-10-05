@@ -1,6 +1,9 @@
 <template>
   <div>
-    <div
+<!--    <div v-if="$fetchState.pending||loading"><main-loading /></div>-->
+<!--    <div v-else-if="$fetchState.error">An error request not or Internal server error</div>-->
+    <div>
+      <div
       v-if="company.id && detailOpened"
       class="border relative rounded-md p-5 bg-white"
       style="min-height: calc(72vh - 0px)"
@@ -67,6 +70,7 @@
       :coords="getLocations"
       :location="company.attributes"
     />
+    </div>
   </div>
 </template>
 <script>
@@ -86,28 +90,36 @@ export default {
       },
     }
   },
-  mounted() {
-    if (this.$route.query.company) {
-      this.fetchCompanyDetail(this.$route.query.company)
-    }
-  },
+  // mounted() {
+  //   if (this.$route.query.company) {
+  //     this.fetchCompanyDetail(this.$route.query.company)
+  //   }
+  // },
   computed: {
     ...mapGetters(['getLocations']),
   },
   watch: {
     'getLocations': function(oldvalue, newvalue) {
-      console.log(oldvalue, newvalue)
     },
-    '$route.query.id'(val) {
-      if (this.$route.query.id) this.fetchCompanyDetail(val)
-    },
+    '$route.query.id': function (val) {
+      // console.log(val)
+      this.fetchCompanyDetail(val)
+}
+  },
+  async fetch() {
+    try {
+      await this.fetchCompanyDetail()
+    } catch (err) {
+      console.log(err)
+    }
+
   },
   methods: {
     onClose() {
       this.detailOpened = false
     },
-    fetchCompanyDetail(id) {
-      this.$store
+   async  fetchCompanyDetail(id) {
+     return await this.$store
         .dispatch('getByIdCompanies', {
           id: id,
           query: {

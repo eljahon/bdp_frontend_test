@@ -362,7 +362,6 @@ export default {
       deep: true,
     },
     "company.activitytypes": function(newValue) {
-      console.log('====>>', newValue)
       if(newValue.includes(23)) {
         this.is_otherone = true
       } else {
@@ -370,7 +369,6 @@ export default {
       }
     },
     "company.agrocultureareas": function(newValue) {
-      console.log('====>>', newValue)
       if(newValue.includes(14)) {
         this.is_othertwo = true
       } else {

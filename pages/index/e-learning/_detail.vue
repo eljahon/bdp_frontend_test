@@ -1,5 +1,7 @@
 <template>
   <div>
+    <div v-if="$fetchState.pending||loading"><main-loading /></div>
+    <div v-else-if="$fetchState.error">An error request not or Internal server error</div>
     <div  class="max-w-6xl sm:px-6 lg:px-8 xl:px-0 px-4 mx-auto lg:my-12 my-4">
       <div class="grid lg:grid-cols-3 grid-cols-1 lg:gap-6 gap-0">
         <div class="col-span-2">
@@ -94,6 +96,7 @@ export default {
       courseDetail: {
         attributes: {},
       },
+      loading: false,
       courses: [],
       lessonGroup: {},
       lesson: {
@@ -116,7 +119,14 @@ export default {
       immediate: true,
     },
   },
-  mounted() {},
+  async fetch() {
+    try {
+      await this.fetchDirectories();
+      await this.fetchData()
+    } catch (err) {
+      console.log()
+    }
+  },
   methods: {
     openInNewTab(file) {
       window.open(this.$tools.getFileUrl(file.attributes.url))

@@ -1,5 +1,8 @@
 <template>
-  <div class="max-w-7xl mx-auto py-6 px-4 lg:px-8">
+<div>
+  <div v-if="$fetchState.pending"><main-loading /></div>
+  <div v-else-if="$fetchState.error">An error request not or Internal server error</div>
+  <div v-else class="max-w-7xl mx-auto py-6 px-4 lg:px-8">
     <div class="pb-6 flex justify-between">
       <!-- <breadcrumbs :items="items" /> -->
       <div class="font-semibold text-gray-700 text-2xl pl-3">
@@ -199,6 +202,7 @@
       </div>
     </div>
   </div>
+</div>
 </template>
 
 <script>
@@ -335,10 +339,18 @@ export default {
       }
     },
   },
-  mounted() {
-    this.query.date_gte = new Date(this.query.date_lte.getTime() - 30 * 24 * 60 * 60000)
-    this.fetchDirectories()
+  async fetch() {
+    try {
+        this.query.date_gte = new Date(this.query.date_lte.getTime() - 30 * 24 * 60 * 60000)
+        await this.fetchDirectories()
+    } catch (err) {
+
+    }
   },
+  // mounted() {
+  //   this.query.date_gte = new Date(this.query.date_lte.getTime() - 30 * 24 * 60 * 60000)
+  //   this.fetchDirectories()
+  // },
   methods: {
     setGteDisable(date) {
       return date > new Date(this.query.date_gte)
@@ -347,7 +359,6 @@ export default {
       return date < new Date(this.query.date_gte.getTime())
     },
     async onSubmit() {
-      console.log('submit', this.query)
       await this.$store
         .dispatch('getPriceanalitics', {
           link: '/pricelist/analytics',

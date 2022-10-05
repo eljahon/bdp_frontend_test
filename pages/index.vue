@@ -1,11 +1,14 @@
 <template>
+<div>
   <div>
+<!--    <span>{{$fetchState}} dsfs</span>-->
     <navbar />
     <main>
       <router-view />
     </main>
     <Footer />
   </div>
+</div>
 </template>
 
 <script>
@@ -30,10 +33,8 @@ export default {
   },
   mounted() {
     socket.on('joined', (res) => {
-      console.log('Joined to chat: ', res)
     })
     socket.on('left', (res) => {
-      console.log('Left from chat:', res)
     })
     socket.on('joinedRoom', (res) => {
       console.log('Joined to room: ', res)

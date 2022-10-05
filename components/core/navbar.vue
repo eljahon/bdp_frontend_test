@@ -254,10 +254,11 @@ export default {
           name: 'agri-market',
           iconDown: 'bx bx-chevron-down',
           iconUp: 'bx bx-chevron-up',
-          children: [
-            { name: 'weekly-prices', route: '/agri-market', current: false },
-            { name: 'marketplace', route: '/marketplace', current: false },
-          ],
+          route: '/agri-market',
+          // children: [
+          //   { name: 'weekly-prices', route: '/agri-market', current: false },
+          //   { name: 'marketplace', route: '/marketplace', current: false },
+          // ],
           current: false,
         },
         {
