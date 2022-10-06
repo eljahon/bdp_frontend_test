@@ -106,14 +106,14 @@ export default {
       this.fetchCompanyDetail(val)
 }
   },
-  async fetch() {
-    try {
-      await this.fetchCompanyDetail()
-    } catch (err) {
-      console.log(err)
-    }
-
-  },
+  // async fetch() {
+  //   try {
+  //     await this.fetchCompanyDetail()
+  //   } catch (err) {
+  //     console.log(err)
+  //   }
+  //
+  // },
   methods: {
     onClose() {
       this.detailOpened = false
