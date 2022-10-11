@@ -112,12 +112,13 @@
                     type="text"
                     name="workplace"
                     id="workplace"
+                    v-model='form.other'
                     class="focus:outline-none appearance-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
                     :disabled="!isMainRegister"
                     :class="
                       errors.length > 0
                         ? 'border-red-400'
-                        : form.workplace
+                        : form.other
                         ? 'border-green-600'
                         : 'border-gray-300'
                     "
@@ -144,7 +145,7 @@
                     :class="
                       errors.length > 0
                         ? 'border-red-400'
-                        : form.workplace
+                        : form.ega_other
                         ? 'border-green-600'
                         : 'border-gray-300'
                     "
@@ -206,6 +207,8 @@ export default {
         birthday: '',
         activitytypes: [],
         agrocultureareas: [],
+        other: null,
+        ega_other:null
       },
       auth: {
         identifier: '',

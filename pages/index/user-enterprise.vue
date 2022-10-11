@@ -1,4 +1,4 @@
-<template>
+  <template>
   <div :style="{ backgroundImage: `url(${image})` }" class="bg-cover h-full pb-10 bg-opacity-10">
     <div class="max-w-6xl mx-auto p-4 lg:px-8 xl:px-0">
       <div class="max-w-2xl mx-auto mt-10 bg-white rounded-md">
@@ -127,60 +127,6 @@
                   :multiple="true"
                 ></v-select>
               </div>
-              <div class="md:col-span-1 col-span-2" v-if='is_otherone'>
-                <label for="workplace" class="block mb-1 text-sm font-medium text-gray-700">{{
-                    $t('activity-type') + ' other'
-
-                  }}</label>
-                <ValidationProvider
-                  v-slot="{ errors }"
-                  name="workplace"
-                  rules="required"
-                  mode="eager"
-                >
-                  <input
-                    type="text"
-                    name="workplace"
-                    id="workplace"
-                    class="focus:outline-none appearance-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
-                    :disabled="!isMainRegister"
-                    :class="
-                      errors.length > 0
-                        ? 'border-red-400'
-                        : form.workplace
-                        ? 'border-green-600'
-                        : 'border-gray-300'
-                    "
-                  />
-                </ValidationProvider>
-              </div>
-              <div class="md:col-span-1 col-span-2" v-if='is_othertwo'>
-                <label for="workplace" class="block mb-1 text-sm font-medium text-gray-700">{{
-                    $t('field-of-agriculture') + '  other'
-
-                  }}</label>
-                <ValidationProvider
-                  v-slot="{ errors }"
-                  name="workplace"
-                  rules="required"
-                  mode="eager"
-                >
-                  <input
-                    type="text"
-                    name="workplace"
-                    id="workplace"
-                    class="focus:outline-none appearance-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
-                    :disabled="!isMainRegister"
-                    :class="
-                      errors.length > 0
-                        ? 'border-red-400'
-                        : form.workplace
-                        ? 'border-green-600'
-                        : 'border-gray-300'
-                    "
-                  />
-                </ValidationProvider>
-              </div>
               <div class="mt-1">
                 <label for="region" class="block text-sm mb-1 font-medium text-gray-700"
                   >{{ $t('region') }}*</label
@@ -238,6 +184,62 @@
                   </select>
                 </ValidationProvider>
               </div>
+              <div class="md:col-span-1 col-span-2" v-if='is_otherone'>
+                <label for="workplace" class="block mb-1 text-sm font-medium text-gray-700">{{
+                    $t('activity-type') + ' other'
+
+                  }}</label>
+                <ValidationProvider
+                  v-slot="{ errors }"
+                  name="workplace"
+                  rules="required"
+                  mode="eager"
+                >
+                  <input
+                    type="text"
+                    name="workplace"
+                    id="workplace"
+                    v-model='form.otherarea'
+                    class="focus:outline-none appearance-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
+                    :disabled="!isMainRegister"
+                    :class="
+                      errors.length > 0
+                        ? 'border-red-400'
+                        : form.otherarea
+                        ? 'border-green-600'
+                        : 'border-gray-300'
+                    "
+                  />
+                </ValidationProvider>
+              </div>
+              <div class="md:col-span-1 col-span-2" v-if='is_othertwo'>
+                <label for="workplace" class="block mb-1 text-sm font-medium text-gray-700">{{
+                    $t('field-of-agriculture') + '  other'
+
+                  }}</label>
+                <ValidationProvider
+                  v-slot="{ errors }"
+                  name="workplace"
+                  rules="required"
+                  mode="eager"
+                >
+                  <input
+                    type="text"
+                    name="workplace"
+                    id="workplace"
+                    v-model='form.env_otherarea'
+                    class="focus:outline-none appearance-none block w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 sm:text-sm"
+                    :disabled="!isMainRegister"
+                    :class="
+                      errors.length > 0
+                        ? 'border-red-400'
+                        : form.env_otherarea
+                        ? 'border-green-600'
+                        : 'border-gray-300'
+                    "
+                  />
+                </ValidationProvider>
+              </div>
               <ValidationProvider name="checked" rules="checked" mode="eager" v-slot="{}">
                 <div class="flex items-center mt-2 col-span-2">
                   <input
@@ -290,6 +292,8 @@ export default {
         tin: '',
         phone: '',
         email: '',
+        otherarea: null,
+        env_otherarea: null,
         activitytypes: [],
         agrocultureareas: [],
         users: [],
