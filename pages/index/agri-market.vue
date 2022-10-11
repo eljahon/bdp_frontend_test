@@ -141,7 +141,7 @@ async fetch() {
       try {
         await this.$store.dispatch('getDistricts', {
           populate: '*',
-          "filters[$and][0][region][id]": 18,
+          // "filters[$and][0][region][id]": 18,
           locale: this.$i18n.locale,
         }).then(res => {
           this.districts = res;
