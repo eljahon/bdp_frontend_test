@@ -9,7 +9,7 @@
         </div>
         <div v-if="about.length > 0" v-html="about[0].attributes.content"></div>
         <div class="mt-12 space-y-4">
-          <div class="font-semibold text-green-800 text-2xl col-span-2">
+          <div class="font-semibold text-green-800 text-2xl col-span-2 uppercase">
             {{ $t('key_content_partners') }}
           </div>
           <partners-swiper :partners="dataPartners" />
