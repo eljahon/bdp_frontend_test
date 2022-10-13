@@ -349,7 +349,7 @@ border: 1px solid #333;
 }
 
 .img-card .card-text {
-  padding: 0 15px 15px;
+  padding: 8px;
   line-height: 1.5;
   text-align: left;
   color: #000;
