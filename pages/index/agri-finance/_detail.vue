@@ -4,7 +4,7 @@
    <div v-else-if="$fetchState.error">An error request not or Internal server error</div>
    <div v-else class="max-w-6xl mx-auto lg:my-12 my-4 sm:px-6 lg:px-8 xl:px-0 px-4">
      <div class="grid lg:grid-cols-3 grid-cols-1 lg:gap-6 gap-0">
-       <div class="col-span-2">
+       <div style='overflow-x: scroll' class="col-span-2">
          <div class="">
            <div class="mb-6 text-gray-700 font-semibold text-4xl">
              {{detail.attributes.title}}
