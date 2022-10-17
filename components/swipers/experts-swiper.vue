@@ -33,6 +33,9 @@ export default {
     experts: Array
   },
   components: { Experts },
+  mounted() {
+    console.log(this.experts)
+  },
   data() {
     return {
       expertOption: {

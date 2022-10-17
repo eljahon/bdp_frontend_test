@@ -68,9 +68,7 @@
                </div>
                <div class="grid w-full border-b pb-1 border-green-700 content-between text-gray-500 text-base h-14">
                  <p class="text-green-700 font-medium">{{ company.attributes.name ? textFormatTop(company.attributes.name)  : ''  }}</p>
-                 <p class="text-sm mt-1 pb-2">
-                   {{textFormatBottom(company.attributes.shortinfo)}}
-                 </p>
+                 <p class="text-sm mt-1 pb-2" v-html='textFormatBottom(company.attributes.shortinfo)'></p>
                </div>
              </div>
            </div>
