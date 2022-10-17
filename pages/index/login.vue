@@ -329,13 +329,13 @@ export default {
         })
     },
     async onSubmit() {
-      if (this.auth.identifier.includes('+') > 0) {
-        this.auth.identifier = this.auth.identifier.substring(1)
-      }
-      if (MOBILEREG.test(this.auth.identifier)) {
-        this.sendOtp()
-        return
-      }
+      // if (this.auth.identifier.includes('+') > 0) {
+      //   this.auth.identifier = this.auth.identifier.substring(1)
+      // }
+      // if (MOBILEREG.test(this.auth.identifier)) {
+      //   this.sendOtp()
+      //   return
+      // }
       this.tryToLogin()
     },
     async registerEmail() {
