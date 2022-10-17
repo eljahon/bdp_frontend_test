@@ -291,7 +291,6 @@ export default {
         name: '',
         tin: '',
         phone: '',
-        email: '',
         otherarea: null,
         env_otherarea: null,
         activitytypes: [],
@@ -413,6 +412,7 @@ export default {
               title: e.attributes.title,
             }
           })
+          // this.activities.sort((a, b) => b.attributes.title-a.attributes.title )
         })
       await this.$store
         .dispatch('getAgrocultureareas', {

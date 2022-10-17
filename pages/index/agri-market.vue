@@ -127,6 +127,12 @@ async fetch() {
         locale: this.$i18n.locale,
         "filters[$and][0][district][id]": query.district,
         "filters[$and][0][pricedate][id]": query.pricedate,
+        // "filters[max][$ne]": 0,
+        filiters: {
+          max: {
+            $ne: 0
+          }
+        },
         "filters[product][productcategory][id][$eq]": query.category !== 'all' ? query.category : null,
         'sort[0][product][name]': 'ASC',
       }
@@ -145,6 +151,11 @@ async fetch() {
           locale: this.$i18n.locale,
         }).then(res => {
           this.districts = res;
+          if (res.map((el) => el.id).includes(this.$route.query.district)) {
+            this.filter.district = parseInt(this.$route.query.district)
+          }  else  {
+            this.filter.district = res[0].id
+          }
         })
         await this.$store.dispatch('getProductcategories', {
           populate: '*',
