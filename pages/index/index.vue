@@ -280,7 +280,24 @@ export default {
         'dataNews',
     ]),
   },
-  mounted() {
+ async  mounted() {
+   await this.$store
+     .dispatch('getUsers', {
+       link: '/users',
+       query: {
+         populate: '*',
+         locale: this.$i18n.locale,
+         'filters[$and][0][confirmed]': true,
+         'filters[$and][0][role][id]': 4,
+       },
+     })
+     .then((res) => {
+       this.experts = res.users;
+       console.log('===>>>', res)
+     })
+     .catch((error) => {
+       this.$sentry.captureException(error)
+     })
     // this.fetchDirectories()
   },
   async fetch() {

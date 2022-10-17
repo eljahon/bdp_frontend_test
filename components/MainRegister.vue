@@ -550,11 +550,11 @@ export default {
     onCountdownEnd() {
       this.timer = 'off'
     },
-   async fetchGenders (locale) {
+   async fetchGenders () {
       await this.$store
         .dispatch('getDistricts', {
           populate: '*',
-          'filters[$and][0][region][id]': locale ?? 18,
+          // 'filters[$and][0][region][id]': locale ?? 18,
           locale: this.$i18n.locale,
         })
         .then((res) => {
