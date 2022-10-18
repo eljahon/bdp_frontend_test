@@ -27,7 +27,7 @@
       <div class="grid md:grid-cols-12 grid-cols-1">
         <div :class="$route.query.chat_id !== 'new' ? 'lg:col-span-4' : ''">
           <div
-            style="height: calc(72vh - 0px)"
+            style="height: calc(71vh - 0px)"
             class="
               md:m-0
               bg-white
@@ -419,6 +419,7 @@ export default {
       }
     },
     async fetchActiveRooms() {
+      console.log('role id ====>>', this.$auth.user.role.id)
       if (this.$auth.user.role.id === 4) {
         await this.$store
           .dispatch('getChatrooms', {
@@ -435,11 +436,12 @@ export default {
           .dispatch('getChatrooms', {
             populate: '*',
             'filters[$or][0][user][id]': this.$auth.user.id,
-            // 'filters[$and][0][isCompleted][$ne]': true,
+            'filters[$and][0][isCompleted][$ne]': true,
             'sort[0][createdAt]': 'DESC',
             'filters[$and][0][rate][$null]': true,
           })
           .then((res) => {
+            console.log(res, '===>>')
             this.$store.dispatch('setActiveRooms', res)
           })
       }
@@ -450,7 +452,7 @@ export default {
           .dispatch('getChatrooms', {
             populate: '*',
             'filters[$or][0][consultant][id]': this.$auth.user.id,
-            'filters[$and][0][isCompleted]': true,
+            'filters[$and][0][isCompleted][$eq]': true,
             'sort[0][createdAt]': 'DESC',
           })
           .then((res) => {
