@@ -122,15 +122,19 @@ async fetch() {
       })
     },
    async fetchPriceLists(query) {
+
       const _ = {
         populate: '*',
         locale: this.$i18n.locale,
         "filters[$and][0][district][id]": query.district,
         "filters[$and][0][pricedate][id]": query.pricedate,
         // "filters[max][$ne]": 0,
-        filiters: {
+        filters: {
           max: {
-            $ne: 0
+            $gt: 0
+          },
+          min: {
+            $gt: 0
           }
         },
         "filters[product][productcategory][id][$eq]": query.category !== 'all' ? query.category : null,

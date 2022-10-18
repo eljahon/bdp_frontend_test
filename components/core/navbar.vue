@@ -99,7 +99,7 @@
                 </router-link>
               </div>
             </div>
-            <div v-if="$auth.loggedIn" class="ml-3 relative">
+            <div v-if="$auth.loggedIn" class="ml-3 relative parent-class">
               <div class="flex items-center justify-end">
                 <button
                   id="user-menu-button"
@@ -122,8 +122,7 @@
                 </button>
               </div>
               <div
-                v-show="isProfileOpened"
-                class="z-20 origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+                class="z-20 origin-top-right absolute right-0 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none child-class"
                 role="menu"
                 aria-orientation="vertical"
                 aria-labelledby="user-menu-button"
@@ -363,5 +362,11 @@ export default {
 }
 .notAvtive {
   display: none;
+}
+.child-class {
+  display: none;
+}
+.parent-class:hover .child-class {
+  display: block;
 }
 </style>

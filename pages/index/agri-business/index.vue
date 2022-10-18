@@ -102,18 +102,11 @@ export default {
     'getLocations': function(oldvalue, newvalue) {
     },
     '$route.query.id': function (val) {
-      // console.log(val)
-      this.fetchCompanyDetail(val)
+      if (val) {
+        this.fetchCompanyDetail(val)
+      }
 }
   },
-  // async fetch() {
-  //   try {
-  //     await this.fetchCompanyDetail()
-  //   } catch (err) {
-  //     console.log(err)
-  //   }
-  //
-  // },
   methods: {
     onClose() {
       this.detailOpened = false

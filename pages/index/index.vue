@@ -280,28 +280,27 @@ export default {
         'dataNews',
     ]),
   },
- async  mounted() {
-   await this.$store
-     .dispatch('getUsers', {
-       link: '/users',
-       query: {
-         populate: '*',
-         locale: this.$i18n.locale,
-         'filters[$and][0][confirmed]': true,
-         'filters[$and][0][role][id]': 4,
-       },
-     })
-     .then((res) => {
-       this.experts = res.users;
-       console.log('===>>>', res)
-     })
-     .catch((error) => {
-       this.$sentry.captureException(error)
-     })
-    // this.fetchDirectories()
-  },
   async fetch() {
-    //
+    await this.$store
+      .dispatch('getPricelists', {
+        populate: '*',
+        locale: this.$i18n.locale,
+        "pagination[page]": 1,
+        "pagination[pageSize]": 12,
+        filters: {
+          max: {
+            $gt: 0
+          },
+          min: {
+            $gt: 0
+          }
+        }
+      })
+      .then(res => {
+      })
+      .catch((error) => {
+        this.$sentry.captureException(error)
+      });
     await this.$store
       .dispatch('getUsers', {
         link: '/users',
@@ -346,16 +345,6 @@ export default {
       .catch((error) => {
         this.$sentry.captureException(error)
       });
-    await this.$store
-      .dispatch('getPricelists', {
-        populate: '*',
-        locale: this.$i18n.locale,
-        "pagination[page]": 1,
-        "pagination[pageSize]": 12
-      })
-      .catch((error) => {
-        this.$sentry.captureException(error)
-      })
     await this.$store
       .dispatch('getPartners', {
         populate: '*',

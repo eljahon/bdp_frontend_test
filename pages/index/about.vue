@@ -372,6 +372,12 @@ export default {
       this.$store.dispatch('postContactuses', {
         data: this.form,
       })
+        .then(res => {
+          this.$snotify.success(this.$t('sendData'))
+        })
+        .catch(err=> {
+          this.$snotify.error(this.$t('Error'))
+        })
       this.loading = false
       this.$refs.observer.reset()
       this.form = {
