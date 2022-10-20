@@ -331,7 +331,7 @@ export default {
     },
     checkAdditional (data) {
       const _data = {...data};
-      if (_data.otherarea && _data.env_otherarea) {
+      if (_data.otherarea || _data.env_otherarea) {
         this.form["otherarea"] = _data.otherarea;
         this.form["env_otherarea"] = _data.env_otherarea
         _data.otherarea = null;
