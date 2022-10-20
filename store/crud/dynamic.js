@@ -80,17 +80,19 @@ export default function (param) {
       [tools.camelize(`get ${_param}`)]({ commit, state }, data) {
         commit(_mutations.load, true)
         return new Promise((resolve, reject) => {
+          console.log('dataquery', data.query)
           this.$axios
             .$get(`${data.link}`, {params: data.query})
             .then((res) => {
-              if (data.isCount)
-                this.$axios.get(`/${param}/count`).then((count) => {
-                  commit(_mutations.pagination, {
-                    page: (data.query && parseInt(data.query._start)) || state.pagination.page,
-                    total: count,
-                    limit: (data.query && parseInt(data.query._limit)) || state.pagination.limit,
-                  })
-                })
+              if (res.count && data.query.limit) {
+               let pag = {
+                 page: (data && (Math.floor(parseInt(data.query.start) / parseInt(data.query.limit) + 1))),
+                 pageSize: data.query.limit,
+                 pageCount: Math.ceil(Math.abs(res.count / data.query.limit)),
+               };
+                commit(_mutations.pagination, pag)
+              }
+
               const _res = res.results || res
               commit(_mutations.data, _res)
               resolve(_res)

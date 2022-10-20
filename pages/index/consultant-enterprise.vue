@@ -309,6 +309,7 @@ export default {
     return {
       image: background,
       phone: '',
+      users: {},
       company: {
         name: '',
         tin: '',
@@ -370,7 +371,7 @@ export default {
       }
     },
     "company.agrocultureareas": function(newValue) {
-      if(newValue.includes(14)) {
+      if(newValue.includes(23)) {
         this.is_othertwo = true
       } else {
         this.is_othertwo = false;
@@ -397,11 +398,16 @@ export default {
       })
     },
     onSubmit() {
+      const _compony = {
+        ...this.company,
+        activitytypes: this.checkOther(this.company.activitytypes),
+        agrocultureareas: this.checkOther(this.company.agrocultureareas)
+      }
       axios({
         baseURL: process.env.VUE_APP_BASE_URL,
         url: `/companies`,
         method: 'POST',
-        data: { data: this.company },
+        data: { data: _compony },
         headers: {
           Authorization: `Bearer ${this.jwt}`,
         },
@@ -410,11 +416,15 @@ export default {
           baseURL: process.env.VUE_APP_BASE_URL,
           url: `/additionalinfos`,
           method: 'POST',
-          data: { data: this.additional },
+          data: { data: {...this.checkAdditional(this.additional)} },
           headers: {
             Authorization: `Bearer ${this.jwt}`,
           },
         }).then(async () => {
+          if(this.users.otherarea || this.users.env_otherarea) {
+            const id = this.users.id;
+            this.$store.dispatch('putUsers', {id: id,data: {...this.checkUserInfo(this.users)}})
+          }
           try {
             await this.$auth
               .loginWith('local', {
@@ -445,6 +455,31 @@ export default {
           }
         })
       })
+
+    },
+    checkAdditional (data) {
+      const _data = {...data};
+      this.users.otherarea = _data.otherarea;
+      this.users.env_otherarea = _data.env_otherarea
+      _data.otherarea = null;
+      _data.env_otherarea = null
+      return _data;
+    },
+    checkUserInfo (user) {
+      const _users = {...user}
+      delete _users.id
+      delete _users.createdAt
+      delete _users.updatedAt;
+      return _users;
+    },
+    checkOther(arr) {
+      if (arr.length === 1 && arr.includes(23)) {
+        arr = []
+        return arr
+      } else {
+        if (arr.length !== 1 && arr.includes(23)) return arr.filter(el => el !== 23)
+      }
+      return arr
     },
     async fetchDirectories() {
       await this.$store
@@ -462,6 +497,10 @@ export default {
               title: e.attributes.title,
             }
           })
+          this.activities.push({
+            id: 23,
+            title: this.$t('other')
+          })
         })
       await this.$store
         .dispatch('getAgrocultureareas', {
@@ -478,6 +517,10 @@ export default {
               title: e.attributes.title,
             }
           })
+          this.agrocultureAreas.push({
+            id: 23,
+            title: this.$t('other')
+          })
         })
       await this.$store.dispatch('getRegions', {
         populate: '*',
@@ -485,6 +528,7 @@ export default {
       })
     },
     mainRegisterSuccess(e) {
+      this.users = {...e.user}
       this.isMainRegister = e.isSuccess
       this.auth.identifier = e.user.username
       this.auth.password = e.password

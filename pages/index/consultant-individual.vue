@@ -275,7 +275,7 @@ export default {
     },
     "form.agrocultureareas":
       function(newValue) {
-        if (newValue.includes(14) ) {
+        if (newValue.includes(23) ) {
           this.is_othertwo = true;
         } else {
           this.is_othertwo = false;
@@ -320,8 +320,32 @@ export default {
     ...mapGetters(['dataGenders', 'dataRegions']),
   },
   methods: {
+    checkOther(arr) {
+      if (arr.length === 1 && arr.includes(23)) {
+        arr = []
+        return arr
+      } else {
+        if (arr.length !== 1 && arr.includes(23)) return arr.filter(el => el !== 23)
+      }
+      return arr
+    },
+    checkAdditional (data) {
+      const _data = {...data};
+      if (_data.otherarea && _data.env_otherarea) {
+        this.form["otherarea"] = _data.otherarea;
+        this.form["env_otherarea"] = _data.env_otherarea
+        _data.otherarea = null;
+        _data.env_otherarea = null
+        return _data;
+      }
+      return  data
+    },
     onSubmit() {
-      let _form = { ...this.form }
+      this.checkAdditional(this.additional)
+      let _form = { ...this.form,
+        activitytypes: this.checkOther(this.form.activitytypes),
+        agrocultureareas: this.checkOther(this.form.agrocultureareas)
+      }
       delete _form.id
       this.additional.user = this.form.id
       axios({
@@ -337,7 +361,7 @@ export default {
           baseURL: process.env.VUE_APP_BASE_URL,
           url: `/additionalinfos`,
           method: 'POST',
-          data: { data: this.additional },
+          data: { data: {...this.checkAdditional(this.additional)} },
           headers: {
             Authorization: `Bearer ${this.jwt}`,
           },
@@ -411,6 +435,10 @@ export default {
               title: e.attributes.title,
             }
           })
+          this.activities.push({
+            id: 23,
+            title: this.$t('other')
+          })
         })
       await this.$store
         .dispatch('getAgrocultureareas', {
@@ -427,6 +455,10 @@ export default {
               title: e.attributes.title,
             }
           })
+            this.agrocultureAreas.push({
+              id: 23,
+              title: this.$t('other')
+            })
         })
     },
     mainRegisterSuccess(e) {

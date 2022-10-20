@@ -71,6 +71,7 @@ export default {
             pageSize: this.pagination.pageSize,
           },
           'filters[$and][0][title][$notNull]': true,
+          'filters[$and][0][wait][$ne]': true
         })
         .then(() => {})
     },

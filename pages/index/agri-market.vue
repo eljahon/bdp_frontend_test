@@ -65,6 +65,12 @@ export default {
   components: { Prices },
   data() {
     return {
+      regionId: {
+        en: 18,
+        ru: 36,
+        uz: 37,
+        kaa: 38
+      },
       filter: {
         district: 29,
         category: 'all',
@@ -151,7 +157,7 @@ async fetch() {
       try {
         await this.$store.dispatch('getDistricts', {
           populate: '*',
-          // "filters[$and][0][region][id]": 18,
+          "filters[$and][0][region][id]": this.regionId[this.$i18n.locale],
           locale: this.$i18n.locale,
         }).then(res => {
           this.districts = res;

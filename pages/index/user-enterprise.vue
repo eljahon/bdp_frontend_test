@@ -343,7 +343,7 @@ export default {
         }
       },
     'form.agrocultureareas': function(newValue) {
-      if (newValue.includes(14)) {
+      if (newValue.includes(23)) {
         this.is_othertwo = true
       } else {
         this.is_othertwo = false
@@ -352,6 +352,32 @@ export default {
   },
 
   methods: {
+    checkOther(arr) {
+      if (arr.length === 1 && arr.includes(23)) {
+        arr = []
+        return arr
+      } else {
+        if (arr.length !== 1 && arr.includes(23)) return arr.filter(el => el !== 23)
+      }
+      return arr
+    },
+    notFiledDelet (form) {
+      const _forms = {...form}
+      this.users.env_otherarea =  _forms.env_otherarea;
+      this.users.otherarea = _forms.otherarea;
+      delete _forms.env_otherarea;
+      delete _forms.otherarea;
+      _forms.activitytypes = this.checkOther (_forms.activitytypes);
+      _forms.agrocultureareas = this.checkOther (_forms.agrocultureareas);
+      return _forms;
+    },
+    checkUserInfo (user) {
+      const _users = {...user}
+      delete _users.id
+      delete _users.createdAt
+      delete _users.updatedAt;
+      return _users;
+    },
     async onSubmit() {
       try {
         await this.$auth
@@ -373,7 +399,8 @@ export default {
             //   username: res.data.user.username,
             //   user_id: res.data.user.id,
             // })
-            this.loading = false
+            this.loading = false;
+
             this.successfulModal()
             this.$router.push(this.localePath('/'))
           })
@@ -381,25 +408,17 @@ export default {
         if (e.response) this.authError = e.response.data.error.message
         this.loading = false
       }
-      this.users.env_otherarea =  this.form.env_otherarea;
-        this.users.otherarea = this.form.otherarea;
-      delete this.form.env_otherarea
-      delete this.form.otherarea
-      delete this.users.createdAt
-      delete this.users.updatedAt
       axios({
         baseURL: process.env.VUE_APP_BASE_URL,
         url: `/companies`,
         method: 'POST',
-        data: { data: this.form },
+        data: { data: {...this.notFiledDelet(this.form)}},
         headers: {
           Authorization: `Bearer ${this.jwt}`
         }
       }).then(async (res) => {
-        debugger
         const id = this.users.id;
-        delete this.users.id
-        this.$store.dispatch('putUsers', {id: id,data:this.users})
+        this.$store.dispatch('putUsers', {id: id,data: {...this.checkUserInfo(this.users)}})
       })
     },
     mainRegisterSuccess(e) {
@@ -427,6 +446,10 @@ export default {
               title: e.attributes.title
             }
           })
+          this.activities.push({
+            id: 23,
+            title: this.$t('other')
+          })
           // this.activities.sort((a, b) => b.attributes.title-a.attributes.title )
         })
       await this.$store
@@ -443,6 +466,10 @@ export default {
                   : this.$tools.getDefaultLanguageID(e.attributes.localizations.data),
               title: e.attributes.title
             }
+          })
+          this.agrocultureAreas.push({
+            id: 23,
+            title: this.$t('other')
           })
         })
       await this.$store.dispatch('getRegions', {

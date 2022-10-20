@@ -10,6 +10,12 @@
         </div>
       </div>
     </div>
+    <pagination
+      :pageCount='pagination.pageCount'
+      :pageSize='pagination.pageSize'
+      :page='pagination.page'
+      @onChange='changePage($event)'
+    />
   </div>
 </template>
 
@@ -27,17 +33,18 @@ export default {
     return {
       consultants: [],
       categories: [],
-      loading: false
+      loading: false,
+      limit: 12
     }
   },
   fetchOnServer: true,
-  mounted() {
-    this.fetchDirectories().then(() => {
-      if (this.$route.query.category) {
-        this.fetchData()
-      }
-    })
-  },
+  // mounted() {
+  //   this.fetchDirectories().then(() => {
+  //     if (this.$route.query.category) {
+  //       this.fetchData()
+  //     }
+  //   })
+  // },
   computed: {
     ...mapGetters({
       ...getters(_page),
@@ -48,16 +55,25 @@ export default {
         this.fetchData()
 
     },
+    '$route.query.page': function(val) {
+      this.fetchData()
+    }
+  },
+ async mounted() {
+   await this.fetchData()
   },
   async fetch() {
     try {
       await this.fetchDirectories()
-      await this.fetchData()
     } catch (err) {
       console.log(err)
     }
   },
   methods: {
+    changePage (event) {
+      console.log(event)
+      this.$router.push({name: this.$route.name, query: {...this.$route.query, page:event, pageSize: 12}})
+    },
     async fetchDirectories() {
       return await this.$store
         .dispatch('getAgrocultureareas', { populate: '*', locale: this.$i18n.locale })
@@ -82,12 +98,15 @@ export default {
         })
     },
     async fetchData() {
+      const _query = {...this.$route.query}
       return await this.$store
         .dispatch(get, {
           link: 'users',
           query: {
             populate: '*',
             locale: this.$i18n.locale,
+            start:  _query.pageSize ? (_query.page - 1) * _query.pageSize : 0,
+            limit: 12,
             'filters[$and][0][role][id]': 4,
             'filters[$and][0][confirmed]': true,
             'filters[$and][0][agrocultureareas][id]':

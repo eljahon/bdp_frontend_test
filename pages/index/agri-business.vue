@@ -96,6 +96,12 @@ export default {
   },
   data() {
     return {
+      statusId: {
+        en: 6,
+        ru: 7,
+        uz: 8,
+        kaa: 12
+      },
       infoOpened: false,
       loading: false,
       filter: {
@@ -184,6 +190,15 @@ export default {
             : null,
           'filters[$and][0][name][$notNull]': true,
           'filters[$and][0][established]': true,
+          // filters: {
+          //   status: {
+          //     id: {
+          //       $eq: statusId[this.$i18n.locale]
+          //     }
+          //   }
+          //
+          // },
+          'filters[$and][0][status][id][$eq]': this.statusId[this.$i18n.locale],
         })
         .then((res) => {
           // console.log('res ==>>>', res )
