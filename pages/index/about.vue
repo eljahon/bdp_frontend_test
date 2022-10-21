@@ -3,7 +3,7 @@
     <div v-if="$fetchState.pending"><main-loading /></div>
     <div v-else-if="$fetchState.error">An error request not or Internal server error</div>
     <div v-else>
-      <div class="max-w-6xl mx-auto sm:px-6 lg:px-8 xl:px-0 px-4 lg:my-12 my-4">
+      <div class="about-get max-w-6xl mx-auto sm:px-6 lg:px-8 xl:px-0 px-4 lg:my-12 my-4">
         <div v-if="about.length > 0" class="text-2xl font-semibold text-gray-700">
           {{ about[0].attributes.title }}
         </div>
@@ -416,10 +416,36 @@ export default {
 }
 </script>
 <style>
-table,
+  table,
 th,
 tb,
 td {
   border: none;
+}
+/* About get data styles */
+/*.about-get:nth-child(1)*/
+@media screen and (max-width: 1024px) {
+  .about-7 {
+    flex-direction: column;
+    gap: 16px;
+  }
+}
+@media screen and (max-width: 800px) {
+  .about-2, .about-9, .about-15, .about-18 {
+    padding: 14px 0 !important;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .about-12, .about-18 {
+    padding: 14px 0 !important;
+    flex-direction: column-reverse;
+    gap: 20px;
+  }
+  .about-3, .about-4, .about-10, .about-11, .about-13, .about-14, .about-16, .about-17, .about-19, .about-20 {
+    width: 100% !important;
+  }
+  .about-3 img {
+    margin: 0 auto !important;
+  }
 }
 </style>
