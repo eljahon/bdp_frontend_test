@@ -21,6 +21,8 @@
   "area-of-consultancy": "Area of consultancy",
   "additional-information": "Additional information",
   "asked-questions": "Asked Questions",
+  "area-of-agriculture": "Area of agriculture",
+  "area-of-consultancy": "Area of consultancy",
 
   "b": "B",
   "back": "Back",
@@ -67,6 +69,7 @@
   "delete": "Delete",
   "delete-this": "Delete this",
   "description": "Description",
+  "degree": "Degree",
   "did-not-get-code": "Did not get code",
   "directions": "Directions",
   "display-options": "Display Options",

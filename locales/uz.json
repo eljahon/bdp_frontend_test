@@ -21,6 +21,8 @@
   "area-of-consultancy": "Area of consultancy",
   "additional-information": "Additional information",
   "asked-questions": "Asked Questions",
+  "area-of-agriculture": "Qishloq xo'jaligi hududi",
+  "area-of-consultancy": "Maslahat berish sohasi\n",
 
   "b": "B",
   "back": "Orqaga",
@@ -67,6 +69,7 @@
   "date-of-birth": "Date of birth",
   "delete": "O'chirish",
   "description": "Tavsif",
+  "degree": "Daraja",
   "display-options": "Displey parametrlari",
   "district": "Tuman",
   "districts": "Tumanlar",
@@ -180,6 +183,7 @@
   "q": "Q",
 
   "r": "R",
+  "rating": "Reyting",
   "rayting": "Baholash",
   "region": "Viloyat",
   "regions": "Viloyatlar",
