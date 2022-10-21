@@ -22,13 +22,13 @@
             </option>
           </select>
         </div>
-        <div class="text-green-700 text-sm">
-          <select v-model="filter.pricedate" class="focus:outline-none">
-            <option v-for="(priceDate, index) in priceDates" :key="index" :value="priceDate.id">
-              {{ $tools.getDate(priceDate.attributes.date) }}
-            </option>
-          </select>
-        </div>
+<!--        <div class="text-green-700 text-sm">-->
+<!--          <select v-model="filter.pricedate" class="focus:outline-none">-->
+<!--            <option v-for="(priceDate, index) in priceDates" :key="index" :value="priceDate.id">-->
+<!--              {{ $tools.getDate(priceDate.attributes.date) }}-->
+<!--            </option>-->
+<!--          </select>-->
+<!--        </div>-->
         <nuxt-link
           :to="{path: localePath('/graph')}"
           class="
@@ -73,14 +73,14 @@ export default {
         kaa: 38
       },
       filter: {
-        district: 29,
+        district: this.$route.query.district ?? 29,
         category: 'all',
         pricedate: null
       },
       loading: false,
       districts: [],
       categories: [],
-      priceDates: []
+      // priceDates: []
     }
   },
 async fetch() {
@@ -106,7 +106,7 @@ async fetch() {
     },
     '$route.query': {
       handler() {
-        this.fetchPriceLists(this.$route.query)
+        this.fetchPriceLists()
       },
       deep: true,
     },
@@ -114,7 +114,6 @@ async fetch() {
   methods: {
     checkProductLocalizations (item, lang) {
       let _ =item.find((el) =>el.attributes.locale === lang).attributes.name;
-      console.log(_, '====>>>')
      return  _;
     },
     async setQuery () {
@@ -123,16 +122,25 @@ async fetch() {
         query: {
           district: this.filter.district,
           category: this.filter.category,
-          pricedate: this.filter.pricedate
+          // pricedate: this.filter.pricedate
         }
       })
     },
-   async fetchPriceLists(query) {
+   async fetchPriceLists() {
+     let id;
+     await this.$store.dispatch('getPricedates', {
+       populate: '*',
+       locale: this.$i18n.locale,
+       sort: 'createdAt:DESC'
+     }).then(res => {
+       // this.priceDates = res
+      id = res[0].id
+     })
      const _ = {
         populate: 'product,product.localizations',
         locale: this.$i18n.locale,
-        "filters[$and][0][district][id]": query.district,
-        "filters[$and][0][pricedate][id]": query.pricedate,
+        "filters[$and][0][district][id]": this.$route.query.district ,
+        "filters[$and][0][pricedate][id]": id,
         // "filters[max][$ne]": 0,
         filters: {
           max: {
@@ -142,7 +150,7 @@ async fetch() {
             $gt: 0
           }
         },
-        "filters[product][productcategory][id][$eq]": query.category !== 'all' ? query.category : null,
+        "filters[product][productcategory][id][$eq]": this.$route.query.category !== 'all' ? this.$route.query.category : null,
         'sort[0][product][name]': 'ASC',
       }
      try {
@@ -169,7 +177,6 @@ async fetch() {
 
                }
              })
-           console.log(this.pricList)
          })
 
      } catch (err) {
@@ -190,11 +197,11 @@ async fetch() {
                 name: e.attributes.name,
               }
             });
-          if (res.map((el) => el.id).includes(this.$route.query.district)) {
-            this.filter.district = parseInt(this.$route.query.district)
-          }  else  {
-            this.filter.district = res[0].id
-          }
+          // if (res.districts((el) => el.id).includes(this.$route.query.district)) {
+          //   this.filter.district = parseInt(this.$route.query.district)
+          // }  else  {
+          //   this.filter.district = this.districts[0].id
+          // }
         })
         await this.$store.dispatch('getProductcategories', {
           populate: '*',
@@ -208,14 +215,7 @@ async fetch() {
             },
           })
         })
-        await this.$store.dispatch('getPricedates', {
-          populate: '*',
-          locale: this.$i18n.locale,
-          sort: 'createdAt:DESC'
-        }).then(res => {
-          this.priceDates = res
-          this.filter.pricedate = this.priceDates[0].id
-        })
+
       } catch (err) {
         console.log(err)
       }
