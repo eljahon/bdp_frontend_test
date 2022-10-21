@@ -11,7 +11,7 @@
         <div class="text-green-700 text-sm">
           <select v-model="filter.district" class="focus:outline-none">
             <option v-for="(district, index) in districts" :key="index" :value="district.id">
-              {{ district.attributes.name }}
+              {{ district.name }}
             </option>
           </select>
         </div>
@@ -45,7 +45,7 @@
       </div>
     </div>
     <div class="grid md:grid-cols-4 gap-4 sm:grid-cols-2 grid-cols-1 mt-8">
-      <div v-for="(price, index) in data" :key="index">
+      <div v-for="(price, index) in pricList" :key="index">
         <prices :data="price" />
       </div>
     </div>
@@ -65,6 +65,7 @@ export default {
   components: { Prices },
   data() {
     return {
+      pricList: [],
       regionId: {
         en: 18,
         ru: 36,
@@ -91,12 +92,6 @@ async fetch() {
     console.log(err)
   }
 },
-  // mounted() {
-  //   this.fetchDirectories().then(() => {
-  //     this.setQuery()
-  //     this.fetchPriceLists()
-  //   })
-  // },
   computed: {
     ...mapGetters({
       ...getters(_page),
@@ -117,6 +112,11 @@ async fetch() {
     },
   },
   methods: {
+    checkProductLocalizations (item, lang) {
+      let _ =item.find((el) =>el.attributes.locale === lang).attributes.name;
+      console.log(_, '====>>>')
+     return  _;
+    },
     async setQuery () {
       await this.$router.push({
         path: this.$route.path,
@@ -128,9 +128,8 @@ async fetch() {
       })
     },
    async fetchPriceLists(query) {
-
-      const _ = {
-        populate: '*',
+     const _ = {
+        populate: 'product,product.localizations',
         locale: this.$i18n.locale,
         "filters[$and][0][district][id]": query.district,
         "filters[$and][0][pricedate][id]": query.pricedate,
@@ -148,7 +147,31 @@ async fetch() {
       }
      try {
        await this.$store.dispatch(get, _)
-         .then(res => {})
+         .then(res => {
+           this.pricList = res.map((el) => {
+               return {
+                 id: el.id,
+                 attributes: {
+                   ...el.attributes,
+                   product: {
+                     data: {
+                       attributes: {
+                         image: el.attributes.product.data.attributes.image,
+                         name:
+                           el.attributes.product.data.attributes.locale === this.$i18n.locale
+                             ? el.attributes.product.data.attributes.name
+                             : this.checkProductLocalizations(el.attributes.product.data.attributes.localizations.data, this.$i18n.locale)
+
+                       }
+                     }
+                   }
+                 }
+
+               }
+             })
+           console.log(this.pricList)
+         })
+
      } catch (err) {
        console.log(err)
      }
@@ -160,7 +183,13 @@ async fetch() {
           "filters[$and][0][region][id]": this.regionId[this.$i18n.locale],
           locale: this.$i18n.locale,
         }).then(res => {
-          this.districts = res;
+          this.districts = res
+            .map((e) => {
+              return {
+                id: e.attributes.locale === 'en'? e.id : this.$tools.getDefaultLanguageID(e.attributes.localizations.data),
+                name: e.attributes.name,
+              }
+            });
           if (res.map((el) => el.id).includes(this.$route.query.district)) {
             this.filter.district = parseInt(this.$route.query.district)
           }  else  {

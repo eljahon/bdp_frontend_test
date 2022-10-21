@@ -116,7 +116,8 @@ export default {
     async fetchDirectories() {
       await this.$store.dispatch('getCoursecategories', {
         populate: '*',
-        locale: this.$i18n.locale
+        locale: this.$i18n.locale,
+        'sort[0][createdAt]': 'DESC',
       }).then((res) => {
         this.categories = res
         this.categories.unshift({
