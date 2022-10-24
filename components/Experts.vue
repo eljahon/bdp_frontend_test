@@ -24,7 +24,7 @@
         z-20
       "
     >
-      <div style='width: 90%'>
+      <div style='width: 94%'>
         <div class="font-semibold text-gray-700 my-2 text-sm flex justify-center group-hover:justify-start">
           {{ data.middlename ? data.middlename : `${data.name} ${data.surname}` }}
         </div>
@@ -72,12 +72,14 @@
           <span>{{ $t('degree') }}: &nbsp;</span> {{data.additionalinfo.last_degree }}
         </div>
         <div
+          v-if='data.agrocultureareas[0]'
           class="
             text-gray-500
             text-xs
             text-center
             hidden
             my-1
+            group-hover:flex
           "
         >
           <span>{{ $t('area-of-agriculture') }}: &nbsp;</span> {{ data.agrocultureareas[0] ? data.agrocultureareas[0].title : "" }}
