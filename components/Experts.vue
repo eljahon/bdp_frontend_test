@@ -24,7 +24,7 @@
         z-20
       "
     >
-      <div style='width: 85%'>
+      <div style='width: 90%'>
         <div class="font-semibold text-gray-700 my-2 text-sm flex justify-center group-hover:justify-start">
           {{ data.middlename ? data.middlename : `${data.name} ${data.surname}` }}
         </div>
@@ -39,7 +39,7 @@
             my-1
           "
         >
-          {{ data.otherarea ? data.otherarea : data.consultantcategory.name }}
+          {{ data.agrocultureareas[0] ? data.agrocultureareas[0].title : "" }}
         </div>
 <!--        <div v-if="data.consultantcategory" class="text-gray-500 text-xs">-->
 <!--          {{ data.consultantcategory.name }}-->
@@ -72,7 +72,6 @@
           <span>{{ $t('degree') }}: &nbsp;</span> {{data.additionalinfo.last_degree }}
         </div>
         <div
-          v-if='data.agrocultureareas.length  || data.env_otherarea'
           class="
             text-gray-500
             text-xs
@@ -81,10 +80,10 @@
             my-1
           "
         >
-          <span>{{ $t('area-of-agriculture') }}: &nbsp;</span> {{ data.env_otherarea ? data.env_otherarea : data.agrocultureareas[0].title }}
+          <span>{{ $t('area-of-agriculture') }}: &nbsp;</span> {{ data.agrocultureareas[0] ? data.agrocultureareas[0].title : "" }}
         </div>
         <div
-          v-if='data.consultantcategory || data.env_otherarea'
+          v-if='data.activitytypes[0]'
           class="
             text-gray-500
             text-xs
@@ -94,7 +93,7 @@
             my-1
           "
         >
-          <span>{{ $t('area-of-consultancy') }}: &nbsp;</span> {{data.otherarea ? data.otherarea :  data.consultantcategory.name }}
+          <span>{{ $t('area-of-consultancy') }}: &nbsp;</span> {{ data.activitytypes[0] ? data.activitytypes[0].title : "" }}
         </div>
         <button
           v-if="!isConsultant"
