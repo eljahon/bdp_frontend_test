@@ -59,7 +59,7 @@
           <span>{{ $t('degree') }}: &nbsp;</span> {{data.additionalinfo.last_degree }}
         </div>
         <div
-          v-if='data.additionalinfo && data.additionalinfo.otherarea'
+          v-if='data.activitytypes.length > 0 || data.otherarea'
           class="
             text-gray-500
             text-xs
@@ -68,10 +68,10 @@
             my-1
           "
         >
-          <span>{{ $t('area-of-agriculture') }}: &nbsp;</span> {{data.additionalinfo.otherarea }}
+          <span>{{ $t('area-of-agriculture') }}: &nbsp;</span> {{data.otherarea ? data.otherarea :  data.activitytypes[0].name  }}
         </div>
         <div
-          v-if='data.additionalinfo && data.additionalinfo.env_otherarea'
+          v-if='data.agrocultureareas.length > 0  || data.env_otherarea'
           class="
             text-gray-500
             text-xs
@@ -81,7 +81,7 @@
             my-1
           "
         >
-          <span>{{ $t('area-of-consultancy') }}: &nbsp;</span> {{data.additionalinfo.env_otherarea }}
+          <span>{{ $t('area-of-consultancy') }}: &nbsp;</span> {{data.env_otherarea ? data.env_otherarea :data.agrocultureareas[0].title }}
         </div>
         <button
           v-if="!isConsultant"
@@ -186,6 +186,7 @@ export default {
             'filters[$and][2][isCompleted][$ne]': true,
           })
           .then((res) => {
+            console.log('res===>>', res)
             if (res.length > 0) {
               this.$router.push({
                 path: this.localePath('/chats'),

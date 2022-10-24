@@ -3,7 +3,6 @@
    <div v-if='$fetchState.pending'><main-loading/></div>
    <div v-else-if="$fetchState.error">An error occurred </div>
    <div class="" v-else>
-
      <div class="bg-gradient-to-r from-green-100 to-green-50">
        <div class="max-w-6xl mx-auto px-4 lg:px-8 xl:px-0">
          <div class="grid lg:grid-cols-2 grid-cols-1 px-0">
