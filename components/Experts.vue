@@ -24,9 +24,22 @@
         z-20
       "
     >
-      <div class="block w-10/12">
+      <div style='width: 85%'>
         <div class="font-semibold text-gray-700 my-2 text-sm flex justify-center group-hover:justify-start">
           {{ data.middlename ? data.middlename : `${data.name} ${data.surname}` }}
+        </div>
+        <div
+          class="
+            text-gray-500
+            text-xs
+            text-center
+            flex
+            justify-center
+            group-hover:hidden
+            my-1
+          "
+        >
+          {{ data.otherarea ? data.otherarea : data.consultantcategory.name }}
         </div>
 <!--        <div v-if="data.consultantcategory" class="text-gray-500 text-xs">-->
 <!--          {{ data.consultantcategory.name }}-->
@@ -59,7 +72,7 @@
           <span>{{ $t('degree') }}: &nbsp;</span> {{data.additionalinfo.last_degree }}
         </div>
         <div
-          v-if='data.activitytypes.length > 0 || data.otherarea'
+          v-if='data.agrocultureareas.length  || data.env_otherarea'
           class="
             text-gray-500
             text-xs
@@ -68,10 +81,10 @@
             my-1
           "
         >
-          <span>{{ $t('area-of-agriculture') }}: &nbsp;</span> {{data.otherarea ? data.otherarea :  data.activitytypes[0].name  }}
+          <span>{{ $t('area-of-agriculture') }}: &nbsp;</span> {{ data.env_otherarea ? data.env_otherarea : data.agrocultureareas[0].title }}
         </div>
         <div
-          v-if='data.agrocultureareas.length > 0  || data.env_otherarea'
+          v-if='data.consultantcategory || data.env_otherarea'
           class="
             text-gray-500
             text-xs
@@ -81,7 +94,7 @@
             my-1
           "
         >
-          <span>{{ $t('area-of-consultancy') }}: &nbsp;</span> {{data.env_otherarea ? data.env_otherarea :data.agrocultureareas[0].title }}
+          <span>{{ $t('area-of-consultancy') }}: &nbsp;</span> {{data.otherarea ? data.otherarea :  data.consultantcategory.name }}
         </div>
         <button
           v-if="!isConsultant"

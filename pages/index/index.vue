@@ -304,7 +304,7 @@ export default {
       .dispatch('getUsers', {
         link: '/users',
         query: {
-          populate: '*',
+          populate: 'additionalinfo.localization, consultantcategory.localization, agrocultureareas.localization',
           locale: this.$i18n.locale,
           'filters[$and][0][confirmed]': true,
           'filters[$and][0][role][id]': 4,
