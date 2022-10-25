@@ -39,7 +39,7 @@
             my-1
           "
         >
-          {{ data.agrocultureareas[0] ? data.agrocultureareas[0].title : "" }}
+          {{ data.otherarea ? data.otherarea : data.activitytypes[0] ? data.activitytypes[0].title : "" }}
         </div>
 <!--        <div v-if="data.consultantcategory" class="text-gray-500 text-xs">-->
 <!--          {{ data.consultantcategory.name }}-->
@@ -82,7 +82,7 @@
             group-hover:flex
           "
         >
-          <span>{{ $t('area-of-agriculture') }}: &nbsp;</span> {{ data.agrocultureareas[0] ? data.agrocultureareas[0].title : "" }}
+          <span>{{ $t('area-of-agriculture') }}: &nbsp;</span> {{ data.agrocultureareas[0] ? data.agrocultureareas[0].title : data.env_otherarea ? data.env_otherarea : "" }}
         </div>
         <div
           v-if='data.activitytypes[0]'
@@ -95,7 +95,7 @@
             my-1
           "
         >
-          <span>{{ $t('area-of-consultancy') }}: &nbsp;</span> {{ data.activitytypes[0] ? data.activitytypes[0].title : "" }}
+          <span>{{ $t('area-of-consultancy') }}: &nbsp;</span> {{ data.activitytypes[0] ? data.activitytypes[0].title : data.otherarea ? data.otherarea : '' }}
         </div>
         <button
           v-if="!isConsultant"
@@ -118,26 +118,6 @@
         >
           {{ $t('get-consultation') }}
         </button>
-        <!-- <button
-          v-else
-          @click="toGetConsultation()"
-          class="
-            bg-green-700
-            rounded-md
-            text-white text-xs
-            py-2
-            px-5
-            mt-3
-            hidden
-            group-hover:flex
-            transition
-            delay-75
-            focus:outline-none
-            duration-500
-          "
-        >
-          {{ $t('get-consultation') }}
-        </button> -->
       </div>
     </div>
   </div>
