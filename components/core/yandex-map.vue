@@ -80,8 +80,8 @@ export default {
     call(event) {
     },
     cardGenerate (data) {
+      console.log(data)
       let url = this.$tools.getFileUrl(data.logo) ? this.$tools.getFileUrl(data.logo)  : this.img;
-      let yandexUrl = `https://yandex.ru/maps/?ll=${data.location.lng},${data.location.lat}&z=12`;
       return `
        <div class="img-card iCard-style3">
         <div class="card-content">
@@ -89,7 +89,8 @@ export default {
             <img src=' ${url}' alt='log null or undefaned'/>
           </div>
           <div class="card-text">
-            <h1>${data.shortinfo}</h1>
+            <h3>${ data.name }</h3>
+            <h3>${data.shortinfo}</h3>
           </div>
         </div>
         <div class='card-btn'>
@@ -116,6 +117,7 @@ export default {
         </div>
        </div>
        `
+      let yandexUrl = `https://yandex.ru/maps/?ll=${data.location.lng},${data.location.lat}&z=12`;
     },
     showLocations() {
       if (this.coords && this.map) {
@@ -354,6 +356,9 @@ border: 1px solid #333;
   text-align: left;
   color: #000;
   font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
 
 .img-card .card-link {
