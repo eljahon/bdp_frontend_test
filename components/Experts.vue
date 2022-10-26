@@ -24,7 +24,7 @@
         z-20
       "
     >
-      <div style='width: 94%'>
+      <div style='width: 100%'>
         <div class="font-semibold text-gray-700 my-2 text-sm flex justify-center group-hover:justify-start">
           {{ data.middlename ? data.middlename : `${data.name} ${data.surname}` }}
         </div>
@@ -39,7 +39,7 @@
             my-1
           "
         >
-          {{ data.otherarea ? data.otherarea : data.activitytypes[0] ? data.activitytypes[0].title : "" }}
+          {{ data.activitytypes[0] ? data.activitytypes[0].title : data.otherarea ? data.otherarea : "" }}
         </div>
 <!--        <div v-if="data.consultantcategory" class="text-gray-500 text-xs">-->
 <!--          {{ data.consultantcategory.name }}-->
@@ -69,10 +69,10 @@
             my-1
           "
         >
-          <span>{{ $t('degree') }}: &nbsp;</span> {{data.additionalinfo.last_degree }}
+          <span>{{ $t('degree') }}: &nbsp;</span> {{ data.additionalinfo.last_degree }}
         </div>
         <div
-          v-if='data.agrocultureareas[0]'
+          v-if='data.agrocultureareas[0] || data.env_otherarea'
           class="
             text-gray-500
             text-xs
@@ -82,10 +82,10 @@
             group-hover:flex
           "
         >
-          <span>{{ $t('area-of-agriculture') }}: &nbsp;</span> {{ data.agrocultureareas[0] ? data.agrocultureareas[0].title : data.env_otherarea ? data.env_otherarea : "" }}
+          <span>{{ $t('area-of-agriculture') }}: &nbsp;</span> {{ data.env_otherarea ? data.env_otherarea : data.agrocultureareas[0] ? data.agrocultureareas[0].title : "" }}
         </div>
         <div
-          v-if='data.activitytypes[0]'
+          v-if='data.activitytypes[0] || data.otherarea'
           class="
             text-gray-500
             text-xs
@@ -95,7 +95,7 @@
             my-1
           "
         >
-          <span>{{ $t('area-of-consultancy') }}: &nbsp;</span> {{ data.activitytypes[0] ? data.activitytypes[0].title : data.otherarea ? data.otherarea : '' }}
+          <span>{{ $t('area-of-consultancy') }}: &nbsp;</span> {{ data.otherarea ? data.otherarea : data.activitytypes[0] ? data.activitytypes[0].title : '' }}
         </div>
         <button
           v-if="!isConsultant"
