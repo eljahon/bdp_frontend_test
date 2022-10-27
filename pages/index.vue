@@ -34,7 +34,6 @@ export default {
 
   mounted() {
     this.$i18n.messages['fr'] = {}
-    console.log(this, '===>>>')
     socket.on('joined', (res) => {
     })
     socket.on('left', (res) => {
