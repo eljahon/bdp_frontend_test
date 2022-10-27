@@ -285,7 +285,7 @@ export default {
   async fetch() {
     await this.$store
       .dispatch('getPricelists', {
-        populate: 'product,product.localizations',
+        populate: 'district, district.localizations, product,product.localizations',
         locale: this.$i18n.locale,
         'pagination[page]': 1,
         'pagination[pageSize]': 12,
@@ -299,11 +299,25 @@ export default {
         },
       })
       .then((res) => {
+        console.log(res, 'not format')
         this.pricList = res.map((el) => {
           return {
             id: el.id,
             attributes: {
               ...el.attributes,
+              district: {
+                data: {
+                  attributes: {
+                    name:
+                      el.attributes.district.data.attributes.locale === this.$i18n.locale
+                        ? el.attributes.district.data.attributes.name
+                        : this.checkProductLocalizations(
+                            el.attributes.district.data.attributes.localizations.data,
+                            this.$i18n.locale
+                          ),
+                  },
+                },
+              },
               product: {
                 data: {
                   attributes: {
