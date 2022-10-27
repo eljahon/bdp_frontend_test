@@ -73,7 +73,7 @@ export default {
         kaa: 38
       },
       filter: {
-        district: this.$route.query.district ?? 29,
+        district: this.$route.query.district ?? 5,
         category: 'all',
         pricedate: null
       },
