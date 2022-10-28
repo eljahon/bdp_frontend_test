@@ -299,7 +299,6 @@ export default {
         },
       })
       .then((res) => {
-        console.log(res, 'not format')
         this.pricList = res.map((el) => {
           return {
             id: el.id,
@@ -335,7 +334,6 @@ export default {
             },
           }
         })
-        console.log(this.pricList, '===>>>>this.pricList')
       })
       .catch((error) => {
         this.$sentry.captureException(error)
@@ -345,13 +343,14 @@ export default {
         link: '/users',
         query: {
           populate:
-            'additionalinfo.localization, consultantcategory.localization, agrocultureareas.localization',
+            'additionalinfo,additionalinfo.localization,consultantcategory, consultantcategory.localization,agrocultureareas, agrocultureareas.localization',
           locale: this.$i18n.locale,
           'filters[$and][0][confirmed]': true,
           'filters[$and][0][role][id]': 4,
         },
       })
       .then((res) => {
+        console.log('res ===>>>', res.users)
         this.experts = res.users
       })
       .catch((error) => {

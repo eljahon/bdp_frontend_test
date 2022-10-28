@@ -82,7 +82,7 @@
             group-hover:flex
           "
         >
-          <span>{{ $t('area-of-agriculture') }}: &nbsp;</span> {{ data.env_otherarea ? data.env_otherarea : data.agrocultureareas[0] ? data.agrocultureareas[0].title : "" }}
+          <span>{{ $t('area-of-agriculture') }}: &nbsp;</span> {{ data.env_otherarea ? data.env_otherarea : data.agrocultureareas[0] ?checkLockaions(data.agrocultureareas) : "" }}
         </div>
         <div
           v-if='data.activitytypes[0] || data.otherarea'
@@ -95,7 +95,7 @@
             my-1
           "
         >
-          <span>{{ $t('area-of-consultancy') }}: &nbsp;</span> {{ data.otherarea ? data.otherarea : data.activitytypes[0] ? data.activitytypes[0].title : '' }}
+          <span>{{ $t('area-of-consultancy') }}: &nbsp;</span> {{ data.otherarea ? data.otherarea : data.activitytypes[0] ? checkLockaions(data.activitytypes) : '' }}
         </div>
         <button
           v-if="!isConsultant"
@@ -170,6 +170,13 @@ export default {
     },
   },
   methods: {
+    checkLockaions (item) {
+      if ( item.length > 0 && item[0].locale === this.$i18n.locale) {
+        return item[0].title;
+      } else if(item.length > 0 && item[0].locale !== this.$i18n.locale) {
+        return item[0].localizations.find((el) => el.locale === this.$i18n.locale).title
+      } else return ''
+    },
     toGetConsultation() {
       if (this.isLoggedIn) {
         this.$store
