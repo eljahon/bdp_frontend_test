@@ -27,9 +27,9 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    {src: '~/plugins/other-libraries.js', mode: 'server'},
     {src: '~/plugins/clickOutside.client.js', defer: true},
     {src: '~/plugins/vueAwesomeSwiper.js', defer: true},
-    {src: '~/plugins/other-libraries.js', defer: true},
     {src: '~/plugins/vue-gtag.js', defer: true},
     {src: '~/plugins/vue-js-modal.js', defer: true},
     {src: '~/plugins/axios.js', defer: true},
@@ -48,6 +48,8 @@ export default {
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
+    '@nuxtjs/tailwindcss',
+    '@nuxtjs/google-fonts',
     '@nuxtjs/dotenv',
     '@nuxtjs/google-analytics',
     [
@@ -86,8 +88,6 @@ export default {
     ],
     // https://go.nuxtjs.dev/eslint
     '@nuxtjs/eslint-module',
-    '@nuxtjs/tailwindcss',
-    '@nuxtjs/google-fonts',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
