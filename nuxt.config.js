@@ -27,18 +27,18 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    {src: '~/plugins/other-libraries.js', mode: 'server'},
-    {src: '~/plugins/clickOutside.client.js', defer: true},
-    {src: '~/plugins/vueAwesomeSwiper.js', defer: true},
-    {src: '~/plugins/vue-gtag.js', defer: true},
-    {src: '~/plugins/vue-js-modal.js', defer: true},
-    {src: '~/plugins/axios.js', defer: true},
-    {src:'~/plugins/vee-validate.js', defer: true},
-    {src: '~/plugins/v-mask', defer: true},
+    {src: '~/plugins/other-libraries.js'},
+    {src: '~/plugins/clickOutside.client.js'},
+    {src: '~/plugins/vueAwesomeSwiper.js'},
+    {src: '~/plugins/vue-gtag.js'},
+    {src: '~/plugins/vue-js-modal.js'},
+    {src: '~/plugins/axios.js'},
+    {src:'~/plugins/vee-validate.js'},
+    {src: '~/plugins/v-mask'},
     { src: '~/plugins/client-libraries', mode: 'client' },
-    {src: '~/utils/bridge.js', defer: true},
-    {src: '~/utils/tools.js', defer: true},
-    {src: '~/utils/constants.js', defer: true},
+    {src: '~/utils/bridge.js'},
+    {src: '~/utils/tools.js'},
+    {src: '~/utils/constants.js'}
     // '~/plugins/all-consts.js',
     // '~/plugins/v-viewer.client.js',git
   ],
@@ -164,7 +164,7 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-    transpile: ['vee-validate/dist/rules'],
+    transpile: ['vee-validate/dist/rules', 'swiper'],
     extend(config, ctx) {
       if (ctx.isDev) {
         config.devtool = ctx.isClient ? 'source-map' : 'inline-source-map'

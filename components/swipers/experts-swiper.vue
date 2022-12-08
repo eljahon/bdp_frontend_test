@@ -26,13 +26,15 @@
 
 <script>
 import Experts from '../Experts.vue'
+import { Swiper, SwiperSlide, Autoplay } from 'vue-awesome-swiper';
+import 'swiper/swiper-bundle.css'
 export default {
   name: 'ConsultantsSwiper',
   auth: false,
   props: {
     experts: Array
   },
-  components: { Experts },
+  components: { Experts, 'swiper':Swiper, 'swiper-slide':SwiperSlide, Autoplay },
   mounted() {
     console.log(this.experts)
   },

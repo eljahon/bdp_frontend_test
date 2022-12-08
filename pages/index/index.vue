@@ -53,9 +53,9 @@
             {{ $t('advisory') }}
           </router-link>
           <div class="">
-            <client-only>
+            <!-- <client-only> -->
             <experts-swiper :experts="experts" />
-          </client-only>
+          <!-- </client-only> -->
           </div>
         </div>
         <div class="mt-12 space-y-4">
@@ -65,9 +65,9 @@
             >{{ $t('agri-market') }}</router-link
           >
           <div class="">
-          <client-only>
+          <!-- <client-only> -->
             <price-swiper :prices="pricList" />
-            </client-only>
+            <!-- </client-only> -->
           </div>
         </div>
         <div class="mt-12 space-y-4">
@@ -76,9 +76,9 @@
           </router-link>
           <div class="grid md:grid-cols-3 md:gap-6 gap-0 sm:grid-cols-2 grid-cols-1">
             <div v-for="(video, index) in dataCourses" :key="index" class="mt-6">
-            <client-only>
+            <!-- <client-only> -->
               <video-card :data="video" />
-            </client-only>
+            <!-- </client-only> -->
             </div>
           </div>
           <router-link
@@ -152,9 +152,9 @@
             <span class="text-green-800">{{ $t('news') }}</span>
           </router-link>
           <div class="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1">
-          <client-only>
+          <!-- <client-only> -->
             <NewsSwiper :news="dataNews" class="col-span-3" />
-          </client-only>
+          <!-- </client-only> -->
           </div>
           <router-link
             :to="localePath('/agri-finance')"
@@ -181,9 +181,9 @@
               </div>
               <div>
                 <div v-for="(faq, index) in dataFaqs" :key="index">
-                <client-only>
+                <!-- <client-only> -->
                   <faq :data="faq" />
-                </client-only>
+                <!-- </client-only> -->
                 </div>
               </div>
             </div>
@@ -360,7 +360,7 @@ export default {
         },
       })
       .then((res) => {
-        console.log('res ===>>>', res.users)
+        // console.log('res ===>>>', res.users)
         this.experts = res.users
       })
       .catch((error) => {
