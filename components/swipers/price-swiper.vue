@@ -1,5 +1,7 @@
 <template>
   <div class="price relative">
+    <client-only>
+
     <swiper
       ref="swiper"
       class="swiper"
@@ -16,6 +18,7 @@
         <prices :data="price" />
       </swiper-slide>
     </swiper>
+    </client-only>
     <div class="absolute group top-1/2 lg:flex hidden justify-between -inset-x-9">
       <div
         slot="button-prev"

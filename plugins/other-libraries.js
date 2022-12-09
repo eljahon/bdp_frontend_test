@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import { Swiper, SwiperSlide, Autoplay } from 'vue-awesome-swiper'
-import Snotify, { SnotifyPosition } from 'vue-snotify'
+import Snotify, { SnotifyPosition } from 'vue-snotify';
+import VueSkeletonLoader from 'skeleton-loader-vue';
 import 'vue-snotify/styles/material.css'
 import VueLoaders from 'vue-loaders'
 import 'vue-loaders/dist/vue-loaders.css'
@@ -24,6 +25,7 @@ Vue.component(Swiper)
 Vue.component(SwiperSlide)
 Vue.component(Pagination)
 Vue.component(Autoplay)
+Vue.component('v-skeleton', VueSkeletonLoader)
 Vue.component('DatePicker', DatePicker)
 Vue.component('v-select', vSelect)
 

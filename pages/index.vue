@@ -1,17 +1,11 @@
 <template>
 <div>
-
   <div>
-<!--    <span>{{$fetchState}} dsfs</span>-->
-    <client-only>
     <navbar />
     <main>
       <router-view />
     </main>
-    </client-only>
-    <client-only>
     <Footer />
-    </client-only>
   </div>
 </div>
 </template>

@@ -1,14 +1,17 @@
 <template>
   <div class="experts relative">
+    <client-only>
     <swiper ref="swiper" class="swiper" :options="expertOption">
       <swiper-slide
         v-for="(expert, index) in experts"
         :key="index"
         class="flex bg-white rounded-md space-x-3 z-0 pb-12 transition duration-500"
       >
-        <experts :data="expert" />
+
+        <experts v-if='expert' :data='expert'></experts>
       </swiper-slide>
     </swiper>
+    </client-only>
     <div class="absolute group top-1/2 lg:flex hidden justify-between -inset-x-9">
       <div
         slot="button-prev"

@@ -70,6 +70,12 @@
           "
         >
           <span>{{ $t('degree') }}: &nbsp;</span> {{ data.additionalinfo.last_degree }}
+          <v-skeleton class=' text-gray-500
+            text-xs
+            text-center
+            hidden
+            group-hover:flex
+            my-1'></v-skeleton>
         </div>
         <div
           v-if='data.agrocultureareas[0] || data.env_otherarea'
