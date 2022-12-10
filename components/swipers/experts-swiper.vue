@@ -1,7 +1,8 @@
 <template>
   <div class="experts relative">
-    <client-only>
+    
     <swiper ref="swiper" class="swiper" :options="expertOption">
+      <client-only>
       <swiper-slide
         v-for="(expert, index) in experts"
         :key="index"
@@ -10,8 +11,8 @@
 
         <experts v-if='expert' :data='expert'></experts>
       </swiper-slide>
-    </swiper>
     </client-only>
+    </swiper>
     <div class="absolute group top-1/2 lg:flex hidden justify-between -inset-x-9">
       <div
         slot="button-prev"

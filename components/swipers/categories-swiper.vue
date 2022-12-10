@@ -7,6 +7,7 @@
       :autoplay="{ delay: 2000, disableOnIteraction: false }"
       :pagination="{ clickable: true }"
     >
+    <client-only>
       <swiper-slide v-for="(category, index) in data" :key="index">
         <button
           class="rounded-md py-1.5 mb-4 w-full"
@@ -20,6 +21,8 @@
           {{ category.attributes ? category.attributes.name : '' }}
         </button>
       </swiper-slide>
+    </client-only>
+  
     </swiper>
   </div>
 </template>
