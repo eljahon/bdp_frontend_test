@@ -512,7 +512,6 @@ export default {
           user: this.currentRoom.attributes.user.data.id,
         },
       }
-      console.log('Current Room', _currentRoom, this.currentRoom)
       this.$modal.show(
         finishChatModal,
         {
@@ -612,8 +611,7 @@ export default {
           data,
         }
         socket.emit('editRoom', _room, ({ res, rej }) => {
-          console.log('res', res)
-          console.log('rej', rej)
+         
         })
       } else {
         socket.emit('createRoom', room, ({ res, rej }) => {

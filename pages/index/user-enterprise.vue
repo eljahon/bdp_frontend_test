@@ -423,7 +423,6 @@ export default {
     },
     mainRegisterSuccess(e) {
       this.users = { ...e.user };
-      console.log(this.users, '=====>')
       this.isMainRegister = e.isSuccess
       this.auth.identifier = e.user.username
       this.auth.password = e.password

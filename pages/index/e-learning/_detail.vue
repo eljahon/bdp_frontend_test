@@ -124,7 +124,6 @@ export default {
       await this.fetchDirectories();
       await this.fetchData()
     } catch (err) {
-      console.log()
     }
   },
   methods: {

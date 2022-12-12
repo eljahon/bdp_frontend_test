@@ -207,7 +207,6 @@ export default {
           'filters[$and][0][status][id][$eq]': this.statusId[this.$i18n.locale],
         })
         .then((res) => {
-          // console.log('res ==>>>', res )
           this.$store.dispatch('setCompanies', res)
         })
        .finally(() => {

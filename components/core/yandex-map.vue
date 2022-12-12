@@ -80,7 +80,6 @@ export default {
     call(event) {
     },
     cardGenerate (data) {
-      console.log(data)
       let url = this.$tools.getFileUrl(data.logo) ? this.$tools.getFileUrl(data.logo)  : this.img;
       return `
        <div class="img-card iCard-style3">

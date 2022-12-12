@@ -187,7 +187,6 @@ export default {
             'filters[$and][2][isCompleted][$ne]': true,
           })
           .then((res) => {
-            console.log('res===>>', res)
             if (res.length > 0) {
               this.$router.push({
                 path: this.localePath('/chats'),

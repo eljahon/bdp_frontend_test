@@ -419,7 +419,6 @@ export default {
       }
     },
     async fetchActiveRooms() {
-      console.log('role id ====>>', this.$auth.user.role.id)
       if (this.$auth.user.role.id === 4) {
         await this.$store
           .dispatch('getChatrooms', {

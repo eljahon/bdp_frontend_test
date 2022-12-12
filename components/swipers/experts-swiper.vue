@@ -40,7 +40,6 @@ export default {
   },
   components: { Experts, 'swiper':Swiper, 'swiper-slide':SwiperSlide, Autoplay },
   mounted() {
-    console.log(this.experts)
   },
   data() {
     return {

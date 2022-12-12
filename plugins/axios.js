@@ -18,7 +18,6 @@ export default function ({ $axios, redirect, $auth, app }) {
   $axios.onError((error) => {
     const code = parseInt(error.response && error.response.status)
     if (error.response && error.response.status === 400) {
-      console.log(error.response)
       Vue.prototype.$snotify.error(error.response.data.error.details.length > 0 ? error.response.data.error.details[0].messages[0].message : error.response.data.error.message)
       return
     }
