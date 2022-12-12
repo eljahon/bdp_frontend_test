@@ -68,6 +68,7 @@
         :autoplay="{ delay: 2000, disableOnIteraction: false }"
         :pagination="{ clickable: true }"
       >
+        <client-only>
         <swiper-slide v-for="(category, index) in categories" :key="index">
           <button
             class="rounded-md py-1.5 mb-4 w-full"
@@ -81,6 +82,7 @@
             {{ category.attributes ? category.attributes.name : '' }}
           </button>
         </swiper-slide>
+        </client-only>
       </swiper>
     </div>
   </div>
@@ -158,6 +160,13 @@ export default {
       this.setQuery()
     },
     toChange(category) {
+      this.$ga.event({
+      eventCategory: this.$route.path,
+      eventAction: 'click',
+        eventLabel: category.attributes.name,
+        eventValue: category.id
+      })
+      // console.log('===>>>', this.$ga, this.$route.path, category)
       this.filter.category = category.id
       this.setQuery()
     },

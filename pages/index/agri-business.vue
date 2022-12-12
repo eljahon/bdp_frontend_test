@@ -172,7 +172,13 @@ export default {
         query: this.$tools.emptyObject(_query),
       })
     },
-    onChangeCategory() {
+    onChangeCategory(event) {
+      this.$ga.event({
+        eventCategory: this.$route.path,
+        eventAction: 'click',
+        eventLabel: this.categories.find((el) => parseInt(el.id) ===parseInt(event.target.value) ).attributes.name,
+        eventValue: event.target.value
+      })
       this.setQuery()
     },
     async fetchData() {
