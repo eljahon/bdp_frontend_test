@@ -32,8 +32,7 @@ extend('samePassword', {
 })
 // Custom regex for a phone number and email
 const MOBILEREG = /^([+]?[9]{2}[8][0-9]{2}[0-9]{7})$/
-const EMAILREG =
-  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+const EMAILREG = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 const phoneOrEmailRule = {
   message(field, params, data) {
     if (!MOBILEREG.test(params._value_)) {

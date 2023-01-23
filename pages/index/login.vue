@@ -228,7 +228,7 @@
         </ValidationObserver>
         <div class="flex items-center justify-center mt-2">
           <p class="text-gray-600 text-sm font-medium">{{ $t('do-not-have-an-account') }}</p>
-          <button class="ml-2 text-yellow-600 text-sm font-medium focus:outline-none">
+          <button @click="reg" class="ml-2 text-yellow-600 text-sm font-medium focus:outline-none">
             {{ $t('register') }}
           </button>
         </div>
@@ -303,6 +303,9 @@ export default {
     },
     onCountdownEnd() {
       this.timer = 'off'
+    },
+    reg () {
+      this.$router.push({path: this.localePath('/rest-password')})
     },
     sendOtp() {
       this.isPhoneOtpPending = true
