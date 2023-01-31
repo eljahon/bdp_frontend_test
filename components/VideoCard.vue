@@ -36,7 +36,11 @@
                   : ''
               }}
             </div>
-            <div class="text-green-700 text-sm font-semibold">
+            <div v-if='data.attributes && data.attributes.publish_date' class="text-green-700 text-sm font-semibold">
+              {{ $tools.getDate(data.attributes.publish_date) }}
+            </div>
+
+            <div v-else class="text-green-700 text-sm font-semibold">
               {{ $tools.getDate(data.attributes.createdAt) }}
             </div>
           </div>

@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import { cookie } from '@nuxtjs/auth/lib/module/defaults'
 const qs = require('qs')
 function filterNonNull(obj) {
   return Object.fromEntries(Object.entries(obj).filter(([k, v]) => v));
@@ -16,12 +17,13 @@ export default function ({ $axios, redirect, $auth, app }) {
     }
   })
   $axios.onError((error) => {
-    const code = parseInt(error.response && error.response.status)
-    if (error.response && error.response.status === 400) {
+    const code = parseInt(error.response.status)
+    console.log(code)
+    if (code === 400) {
       Vue.prototype.$snotify.error(error.response.data.error.details.length > 0 ? error.response.data.error.details[0].messages[0].message : error.response.data.error.message)
       return
-    }
-    if (error.response && error.response.status === 401) {
+    } else if (code === 401) {
+      console.log(app.$auth, cookie.getAll())
       redirect(localePath('/login'))
     }
     if (error.response && error.response.status === 403) {
